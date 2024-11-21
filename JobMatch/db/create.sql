@@ -29,8 +29,8 @@ create table skills
 create table companies
 (
     company_id  int auto_increment primary key,
-    name varchar(50),
-    description varchar(500),
+    name varchar(50) not null,
+    description varchar(500) not null,
     location_id int,
     contacts    varchar(255) not null,
     picture_id  int,
