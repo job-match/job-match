@@ -3,6 +3,8 @@ package com.project.jobmatch.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "job_applications")
 public class JobApplication {
@@ -91,5 +93,18 @@ public class JobApplication {
 
     public void setProfessional(Professional professional) {
         this.professional = professional;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JobApplication that = (JobApplication) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
