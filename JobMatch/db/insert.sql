@@ -210,7 +210,7 @@ values
      6);
 
 -- job_ads Table --
-insert into job_match.job_ads (job_ad_id, position_title, min_salary_bound, max_salary_bound, job_description, location_id)
+insert into job_match.job_ads (job_ad_id, position_title, min_salary_boundary, max_salary_boundary, job_description, location_id)
 values
     (1, 'Software Engineer', 3500, 4000,
      'Dev Experts is seeking a highly motivated Software Engineer to join our team of innovative professionals. As a Software Engineer, you will be responsible for developing high-performance trading platforms and financial technology solutions for our global clients. The ideal candidate will have experience in Java and Python, with a deep understanding of system architecture and backend development. In this role, you will work closely with cross-functional teams to design, develop, and deploy software solutions that meet the specific needs of the financial industry.',

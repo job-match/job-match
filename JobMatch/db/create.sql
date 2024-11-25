@@ -68,8 +68,8 @@ create table job_ads
 (
     job_ad_id        int auto_increment primary key,
     position_title   varchar(50) not null,
-    min_salary_bound double  not null,
-    max_salary_bound double  not null,
+    min_salary_boundary double  not null,
+    max_salary_boundary double  not null,
     job_description  varchar(1000),
     location_id      int,
     status           varchar(50) not null default 'Active',
@@ -80,8 +80,8 @@ create table job_ads
     constraint job_ads_locations_location_id_fk
         foreign key (location_id) references locations (location_id) on delete set null,
 
-    check (min_salary_bound >= 1),
-    check (max_salary_bound >= 1 and max_salary_bound <= 500000)
+    check (min_salary_boundary >= 1),
+    check (max_salary_boundary >= 1 and max_salary_boundary <= 500000)
 );
 
 create table job_applications
