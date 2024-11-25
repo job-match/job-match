@@ -29,7 +29,7 @@ create table skills
 create table companies
 (
     company_id  int auto_increment primary key,
-    name varchar(50) not null,
+    name        varchar(50)  not null,
     description varchar(500) not null,
     location_id int,
     contacts    varchar(255) not null,
@@ -66,19 +66,23 @@ create table professionals
 
 create table job_ads
 (
-    job_ad_id        int auto_increment primary key,
-    position_title   varchar(50) not null,
-    min_salary_boundary double  not null,
-    max_salary_boundary double  not null,
-    job_description  varchar(1000),
-    location_id      int,
-    status           varchar(50) not null default 'Active',
+    job_ad_id           int auto_increment primary key,
+    position_title      varchar(50) not null,
+    min_salary_boundary double      not null,
+    max_salary_boundary double      not null,
+    job_description     varchar(1000),
+    location_id         int,
+    company_id          int,
+    status              varchar(50) not null default 'Active',
 
     -- list of match requests - visible to the Job ad's creator --
     -- if positive match --> ad is Archived & professional set to Busy
 
     constraint job_ads_locations_location_id_fk
         foreign key (location_id) references locations (location_id) on delete set null,
+
+    constraint job_ads_companies_company_id_fk
+        foreign key (company_id) references companies (company_id) on delete set null,
 
     check (min_salary_boundary >= 1),
     check (max_salary_boundary >= 1 and max_salary_boundary <= 500000)
@@ -87,8 +91,8 @@ create table job_ads
 create table job_applications
 (
     job_application_id int auto_increment primary key,
-    min_desired_salary double  not null,
-    max_desired_salary double  not null,
+    min_desired_salary double      not null,
+    max_desired_salary double      not null,
     motivation_letter  varchar(1000),
     location_id        int,
     status             varchar(50) not null default 'Hidden',
@@ -103,3 +107,51 @@ create table job_applications
         foreign key (professional_id) references professionals (professional_id) on delete set null
 );
 
+create table job_ads_requirements
+(
+    job_ad_id      int,
+    requirement_id int,
+    primary key (job_ad_id, requirement_id),
+
+    foreign key (job_ad_id) references job_ads (job_ad_id) on delete cascade,
+    foreign key (requirement_id) references requirements (requirement_id) on delete cascade
+);
+
+create table job_ads_job_applications
+(
+    job_ad_id          int,
+    job_application_id int,
+    primary key (job_ad_id, job_application_id),
+
+    foreign key (job_ad_id) references job_ads (job_ad_id) on delete cascade,
+    foreign key (job_application_id) references job_applications (job_application_id) on delete cascade
+);
+
+create table job_applications_skills
+(
+    job_application_id int,
+    skill_id           int,
+    primary key (job_application_id, skill_id),
+
+    foreign key (job_application_id) references job_applications (job_application_id) on delete cascade,
+    foreign key (skill_id) references skills (skill_id) on delete cascade
+);
+
+create table job_applications_job_ads
+(
+    job_application_id int,
+    job_ad_id          int,
+    primary key (job_application_id, job_ad_id),
+
+    foreign key (job_application_id) references job_applications (job_application_id) on delete cascade,
+    foreign key (job_ad_id) references job_ads (job_ad_id) on delete cascade
+);
+
+create table matches (
+    match_id int auto_increment primary key,
+    job_ad_id          int,
+    job_application_id int,
+
+    foreign key (job_ad_id) references job_ads (job_ad_id) on delete cascade,
+    foreign key (job_application_id) references job_applications (job_application_id) on delete cascade
+);

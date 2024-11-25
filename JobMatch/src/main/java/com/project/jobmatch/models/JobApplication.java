@@ -38,7 +38,21 @@ public class JobApplication {
     @JoinColumn(name = "professional_id")
     private Professional professional;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "job_applications_skills",
+            joinColumns = @JoinColumn(name = "job_application_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
     private Set<Skill> skills;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "job_applications_job_ads",
+            joinColumns = @JoinColumn(name = "job_application_id"),
+            inverseJoinColumns = @JoinColumn(name = "job_ad_id")
+    )
+    private Set<JobAd> listOfAdMatchRequests;
 
     public JobApplication() {
     }
@@ -97,6 +111,22 @@ public class JobApplication {
 
     public void setProfessional(Professional professional) {
         this.professional = professional;
+    }
+
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public Set<JobAd> getListOfAdMatchRequests() {
+        return listOfAdMatchRequests;
+    }
+
+    public void setListOfAdMatchRequests(Set<JobAd> listOfAdMatchRequests) {
+        this.listOfAdMatchRequests = listOfAdMatchRequests;
     }
 
     @Override

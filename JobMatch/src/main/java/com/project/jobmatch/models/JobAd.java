@@ -61,6 +61,86 @@ public class JobAd {
     public JobAd() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPositionTitle() {
+        return positionTitle;
+    }
+
+    public void setPositionTitle(String positionTitle) {
+        this.positionTitle = positionTitle;
+    }
+
+    public double getMinSalaryBoundary() {
+        return minSalaryBoundary;
+    }
+
+    public void setMinSalaryBoundary(double minSalaryBoundary) {
+        this.minSalaryBoundary = minSalaryBoundary;
+    }
+
+    public double getMaxSalaryBoundary() {
+        return maxSalaryBoundary;
+    }
+
+    public void setMaxSalaryBoundary(double maxSalaryBoundary) {
+        this.maxSalaryBoundary = maxSalaryBoundary;
+    }
+
+    public String getJobDescription() {
+        return jobDescription;
+    }
+
+    public void setJobDescription(String jobDescription) {
+        this.jobDescription = jobDescription;
+    }
+
+    public JobAdStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(JobAdStatus status) {
+        this.status = status;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Set<Requirement> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(Set<Requirement> requirements) {
+        this.requirements = requirements;
+    }
+
+    public Set<JobApplication> getListOfApplicationMatchRequests() {
+        return listOfApplicationMatchRequests;
+    }
+
+    public void setListOfApplicationMatchRequests(Set<JobApplication> listOfApplicationMatchRequests) {
+        this.listOfApplicationMatchRequests = listOfApplicationMatchRequests;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

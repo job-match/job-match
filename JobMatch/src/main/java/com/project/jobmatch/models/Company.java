@@ -24,7 +24,8 @@ public class Company {
     @Column(name = "contacts")
     private String contacts;
 
-    @Column(name = "picture_id")
+    @OneToOne
+    @JoinColumn(name = "picture_id")
     private Picture picture;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
