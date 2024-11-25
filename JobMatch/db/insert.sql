@@ -10,7 +10,7 @@ values
     (6, 'Burgas');
 
 -- requirements Table --
-insert into requirements (requirement_id, type)
+insert into job_match.requirements (requirement_id, type)
 values
     (1, 'Java'),
     (2, 'Python'),
@@ -44,7 +44,7 @@ values
     (30, 'Emotional Intelligence');
 
 -- skills Table --
-insert into skills (skill_id, type)
+insert into job_match.skills (skill_id, type)
 values
     (1, 'Java'),
     (2, 'Python'),
@@ -104,7 +104,7 @@ values
     (55, 'Process Improvement');
 
 -- companies Table --
-insert into companies (company_id, name, description, location_id, contacts)
+insert into job_match.companies (company_id, name, description, location_id, contacts)
 values
     (1, 'Dev Experts',
      'Dev Experts is a renowned software development company specializing in high-performance trading platforms and financial technology solutions. They provide reliable, scalable, and secure applications tailored to the specific needs of financial institutions globally.',
@@ -147,7 +147,7 @@ values
      4, '606 Motorway Dr, Plovdiv, +1 234 567 8910');
 
 -- professionals Table --
-insert into professionals (professional_id, summary, location_id)
+insert into job_match.professionals (professional_id, summary, location_id)
 values
     (1, 'Experienced software engineer with over 10 years of expertise in backend development and system architecture. Skilled in Java, Python, and cloud-based technologies, specializing in creating scalable and efficient solutions for complex business challenges. Known for analytical thinking, strong problem-solving skills, and the ability to communicate technical information effectively to both technical and non-technical stakeholders.',
      3),
@@ -210,7 +210,7 @@ values
      6);
 
 -- job_ads Table --
-insert into job_ads (job_ad_id, position_title, min_salary_bound, max_salary_bound, job_description, location_id)
+insert into job_match.job_ads (job_ad_id, position_title, min_salary_bound, max_salary_bound, job_description, location_id)
 values
     (1, 'Software Engineer', 3500, 4000,
      'Dev Experts is seeking a highly motivated Software Engineer to join our team of innovative professionals. As a Software Engineer, you will be responsible for developing high-performance trading platforms and financial technology solutions for our global clients. The ideal candidate will have experience in Java and Python, with a deep understanding of system architecture and backend development. In this role, you will work closely with cross-functional teams to design, develop, and deploy software solutions that meet the specific needs of the financial industry.',
@@ -285,7 +285,7 @@ values
      2);
 
 -- job_applications Table --
-insert into job_applications (job_application_id, min_desired_salary, max_desired_salary, motivation_letter, location_id)
+insert into job_match.job_applications (job_application_id, min_desired_salary, max_desired_salary, motivation_letter, location_id)
 values
     (1, 3500, 4000,
      'Dear Hiring Manager, I am excited to apply for the Software Engineer position at Dev Experts. With my extensive background in software development, I believe I can contribute to your team in building high-performance trading platforms. Over the years, I have honed my skills in Java and Python, developing scalable and efficient applications that meet business needs.',
