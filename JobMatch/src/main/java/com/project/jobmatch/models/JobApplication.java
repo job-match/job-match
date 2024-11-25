@@ -5,6 +5,7 @@ import com.project.jobmatch.models.enums.JobApplicationStatus;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "job_applications")
@@ -25,7 +26,7 @@ public class JobApplication {
     private String motivationLetter;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
     private Location location;
 
@@ -36,6 +37,8 @@ public class JobApplication {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "professional_id")
     private Professional professional;
+
+    private Set<Skill> skills;
 
     public JobApplication() {
     }
