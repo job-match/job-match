@@ -92,10 +92,14 @@ create table job_applications
     motivation_letter  varchar(1000),
     location_id        int,
     status             varchar(50) not null default 'Hidden',
+    professional_id    int,
 
     -- list of match requests - visible to the Job application's creator --
 
     constraint job_applications_locations_location_id_fk
-        foreign key (location_id) references locations (location_id) on delete set null
+        foreign key (location_id) references locations (location_id) on delete set null,
+
+    constraint job_applications_professionals_professional_id_fk
+        foreign key (professional_id) references professionals (professional_id) on delete set null
 );
 
