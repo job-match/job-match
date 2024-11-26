@@ -4,4 +4,6 @@ import com.project.jobmatch.models.Professional;
 
 public interface ProfessionalService {
     Professional getByUsername(String username);
+
+    Professional getProfessionalById(int id);
 }
