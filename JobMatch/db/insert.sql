@@ -136,7 +136,7 @@ values (1, 'Dev Experts', 'devexperts', 'password', 'devexperts@mail.bg',
         'Eco Builders is a sustainable construction company dedicated to creating environmentally friendly buildings and structures. They focus on using eco-friendly materials, energy-efficient designs, and renewable energy solutions. Eco Builders aims to reduce the carbon footprint of construction projects while providing beautiful, durable buildings.',
         4, '202 Green St, Plovdiv, +1 234 567 8906'),
 
-       (7, 'Edu Future', 'edufutures', 'password', 'edufutures',
+       (7, 'Edu Future', 'edufutures', 'password', 'edufutures@mail.bg',
         'Edu Future is an edtech company that provides online learning platforms and educational tools for students and professionals. They offer courses in various fields, from programming to business management, all designed to be accessible and engaging. Edu Future aims to revolutionize education by making high-quality learning resources available to everyone.',
         5, '303 Learning Ave, Varna, +1 234 567 8907'),
 
@@ -148,7 +148,7 @@ values (1, 'Dev Experts', 'devexperts', 'password', 'devexperts@mail.bg',
         'Retail Boost is a retail consulting company that helps businesses improve their customer experience and operational efficiency. They offer solutions for inventory management, point-of-sale systems, and customer engagement strategies. Retail Boost combines industry expertise with technology to deliver insights that drive growth and enhance profitability. ',
         3, '505 Commerce Blvd, Sofia, +1 234 567 8909'),
 
-       (10, 'Auto Nexus', 'autonexus', 'password', 'autonexus',
+       (10, 'Auto Nexus', 'autonexus', 'password', 'autonexus@mail.bg',
         'Auto Nexus is an automotive solutions provider specializing in dealership management software and customer service automation. Their products streamline operations for automotive businesses, improving efficiency and customer satisfaction. Auto Nexus’s tools include CRM systems, inventory tracking, and sales management software, tailored specifically for the automotive industry. ',
         4, '606 Motorway Dr, Plovdiv, +1 234 567 8910');
 

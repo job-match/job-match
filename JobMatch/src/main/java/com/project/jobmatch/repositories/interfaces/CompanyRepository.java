@@ -5,14 +5,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
-    Company getCompanyByUsername(String username);
+    Optional<Company> getCompanyByUsername(String username);
 
-    Company getCompanyById(int id);
+    Optional<Company> getCompanyById(int id);
 
     @Override
     List<Company> findAll();
+
+
 }
