@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/company-portal/professionals")
-public class ProfessionalForProfessionalsRestController {
+public class ProfessionalForCompaniesRestController {
 }
