@@ -2,13 +2,9 @@ package com.project.jobmatch.helpers;
 
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.Requirement;
-import com.project.jobmatch.models.dto.JobAdDtoInCreate;
-import com.project.jobmatch.models.dto.JobAdDtoOut;
+import com.project.jobmatch.models.dto.*;
 import com.project.jobmatch.services.interfaces.*;
 import com.project.jobmatch.models.Professional;
-import com.project.jobmatch.models.dto.ProfessionalDtoInCreate;
-import com.project.jobmatch.models.dto.ProfessionalDtoInUpdate;
-import com.project.jobmatch.models.dto.ProfessionalDtoOut;
 import com.project.jobmatch.services.interfaces.LocationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import com.project.jobmatch.services.interfaces.StatusService;
@@ -68,6 +64,7 @@ public class ModelMapper {
         jobAd.setJobDescription(jobAdDtoInCreate.getDescription());
         jobAd.setLocation(locationService.getLocationByName(jobAdDtoInCreate.getLocation()));
         jobAd.setRequirements(fromStringSetToRequirementSet(jobAdDtoInCreate.getRequirements()));
+        jobAd.setStatus(statusService.getStatusByType("Active"));
 
         return jobAd;
     }
