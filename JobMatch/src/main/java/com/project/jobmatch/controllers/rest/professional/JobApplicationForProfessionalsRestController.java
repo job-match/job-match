@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/professional-portal/job-applications")
-public class JobApplicationRestController {
+public class JobApplicationForProfessionalsRestController {
 }
