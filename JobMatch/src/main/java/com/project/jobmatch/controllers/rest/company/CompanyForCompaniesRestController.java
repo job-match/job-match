@@ -99,4 +99,6 @@ public class CompanyForCompaniesRestController {
         }
     }
 
+    //TODO Method to match to job application
+
 }
