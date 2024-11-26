@@ -6,6 +6,8 @@ import com.project.jobmatch.services.interfaces.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
@@ -18,6 +20,18 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company getByUsername(String username) {
-        return companyRepository.findCompanyByUsername(username);
+        return companyRepository.getCompanyByUsername(username);
     }
+
+    @Override
+    public Company getCompanyById(int id) {
+        return companyRepository.getCompanyById(id);
+    }
+
+    @Override
+    public List<Company> getAllCompanies() {
+        return companyRepository.findAll();
+    }
+
+
 }
