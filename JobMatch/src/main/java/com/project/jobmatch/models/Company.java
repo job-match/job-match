@@ -1,5 +1,6 @@
 package com.project.jobmatch.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -13,6 +14,19 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "company_id")
     private int id;
+
+    @Column(name = "username")
+    private String username;
+
+    @JsonIgnore
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "description")
     private String description;

@@ -1,5 +1,6 @@
 package com.project.jobmatch.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.jobmatch.models.enums.ProfessionalStatus;
 import jakarta.persistence.*;
 
@@ -14,6 +15,22 @@ public class Professional {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "professional_id")
     private int id;
+
+    @Column(name = "username")
+    private String username;
+
+    @JsonIgnore
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "summary")
     private String summary;
