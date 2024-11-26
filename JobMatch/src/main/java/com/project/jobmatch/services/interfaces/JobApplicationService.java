@@ -4,5 +4,5 @@ import com.project.jobmatch.models.JobApplication;
 
 public interface JobApplicationService {
 
-    JobApplication getJobApplicationByTitle(String title);
+//    JobApplication getJobApplicationByTitle(String title);
 }

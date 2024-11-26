@@ -1,5 +1,6 @@
 package com.project.jobmatch.models.dto;
 
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -12,11 +13,11 @@ public class JobAdDtoInCreate {
     private String title;
 
     @NotNull(message = "Min Salary cannot be empty!")
-    @Size(min = 1, message = "Min Salary cannot be a negative number!")
+    @DecimalMin(value = "1.0", message = "Minimum salary must be positive.")
     private double minSalaryBoundary;
 
     @NotNull(message = "Max Salary cannot be empty!")
-    @Size(min = 1, message = "Max Salary cannot be a negative number!")
+    @DecimalMin(value = "1.0", message = "Maximum salary must be positive")
     private double maxSalaryBoundary;
 
     @NotNull(message = "Job description cannot be empty!")

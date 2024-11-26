@@ -1,7 +1,6 @@
 package com.project.jobmatch.helpers;
 
 import com.project.jobmatch.models.JobAd;
-import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Requirement;
 import com.project.jobmatch.models.dto.JobAdDtoInCreate;
 import com.project.jobmatch.models.dto.JobAdDtoOut;

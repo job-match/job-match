@@ -1,6 +1,7 @@
 package com.project.jobmatch.controllers.rest.company;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
@@ -67,7 +68,13 @@ public class JobAdForCompaniesRestController {
         try {
             Company company = authenticationHelper.tryGetCompany(headers);
             JobAd jobAd = modelMapper.fromJobAdDtoIn(jobAdDtoInCreate);
-            jobAdService.create()
+            jobAdService.createJobAd(jobAd, company);
+
+            return modelMapper.fromJobAdToJobAdDtoOut(jobAd);
+        } catch (EntityDuplicateException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
 }

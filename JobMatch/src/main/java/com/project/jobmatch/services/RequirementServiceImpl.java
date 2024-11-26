@@ -20,7 +20,7 @@ public class RequirementServiceImpl implements RequirementService {
     @Override
     public Requirement getRequirementByName(String name) {
         return requirementRepository
-                .findRequirementByName(name)
+                .findRequirementByType(name)
                 .orElseThrow(() -> new EntityNotFoundException("Requirement", "name", name));
     }
 }

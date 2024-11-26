@@ -17,10 +17,10 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         this.jobApplicationRepository = jobApplicationRepository;
     }
 
-    @Override
-    public JobApplication getJobApplicationByTitle(String title) {
-        return jobApplicationRepository
-                .findJobApplicationByTitle(title)
-                .orElseThrow(() -> new EntityNotFoundException("Job Application", "title", title));
-    }
+//    @Override
+//    public JobApplication getJobApplicationByTitle(String title) {
+//        return jobApplicationRepository
+//                .findJobApplicationByTitle(title)
+//                .orElseThrow(() -> new EntityNotFoundException("Job Application", "title", title));
+//    }
 }

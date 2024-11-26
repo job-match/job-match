@@ -8,5 +8,6 @@ import java.util.List;
 public interface JobAdService {
     List<JobAd> getAll();
     JobAd getJobAdById(int id);
-    JobAd createJobAd(JobAd jobAd, Company company);
+    void createJobAd(JobAd jobAd, Company company);
+    JobAd getJobAdByTitle(String title);
 }

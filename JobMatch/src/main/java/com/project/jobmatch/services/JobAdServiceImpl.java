@@ -1,5 +1,6 @@
 package com.project.jobmatch.services;
 
+import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
@@ -34,11 +35,25 @@ public class JobAdServiceImpl implements JobAdService {
     }
 
     @Override
-    public JobAd createJobAd(JobAd jobAd, Company company) {
+    public void createJobAd(JobAd jobAd, Company company) {
         boolean duplicateExists = true;
         try {
-            jobAdRepository.
+            getJobAdByTitle(jobAd.getPositionTitle());
+        } catch (EntityNotFoundException e) {
+            duplicateExists = false;
         }
-        return null;
+
+        if (duplicateExists) {
+            throw new EntityDuplicateException("Job Ad", "title", jobAd.getPositionTitle());
+        } else {
+            jobAdRepository.save(jobAd);
+        }
+    }
+
+    @Override
+    public JobAd getJobAdByTitle(String title) {
+        return jobAdRepository
+                .findJobAdByPositionTitle(title)
+                .orElseThrow(() -> new EntityNotFoundException("Job Ad", "title", title));
     }
 }
