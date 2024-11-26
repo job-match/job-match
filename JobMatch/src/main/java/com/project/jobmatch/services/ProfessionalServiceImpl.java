@@ -1,5 +1,6 @@
 package com.project.jobmatch.services;
 
+import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.models.Professional;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Service
 public class ProfessionalServiceImpl implements ProfessionalService {
+    private static final String MODIFY_PROFESSIONAL_ERROR_MESSAGE = "Only owner can make changes to the professional info.";
 
     private final ProfessionalRepository professionalRepository;
 
@@ -55,5 +57,17 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     @Override
     public List<Professional> getAllProfessionals() {
         return professionalRepository.findAll();
+    }
+
+    @Override
+    public void updateProfessional(Professional professionalAuthenticated, Professional professionalMapped) {
+        checkModifyPermissions(professionalAuthenticated, professionalMapped);
+        professionalRepository.save(professionalMapped);
+    }
+
+    private void checkModifyPermissions(Professional professionalAuthenticated, Professional professionalMapped) {
+        if (!(professionalAuthenticated.equals(professionalMapped))) {
+            throw new AuthorizationException(MODIFY_PROFESSIONAL_ERROR_MESSAGE);
+        }
     }
 }

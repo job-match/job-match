@@ -12,4 +12,6 @@ public interface ProfessionalService {
     void registerProfessional(Professional professional);
 
     List<Professional> getAllProfessionals();
+
+    void updateProfessional(Professional professionalAuthenticated, Professional professionalMapped);
 }
