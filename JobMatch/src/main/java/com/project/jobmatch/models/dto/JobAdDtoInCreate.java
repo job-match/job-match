@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
-public class JobAdDtoIn {
+public class JobAdDtoInCreate {
 
     @NotNull(message = "Title cannot be empty!")
     @Size(min = 2, max = 50, message = "Title should be up to 50 symbols!")
@@ -29,7 +29,7 @@ public class JobAdDtoIn {
 
     private Set<String> requirements;
 
-    public JobAdDtoIn() {
+    public JobAdDtoInCreate() {
     }
 
     public String getTitle() {

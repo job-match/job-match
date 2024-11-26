@@ -1,36 +1,57 @@
 package com.project.jobmatch.helpers;
 
 import com.project.jobmatch.models.JobAd;
-import com.project.jobmatch.models.dto.JobAdDtoIn;
+import com.project.jobmatch.models.Requirement;
+import com.project.jobmatch.models.dto.JobAdDtoInCreate;
 import com.project.jobmatch.models.dto.JobAdDtoOut;
-import com.project.jobmatch.services.interfaces.JobAdService;
-import com.project.jobmatch.services.interfaces.ProfessionalService;
+import com.project.jobmatch.services.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
 public class ModelMapper {
     private final ProfessionalService professionalService;
     private final JobAdService jobAdService;
+    private final LocationService locationService;
+    private final RequirementService requirementService;
+    private final StatusService statusService;
 
     @Autowired
     public ModelMapper(ProfessionalService profService,
-                       JobAdService jobAdService) {
+                       JobAdService jobAdService,
+                       LocationService locationService,
+                       RequirementService requirementService,
+                       StatusService statusService) {
         this.professionalService = profService;
         this.jobAdService = jobAdService;
+        this.locationService = locationService;
+        this.requirementService = requirementService;
+        this.statusService = statusService;
     }
 
-    public JobAd fromJobAdDtoIn(JobAdDtoIn jobAdDtoIn) {
+    public JobAd fromJodAdDtoIn(int id, JobAdDtoInCreate jobAdDtoInCreate) {
+        JobAd jobAd = fromJobAdDtoIn(jobAdDtoInCreate);
+        jobAd.setId(id);
+
+        JobAd repositoryAd = jobAdService.getJobAdById(id);
+        jobAd.setStatus(sta);
+
+    }
+    public JobAd fromJobAdDtoIn(JobAdDtoInCreate jobAdDtoInCreate) {
         JobAd jobAd = new JobAd();
-        jobAd.setPositionTitle(jobAdDtoIn.getTitle());
-        jobAd.setMinSalaryBoundary(jobAdDtoIn.getMinSalaryBoundary());
-        jobAd.setMaxSalaryBoundary(jobAdDtoIn.getMaxSalaryBoundary());
-        jobAd.setJobDescription(jobAdDtoIn.getDescription());
-    //    jobAd.setLocation(jobAdDtoIn.getLocation());
+        jobAd.setPositionTitle(jobAdDtoInCreate.getTitle());
+        jobAd.setMinSalaryBoundary(jobAdDtoInCreate.getMinSalaryBoundary());
+        jobAd.setMaxSalaryBoundary(jobAdDtoInCreate.getMaxSalaryBoundary());
+        jobAd.setJobDescription(jobAdDtoInCreate.getDescription());
+        jobAd.setLocation(locationService.getLocationByName(jobAdDtoInCreate.getLocation()));
+        jobAd.setRequirements(fromStringSetToRequirementSet(jobAdDtoInCreate.getRequirements()));
+
         return jobAd;
     }
 
@@ -54,5 +75,15 @@ public class ModelMapper {
         return jobAds.stream()
                 .map(this::fromJobAdToJobAdDtoOut)
                 .collect(Collectors.toList());
+    }
+
+    public Set<Requirement> fromStringSetToRequirementSet(Set<String> requirementSet) {
+        if (requirementSet == null) {
+            return new HashSet<>();
+        }
+
+        return requirementSet.stream()
+                .map(requirementService::getRequirementByName)
+                .collect(Collectors.toSet());
     }
 }
