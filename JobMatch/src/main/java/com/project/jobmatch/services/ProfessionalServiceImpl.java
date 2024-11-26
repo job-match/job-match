@@ -1,5 +1,6 @@
 package com.project.jobmatch.services;
 
+import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.repositories.interfaces.ProfessionalRepository;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
@@ -16,6 +17,15 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
     @Override
     public Professional getByUsername(String username) {
-        return professionalRepository.findProfessionalByUsername(username);
+        return professionalRepository
+                .findProfessionalByUsername(username)
+                .orElseThrow(()->new EntityNotFoundException("Professional", username, "username"));
+    }
+
+    @Override
+    public Professional getProfessionalById(int id) {
+        return professionalRepository
+                .findProfessionalById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Professional", id));
     }
 }
