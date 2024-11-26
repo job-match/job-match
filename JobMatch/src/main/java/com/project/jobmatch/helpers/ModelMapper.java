@@ -1,6 +1,7 @@
 package com.project.jobmatch.helpers;
 
 import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Requirement;
 import com.project.jobmatch.models.dto.JobAdDtoInCreate;
 import com.project.jobmatch.models.dto.JobAdDtoOut;
@@ -21,18 +22,21 @@ public class ModelMapper {
     private final LocationService locationService;
     private final RequirementService requirementService;
     private final StatusService statusService;
+    private final JobApplicationService jobApplicationService;
 
     @Autowired
     public ModelMapper(ProfessionalService profService,
                        JobAdService jobAdService,
                        LocationService locationService,
                        RequirementService requirementService,
-                       StatusService statusService) {
+                       StatusService statusService,
+                       JobApplicationService jobApplicationService) {
         this.professionalService = profService;
         this.jobAdService = jobAdService;
         this.locationService = locationService;
         this.requirementService = requirementService;
         this.statusService = statusService;
+        this.jobApplicationService = jobApplicationService;
     }
 
     public JobAd fromJodAdDtoIn(int id, JobAdDtoInCreate jobAdDtoInCreate) {
@@ -40,8 +44,11 @@ public class ModelMapper {
         jobAd.setId(id);
 
         JobAd repositoryAd = jobAdService.getJobAdById(id);
-        jobAd.setStatus(sta);
+        jobAd.setStatus(statusService.getStatusByType("Active"));
+        jobAd.setCompany(repositoryAd.getCompany());
+        jobAd.setListOfApplicationMatchRequests(repositoryAd.getListOfApplicationMatchRequests());
 
+        return jobAd;
     }
     public JobAd fromJobAdDtoIn(JobAdDtoInCreate jobAdDtoInCreate) {
         JobAd jobAd = new JobAd();

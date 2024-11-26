@@ -8,7 +8,8 @@ import java.util.Optional;
 public interface JobAdRepository extends JpaRepository<JobAd, Integer> {
     Optional<JobAd> findJobAdById(int id);
 
+    Optional<JobAd> findJobAdByTitle(String title);
+
     @Override
     List<JobAd> findAll();
-
 }

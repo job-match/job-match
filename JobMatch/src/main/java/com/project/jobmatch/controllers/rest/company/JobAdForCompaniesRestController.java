@@ -4,10 +4,13 @@ import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
+import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.dto.JobAdDtoInCreate;
 import com.project.jobmatch.models.dto.JobAdDtoOut;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.JobAdService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +58,16 @@ public class JobAdForCompaniesRestController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @PostMapping()
+    public JobAdDtoOut createJobAd(@RequestHeader HttpHeaders headers,
+                                   @Valid @RequestBody JobAdDtoInCreate jobAdDtoInCreate) {
+        try {
+            Company company = authenticationHelper.tryGetCompany(headers);
+            JobAd jobAd = modelMapper.fromJobAdDtoIn(jobAdDtoInCreate);
+            jobAdService.create()
         }
     }
 }
