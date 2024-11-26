@@ -1,3 +1,9 @@
+create table statuses
+(
+    status_id int auto_increment primary key,
+    type      varchar(50) not null unique
+);
+
 create table locations
 (
     location_id int auto_increment primary key,
@@ -43,9 +49,6 @@ create table companies
 
     constraint companies_locations_location_id_fk
         foreign key (location_id) references locations (location_id) on delete set null
-
-    -- active number of job ads --
-    -- successful matches --
 );
 
 
@@ -59,14 +62,14 @@ create table professionals
     email           varchar(50) not null unique,
     summary         varchar(500),
     location_id     int,
-    status          varchar(50) not null default 'Active',
+    status_id       int default 1,
     picture_id      int,
-
-    -- active number of job applications --
-    -- list of matches --
 
     constraint professionals_pictures_picture_id_fk
         foreign key (picture_id) references pictures (picture_id) on delete set null,
+
+    constraint professionals_statuses_status_id_fk
+        foreign key (status_id) references statuses (status_id) on delete set null,
 
     constraint professionals_locations_location_id_fk
         foreign key (location_id) references locations (location_id) on delete set null
@@ -81,13 +84,13 @@ create table job_ads
     job_description     varchar(1000),
     location_id         int,
     company_id          int,
-    status              varchar(50) not null default 'Active',
-
-    -- list of match requests - visible to the Job ad's creator --
-    -- if positive match --> ad is Archived & professional set to Busy
+    status_id           int default 1,
 
     constraint job_ads_locations_location_id_fk
         foreign key (location_id) references locations (location_id) on delete set null,
+
+    constraint job_ads_statuses_status_id_fk
+        foreign key (status_id) references statuses (status_id) on delete set null,
 
     constraint job_ads_companies_company_id_fk
         foreign key (company_id) references companies (company_id) on delete set null,
@@ -99,17 +102,18 @@ create table job_ads
 create table job_applications
 (
     job_application_id int auto_increment primary key,
-    min_desired_salary double      not null,
-    max_desired_salary double      not null,
+    min_desired_salary double not null,
+    max_desired_salary double not null,
     motivation_letter  varchar(1000),
     location_id        int,
-    status             varchar(50) not null default 'Hidden',
+    status_id          int default 4,
     professional_id    int,
-
-    -- list of match requests - visible to the Job application's creator --
 
     constraint job_applications_locations_location_id_fk
         foreign key (location_id) references locations (location_id) on delete set null,
+
+    constraint job_applications_statuses_status_id_fk
+        foreign key (status_id) references statuses (status_id) on delete set null,
 
     constraint job_applications_professionals_professional_id_fk
         foreign key (professional_id) references professionals (professional_id) on delete set null
