@@ -101,128 +101,134 @@ values (1, 'Java'),
        (55, 'Process Improvement');
 
 -- companies Table --
-insert into job_match.companies (company_id, name, description, location_id, contacts)
-values (1, 'Dev Experts',
+insert into job_match.companies (company_id, name, username, password, email, description, location_id, contacts)
+values (1, 'Dev Experts', 'devexperts', 'password', 'devexperts@mail.bg',
         'Dev Experts is a renowned software development company specializing in high-performance trading platforms and financial technology solutions. They provide reliable, scalable, and secure applications tailored to the specific needs of financial institutions globally.',
         3, '123 Technology Ave, Sofia, +1 234 567 8901'),
 
-       (2, 'Green Solutions',
+       (2, 'Green Solutions', 'greensolutions', 'password', 'greensolutions@mail.bg',
         'Green Solutions is an environmental consulting firm dedicated to helping companies minimize their environmental impact. They offer a range of services, including sustainability assessments, waste management, and environmental compliance. Green Solutions believes in empowering businesses to become eco-friendly while maintaining profitability.',
         4, '456 Greenway Blvd, Plovdiv, +1 234 567 8902'),
 
-       (3, 'Tech Innovators',
+       (3, 'Tech Innovators', 'techinovators', 'password', 'techinovators@mail.bg',
         'Tech Innovators is a technology consulting firm focused on digital transformation and innovation for businesses of all sizes. Their team specializes in cloud computing, cybersecurity, and big data analytics, assisting clients in modernizing their infrastructure and enhancing security.',
         5, '789 Innovation Dr, Varna, +1 234 567 8903'),
 
-       (4, 'Market Gurus',
+       (4, 'Market Gurus', 'marketgurus', 'password', 'marketgurus@mail.bg',
         'Market Gurus is a leading digital marketing agency that helps companies build strong online presences. With expertise in SEO, content marketing, and social media strategies, they enable clients to reach their target audiences effectively. Market Gurus prides itself on data-driven strategies that yield measurable results.',
         6, '101 Digital St, Burgas, +1 234 567 8904'),
 
-       (5, 'NextGen Health',
+       (5, 'NextGen Health', 'nextgenhealth', 'password', 'nextgenhealth@mail.bg',
         'NextGen Health is a healthcare technology company focused on improving patient care through innovative solutions. Their products include electronic health record (EHR) systems, telemedicine platforms, and patient management tools. NextGen Health’s mission is to make healthcare more accessible and efficient by leveraging technology.',
         3, '102 Health Ln, Sofia, +1 234 567 8905'),
 
-       (6, 'Eco Builders',
+       (6, 'Eco Builders', 'ecobuilders', 'password', 'ecobuilders@mail.bg',
         'Eco Builders is a sustainable construction company dedicated to creating environmentally friendly buildings and structures. They focus on using eco-friendly materials, energy-efficient designs, and renewable energy solutions. Eco Builders aims to reduce the carbon footprint of construction projects while providing beautiful, durable buildings.',
         4, '202 Green St, Plovdiv, +1 234 567 8906'),
 
-       (7, 'Edu Future',
+       (7, 'Edu Future', 'edufutures', 'password', 'edufutures',
         'Edu Future is an edtech company that provides online learning platforms and educational tools for students and professionals. They offer courses in various fields, from programming to business management, all designed to be accessible and engaging. Edu Future aims to revolutionize education by making high-quality learning resources available to everyone.',
         5, '303 Learning Ave, Varna, +1 234 567 8907'),
 
-       (8, 'Agro Corp',
+       (8, 'Agro Corp', 'argrocrop', 'password', 'argrocrop@mail.bg',
         'Agro Corp is an agritech company focused on developing advanced solutions for the agriculture sector. Their technologies include precision farming tools, crop monitoring systems, and sustainable agriculture practices. Agro Corp’s mission is to help farmers optimize production while minimizing environmental impact.',
         6, '404 Harvest Rd, Burgas, +1 234 567 8908'),
 
-       (9, 'Retail Boost',
+       (9, 'Retail Boost', 'retailboost', 'password', 'retailboost@mail.bg',
         'Retail Boost is a retail consulting company that helps businesses improve their customer experience and operational efficiency. They offer solutions for inventory management, point-of-sale systems, and customer engagement strategies. Retail Boost combines industry expertise with technology to deliver insights that drive growth and enhance profitability. ',
         3, '505 Commerce Blvd, Sofia, +1 234 567 8909'),
 
-       (10, 'Auto Nexus',
+       (10, 'Auto Nexus', 'autonexus', 'password', 'autonexus',
         'Auto Nexus is an automotive solutions provider specializing in dealership management software and customer service automation. Their products streamline operations for automotive businesses, improving efficiency and customer satisfaction. Auto Nexus’s tools include CRM systems, inventory tracking, and sales management software, tailored specifically for the automotive industry. ',
         4, '606 Motorway Dr, Plovdiv, +1 234 567 8910');
 
 -- professionals Table --
-insert into job_match.professionals (professional_id, summary, location_id)
-values (1,
+insert into job_match.professionals (professional_id, username, password, first_name, last_name, email, summary,
+                                     location_id)
+values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilkirilov@mail.bg',
         'Experienced software engineer with over 10 years of expertise in backend development and system architecture. Skilled in Java, Python, and cloud-based technologies, specializing in creating scalable and efficient solutions for complex business challenges. Known for analytical thinking, strong problem-solving skills, and the ability to communicate technical information effectively to both technical and non-technical stakeholders.',
         3),
 
-       (2,
+       (2, 'johnsmith', 'password', 'John', 'Smith', 'johnsmith@mail.bg',
         'Digital marketing specialist with a proven track record of designing and implementing successful campaigns across various digital platforms. Proficient in SEO, content marketing, and social media strategies, with a strong understanding of data analytics to drive results. Recognized for creative problem-solving skills and a passion for staying updated with the latest trends in digital marketing.',
         4),
 
-       (3,
+       (3, 'mihailboychev', 'password', 'Mihail', 'Boychev', 'mihailboychev@mail.bg',
         'Project manager with extensive experience in agile methodologies and team coordination within the tech industry. Demonstrates an ability to manage multiple projects, meet deadlines, and ensure high-quality deliverables. Skilled in risk management, strategic planning, and fostering collaboration among diverse teams. Recognized for strong leadership qualities and an organized approach to project execution.',
         5),
 
-       (4,
+       (4, 'todorpetrov', 'password', 'Todor', 'Petrov', 'todorpetrov@mail.bg',
         'Full-stack developer proficient in JavaScript frameworks such as React and Node.js, with a keen interest in building user-friendly applications. Known for strong technical expertise combined with an understanding of UX/UI principles, making it possible to bridge the gap between backend functionality and front-end usability.',
         6),
 
-       (5,
+       (5, 'emilyjones', 'password', 'Emily', 'Jones', 'emilyjones@mail.bg',
         'HR professional with a specialization in talent acquisition and employee relations, bringing over 8 years of experience in recruiting and retention strategies. Known for excellent communication and interpersonal skills, allowing for effective collaboration with hiring managers and candidates. Experienced in conducting interviews, assessing talent, and aligning hiring practices with company goals.',
         3),
 
-       (6,
+       (6, 'peterivanov', 'password', 'Peter', 'Ivanov', 'peterivanov@mail.bg',
         'Data analyst with extensive experience in leveraging statistical methods and data visualization tools to support business decision-making. Proficient in SQL, Python, and Tableau, and skilled at translating data into actionable insights. Known for a methodical approach to data interpretation and a passion for optimizing business performance through data-driven strategies.',
         4),
 
-       (7,
+       (7, 'annabrown', 'password', 'Anna', 'Brown', 'annabrown@mail.bg',
         'Customer service representative with a strong background in communication and conflict resolution. Known for a friendly demeanor, active listening skills, and the ability to handle high-pressure situations calmly and effectively. Experienced in various customer support platforms and CRM tools.',
         5),
 
-       (8,
+       (8, 'georgedimitrov', 'password', 'George', 'Dimitrov', 'georgedimitrov@mail.bg',
         'Graphic designer with a unique blend of creativity and technical skill in visual design. Expert in Adobe Creative Suite and familiar with digital marketing and branding strategies. Known for a strong eye for detail and an ability to create visually compelling content.',
         6),
 
-       (9,
+       (9, 'annaluncheva', 'password', 'Anna', 'Vulcheva', 'annaluncheva@mail.bg',
         'Software engineer with a focus on front-end development and a strong foundation in HTML, CSS, and JavaScript. Enjoys creating intuitive and user-friendly interfaces that enhance user experience. Known for problem-solving abilities and meticulous attention to detail, ensuring high-quality, responsive designs.',
         3),
 
-       (10,
+       (10, 'mariaslavova', 'password', 'Maria', 'Slavova', 'mariaslavova@mail.bg',
         'Operations manager with a deep understanding of logistics and supply chain management, dedicated to streamlining business operations and reducing costs. Experienced in process optimization, quality control, and team coordination. Known for excellent organizational skills and an analytical mindset.',
         4),
 
-       (11,
+       (11, 'nikolaypetrov', 'password', 'Nikolay', 'Petrov', 'nikolaypetrov@mail.bg',
         'Content writer and editor with expertise in crafting engaging and informative content for digital platforms. Skilled in SEO, content strategy, and copywriting, with a passion for delivering valuable information to readers. Known for exceptional writing skills and a strong understanding of audience engagement.',
         5),
 
-       (12,
+       (12, 'ivankolev', 'password', 'Ivan', 'Kolev', 'ivankolev@mail.bg',
         'Mechanical engineer specializing in automotive and manufacturing processes. Highly skilled in CAD design and experienced in coordinating large-scale engineering projects. Known for problem-solving capabilities and technical knowledge in materials and fabrication techniques.',
         6),
 
-       (13,
+       (13, 'sofiyageorgieva', 'password', 'Sofiya', 'Georgieva', 'sofiyageorgieva@mail.bg',
         'Financial analyst with extensive experience in budgeting, forecasting, and financial reporting. Proficient in Excel, financial modeling, and data analysis. Known for analytical skills, attention to detail, and the ability to communicate complex financial information clearly.',
         3),
 
-       (14,
+       (14, 'stoyankostov', 'password', 'Stoyan', 'Kostov', 'stoyankostov@mail.bg',
         'UX/UI designer with a background in psychology and a strong understanding of user-centered design principles. Skilled in wireframing, prototyping, and user testing, with experience in improving user engagement. Known for creativity, empathy, and the ability to balance aesthetics with functionality.',
         4),
 
-       (15,
+       (15, 'viktorstoyanov', 'password', 'Viktor', 'Stoyanov', 'viktorstoyanov@mail.bg',
         'Sales manager with a proven track record in business development and team leadership. Known for persuasive communication skills and an ability to build strong client relationships. Skilled in developing sales strategies that align with business objectives and drive revenue growth.',
         5),
 
-       (16,
+       (16, 'milenminkov', 'password', 'Milen', 'Minkov', 'milenminkov@mail.bg',
         'Product manager with expertise in agile methodologies and a strong technical background. Skilled in roadmap planning, feature prioritization, and cross-functional collaboration. Known for problem-solving abilities, customer-focused mindset, and the ability to lead teams through the product development lifecycle.',
         6),
 
-       (17,
+       (17, 'ilianaivanova', 'password', 'Iliana', 'Ivanova', 'ilianaivanova@mail.bg',
         'HR consultant with a focus on organizational development and change management. Skilled in talent acquisition, training, and employee engagement. Known for a collaborative approach to problem-solving and a commitment to improving workplace culture.',
         3),
 
-       (18,
+       (18, 'roberttodorov', 'password', 'Robert', 'Todorov', 'roberttodorov@mail.bg',
         'Legal advisor with expertise in corporate and contract law. Known for strong analytical skills, attention to detail, and the ability to provide sound legal counsel. Experienced in drafting and reviewing contracts, managing legal compliance, and supporting business transactions.',
         4),
 
-       (19,
+       (19, 'venelinaangelova', 'password', 'Venelina', 'Angelova', 'venelinaangelova@mail.bg',
         'Supply chain analyst with a background in logistics and data analysis. Skilled in inventory management, demand forecasting, and supply chain optimization. Known for analytical abilities and an ability to find cost-effective solutions that improve efficiency.',
         5),
 
-       (20,
+       (20, 'dimitarkarov', 'password', 'Dimitar', 'Karov', 'dimitarkarov@mail.bg',
         'Business analyst with expertise in process improvement and data-driven decision-making. Skilled in requirements gathering, documentation, and stakeholder communication. Known for a strong analytical mindset and problem-solving skills.',
+        6),
+
+       (21, 'nikolayvoynov', 'password', 'Nikolay', 'Voynov', 'nikolayvoynov@mail.bg',
+        'Backend Engineer with expertise in system architecture, performance optimization, and API development. Skilled in coding, database management, and integration. Known for a strong technical mindset, problem-solving abilities, and delivering efficient, scalable solutions.',
         6);
+
 
 -- job_ads Table --
 insert into job_match.job_ads (job_ad_id, position_title, min_salary_boundary, max_salary_boundary, job_description,
@@ -297,7 +303,11 @@ values (1, 'Software Engineer', 3500, 4000,
 
        (18, 'Java Developer', 3300, 3800,
         'Dev Solutions is seeking a skilled Java Developer to help build and maintain software applications for our clients. In this role, you will be responsible for developing, testing, and deploying Java-based applications that meet client needs. You will collaborate with cross-functional teams to ensure that projects are delivered on time and meet the highest quality standards.',
-        2, 1);
+        2, 1),
+
+       (19, 'Back-end engineer', 3000, 3500,
+        'Tech Innovators is seeking a skilled and strategic Backend Engineer to join our development team and help build the foundation of our cutting-edge applications. In this role, you will be responsible for designing, implementing, and maintaining the backend architecture that powers our platforms.',
+        2, 3);
 
 -- job_applications Table --
 insert into job_match.job_applications (job_application_id, min_desired_salary, max_desired_salary, motivation_letter,
@@ -340,7 +350,11 @@ values (1, 3500, 4000,
 
        (10, 3500, 4000,
         'Dear Future Investments, I am excited to apply for the Financial Analyst position. With my background in finance and experience in financial modeling, I am confident that I can make valuable contributions to your team. I have a strong understanding of financial analysis and have successfully built financial models that assist in forecasting and budgeting.',
-        6, 20);
+        6, 20),
+
+       (11, 3000, 3500,
+        'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
+        2, 21);
 
 
 -- job_ads_job_applications Table --
@@ -351,7 +365,8 @@ values (1, 1),
        (2, 2),
        (3, 3),
        (4, 4),
-       (5, 5);
+       (5, 5),
+       (19, 11);
 
 
 
@@ -414,7 +429,8 @@ values (6, 17), -- Sales Experience
        (6, 8),  -- Leadership
        (6, 23), -- Customer Service
        (6, 20), -- Negotiation Skills
-       (6, 19); -- Conflict Resolution
+       (6, 19);
+-- Conflict Resolution
 
 -- Job Ad 7: Customer Success Manager
 -- Relevant requirements: Customer Service, Communication Skills, Teamwork, Problem-Solving
@@ -521,7 +537,14 @@ values (17, 27), -- Marketing
 insert into job_match.job_ads_requirements (job_ad_id, requirement_id)
 values (18, 1), -- Java
        (18, 5), -- Problem-Solving
-       (18, 7);
+       (18, 7); -- Attention to Detail
+
+insert into job_match.job_ads_requirements (job_ad_id, requirement_id)
+values (19, 1),  -- Java
+       (19, 2),  -- Python
+       (19, 6),  -- SQL (likely needed for backend and database work)
+       (19, 29), -- Critical Thinking
+       (19, 7);
 -- Attention to Detail
 
 
@@ -543,7 +566,8 @@ values (1, 1),  -- Java
        (1, 2),  -- Python
        (1, 5),  -- Problem-Solving
        (1, 37), -- Coding Best Practices
-       (1, 12); -- Analytical Thinking
+       (1, 12);
+-- Analytical Thinking
 
 -- Application 2: Digital Marketing Manager (SEO, Content Marketing, Social Media)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
@@ -551,7 +575,8 @@ values (2, 27), -- Marketing
        (2, 46), -- Social Media Management
        (2, 49), -- Search Engine Optimization (SEO)
        (2, 10), -- Time Management
-       (2, 50); -- Content Creation
+       (2, 50);
+-- Content Creation
 
 -- Application 3: Project Manager (Project Management, Digital Transformation)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
@@ -559,7 +584,8 @@ values (3, 3),  -- Project Management
        (3, 8),  -- Leadership
        (3, 24), -- Strategic Planning
        (3, 26), -- Agile Methodologies
-       (3, 29); -- Critical Thinking
+       (3, 29);
+-- Critical Thinking
 
 -- Application 4: UX/UI Designer (User Interface Design)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
@@ -567,14 +593,16 @@ values (4, 41), -- UX/UI Design
        (4, 13), -- Creativity
        (4, 25), -- Presentation Skills
        (4, 36), -- Organization Skills
-       (4, 5);  -- Problem-Solving
+       (4, 5);
+-- Problem-Solving
 
 -- Application 5: Full-Stack Developer (JavaScript, React, Node.js)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
 values (5, 37), -- Coding Best Practices
        (5, 1),  -- Java
        (5, 18), -- HTML
-       (6, 6);  -- SQL
+       (6, 6);
+-- SQL
 
 -- Application 6: Sales Manager (Sales Experience, Client Management)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
@@ -582,7 +610,8 @@ values (6, 17), -- Sales Experience
        (6, 14), -- Client Management
        (6, 20), -- Negotiation Skills
        (6, 31), -- Networking
-       (6, 54); -- Interpersonal Skills
+       (6, 54);
+-- Interpersonal Skills
 
 -- Application 7: Customer Success Manager (Customer Service, Relationship Management)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
@@ -590,7 +619,8 @@ values (7, 23), -- Customer Service
        (7, 40), -- Customer Relationship Management (CRM)
        (7, 32), -- Self-Motivation
        (7, 9),  -- Teamwork
-       (7, 4);  -- Communication Skills
+       (7, 4);
+-- Communication Skills
 
 -- Application 8: Operations Analyst (Data Analysis, Business Operations)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
@@ -598,7 +628,8 @@ values (8, 15), -- Data Analysis
        (8, 39), -- Statistical Analysis
        (8, 52), -- Supply Chain Management
        (8, 55), -- Process Improvement
-       (8, 12); -- Analytical Thinking
+       (8, 12);
+-- Analytical Thinking
 
 -- Application 9: Data Analyst (SQL, Python, Tableau, Data Analysis)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
@@ -606,7 +637,8 @@ values (9, 6),  -- SQL
        (9, 2),  -- Python
        (9, 15), -- Data Analysis
        (9, 44), -- Data Visualization
-       (9, 39); -- Statistical Analysis
+       (9, 39);
+-- Statistical Analysis
 
 -- Application 10: Financial Analyst (Finance, Budgeting, Financial Analysis)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
@@ -616,6 +648,15 @@ values (10, 21), -- Financial Literacy
        (10, 29), -- Critical Thinking
        (10, 51); -- Risk Management
 
+-- Application 11: Financial Analyst (Finance, Budgeting, Financial Analysis)
+insert into job_match.job_applications_skills (job_application_id, skill_id)
+values (11, 1),  -- Java
+       (11, 2),  -- Python
+       (11, 5),  -- Problem-Solving
+       (11, 37), -- Coding Best Practices
+       (11, 12);
+-- Analytical Thinking
+
 
 -- matches Table --
 
@@ -624,4 +665,5 @@ values (1, 1, 1),
        (2, 2, 2),
        (3, 3, 3),
        (4, 4, 4),
-       (5, 5, 5);
+       (5, 5, 5),
+       (6, 19, 11);
