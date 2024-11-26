@@ -1,3 +1,13 @@
+-- statuses Table --
+
+insert into job_match.statuses (status_id, type)
+values (1, 'Active'),
+       (2, 'Busy'),
+       (3, 'Archived'),
+       (4, 'Hidden'),
+       (5, 'Private'),
+       (6, 'Matched');
+
 -- locations Table --
 
 insert into job_match.locations (location_id, name)

@@ -1,7 +1,6 @@
 package com.project.jobmatch.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.jobmatch.models.enums.ProfessionalStatus;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -39,8 +38,10 @@ public class Professional {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @Column(name = "status")
-    private ProfessionalStatus status;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id")
+    private Status status;
 
     @OneToOne
     @JoinColumn(name = "picture_id")
@@ -116,11 +117,11 @@ public class Professional {
         this.location = location;
     }
 
-    public ProfessionalStatus getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(ProfessionalStatus status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

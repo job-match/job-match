@@ -1,9 +1,7 @@
 package com.project.jobmatch.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.jobmatch.models.enums.JobAdStatus;
 import jakarta.persistence.*;
-
 import java.util.Objects;
 import java.util.Set;
 
@@ -28,8 +26,10 @@ public class JobAd {
     @Column(name = "job_description")
     private String jobDescription;
 
-    @Column(name = "status")
-    private JobAdStatus status;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id")
+    private Status status;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
@@ -101,11 +101,11 @@ public class JobAd {
         this.jobDescription = jobDescription;
     }
 
-    public JobAdStatus getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(JobAdStatus status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
