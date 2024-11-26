@@ -30,6 +30,9 @@ create table companies
 (
     company_id  int auto_increment primary key,
     name        varchar(50)  not null,
+    username    varchar(20)  not null unique,
+    password    varchar(15)  not null,
+    email       varchar(50)  not null unique,
     description varchar(500) not null,
     location_id int,
     contacts    varchar(255) not null,
@@ -49,6 +52,11 @@ create table companies
 create table professionals
 (
     professional_id int auto_increment primary key,
+    username        varchar(20) not null unique,
+    password        varchar(15) not null,
+    first_name      varchar(32) not null,
+    last_name       varchar(32) not null,
+    email           varchar(50) not null unique,
     summary         varchar(500),
     location_id     int,
     status          varchar(50) not null default 'Active',
@@ -147,8 +155,9 @@ create table job_applications_job_ads
     foreign key (job_ad_id) references job_ads (job_ad_id) on delete cascade
 );
 
-create table matches (
-    match_id int auto_increment primary key,
+create table matches
+(
+    match_id           int auto_increment primary key,
     job_ad_id          int,
     job_application_id int,
 
