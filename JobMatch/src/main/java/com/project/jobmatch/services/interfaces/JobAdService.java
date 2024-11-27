@@ -17,4 +17,5 @@ public interface JobAdService {
 
     List<JobAd> getAll();
 
+    List<JobAd> searchJobAds(String positionTitle, String location, Double minSalary, Double maxSalary, String requirement);
 }

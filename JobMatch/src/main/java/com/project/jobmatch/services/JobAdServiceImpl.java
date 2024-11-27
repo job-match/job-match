@@ -24,6 +24,12 @@ public class JobAdServiceImpl implements JobAdService {
         this.jobAdRepository = jobAdRepository;
     }
 
+    @Override
+    public JobAd getJobAdById(int id) {
+        return jobAdRepository
+                .findJobAdById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Job ad", id));
+    }
 
     @Override
     public List<JobAd> getAll() {
@@ -31,10 +37,13 @@ public class JobAdServiceImpl implements JobAdService {
     }
 
     @Override
-    public JobAd getJobAdById(int id) {
-        return jobAdRepository
-                .findJobAdById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Job ad", id));
+    public List<JobAd> searchJobAds(String positionTitle,
+                                    String location,
+                                    Double minSalary,
+                                    Double maxSalary,
+                                    String requirement) {
+
+        return jobAdRepository.searchJobAds(positionTitle, location, minSalary, maxSalary, requirement);
     }
 
     @Override

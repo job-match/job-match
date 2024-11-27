@@ -42,6 +42,24 @@ public class JobAdForProfessionalsRestController {
         }
     }
 
+    @GetMapping("/search")
+    public List<JobAdDtoOut> searchJobAds(@RequestHeader HttpHeaders headers,
+                                          @RequestParam(required = false) String positionTitle,
+                                          @RequestParam(required = false) String location,
+                                          @RequestParam(required = false) Double minSalary,
+                                          @RequestParam(required = false) Double maxSalary,
+                                          @RequestParam(required = false) String requirement) {
+        try {
+            authenticationHelper.tryGetProfessional(headers);
+
+            List<JobAd> jobAds = jobAdService.searchJobAds(positionTitle, location, minSalary, maxSalary, requirement);
+
+            return modelMapper.fromJobAdToJobAdDtoOutList(jobAds);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
     @GetMapping("/{id}")
     public JobAdDtoOut getJobAdById(@RequestHeader HttpHeaders headers,
                                     @PathVariable int id) {
@@ -55,4 +73,6 @@ public class JobAdForProfessionalsRestController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
+
+
 }
