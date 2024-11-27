@@ -2,6 +2,7 @@ package com.project.jobmatch.services.interfaces;
 
 import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.JobApplication;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ public interface JobAdService {
     void updateJobAd(JobAd jobAd, Company company);
 
     void createJobAd(JobAd jobAd);
+
+    void addJobApplicationToListOfApplicationMatchRequests(JobAd jobAd, JobApplication jobApplication);
 
     JobAd getJobAdById(int id);
 

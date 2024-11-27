@@ -16,10 +16,10 @@ public class JobApplication {
     private int id;
 
     @Column(name = "min_desired_salary")
-    private int minDesiredSalary;
+    private double minDesiredSalary;
 
     @Column(name = "max_desired_salary")
-    private int maxDesiredSalary;
+    private double maxDesiredSalary;
 
     @Column(name = "motivation_letter")
     private String motivationLetter;
@@ -66,11 +66,11 @@ public class JobApplication {
         this.id = id;
     }
 
-    public int getMinDesiredSalary() {
+    public double getMinDesiredSalary() {
         return minDesiredSalary;
     }
 
-    public void setMinDesiredSalary(int minDesiredSalary) {
+    public void setMinDesiredSalary(double minDesiredSalary) {
         this.minDesiredSalary = minDesiredSalary;
     }
 
@@ -82,11 +82,11 @@ public class JobApplication {
         this.motivationLetter = motivationLetter;
     }
 
-    public int getMaxDesiredSalary() {
+    public double getMaxDesiredSalary() {
         return maxDesiredSalary;
     }
 
-    public void setMaxDesiredSalary(int maxDesiredSalary) {
+    public void setMaxDesiredSalary(double maxDesiredSalary) {
         this.maxDesiredSalary = maxDesiredSalary;
     }
 

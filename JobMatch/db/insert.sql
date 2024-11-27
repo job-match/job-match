@@ -364,8 +364,11 @@ values (1, 3500, 4000,
 
        (11, 3000, 3500,
         'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
-        2, 21);
+        2, 21),
 
+       (12, 2500, 3000,
+        'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
+        3, 21);
 
 -- job_ads_job_applications Table --
 
@@ -664,9 +667,15 @@ values (11, 1),  -- Java
        (11, 2),  -- Python
        (11, 5),  -- Problem-Solving
        (11, 37), -- Coding Best Practices
-       (11, 12);
--- Analytical Thinking
+       (11, 12);-- Analytical Thinking
 
+-- Application 12: Financial Analyst (Finance, Budgeting, Financial Analysis)
+insert into job_match.job_applications_skills (job_application_id, skill_id)
+values (12, 1),  -- Java
+       (12, 2),  -- Python
+       (12, 6),  -- SQL
+       (12, 29), -- Critical Thinking
+       (12, 7);  -- Attention to detail
 
 -- matches Table --
 
