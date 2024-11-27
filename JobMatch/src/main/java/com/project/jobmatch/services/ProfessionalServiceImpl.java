@@ -92,6 +92,12 @@ public class ProfessionalServiceImpl implements ProfessionalService {
         professionalRepository.save(professionalToUploadPicture);
     }
 
+    @Override
+    public void deleteProfessional(Professional professionalToDelete, Professional professionalAuthenticated) {
+        checkModifyPermissions(professionalAuthenticated, professionalToDelete);
+        professionalRepository.delete(professionalToDelete);
+    }
+
     private void checkModifyPermissions(Professional professionalAuthenticated,
                                         Professional professionalMapped) {
 

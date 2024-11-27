@@ -13,9 +13,12 @@ public interface ProfessionalService {
 
     void uploadPictureToProfessional(Professional professionalAuthenticated, Professional professionalToUploadPicture, CloudinaryImage cloudinaryImage);
 
+    void deleteProfessional(Professional professionalToDelete, Professional professionalAuthenticated);
+
     Professional getByUsername(String username);
 
     Professional getProfessionalById(int id);
 
     List<Professional> getAllProfessionals();
+
 }
