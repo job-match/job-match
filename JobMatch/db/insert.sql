@@ -187,7 +187,7 @@ values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilkirilov@mail.bg
         'Graphic designer with a unique blend of creativity and technical skill in visual design. Expert in Adobe Creative Suite and familiar with digital marketing and branding strategies. Known for a strong eye for detail and an ability to create visually compelling content.',
         6),
 
-       (9, 'annaluncheva', 'password', 'Anna', 'Vulcheva', 'annaluncheva@mail.bg',
+       (9, 'annavalcheva', 'password', 'Anna', 'Valcheva', 'annaluncheva@mail.bg',
         'Software engineer with a focus on front-end development and a strong foundation in HTML, CSS, and JavaScript. Enjoys creating intuitive and user-friendly interfaces that enhance user experience. Known for problem-solving abilities and meticulous attention to detail, ensuring high-quality, responsive designs.',
         3),
 
