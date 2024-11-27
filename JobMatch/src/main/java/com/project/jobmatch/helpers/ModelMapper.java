@@ -1,6 +1,7 @@
 package com.project.jobmatch.helpers;
 
 import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.dto.JobAdDtoInUpdate;
 import com.project.jobmatch.models.Requirement;
 import com.project.jobmatch.models.dto.*;
 import com.project.jobmatch.services.interfaces.*;
@@ -15,10 +16,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -45,14 +42,15 @@ public class ModelMapper {
         this.jobApplicationService = jobApplicationService;
     }
 
-    public JobAd fromJodAdDtoIn(int id, JobAdDtoInCreate jobAdDtoInCreate) {
-        JobAd jobAd = fromJobAdDtoIn(jobAdDtoInCreate);
-        jobAd.setId(id);
+    public JobAd fromJodAdDtoIn(int id, JobAdDtoInUpdate jobAdDtoInUpdate) {
+        JobAd jobAd = jobAdService.getJobAdById(id);
 
-        JobAd repositoryAd = jobAdService.getJobAdById(id);
-        jobAd.setStatus(statusService.getStatusByType("Active"));
-        jobAd.setCompany(repositoryAd.getCompany());
-        jobAd.setListOfApplicationMatchRequests(repositoryAd.getListOfApplicationMatchRequests());
+        jobAd.setPositionTitle(jobAdDtoInUpdate.getTitle());
+        jobAd.setMinSalaryBoundary(jobAdDtoInUpdate.getMinSalaryBoundary());
+        jobAd.setMaxSalaryBoundary(jobAdDtoInUpdate.getMaxSalaryBoundary());
+        jobAd.setJobDescription(jobAdDtoInUpdate.getDescription());
+        jobAd.setLocation(locationService.getLocationByName(jobAdDtoInUpdate.getLocation()));
+        jobAd.setStatus(statusService.getStatusByType(jobAdDtoInUpdate.getStatus()));
 
         return jobAd;
     }

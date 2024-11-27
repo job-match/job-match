@@ -10,4 +10,5 @@ public interface JobAdService {
     JobAd getJobAdById(int id);
     void createJobAd(JobAd jobAd, Company company);
     JobAd getJobAdByTitle(String title);
+    void updateJobAd(JobAd jobAd, Company company);
 }

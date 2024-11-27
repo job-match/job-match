@@ -7,6 +7,7 @@ import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.dto.JobAdDtoInUpdate;
 import com.project.jobmatch.models.dto.JobAdDtoInCreate;
 import com.project.jobmatch.models.dto.JobAdDtoOut;
 import com.project.jobmatch.services.interfaces.CompanyService;
@@ -76,5 +77,15 @@ public class JobAdForCompaniesRestController {
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
+    }
+
+    @PutMapping("/{id}")
+    public void updateJobAd(@RequestHeader HttpHeaders headers,
+                            @PathVariable int id,
+                            @Valid @RequestBody JobAdDtoInUpdate jobAdDtoInUpdate) {
+        Company company = authenticationHelper.tryGetCompany(headers);
+        JobAd jobAd = modelMapper.fromJodAdDtoIn(id,jobAdDtoInUpdate);
+
+        jobAdService.updateJobAd(jobAd, company);
     }
 }

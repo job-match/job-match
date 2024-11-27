@@ -4,9 +4,7 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.util.Set;
-
-public class JobAdDtoInCreate {
+public class JobAdDtoInUpdate {
 
     @NotNull(message = "Title cannot be empty!")
     @Size(min = 2, max = 50, message = "Title should be up to 50 symbols!")
@@ -17,7 +15,7 @@ public class JobAdDtoInCreate {
     private double minSalaryBoundary;
 
     @NotNull(message = "Max Salary cannot be empty!")
-    @DecimalMin(value = "1.0", message = "Maximum salary must be positive.")
+    @DecimalMin(value = "1.0", message = "Maximum salary must be positive")
     private double maxSalaryBoundary;
 
     @NotNull(message = "Job description cannot be empty!")
@@ -28,11 +26,13 @@ public class JobAdDtoInCreate {
     @Size(min = 2, max = 50, message = "Location should be up to 50 symbols!")
     private String location;
 
-    // TODO add Company field
+    @NotNull(message = "Status cannot be empty!")
+    @Size(min = 2, max = 50, message = "Status should be between 2 and 50 symbols!")
+    private String status;
+    // TODO add company field
 
-    private Set<String> requirements;
 
-    public JobAdDtoInCreate() {
+    public JobAdDtoInUpdate() {
     }
 
     public String getTitle() {
@@ -75,11 +75,11 @@ public class JobAdDtoInCreate {
         this.location = location;
     }
 
-    public Set<String> getRequirements() {
-        return requirements;
+    public String getStatus() {
+        return status;
     }
 
-    public void setRequirements(Set<String> requirements) {
-        this.requirements = requirements;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

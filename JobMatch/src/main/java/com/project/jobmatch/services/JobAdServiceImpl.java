@@ -1,5 +1,6 @@
 package com.project.jobmatch.services;
 
+import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.models.Company;
@@ -13,6 +14,9 @@ import java.util.List;
 
 @Service
 public class JobAdServiceImpl implements JobAdService {
+
+    private static final String MODIFY_JOB_AD_ERROR_MESSAGE = "Only job ad owner can make changes to the job ad info.";
+
 
     private JobAdRepository jobAdRepository;
 
@@ -55,5 +59,17 @@ public class JobAdServiceImpl implements JobAdService {
         return jobAdRepository
                 .findJobAdByPositionTitle(title)
                 .orElseThrow(() -> new EntityNotFoundException("Job Ad", "title", title));
+    }
+
+    @Override
+    public void updateJobAd(JobAd jobAd, Company company) {
+        checkModifyPermissions(company, jobAd);
+        jobAdRepository.save(jobAd);
+    }
+
+    private void checkModifyPermissions(Company company, JobAd jobAd) {
+        if(!(jobAd.getCompany().equals(company))) {
+            throw new AuthorizationException(MODIFY_JOB_AD_ERROR_MESSAGE);
+        }
     }
 }
