@@ -25,13 +25,13 @@ import java.util.List;
 public class JobAdForCompaniesRestController {
 
     private final JobAdService jobAdService;
-    private final CompanyService companyService;
     private final AuthenticationHelper authenticationHelper;
     private final ModelMapper modelMapper;
 
-    public JobAdForCompaniesRestController(JobAdService jobAdService, CompanyService companyService, AuthenticationHelper authenticationHelper, ModelMapper modelMapper) {
+    public JobAdForCompaniesRestController(JobAdService jobAdService,
+                                           AuthenticationHelper authenticationHelper,
+                                           ModelMapper modelMapper) {
         this.jobAdService = jobAdService;
-        this.companyService = companyService;
         this.authenticationHelper = authenticationHelper;
         this.modelMapper = modelMapper;
     }
