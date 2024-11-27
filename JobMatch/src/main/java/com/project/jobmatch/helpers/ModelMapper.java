@@ -10,7 +10,6 @@ import com.project.jobmatch.models.dto.CompanyDtoInCreate;
 import com.project.jobmatch.models.dto.CompanyDtoInUpdate;
 import com.project.jobmatch.models.dto.CompanyDtoOut;
 import com.project.jobmatch.services.interfaces.CompanyService;
-import com.project.jobmatch.services.interfaces.LocationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import com.project.jobmatch.services.interfaces.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
