@@ -68,13 +68,10 @@ public class JobAdForCompaniesRestController {
                                    @Valid @RequestBody JobAdDtoInCreate jobAdDtoInCreate) {
         try {
             Company company = authenticationHelper.tryGetCompany(headers);
-            JobAd jobAd = modelMapper.fromJobAdDtoIn(jobAdDtoInCreate);
-            jobAd.setCompany(company);
-            jobAdService.createJobAd(jobAd, company);
+            JobAd jobAd = modelMapper.fromJobAdDtoIn(jobAdDtoInCreate, company);
+            jobAdService.createJobAd(jobAd);
 
             return modelMapper.fromJobAdToJobAdDtoOut(jobAd);
-        } catch (EntityDuplicateException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }

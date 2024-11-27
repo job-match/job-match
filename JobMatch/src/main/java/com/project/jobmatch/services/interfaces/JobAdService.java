@@ -9,7 +9,7 @@ public interface JobAdService {
 
     void updateJobAd(JobAd jobAd, Company company);
 
-    void createJobAd(JobAd jobAd, Company company);
+    void createJobAd(JobAd jobAd);
 
     void deleteJobAd(int id, Company company);
 

@@ -1,7 +1,6 @@
 package com.project.jobmatch.services;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
-import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
@@ -39,19 +38,8 @@ public class JobAdServiceImpl implements JobAdService {
     }
 
     @Override
-    public void createJobAd(JobAd jobAd, Company company) {
-        boolean duplicateExists = true;
-        try {
-            getJobAdByTitle(jobAd.getPositionTitle());
-        } catch (EntityNotFoundException e) {
-            duplicateExists = false;
-        }
-
-        if (duplicateExists) {
-            throw new EntityDuplicateException("Job Ad", "title", jobAd.getPositionTitle());
-        } else {
-            jobAdRepository.save(jobAd);
-        }
+    public void createJobAd(JobAd jobAd) {
+        jobAdRepository.save(jobAd);
     }
 
     @Override
@@ -59,7 +47,6 @@ public class JobAdServiceImpl implements JobAdService {
         JobAd jobAd = getJobAdById(id);
         checkModifyPermissions(company, jobAd);
         jobAdRepository.delete(jobAd);
-
     }
 
     @Override
