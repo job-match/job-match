@@ -69,22 +69,22 @@ public class AuthenticationHelper {
         }
     }
 
-    private String getUsername(String userInfo) {
-        int firstSpace = userInfo.indexOf(" ");
+    private String getUsername(String info) {
+        int firstSpace = info.indexOf(" ");
         if (firstSpace == -1) {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
 
-        return userInfo.substring(0, firstSpace);
+        return info.substring(0, firstSpace);
     }
 
-    private String getPassword(String userInfo) {
-        int firstSpace = userInfo.indexOf(" ");
+    private String getPassword(String info) {
+        int firstSpace = info.indexOf(" ");
         if (firstSpace == -1) {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
 
-        return userInfo.substring(firstSpace + 1);
+        return info.substring(firstSpace + 1);
     }
 
 //    public User tryGetCurrentUser(HttpSession session) {
