@@ -42,7 +42,7 @@ public class Company {
     @JoinColumn(name = "picture_id")
     private Picture picture;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<JobAd> jobAds;
 
     public Company() {

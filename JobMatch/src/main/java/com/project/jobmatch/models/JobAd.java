@@ -42,7 +42,7 @@ public class JobAd {
     private Company company;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "job_ads_requirements",
             joinColumns = @JoinColumn(name = "job_ad_id"),
@@ -50,7 +50,7 @@ public class JobAd {
     )
     private Set<Requirement> requirements;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "job_ads_job_applications",
             joinColumns = @JoinColumn(name = "job_ad_id"),

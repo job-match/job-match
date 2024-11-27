@@ -55,6 +55,14 @@ public class JobAdServiceImpl implements JobAdService {
     }
 
     @Override
+    public void deleteJobAd(int id, Company company) {
+        JobAd jobAd = getJobAdById(id);
+        checkModifyPermissions(company, jobAd);
+        jobAdRepository.delete(jobAd);
+
+    }
+
+    @Override
     public JobAd getJobAdByTitle(String title) {
         return jobAdRepository
                 .findJobAdByPositionTitle(title)

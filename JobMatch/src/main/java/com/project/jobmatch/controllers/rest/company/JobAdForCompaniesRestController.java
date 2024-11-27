@@ -93,4 +93,17 @@ public class JobAdForCompaniesRestController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteJobAd(@RequestHeader HttpHeaders headers,
+                            @PathVariable int id) {
+        try{
+            Company company = authenticationHelper.tryGetCompany(headers);
+            jobAdService.deleteJobAd(id, company);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 }
