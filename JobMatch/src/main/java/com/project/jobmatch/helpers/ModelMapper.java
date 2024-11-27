@@ -13,6 +13,7 @@ import com.project.jobmatch.models.dto.CompanyDtoOut;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import com.project.jobmatch.services.interfaces.StatusService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,7 @@ public class ModelMapper {
     private final StatusService statusService;
     private final CompanyService companyService;
     private final JobApplicationService jobApplicationService;
+    private final SkillService skillService;
 
     @Autowired
     public ModelMapper(ProfessionalService professionalService,
@@ -40,7 +42,8 @@ public class ModelMapper {
                        RequirementService requirementService,
                        StatusService statusService,
                        CompanyService companyService,
-                       JobApplicationService jobApplicationService) {
+                       JobApplicationService jobApplicationService,
+                       SkillService skillService) {
         this.professionalService = professionalService;
         this.jobAdService = jobAdService;
         this.locationService = locationService;
@@ -48,6 +51,7 @@ public class ModelMapper {
         this.statusService = statusService;
         this.companyService = companyService;
         this.jobApplicationService = jobApplicationService;
+        this.skillService = skillService;
     }
 
     public CompanyDtoOut fromCompanyToCompanyDtoOut (Company company) {
@@ -63,7 +67,7 @@ public class ModelMapper {
         return companyDtoOut;
     }
 
-    public Company fromCompanyDtoInToCompany(CompanyDtoInCreate companyDtoInCreate) {
+    public Company fromCompanyDtoInCreateToCompany(CompanyDtoInCreate companyDtoInCreate) {
         Company company = new Company();
 
         company.setUsername(companyDtoInCreate.getUsername());
@@ -265,5 +269,30 @@ public class ModelMapper {
         return jobApplications.stream()
                 .map(this::fromJobApplicationToJobApplicationDtoOut)
                 .collect(Collectors.toList());
+    }
+
+    public Set<Skill> fromStringSetToSkillsSet(Set<String> skills) {
+        if (skills == null) {
+            return new HashSet<>();
+        }
+
+        return skills.stream()
+                .map(skillService::getSkillByName)
+                .collect(Collectors.toSet());
+    }
+
+    public JobApplication fromJobApplicationDtoInCreateToJobApplication(
+            Professional professionalAuthenticated, JobApplicationDtoInCreate jobApplicationDtoInCreate) {
+        JobApplication jobApplication = new JobApplication();
+
+        jobApplication.setMinDesiredSalary(jobApplicationDtoInCreate.getMinDesiredSalary());
+        jobApplication.setMaxDesiredSalary(jobApplicationDtoInCreate.getMaxDesiredSalary());
+        jobApplication.setMotivationLetter(jobApplicationDtoInCreate.getMotivationLetter());
+        jobApplication.setLocation(locationService.getLocationByName(jobApplicationDtoInCreate.getLocation()));
+        jobApplication.setStatus(statusService.getStatusByType("Hidden"));
+        jobApplication.setProfessional(professionalAuthenticated);
+        jobApplication.setSkills(fromStringSetToSkillsSet(jobApplicationDtoInCreate.getSkills()));
+
+        return jobApplication;
     }
 }

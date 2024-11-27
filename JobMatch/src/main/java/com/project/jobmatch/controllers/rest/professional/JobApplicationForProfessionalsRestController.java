@@ -5,9 +5,11 @@ import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.models.dto.JobApplicationDtoInCreate;
 import com.project.jobmatch.models.dto.JobApplicationDtoOut;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +43,21 @@ public class JobApplicationForProfessionalsRestController {
                     jobApplicationService.getAllJobApplicationsOfProfessional
                             (professionalToRetrieveJobAppsFrom, professionalAuthenticated);
             return modelMapper.fromSetJobApplicationToSetJobApplicationDtoOut(jobApplications);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @PostMapping()
+    public JobApplicationDtoOut createJobApplication(@RequestHeader HttpHeaders httpHeaders,
+                                               @Valid @RequestBody JobApplicationDtoInCreate jobApplicationDtoInCreate) {
+        try {
+            Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(httpHeaders);
+            JobApplication jobApplication = modelMapper.fromJobApplicationDtoInCreateToJobApplication(
+                    professionalAuthenticated, jobApplicationDtoInCreate);
+            jobApplicationService.createJobApplication(jobApplication);
+
+            return modelMapper.fromJobApplicationToJobApplicationDtoOut(jobApplication);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }

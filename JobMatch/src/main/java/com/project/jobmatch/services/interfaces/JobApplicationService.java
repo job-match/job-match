@@ -9,4 +9,6 @@ public interface JobApplicationService {
 
     List<JobApplication> getAllJobApplicationsOfProfessional
             (Professional professionalToRetrieveJobAppsFrom, Professional professionalAuthenticated);
+
+    void createJobApplication(JobApplication jobApplication);
 }

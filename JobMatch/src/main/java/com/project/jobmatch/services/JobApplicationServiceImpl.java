@@ -37,4 +37,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         return jobApplicationRepository.findJobApplicationsByProfessionalId(professionalToRetrieveJobAppsFrom.getId());
     }
 
+    @Override
+    public void createJobApplication(JobApplication jobApplication) {
+        jobApplicationRepository.save(jobApplication);
+    }
+
 }

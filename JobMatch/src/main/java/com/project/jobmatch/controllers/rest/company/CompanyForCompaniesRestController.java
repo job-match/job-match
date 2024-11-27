@@ -6,7 +6,6 @@ import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.Company;
-import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.CompanyDtoInCreate;
 import com.project.jobmatch.models.dto.CompanyDtoInUpdate;
 import com.project.jobmatch.models.dto.CompanyDtoOut;
@@ -73,7 +72,7 @@ public class CompanyForCompaniesRestController {
     @PostMapping()
     public CompanyDtoOut registerCompany(@Valid @RequestBody CompanyDtoInCreate companyDtoInCreate) {
         try {
-            Company company = modelMapper.fromCompanyDtoInToCompany(companyDtoInCreate);
+            Company company = modelMapper.fromCompanyDtoInCreateToCompany(companyDtoInCreate);
             companyService.registerCompany(company);
 
             return modelMapper.fromCompanyToCompanyDtoOut(company);

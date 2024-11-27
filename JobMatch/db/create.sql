@@ -116,7 +116,9 @@ create table job_applications
         foreign key (status_id) references statuses (status_id) on delete set null,
 
     constraint job_applications_professionals_professional_id_fk
-        foreign key (professional_id) references professionals (professional_id) on delete set null
+        foreign key (professional_id) references professionals (professional_id) on delete set null,
+    check (min_desired_salary >= 1),
+    check (min_desired_salary >= 1 and max_desired_salary <= 500000)
 );
 
 create table job_ads_requirements
