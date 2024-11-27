@@ -6,9 +6,15 @@ import com.project.jobmatch.models.JobAd;
 import java.util.List;
 
 public interface JobAdService {
-    List<JobAd> getAll();
-    JobAd getJobAdById(int id);
-    void createJobAd(JobAd jobAd, Company company);
-    JobAd getJobAdByTitle(String title);
+
     void updateJobAd(JobAd jobAd, Company company);
+
+    void createJobAd(JobAd jobAd, Company company);
+
+    JobAd getJobAdById(int id);
+
+    JobAd getJobAdByTitle(String title);
+
+    List<JobAd> getAll();
+
 }
