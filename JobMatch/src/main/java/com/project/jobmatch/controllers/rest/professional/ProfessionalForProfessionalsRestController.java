@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/api/professional-portal/professionals")
 public class ProfessionalForProfessionalsRestController {
 
-    public static final String UPLOAD_PICTURE_ERROR_MESSAGE = "Could not upload professional's picture!";
+    public static final String UPLOAD_PROFESSIONAL_PICTURE_ERROR_MESSAGE = "Could not upload professional's picture!";
 
     private final ProfessionalService professionalService;
     private final CloudinaryService cloudinaryService;
@@ -100,7 +100,7 @@ public class ProfessionalForProfessionalsRestController {
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (IOException e) {
-            throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, UPLOAD_PICTURE_ERROR_MESSAGE);
+            throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, UPLOAD_PROFESSIONAL_PICTURE_ERROR_MESSAGE);
         }
     }
 
