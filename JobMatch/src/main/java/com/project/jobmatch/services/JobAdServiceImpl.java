@@ -65,7 +65,7 @@ public class JobAdServiceImpl implements JobAdService {
         boolean doSkillsAndRequirementsMatch = checkSkillsAndRequirements(jobApplication.getSkills(),
                 jobAd.getRequirements());
 
-        boolean doLocationsMatch = jobAd.getLocation().getName().equalsIgnoreCase(jobApplication.getLocation().getName());
+        boolean doLocationsMatch = checkLocationMatch(jobAd.getLocation().getName(), jobApplication.getLocation().getName());
 
         if (doSalariesMatch && doSkillsAndRequirementsMatch && doLocationsMatch) {
             if (jobAd.getListOfApplicationMatchRequests().contains(jobApplication)) {
@@ -77,6 +77,21 @@ public class JobAdServiceImpl implements JobAdService {
             throw new MatchRequestDeniedException(APPLICATION_DENIED_ERROR_MESSAGE);
         }
     }
+
+    private boolean checkLocationMatch(String jobAdLocationName, String jobApplicationLocationName) {
+
+        if (jobAdLocationName.equalsIgnoreCase("Remote")) {
+            return true;
+
+        } else if (jobAdLocationName.equalsIgnoreCase("Hybrid") &&
+                (!jobApplicationLocationName.equalsIgnoreCase("Remote"))) {
+            return true;
+
+        } else {
+            return jobAdLocationName.equalsIgnoreCase(jobApplicationLocationName);
+        }
+    }
+
 
     @Override
     public JobAd getJobAdByTitle(String title) {
@@ -92,7 +107,7 @@ public class JobAdServiceImpl implements JobAdService {
     }
 
     private void checkModifyPermissions(Company company, JobAd jobAd) {
-        if(!(jobAd.getCompany().equals(company))) {
+        if (!(jobAd.getCompany().equals(company))) {
             throw new AuthorizationException(MODIFY_JOB_AD_ERROR_MESSAGE);
         }
     }
@@ -102,26 +117,28 @@ public class JobAdServiceImpl implements JobAdService {
                                      double minJobAppSalary,
                                      double maxJobAppSalary) {
 
-        return ((minJobAdSalary >= minJobAppSalary) || (minJobAdSalary < minJobAppSalary && maxJobAdSalary >= minJobAppSalary)) && maxJobAdSalary >= maxJobAppSalary;
+        return (minJobAdSalary * 0.8 <= minJobAppSalary && minJobAppSalary <= maxJobAdSalary * 1.2) &&
+                (minJobAdSalary * 0.8 <= maxJobAppSalary && maxJobAppSalary <= maxJobAdSalary * 1.2);
     }
 
     private boolean checkSkillsAndRequirements(Set<Skill> skills, Set<Requirement> requirements) {
+        int requirementsMetCounter = 0;
+        double thresholdRequirements = 50.0;
+
         for (Requirement requirement : requirements) {
             String requirementType = requirement.getType();
-            boolean isRequirementAvailableInSkills = false;
 
             for (Skill skill : skills) {
                 String skillType = skill.getType();
                 if (skillType.equalsIgnoreCase(requirementType)) {
-                    isRequirementAvailableInSkills = true;
-                    break;
+                    requirementsMetCounter++;
                 }
             }
-            if (!isRequirementAvailableInSkills) {
-                return false;
-            }
         }
-        return true;
+
+        double metRequirementsPercentage = (requirementsMetCounter * 1.0 / requirements.size()) * 100;
+
+        return thresholdRequirements <= metRequirementsPercentage;
     }
 
 }
