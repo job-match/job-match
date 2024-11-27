@@ -5,6 +5,7 @@ import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
+import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.ProfessionalDtoInCreate;
 import com.project.jobmatch.models.dto.ProfessionalDtoInUpdate;
@@ -44,9 +45,10 @@ public class ProfessionalForProfessionalsRestController {
     }
 
     @GetMapping("/{id}")
-    public ProfessionalDtoOut getProfessionalById(@RequestHeader HttpHeaders headers, @PathVariable int id) {
+    public ProfessionalDtoOut getProfessionalById(@RequestHeader HttpHeaders httpHeaders,
+                                                  @PathVariable int id) {
         try {
-            authenticationHelper.tryGetProfessional(headers);
+            authenticationHelper.tryGetProfessional(httpHeaders);
             Professional professional = professionalService.getProfessionalById(id);
 
             return modelMapper.fromProfessionalToProfessionalDtoOut(professional);
@@ -85,11 +87,11 @@ public class ProfessionalForProfessionalsRestController {
     }
 
     @PostMapping("/{id}/picture")
-    public void uploadPictureOfProfessional(@RequestHeader HttpHeaders headers,
+    public void uploadPictureOfProfessional(@RequestHeader HttpHeaders httpHeaders,
                                    @PathVariable int id,
                                    @RequestPart("picture") MultipartFile picture) {
         try {
-            Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(headers);
+            Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(httpHeaders);
             Professional professionalToUploadPicture = professionalService.getProfessionalById(id);
             CloudinaryImage cloudinaryImage = cloudinaryService.upload(picture);
 
@@ -105,17 +107,31 @@ public class ProfessionalForProfessionalsRestController {
     }
 
     @PutMapping("/{id}")
-    public void updateProfessional(@RequestHeader HttpHeaders headers,
+    public void updateProfessional(@RequestHeader HttpHeaders httpHeaders,
                               @PathVariable int id,
                               @Valid @RequestBody ProfessionalDtoInUpdate professionalDtoInUpdate) {
         try {
-            Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(headers);
+            Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(httpHeaders);
             Professional professionalMapped = modelMapper.fromProfessionalDtoInToProfessional(id, professionalDtoInUpdate);
 
             professionalService.updateProfessional(professionalAuthenticated, professionalMapped);
 
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProfessional(@RequestHeader HttpHeaders httpHeaders, @PathVariable int id) {
+        try {
+            Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(httpHeaders);
+            Professional professionalToDelete = professionalService.getProfessionalById(id);
+
+            professionalService.deleteProfessional(professionalToDelete, professionalAuthenticated);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
