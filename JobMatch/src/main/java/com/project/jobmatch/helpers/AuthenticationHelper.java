@@ -56,7 +56,7 @@ public class AuthenticationHelper {
             String companyInfo = headers.getFirst(AUTHORIZATION_HEADER_NAME);
             String username = getUsername(companyInfo);
             String password = getPassword(companyInfo);
-            Company company = companyService.getByUsername(username);
+            Company company = companyService.getCompanyByUsername(username);
 
             if (!company.getPassword().equals(password)) {
                 throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
