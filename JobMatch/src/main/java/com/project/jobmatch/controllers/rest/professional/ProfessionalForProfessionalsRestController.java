@@ -9,19 +9,24 @@ import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.ProfessionalDtoInCreate;
 import com.project.jobmatch.models.dto.ProfessionalDtoInUpdate;
 import com.project.jobmatch.models.dto.ProfessionalDtoOut;
+import com.project.jobmatch.services.CloudinaryImage;
 import com.project.jobmatch.services.interfaces.CloudinaryService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/professional-portal/professionals")
 public class ProfessionalForProfessionalsRestController {
+
+    public static final String UPLOAD_PROFESSIONAL_PICTURE_ERROR_MESSAGE = "Could not upload professional's picture!";
 
     private final ProfessionalService professionalService;
     private final CloudinaryService cloudinaryService;
@@ -76,6 +81,26 @@ public class ProfessionalForProfessionalsRestController {
 
         } catch (EntityDuplicateException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+    }
+
+    @PostMapping("/{id}/picture")
+    public void uploadPictureOfProfessional(@RequestHeader HttpHeaders headers,
+                                   @PathVariable int id,
+                                   @RequestPart("picture") MultipartFile picture) {
+        try {
+            Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(headers);
+            Professional professionalToUploadPicture = professionalService.getProfessionalById(id);
+            CloudinaryImage cloudinaryImage = cloudinaryService.upload(picture);
+
+            professionalService.uploadPictureToProfessional(professionalAuthenticated, professionalToUploadPicture, cloudinaryImage);
+
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, UPLOAD_PROFESSIONAL_PICTURE_ERROR_MESSAGE);
         }
     }
 

@@ -45,7 +45,7 @@ public class Professional {
 
     @OneToOne
     @JoinColumn(name = "picture_id")
-    private Picture picture_id;
+    private Picture picture;
 
     @OneToMany(mappedBy = "professional", fetch = FetchType.EAGER)
     private Set<JobApplication> jobApplications;
@@ -125,12 +125,12 @@ public class Professional {
         this.status = status;
     }
 
-    public Picture getPicture_id() {
-        return picture_id;
+    public Picture getPicture() {
+        return picture;
     }
 
-    public void setPicture_id(Picture picture_id) {
-        this.picture_id = picture_id;
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 
     public Set<JobApplication> getJobApplications() {

@@ -1,6 +1,10 @@
 package com.project.jobmatch.helpers;
 
+import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.models.Requirement;
+import com.project.jobmatch.models.dto.*;
+import com.project.jobmatch.services.interfaces.*;
 import com.project.jobmatch.models.dto.ProfessionalDtoInCreate;
 import com.project.jobmatch.models.dto.ProfessionalDtoInUpdate;
 import com.project.jobmatch.models.dto.ProfessionalDtoOut;
@@ -10,32 +14,44 @@ import com.project.jobmatch.models.dto.CompanyDtoInCreate;
 import com.project.jobmatch.models.dto.CompanyDtoInUpdate;
 import com.project.jobmatch.models.dto.CompanyDtoOut;
 import com.project.jobmatch.services.interfaces.CompanyService;
+import com.project.jobmatch.services.interfaces.LocationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import com.project.jobmatch.services.interfaces.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
 public class ModelMapper {
 
     private final ProfessionalService professionalService;
+    private final JobAdService jobAdService;
     private final LocationService locationService;
+    private final RequirementService requirementService;
     private final StatusService statusService;
     private final CompanyService companyService;
+    private final JobApplicationService jobApplicationService;
 
     @Autowired
     public ModelMapper(ProfessionalService professionalService,
+                       JobAdService jobAdService,
                        LocationService locationService,
+                       RequirementService requirementService,
                        StatusService statusService,
-                       CompanyService companyService) {
+                       CompanyService companyService,
+                       JobApplicationService jobApplicationService) {
         this.professionalService = professionalService;
+        this.jobAdService = jobAdService;
         this.locationService = locationService;
+        this.requirementService = requirementService;
         this.statusService = statusService;
         this.companyService = companyService;
+        this.jobApplicationService = jobApplicationService;
     }
 
     public CompanyDtoOut fromCompanyToCompanyDtoOut (Company company) {
@@ -99,6 +115,63 @@ public class ModelMapper {
         company.setJobAds(companyService.getCompanyById(id).getJobAds());
 
         return company;
+    }
+
+    public JobAd fromJodAdDtoIn(int id, JobAdDtoInUpdate jobAdDtoInUpdate) {
+        JobAd jobAd = jobAdService.getJobAdById(id);
+
+        jobAd.setPositionTitle(jobAdDtoInUpdate.getTitle());
+        jobAd.setMinSalaryBoundary(jobAdDtoInUpdate.getMinSalaryBoundary());
+        jobAd.setMaxSalaryBoundary(jobAdDtoInUpdate.getMaxSalaryBoundary());
+        jobAd.setJobDescription(jobAdDtoInUpdate.getDescription());
+        jobAd.setLocation(locationService.getLocationByName(jobAdDtoInUpdate.getLocation()));
+        jobAd.setStatus(statusService.getStatusByType(jobAdDtoInUpdate.getStatus()));
+
+        return jobAd;
+    }
+    public JobAd fromJobAdDtoIn(JobAdDtoInCreate jobAdDtoInCreate) {
+        JobAd jobAd = new JobAd();
+        jobAd.setPositionTitle(jobAdDtoInCreate.getTitle());
+        jobAd.setMinSalaryBoundary(jobAdDtoInCreate.getMinSalaryBoundary());
+        jobAd.setMaxSalaryBoundary(jobAdDtoInCreate.getMaxSalaryBoundary());
+        jobAd.setJobDescription(jobAdDtoInCreate.getDescription());
+        jobAd.setLocation(locationService.getLocationByName(jobAdDtoInCreate.getLocation()));
+        jobAd.setRequirements(fromStringSetToRequirementSet(jobAdDtoInCreate.getRequirements()));
+        jobAd.setStatus(statusService.getStatusByType("Active"));
+
+        return jobAd;
+    }
+
+    public JobAdDtoOut fromJobAdToJobAdDtoOut(JobAd jobAd) {
+        JobAdDtoOut jobAdDtoOut = new JobAdDtoOut();
+        jobAdDtoOut.setTitle(jobAd.getPositionTitle());
+        jobAdDtoOut.setDescription(jobAd.getJobDescription());
+        jobAdDtoOut.setMinSalaryBoundary(jobAd.getMinSalaryBoundary());
+        jobAdDtoOut.setMaxSalaryBoundary(jobAd.getMaxSalaryBoundary());
+        jobAdDtoOut.setLocation(jobAd.getLocation().getName());
+        jobAdDtoOut.setStatus(jobAd.getStatus().getType());
+
+        return jobAdDtoOut;
+    }
+
+    public List<JobAdDtoOut> fromJobAdToJobAdDtoOutList(List<JobAd> jobAds) {
+        if(jobAds == null) {
+            return new ArrayList<>();
+        }
+
+        return jobAds.stream()
+                .map(this::fromJobAdToJobAdDtoOut)
+                .collect(Collectors.toList());
+    }
+
+    public Set<Requirement> fromStringSetToRequirementSet(Set<String> requirementSet) {
+        if (requirementSet == null) {
+            return new HashSet<>();
+        }
+
+        return requirementSet.stream()
+                .map(requirementService::getRequirementByName)
+                .collect(Collectors.toSet());
     }
 
     public ProfessionalDtoOut fromProfessionalToProfessionalDtoOut(Professional professional) {
