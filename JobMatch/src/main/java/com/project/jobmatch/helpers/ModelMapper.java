@@ -1,20 +1,16 @@
 package com.project.jobmatch.helpers;
 
-import com.project.jobmatch.models.JobAd;
-import com.project.jobmatch.models.Professional;
-import com.project.jobmatch.models.Requirement;
+import com.project.jobmatch.models.*;
 import com.project.jobmatch.models.dto.*;
 import com.project.jobmatch.services.interfaces.*;
 import com.project.jobmatch.models.dto.ProfessionalDtoInCreate;
 import com.project.jobmatch.models.dto.ProfessionalDtoInUpdate;
 import com.project.jobmatch.models.dto.ProfessionalDtoOut;
 import com.project.jobmatch.services.interfaces.LocationService;
-import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.dto.CompanyDtoInCreate;
 import com.project.jobmatch.models.dto.CompanyDtoInUpdate;
 import com.project.jobmatch.models.dto.CompanyDtoOut;
 import com.project.jobmatch.services.interfaces.CompanyService;
-import com.project.jobmatch.services.interfaces.LocationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import com.project.jobmatch.services.interfaces.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -226,6 +222,48 @@ public class ModelMapper {
 
         return professionals.stream()
                 .map(this::fromProfessionalToProfessionalDtoOut)
+                .collect(Collectors.toList());
+    }
+
+    public SkillDtoOut fromSkillToSkillDtoOut(Skill skill) {
+        SkillDtoOut skillDtoOut = new SkillDtoOut();
+
+        skillDtoOut.setType(skill.getType());
+
+        return skillDtoOut;
+    }
+
+    public List<SkillDtoOut> fromSetSkillsToListSkillsDtoOut(Set<Skill> skills) {
+        if (skills == null) {
+            return new ArrayList<>();
+        }
+
+        return skills.stream()
+                .map(this::fromSkillToSkillDtoOut)
+                .collect(Collectors.toList());
+    }
+
+    public JobApplicationDtoOut fromJobApplicationToJobApplicationDtoOut(JobApplication jobApplication) {
+        JobApplicationDtoOut jobApplicationDtoOut = new JobApplicationDtoOut();
+
+        jobApplicationDtoOut.setMinDesiredSalary(String.valueOf(jobApplication.getMinDesiredSalary()));
+        jobApplicationDtoOut.setMaxDesiredSalary(String.valueOf(jobApplication.getMaxDesiredSalary()));
+        jobApplicationDtoOut.setMotivationLetter(jobApplication.getMotivationLetter());
+        jobApplicationDtoOut.setLocation(jobApplication.getLocation().getName());
+        jobApplicationDtoOut.setStatus(jobApplication.getStatus().getType());
+        jobApplicationDtoOut.setProfessionalName(jobApplication.getProfessional().getUsername());
+        jobApplicationDtoOut.setSkills(fromSetSkillsToListSkillsDtoOut(jobApplication.getSkills()));
+
+        return jobApplicationDtoOut;
+    }
+
+    public List<JobApplicationDtoOut> fromSetJobApplicationToSetJobApplicationDtoOut(List<JobApplication> jobApplications) {
+        if (jobApplications == null) {
+            return new ArrayList<>();
+        }
+
+        return jobApplications.stream()
+                .map(this::fromJobApplicationToJobApplicationDtoOut)
                 .collect(Collectors.toList());
     }
 }
