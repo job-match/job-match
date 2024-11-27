@@ -29,8 +29,6 @@ public class JobAdDtoInUpdate {
     @NotNull(message = "Status cannot be empty!")
     @Size(min = 2, max = 50, message = "Status should be between 2 and 50 symbols!")
     private String status;
-    // TODO add company field
-
 
     public JobAdDtoInUpdate() {
     }

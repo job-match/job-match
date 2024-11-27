@@ -1,15 +1,12 @@
 package com.project.jobmatch.helpers;
 
+import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.Professional;
-import com.project.jobmatch.services.interfaces.LocationService;
+import com.project.jobmatch.models.Requirement;
+import com.project.jobmatch.models.dto.*;
+import com.project.jobmatch.services.interfaces.*;
 import com.project.jobmatch.models.Company;
-import com.project.jobmatch.models.dto.CompanyDtoInCreate;
-import com.project.jobmatch.models.dto.CompanyDtoInUpdate;
-import com.project.jobmatch.models.dto.CompanyDtoOut;
-import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.LocationService;
-import com.project.jobmatch.services.interfaces.ProfessionalService;
-import com.project.jobmatch.services.interfaces.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,10 +32,8 @@ public class ModelMapper {
                        JobAdService jobAdService,
                        LocationService locationService,
                        StatusService statusService,
-                       CompanyService companyService) {
-        this.professionalService = professionalService;
+                       CompanyService companyService,
                        RequirementService requirementService,
-                       StatusService statusService,
                        JobApplicationService jobApplicationService) {
         this.professionalService = profService;
         this.jobAdService = jobAdService;
@@ -46,6 +41,7 @@ public class ModelMapper {
         this.requirementService = requirementService;
         this.statusService = statusService;
         this.companyService = companyService;
+        this.jobApplicationService = jobApplicationService;
     }
 
     public CompanyDtoOut fromCompanyToCompanyDtoOut (Company company) {
@@ -109,7 +105,6 @@ public class ModelMapper {
         company.setJobAds(companyService.getCompanyById(id).getJobAds());
 
         return company;
-        this.jobApplicationService = jobApplicationService;
     }
 
     public JobAd fromJodAdDtoIn(int id, JobAdDtoInUpdate jobAdDtoInUpdate) {

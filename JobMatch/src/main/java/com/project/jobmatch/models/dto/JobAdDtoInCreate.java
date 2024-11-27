@@ -28,8 +28,6 @@ public class JobAdDtoInCreate {
     @Size(min = 2, max = 50, message = "Location should be up to 50 symbols!")
     private String location;
 
-    // TODO add Company field
-
     private Set<String> requirements;
 
     public JobAdDtoInCreate() {

@@ -69,6 +69,7 @@ public class JobAdForCompaniesRestController {
         try {
             Company company = authenticationHelper.tryGetCompany(headers);
             JobAd jobAd = modelMapper.fromJobAdDtoIn(jobAdDtoInCreate);
+            jobAd.setCompany(company);
             jobAdService.createJobAd(jobAd, company);
 
             return modelMapper.fromJobAdToJobAdDtoOut(jobAd);
@@ -83,9 +84,13 @@ public class JobAdForCompaniesRestController {
     public void updateJobAd(@RequestHeader HttpHeaders headers,
                             @PathVariable int id,
                             @Valid @RequestBody JobAdDtoInUpdate jobAdDtoInUpdate) {
-        Company company = authenticationHelper.tryGetCompany(headers);
-        JobAd jobAd = modelMapper.fromJodAdDtoIn(id,jobAdDtoInUpdate);
+        try {Company company = authenticationHelper.tryGetCompany(headers);
+            JobAd jobAd = modelMapper.fromJodAdDtoIn(id,jobAdDtoInUpdate);
+            jobAd.setCompany(company);
+            jobAdService.updateJobAd(jobAd, company);
 
-        jobAdService.updateJobAd(jobAd, company);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
     }
 }
