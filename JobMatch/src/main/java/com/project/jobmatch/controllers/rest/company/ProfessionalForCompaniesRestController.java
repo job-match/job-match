@@ -20,16 +20,13 @@ import java.util.List;
 public class ProfessionalForCompaniesRestController {
 
     private final ProfessionalService professionalService;
-    private final CloudinaryService cloudinaryService;
     private final ModelMapper modelMapper;
     private final AuthenticationHelper authenticationHelper;
 
     public ProfessionalForCompaniesRestController(ProfessionalService professionalService,
-                                                      CloudinaryService cloudinaryService,
                                                       ModelMapper modelMapper,
                                                       AuthenticationHelper authenticationHelper) {
         this.professionalService = professionalService;
-        this.cloudinaryService = cloudinaryService;
         this.modelMapper = modelMapper;
         this.authenticationHelper = authenticationHelper;
     }
