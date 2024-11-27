@@ -11,8 +11,6 @@ public interface JobAdService {
 
     void createJobAd(JobAd jobAd);
 
-    void deleteJobAd(int id, Company company);
-
     JobAd getJobAdById(int id);
 
     JobAd getJobAdByTitle(String title);
