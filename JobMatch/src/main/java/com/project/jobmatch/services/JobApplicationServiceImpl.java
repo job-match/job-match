@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.project.jobmatch.services.JobAdServiceImpl.MAX_SALARY_THRESHOLD_COEFFICIENT;
+import static com.project.jobmatch.services.JobAdServiceImpl.MIN_SALARY_THRESHOLD_COEFFICIENT;
+
 @Service
 public class JobApplicationServiceImpl implements JobApplicationService {
 
@@ -102,7 +105,22 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     @Override
     public void addJobAdToListOfAdMatchRequests(JobApplication jobApplication, JobAd jobAd) {
+        boolean doSalariesMatch = checkSalaryMatch(jobApplication.getMinDesiredSalary(),
+                jobApplication.getMaxDesiredSalary(),
+                jobAd.getMinSalaryBoundary(),
+                jobAd.getMaxSalaryBoundary());
 
     }
+
+    private boolean checkSalaryMatch(double minJobAppSalary,
+                                     double maxJobAppSalary,
+                                     double minJobAdSalary,
+                                     double maxJobAdSalary) {
+        return (minJobAdSalary * MIN_SALARY_THRESHOLD_COEFFICIENT <= minJobAppSalary
+                && minJobAppSalary <= maxJobAdSalary * MAX_SALARY_THRESHOLD_COEFFICIENT) &&
+                (minJobAdSalary * MIN_SALARY_THRESHOLD_COEFFICIENT <= maxJobAppSalary
+                        && maxJobAppSalary <= maxJobAdSalary * MAX_SALARY_THRESHOLD_COEFFICIENT);
+    }
+
 
 }
