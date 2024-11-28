@@ -19,6 +19,11 @@ public class JobAdServiceImpl implements JobAdService {
     private static final String MODIFY_JOB_AD_ERROR_MESSAGE = "Only job ad owner can make changes to the job ad info.";
     public static final String YOU_ALREADY_APPLIED_ERROR_MESSAGE = "You already applied for this job ad!";
     public static final String APPLICATION_DENIED_ERROR_MESSAGE = "You do not meet ad's requirements!";
+    public static final double REQUIREMENTS_THRESHOLD_PERCENTAGE = 50.0;
+    public static final double MIN_SALARY_THRESHOLD_COEFFICIENT = 0.8;
+    public static final double MAX_SALARY_THRESHOLD_COEFFICIENT = 1.2;
+    public static final String REMOTE_LOCATION = "Remote";
+    public static final String HYBRID_LOCATION = "Hybrid";
 
 
     private JobAdRepository jobAdRepository;
@@ -78,19 +83,6 @@ public class JobAdServiceImpl implements JobAdService {
         }
     }
 
-    private boolean checkLocationMatch(String jobAdLocationName, String jobApplicationLocationName) {
-
-        if (jobAdLocationName.equalsIgnoreCase("Remote")) {
-            return true;
-
-        } else if (jobAdLocationName.equalsIgnoreCase("Hybrid") &&
-                (!jobApplicationLocationName.equalsIgnoreCase("Remote"))) {
-            return true;
-
-        } else {
-            return jobAdLocationName.equalsIgnoreCase(jobApplicationLocationName);
-        }
-    }
 
 
     @Override
@@ -117,13 +109,14 @@ public class JobAdServiceImpl implements JobAdService {
                                      double minJobAppSalary,
                                      double maxJobAppSalary) {
 
-        return (minJobAdSalary * 0.8 <= minJobAppSalary && minJobAppSalary <= maxJobAdSalary * 1.2) &&
-                (minJobAdSalary * 0.8 <= maxJobAppSalary && maxJobAppSalary <= maxJobAdSalary * 1.2);
+        return (minJobAdSalary * MIN_SALARY_THRESHOLD_COEFFICIENT <= minJobAppSalary
+                && minJobAppSalary <= maxJobAdSalary * MAX_SALARY_THRESHOLD_COEFFICIENT) &&
+                (minJobAdSalary * MIN_SALARY_THRESHOLD_COEFFICIENT <= maxJobAppSalary
+                        && maxJobAppSalary <= maxJobAdSalary * MAX_SALARY_THRESHOLD_COEFFICIENT);
     }
 
     private boolean checkSkillsAndRequirements(Set<Skill> skills, Set<Requirement> requirements) {
         int requirementsMetCounter = 0;
-        double thresholdRequirements = 50.0;
 
         for (Requirement requirement : requirements) {
             String requirementType = requirement.getType();
@@ -138,7 +131,20 @@ public class JobAdServiceImpl implements JobAdService {
 
         double metRequirementsPercentage = (requirementsMetCounter * 1.0 / requirements.size()) * 100;
 
-        return thresholdRequirements <= metRequirementsPercentage;
+        return REQUIREMENTS_THRESHOLD_PERCENTAGE <= metRequirementsPercentage;
     }
 
+    private boolean checkLocationMatch(String jobAdLocationName, String jobApplicationLocationName) {
+
+        if (jobAdLocationName.equalsIgnoreCase(REMOTE_LOCATION)) {
+            return true;
+
+        } else if (jobAdLocationName.equalsIgnoreCase(HYBRID_LOCATION) &&
+                (!jobApplicationLocationName.equalsIgnoreCase(REMOTE_LOCATION))) {
+            return true;
+
+        } else {
+            return jobAdLocationName.equalsIgnoreCase(jobApplicationLocationName);
+        }
+    }
 }
