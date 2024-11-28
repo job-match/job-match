@@ -86,6 +86,13 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
+    public JobApplication getJobApplicationById(int jobApplicationId, String statusToIgnore) {
+        return jobApplicationRepository
+                .findJobApplicationById(jobApplicationId, statusToIgnore)
+                .orElseThrow(()-> new EntityNotFoundException("Job application", jobApplicationId));
+    }
+
+    @Override
     public void deleteJobApplication(JobApplication jobApplicationToDelete,
                                      Professional professionalAuthenticated) {
         checkDeletePermissions(professionalAuthenticated, jobApplicationToDelete);

@@ -18,6 +18,8 @@ public interface JobApplicationService {
 
     JobApplication getJobApplicationById(int jobApplicationId);
 
+    JobApplication getJobApplicationById(int jobApplicationId, String statusToIgnore);
+
     List<JobApplication> getAllJobApplicationsOfProfessional
             (Professional professionalToRetrieveJobAppsFrom, Professional professionalAuthenticated);
 
