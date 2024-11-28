@@ -16,7 +16,7 @@ import java.util.Set;
 @Service
 public class JobAdServiceImpl implements JobAdService {
 
-    private static final String MODIFY_JOB_AD_ERROR_MESSAGE = "Only job ad owner can make changes to the job ad info.";
+    private static final String MODIFY_JOB_AD_ERROR_MESSAGE = "Only job ad owner can modify/delete the job ad!";
     public static final String YOU_ALREADY_APPLIED_ERROR_MESSAGE = "You already applied for this job ad!";
     public static final String APPLICATION_DENIED_ERROR_MESSAGE = "You do not meet ad's requirements!";
     public static final double REQUIREMENTS_THRESHOLD_PERCENTAGE = 50.0;
@@ -83,6 +83,27 @@ public class JobAdServiceImpl implements JobAdService {
         }
     }
 
+    @Override
+    public void deleteJobAd(JobAd jobAdToDelete, Company companyAuthenticated) {
+        checkModifyPermissions(jobAdToDelete, companyAuthenticated);
+
+        for (JobApplication jobApp : jobAdToDelete.getListOfApplicationMatchRequests()) {
+            jobApp.getListOfAdMatchRequests().remove(jobAdToDelete);
+        }
+        jobAdToDelete.getListOfApplicationMatchRequests().clear();
+
+        Company company = jobAdToDelete.getCompany();
+        if (company != null) {
+            company.getJobAds().remove(jobAdToDelete);
+        }
+        jobAdToDelete.setCompany(null);
+
+        jobAdToDelete.getRequirements().clear();
+        jobAdToDelete.setLocation(null);
+        jobAdToDelete.setStatus(null);
+
+        jobAdRepository.delete(jobAdToDelete);
+    }
 
 
     @Override

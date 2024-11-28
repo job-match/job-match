@@ -14,6 +14,8 @@ public interface JobAdService {
 
     void addJobApplicationToListOfApplicationMatchRequests(JobAd jobAd, JobApplication jobApplication);
 
+    void deleteJobAd(JobAd jobAdToDelete, Company companyAuthenticated);
+
     JobAd getJobAdById(int id);
 
     JobAd getJobAdByTitle(String title);
