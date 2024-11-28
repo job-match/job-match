@@ -25,13 +25,13 @@ import java.util.List;
 public class JobAdForCompaniesRestController {
 
     private final JobAdService jobAdService;
-    private final CompanyService companyService;
     private final AuthenticationHelper authenticationHelper;
     private final ModelMapper modelMapper;
 
-    public JobAdForCompaniesRestController(JobAdService jobAdService, CompanyService companyService, AuthenticationHelper authenticationHelper, ModelMapper modelMapper) {
+    public JobAdForCompaniesRestController(JobAdService jobAdService,
+                                           AuthenticationHelper authenticationHelper,
+                                           ModelMapper modelMapper) {
         this.jobAdService = jobAdService;
-        this.companyService = companyService;
         this.authenticationHelper = authenticationHelper;
         this.modelMapper = modelMapper;
     }
@@ -68,13 +68,10 @@ public class JobAdForCompaniesRestController {
                                    @Valid @RequestBody JobAdDtoInCreate jobAdDtoInCreate) {
         try {
             Company company = authenticationHelper.tryGetCompany(headers);
-            JobAd jobAd = modelMapper.fromJobAdDtoIn(jobAdDtoInCreate);
-            jobAd.setCompany(company);
-            jobAdService.createJobAd(jobAd, company);
+            JobAd jobAd = modelMapper.fromJobAdDtoIn(jobAdDtoInCreate, company);
+            jobAdService.createJobAd(jobAd);
 
             return modelMapper.fromJobAdToJobAdDtoOut(jobAd);
-        } catch (EntityDuplicateException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
@@ -92,19 +89,6 @@ public class JobAdForCompaniesRestController {
 
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteJobAd(@RequestHeader HttpHeaders headers,
-                            @PathVariable int id) {
-        try{
-            Company company = authenticationHelper.tryGetCompany(headers);
-            jobAdService.deleteJobAd(id, company);
-        } catch (AuthorizationException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 }

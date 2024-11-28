@@ -128,7 +128,7 @@ public class ModelMapper {
 
         return jobAd;
     }
-    public JobAd fromJobAdDtoIn(JobAdDtoInCreate jobAdDtoInCreate) {
+    public JobAd fromJobAdDtoIn(JobAdDtoInCreate jobAdDtoInCreate, Company company) {
         JobAd jobAd = new JobAd();
         jobAd.setPositionTitle(jobAdDtoInCreate.getTitle());
         jobAd.setMinSalaryBoundary(jobAdDtoInCreate.getMinSalaryBoundary());
@@ -137,6 +137,7 @@ public class ModelMapper {
         jobAd.setLocation(locationService.getLocationByName(jobAdDtoInCreate.getLocation()));
         jobAd.setRequirements(fromStringSetToRequirementSet(jobAdDtoInCreate.getRequirements()));
         jobAd.setStatus(statusService.getStatusByType("Active"));
+        jobAd.setCompany(company);
 
         return jobAd;
     }

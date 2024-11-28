@@ -245,7 +245,7 @@ insert into job_match.job_ads (job_ad_id, position_title, min_salary_boundary, m
                                location_id, company_id)
 values (1, 'Software Engineer', 3500, 4000,
         'Dev Experts is seeking a highly motivated Software Engineer to join our team of innovative professionals. As a Software Engineer, you will be responsible for developing high-performance trading platforms and financial technology solutions for our global clients. The ideal candidate will have experience in Java and Python, with a deep understanding of system architecture and backend development. In this role, you will work closely with cross-functional teams to design, develop, and deploy software solutions that meet the specific needs of the financial industry.',
-        3, 1),
+        2, 1),
 
        (2, 'Digital Marketing Manager', 3000, 3500,
         'Green Solutions is looking for a creative and strategic Digital Marketing Manager to drive online campaigns and enhance our digital presence. In this role, you will be responsible for developing and executing marketing strategies to promote Green Solutions’ services and expand our customer base. Your expertise in SEO, content marketing, and social media will be essential to the success of our campaigns. You will manage online ads, optimize our website, and use data-driven insights to improve customer acquisition and retention.',
@@ -364,8 +364,11 @@ values (1, 3500, 4000,
 
        (11, 3000, 3500,
         'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
-        2, 21);
+        2, 21),
 
+       (12, 2900, 4150,
+        'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
+        3, 21);
 
 -- job_ads_job_applications Table --
 
@@ -611,7 +614,7 @@ insert into job_match.job_applications_skills (job_application_id, skill_id)
 values (5, 37), -- Coding Best Practices
        (5, 1),  -- Java
        (5, 18), -- HTML
-       (6, 6);
+       (5, 6);
 -- SQL
 
 -- Application 6: Sales Manager (Sales Experience, Client Management)
@@ -664,9 +667,15 @@ values (11, 1),  -- Java
        (11, 2),  -- Python
        (11, 5),  -- Problem-Solving
        (11, 37), -- Coding Best Practices
-       (11, 12);
--- Analytical Thinking
+       (11, 12);-- Analytical Thinking
 
+-- Application 12: Financial Analyst (Finance, Budgeting, Financial Analysis)
+insert into job_match.job_applications_skills (job_application_id, skill_id)
+values (12, 1),  -- Java
+       (12, 2),  -- Python
+       (12, 6);  -- SQL
+#        (12, 29), -- Critical Thinking
+#        (12, 7);  -- Attention to detail
 
 -- matches Table --
 
