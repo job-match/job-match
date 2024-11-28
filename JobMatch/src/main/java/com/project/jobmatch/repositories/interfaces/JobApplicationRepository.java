@@ -12,5 +12,8 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
 
     List<JobApplication> findJobApplicationsByProfessionalId(int id);
 
+    @Override
+    List<JobApplication> findAll();
+
     Optional<JobApplication> findJobApplicationById(int jobApplicationId);
 }
