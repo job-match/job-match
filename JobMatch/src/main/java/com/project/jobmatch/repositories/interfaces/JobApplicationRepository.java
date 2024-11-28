@@ -24,7 +24,8 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     Optional<JobApplication> findJobApplicationById(int jobApplicationId);
 
     @Query("SELECT j FROM JobApplication j " +
-            "WHERE (:location IS NULL OR j.location.name LIKE %:location%) " +
+            "WHERE j.status.type = 'Active' " +
+            "AND (:location IS NULL OR j.location.name LIKE %:location%) " +
             "AND (:minSalary IS NULL OR j.minDesiredSalary >= :minSalary) " +
             "AND (:maxSalary IS NULL OR j.maxDesiredSalary <= :maxSalary) " +
             "AND (:skill IS NULL OR EXISTS (SELECT s FROM j.skills s WHERE s.type LIKE %:skill%))" +
