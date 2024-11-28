@@ -17,13 +17,6 @@ import static com.project.jobmatch.services.ServicesConstants.*;
 @Service
 public class JobApplicationServiceImpl implements JobApplicationService {
 
-    private static final String MODIFY_PROFILE_ERROR_MESSAGE =
-            "Only professional account's owner can see/modify their job applications!";
-    private static final String DELETE_PROFILE_ERROR_MESSAGE =
-            "Only professional account's owner can delete their job applications!";
-    public static final String YOU_ALREADY_SHOWED_INTEREST_ERROR_MESSAGE = "You already showed interest for this job application!";
-    public static final String AD_REQUEST_DENIED_ERROR_MESSAGE = "This job ad's requirements do not meet the applicant's preferences!";
-
     private final JobApplicationRepository jobApplicationRepository;
     private final ProfessionalService professionalService;
 
