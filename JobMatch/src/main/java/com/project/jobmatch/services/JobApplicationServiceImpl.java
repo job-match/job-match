@@ -2,6 +2,8 @@ package com.project.jobmatch.services;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
+import com.project.jobmatch.exceptions.MatchRequestDeniedException;
+import com.project.jobmatch.exceptions.MatchRequestDuplicateException;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.repositories.interfaces.JobApplicationRepository;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
@@ -21,6 +23,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
             "Only professional account's owner can see/modify their job applications!";
     private static final String DELETE_PROFILE_ERROR_MESSAGE =
             "Only professional account's owner can delete their job applications!";
+    public static final String YOU_ALREADY_SHOWED_INTEREST_ERROR_MESSAGE = "You already showed interest for this job application!";
+    public static final String AD_REQUEST_DENIED_ERROR_MESSAGE = "This job ad's requirements do not meet the applicant's preferences!";
 
     private final JobApplicationRepository jobApplicationRepository;
     private final ProfessionalService professionalService;
@@ -110,6 +114,19 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
         boolean doSkillsAndRequirementsMatch = checkSkillsAndRequirements(jobApplication.getSkills(),
                 jobAd.getRequirements());
+
+        boolean doLocationsMatch = checkLocations(jobApplication.getLocation().getName(),
+                jobAd.getLocation().getName());
+
+        if (doSalariesMatch && doSkillsAndRequirementsMatch && doLocationsMatch) {
+            if (jobApplication.getListOfAdMatchRequests().contains(jobAd)) {
+                throw new MatchRequestDuplicateException(YOU_ALREADY_SHOWED_INTEREST_ERROR_MESSAGE);
+            }
+            jobApplication.getListOfAdMatchRequests().add(jobAd);
+            jobApplicationRepository.save(jobApplication);
+        } else {
+            throw new MatchRequestDeniedException(AD_REQUEST_DENIED_ERROR_MESSAGE);
+        }
     }
 
     private boolean checkSalaryMatch(double minJobAppSalary,
