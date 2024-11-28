@@ -10,4 +10,7 @@ public interface MatchService {
     void confirmMatchWithJobApplication(JobAd jobAd, JobApplication jobApplication, Company companyAuthenticated);
 
     void confirmMatchWithJobAd(JobAd jobAd, JobApplication jobApplication, Professional professionalAuthenticated);
+
+    void createMatch(JobAd jobAd, JobApplication jobApplication);
+
 }
