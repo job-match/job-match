@@ -368,7 +368,11 @@ values (1, 3500, 4000,
 
        (12, 2900, 4150,
         'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
-        3, 4,21);
+        3, 4,21),
+
+       (13, 3400, 4800,
+        'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to meet the demands of this role and contribute effectively to your team.',
+        3, 5,2);
 
 -- job_ads_job_applications Table --
 

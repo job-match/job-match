@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
+import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_IGNORE;
+
 @RestController
 @RequestMapping("/api/company-portal/job-applications")
 public class JobApplicationForCompaniesRestController {
-
-    public static final String ACTIVE = "Active";
 
     private final JobApplicationService jobApplicationService;
     private final JobAdService jobAdService;
@@ -42,7 +42,8 @@ public class JobApplicationForCompaniesRestController {
     public List<JobApplicationDtoOut> getAllJobApplications(@RequestHeader HttpHeaders httpHeaders) {
         try {
             authenticationHelper.tryGetCompany(httpHeaders);
-            List<JobApplication> jobApplicationList = jobApplicationService.getAllJobApplications(ACTIVE);
+            //TODO getAllActiveJobApplications()
+            List<JobApplication> jobApplicationList = jobApplicationService.getAllActiveJobApplications();
 
             return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(jobApplicationList);
         } catch (AuthorizationException e) {
@@ -80,7 +81,7 @@ public class JobApplicationForCompaniesRestController {
             authenticationHelper.tryGetCompany(httpHeaders);
 
             return modelMapper.fromJobApplicationToJobApplicationDtoOut(
-                    jobApplicationService.getJobApplicationById(id));
+                    jobApplicationService.getJobApplicationByIdFromCompany(id));
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {

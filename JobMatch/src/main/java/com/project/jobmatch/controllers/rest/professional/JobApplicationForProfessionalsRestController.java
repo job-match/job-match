@@ -4,7 +4,6 @@ import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
-import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
@@ -22,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+
+import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_ACCEPT;
+import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_IGNORE;
 
 @RestController
 @RequestMapping("/api/professional-portal/job-applications")
@@ -52,7 +54,7 @@ public class JobApplicationForProfessionalsRestController {
     public List<JobApplicationDtoOut> getAllJobApplications(@RequestHeader HttpHeaders httpHeaders) {
         try {
             authenticationHelper.tryGetProfessional(httpHeaders);
-            List<JobApplication> jobApplicationList = jobApplicationService.getAllJobApplications();
+            List<JobApplication> jobApplicationList = jobApplicationService.getAllActiveJobApplications();
 
             return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(jobApplicationList);
         } catch (AuthorizationException e) {

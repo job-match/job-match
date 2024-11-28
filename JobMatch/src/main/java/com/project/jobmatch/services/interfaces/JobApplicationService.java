@@ -16,6 +16,8 @@ public interface JobApplicationService {
 
     void addJobAdToListOfAdMatchRequests(JobApplication jobApplication, JobAd jobAd);
 
+    JobApplication getJobApplicationByIdFromCompany(int id);
+
     JobApplication getJobApplicationById(int jobApplicationId);
 
     List<JobApplication> getAllJobApplicationsOfProfessional
@@ -23,7 +25,7 @@ public interface JobApplicationService {
 
     List<JobApplication> getAllJobApplications();
 
-    List<JobApplication> getAllJobApplications(String status);
+    List<JobApplication> getAllActiveJobApplications();
 
     List<JobApplication> searchJobApplications(String location, Double minSalary, Double maxSalary, String skill, String keyword);
 }
