@@ -83,8 +83,6 @@ public class JobAdForCompaniesRestController {
                             @Valid @RequestBody JobAdDtoInUpdate jobAdDtoInUpdate) {
         try {Company company = authenticationHelper.tryGetCompany(headers);
             JobAd jobAd = modelMapper.fromJodAdDtoIn(id,jobAdDtoInUpdate);
-            //TODO How about if Company1 get authenticated and tries to update a job add that is not theirs?
-            jobAd.setCompany(company);
             jobAdService.updateJobAd(jobAd, company);
 
         } catch (AuthorizationException e) {
