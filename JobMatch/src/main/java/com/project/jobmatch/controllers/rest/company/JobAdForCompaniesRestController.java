@@ -115,4 +115,19 @@ public class JobAdForCompaniesRestController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
+
+    @DeleteMapping("/{jobAdId}")
+    public void deleteJobAd(@RequestHeader HttpHeaders httpHeaders,
+                            @PathVariable int jobAdId) {
+        try {
+            Company companyAuthenticated = authenticationHelper.tryGetCompany(httpHeaders);
+            JobAd jobAdToDelete = jobAdService.getJobAdById(jobAdId);
+
+            jobAdService.deleteJobAd(jobAdToDelete, companyAuthenticated);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
 }

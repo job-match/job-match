@@ -94,6 +94,8 @@ public class JobAdForProfessionalsRestController {
             JobApplication jobApplication = jobApplicationService.getJobApplicationById(jobAppId);
 
             jobAdService.addJobApplicationToListOfApplicationMatchRequests(jobAd, jobApplication);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         } catch (MatchRequestDuplicateException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (MatchRequestDeniedException e) {

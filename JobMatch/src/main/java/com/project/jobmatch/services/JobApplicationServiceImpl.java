@@ -2,9 +2,9 @@ package com.project.jobmatch.services;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
-import com.project.jobmatch.models.JobAd;
-import com.project.jobmatch.models.JobApplication;
-import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.exceptions.MatchRequestDeniedException;
+import com.project.jobmatch.exceptions.MatchRequestDuplicateException;
+import com.project.jobmatch.models.*;
 import com.project.jobmatch.repositories.interfaces.JobApplicationRepository;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+
+import static com.project.jobmatch.services.JobAdServiceImpl.*;
 
 @Service
 public class JobApplicationServiceImpl implements JobApplicationService {
@@ -20,6 +23,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
             "Only professional account's owner can see/modify their job applications!";
     private static final String DELETE_PROFILE_ERROR_MESSAGE =
             "Only professional account's owner can delete their job applications!";
+    public static final String YOU_ALREADY_SHOWED_INTEREST_ERROR_MESSAGE = "You already showed interest for this job application!";
+    public static final String AD_REQUEST_DENIED_ERROR_MESSAGE = "This job ad's requirements do not meet the applicant's preferences!";
 
     private final JobApplicationRepository jobApplicationRepository;
     private final ProfessionalService professionalService;
@@ -89,13 +94,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                                      Professional professionalAuthenticated) {
         checkDeletePermissions(professionalAuthenticated, jobApplicationToDelete);
 
-        // Remove references of JobApplication from Job Add
         for (JobAd ad : jobApplicationToDelete.getListOfAdMatchRequests()) {
             ad.getListOfApplicationMatchRequests().remove(jobApplicationToDelete);
         }
         jobApplicationToDelete.getListOfAdMatchRequests().clear();
 
-        // Remove references of JobApplication from Professional
         Professional professional = jobApplicationToDelete.getProfessional();
         if (professional != null) {
             professional.getJobApplications().remove(jobApplicationToDelete);
@@ -109,4 +112,69 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         jobApplicationRepository.delete(jobApplicationToDelete);
     }
 
+    @Override
+    public void addJobAdToListOfAdMatchRequests(JobApplication jobApplication, JobAd jobAd) {
+        boolean doSalariesMatch = checkSalaryMatch(jobApplication.getMinDesiredSalary(),
+                jobApplication.getMaxDesiredSalary(),
+                jobAd.getMinSalaryBoundary(),
+                jobAd.getMaxSalaryBoundary());
+
+        boolean doSkillsAndRequirementsMatch = checkSkillsAndRequirements(jobApplication.getSkills(),
+                jobAd.getRequirements());
+
+        boolean doLocationsMatch = checkLocations(jobApplication.getLocation().getName(),
+                jobAd.getLocation().getName());
+
+        if (doSalariesMatch && doSkillsAndRequirementsMatch && doLocationsMatch) {
+            if (jobApplication.getListOfAdMatchRequests().contains(jobAd)) {
+                throw new MatchRequestDuplicateException(YOU_ALREADY_SHOWED_INTEREST_ERROR_MESSAGE);
+            }
+            jobApplication.getListOfAdMatchRequests().add(jobAd);
+            jobApplicationRepository.save(jobApplication);
+        } else {
+            throw new MatchRequestDeniedException(AD_REQUEST_DENIED_ERROR_MESSAGE);
+        }
+    }
+
+    private boolean checkSalaryMatch(double minJobAppSalary,
+                                     double maxJobAppSalary,
+                                     double minJobAdSalary,
+                                     double maxJobAdSalary) {
+        return (minJobAdSalary * MIN_SALARY_THRESHOLD_COEFFICIENT <= minJobAppSalary
+                && minJobAppSalary <= maxJobAdSalary * MAX_SALARY_THRESHOLD_COEFFICIENT) &&
+                (minJobAdSalary * MIN_SALARY_THRESHOLD_COEFFICIENT <= maxJobAppSalary
+                        && maxJobAppSalary <= maxJobAdSalary * MAX_SALARY_THRESHOLD_COEFFICIENT);
+    }
+
+    private boolean checkSkillsAndRequirements(Set<Skill> skills, Set<Requirement> requirements) {
+        int requirementsMetCounter = 0;
+
+        for (Requirement requirement : requirements) {
+            String requirementType = requirement.getType();
+
+            for (Skill skill : skills) {
+                String skillType = skill.getType();
+                if (skillType.equalsIgnoreCase(requirementType)) {
+                    requirementsMetCounter++;
+                }
+            }
+        }
+
+        double metRequirementsPercentage = (requirementsMetCounter * 1.0 / requirements.size()) * 100;
+
+        return REQUIREMENTS_THRESHOLD_PERCENTAGE <= metRequirementsPercentage;
+    }
+
+    private boolean checkLocations(String jobApplicationLocationName, String jobAdLocationName) {
+        if (jobAdLocationName.equalsIgnoreCase(REMOTE_LOCATION)) {
+            return true;
+
+        } else if (jobAdLocationName.equalsIgnoreCase(HYBRID_LOCATION) &&
+                (!jobApplicationLocationName.equalsIgnoreCase(REMOTE_LOCATION))) {
+            return true;
+
+        } else {
+            return jobAdLocationName.equalsIgnoreCase(jobApplicationLocationName);
+        }
+    }
 }
