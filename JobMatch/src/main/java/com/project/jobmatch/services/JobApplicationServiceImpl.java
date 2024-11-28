@@ -2,9 +2,7 @@ package com.project.jobmatch.services;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
-import com.project.jobmatch.models.JobAd;
-import com.project.jobmatch.models.JobApplication;
-import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.models.*;
 import com.project.jobmatch.repositories.interfaces.JobApplicationRepository;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
@@ -12,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
-import static com.project.jobmatch.services.JobAdServiceImpl.MAX_SALARY_THRESHOLD_COEFFICIENT;
-import static com.project.jobmatch.services.JobAdServiceImpl.MIN_SALARY_THRESHOLD_COEFFICIENT;
+import static com.project.jobmatch.services.JobAdServiceImpl.*;
 
 @Service
 public class JobApplicationServiceImpl implements JobApplicationService {
@@ -110,6 +108,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                 jobAd.getMinSalaryBoundary(),
                 jobAd.getMaxSalaryBoundary());
 
+        boolean doSkillsAndRequirementsMatch = checkSkillsAndRequirements(jobApplication.getSkills(),
+                jobAd.getRequirements());
     }
 
     private boolean checkSalaryMatch(double minJobAppSalary,
@@ -122,5 +122,22 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                         && maxJobAppSalary <= maxJobAdSalary * MAX_SALARY_THRESHOLD_COEFFICIENT);
     }
 
+    private boolean checkSkillsAndRequirements(Set<Skill> skills, Set<Requirement> requirements) {
+        int requirementsMetCounter = 0;
 
+        for (Requirement requirement : requirements) {
+            String requirementType = requirement.getType();
+
+            for (Skill skill : skills) {
+                String skillType = skill.getType();
+                if (skillType.equalsIgnoreCase(requirementType)) {
+                    requirementsMetCounter++;
+                }
+            }
+        }
+
+        double metRequirementsPercentage = (requirementsMetCounter * 1.0 / requirements.size()) * 100;
+
+        return REQUIREMENTS_THRESHOLD_PERCENTAGE <= metRequirementsPercentage;
+    }
 }
