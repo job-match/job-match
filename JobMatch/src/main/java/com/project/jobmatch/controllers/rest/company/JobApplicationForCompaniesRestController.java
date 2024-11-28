@@ -1,6 +1,8 @@
 package com.project.jobmatch.controllers.rest.company;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.MatchRequestDeniedException;
+import com.project.jobmatch.exceptions.MatchRequestDuplicateException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.JobAd;
@@ -52,6 +54,7 @@ public class JobApplicationForCompaniesRestController {
     }
 
     // /api/company-portal/job-applications/{jobApplicationId}/match-request-by/{jobAdId}
+    // /api/company-portal/job-applications/{12}/match-request-by/{1}
     @PostMapping("/{jobApplicationId}/match-request-by/{jobAdId}")
     public void jobAdRequestMatchWithJobApplication(@RequestHeader HttpHeaders headers,
                                                     @PathVariable int jobApplicationId,
@@ -65,6 +68,10 @@ public class JobApplicationForCompaniesRestController {
             jobApplicationService.addJobAdToListOfAdMatchRequests(jobApplication, jobAd);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (MatchRequestDuplicateException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        } catch (MatchRequestDeniedException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
         }
     }
 }
