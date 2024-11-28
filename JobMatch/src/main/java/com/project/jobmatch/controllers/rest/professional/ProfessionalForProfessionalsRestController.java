@@ -23,11 +23,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.util.List;
 
+import static com.project.jobmatch.controllers.rest.RestControllersConstants.UPLOAD_PROFESSIONAL_PICTURE_ERROR_MESSAGE;
+
 @RestController
 @RequestMapping("/api/professional-portal/professionals")
 public class ProfessionalForProfessionalsRestController {
-
-    public static final String UPLOAD_PROFESSIONAL_PICTURE_ERROR_MESSAGE = "Could not upload professional's picture!";
 
     private final ProfessionalService professionalService;
     private final CloudinaryService cloudinaryService;
