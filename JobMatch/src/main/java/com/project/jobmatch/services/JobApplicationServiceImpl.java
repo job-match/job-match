@@ -89,13 +89,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                                      Professional professionalAuthenticated) {
         checkDeletePermissions(professionalAuthenticated, jobApplicationToDelete);
 
-        // Remove references of JobApplication from Job Add
         for (JobAd ad : jobApplicationToDelete.getListOfAdMatchRequests()) {
             ad.getListOfApplicationMatchRequests().remove(jobApplicationToDelete);
         }
         jobApplicationToDelete.getListOfAdMatchRequests().clear();
 
-        // Remove references of JobApplication from Professional
         Professional professional = jobApplicationToDelete.getProfessional();
         if (professional != null) {
             professional.getJobApplications().remove(jobApplicationToDelete);
