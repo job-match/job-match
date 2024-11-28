@@ -7,6 +7,7 @@ import com.project.jobmatch.exceptions.MatchRequestDuplicateException;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.repositories.interfaces.JobApplicationRepository;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
+import com.project.jobmatch.services.interfaces.MatchService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,15 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     private final JobApplicationRepository jobApplicationRepository;
     private final ProfessionalService professionalService;
+    private final MatchService matchService;
 
     @Autowired
-    public JobApplicationServiceImpl(JobApplicationRepository jobApplicationRepository, ProfessionalService professionalService) {
+    public JobApplicationServiceImpl(JobApplicationRepository jobApplicationRepository,
+                                     ProfessionalService professionalService,
+                                     MatchService matchService) {
         this.jobApplicationRepository = jobApplicationRepository;
         this.professionalService = professionalService;
+        this.matchService = matchService;
     }
 
     private void checkModifyPermissions
@@ -51,6 +56,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     @Override
     public List<JobApplication> getAllJobApplications() {
         return jobApplicationRepository.findAll();
+    }
+
+    @Override
+    public List<JobApplication> getAllJobApplications(String status) {
+        return jobApplicationRepository.findJobApplicationsByStatus(status);
     }
 
     @Override
@@ -100,25 +110,30 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     @Override
     public void addJobAdToListOfAdMatchRequests(JobApplication jobApplication, JobAd jobAd) {
-        boolean doSalariesMatch = checkSalaryMatch(jobApplication.getMinDesiredSalary(),
-                jobApplication.getMaxDesiredSalary(),
-                jobAd.getMinSalaryBoundary(),
-                jobAd.getMaxSalaryBoundary());
+        if (jobAd.getListOfApplicationMatchRequests().contains(jobApplication)) {
+            matchService.createMatch(jobAd, jobApplication);
 
-        boolean doSkillsAndRequirementsMatch = checkSkillsAndRequirements(jobApplication.getSkills(),
-                jobAd.getRequirements());
-
-        boolean doLocationsMatch = checkLocations(jobApplication.getLocation().getName(),
-                jobAd.getLocation().getName());
-
-        if (doSalariesMatch && doSkillsAndRequirementsMatch && doLocationsMatch) {
-            if (jobApplication.getListOfAdMatchRequests().contains(jobAd)) {
-                throw new MatchRequestDuplicateException(YOU_ALREADY_SHOWED_INTEREST_ERROR_MESSAGE);
-            }
-            jobApplication.getListOfAdMatchRequests().add(jobAd);
-            jobApplicationRepository.save(jobApplication);
         } else {
-            throw new MatchRequestDeniedException(AD_REQUEST_DENIED_ERROR_MESSAGE);
+            boolean doSalariesMatch = checkSalaryMatch(jobApplication.getMinDesiredSalary(),
+                    jobApplication.getMaxDesiredSalary(),
+                    jobAd.getMinSalaryBoundary(),
+                    jobAd.getMaxSalaryBoundary());
+
+            boolean doSkillsAndRequirementsMatch = checkSkillsAndRequirements(jobApplication.getSkills(),
+                    jobAd.getRequirements());
+
+            boolean doLocationsMatch = checkLocations(jobApplication.getLocation().getName(),
+                    jobAd.getLocation().getName());
+
+            if (doSalariesMatch && doSkillsAndRequirementsMatch && doLocationsMatch) {
+                if (jobApplication.getListOfAdMatchRequests().contains(jobAd)) {
+                    throw new MatchRequestDuplicateException(YOU_ALREADY_SHOWED_INTEREST_ERROR_MESSAGE);
+                }
+                jobApplication.getListOfAdMatchRequests().add(jobAd);
+                jobApplicationRepository.save(jobApplication);
+            } else {
+                throw new MatchRequestDeniedException(AD_REQUEST_DENIED_ERROR_MESSAGE);
+            }
         }
     }
 

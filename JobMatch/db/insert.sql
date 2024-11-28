@@ -321,54 +321,54 @@ values (1, 'Software Engineer', 3500, 4000,
 
 -- job_applications Table --
 insert into job_match.job_applications (job_application_id, min_desired_salary, max_desired_salary, motivation_letter,
-                                        location_id, professional_id)
+                                        location_id, status_id, professional_id)
 values (1, 3500, 4000,
         'Dear Hiring Manager, I am excited to apply for the Software Engineer position at Dev Experts. With my extensive background in software development, I believe I can contribute to your team in building high-performance trading platforms. Over the years, I have honed my skills in Java and Python, developing scalable and efficient applications that meet business needs.',
-        3, 1),
+        3, 1,1),
 
        (2, 3000, 3500,
         'Dear Hiring Team, I am writing to express my interest in the Digital Marketing Manager role at Green Solutions. As a passionate marketer with over 5 years of experience in SEO, content marketing, and social media management, I am excited about the opportunity to contribute to Green Solutions’ mission of promoting sustainability.',
-        4, 2),
+        4, 1,2),
 
        (3, 4000, 4500,
         'Dear Tech Innovators, I am thrilled to apply for the Project Manager position. With a background in managing complex digital transformation projects, I am confident that my skills and experience make me a strong candidate for this role.',
-        5, 3),
+        5, 1,3),
 
        (4, 3200, 3700,
         'Dear Market Gurus, I am writing to express my interest in the UX/UI Designer position. As a passionate designer with a strong portfolio of work, I have spent the last few years designing user-centered interfaces for web and mobile applications.',
-        6, 4),
+        6, 1,4),
 
        (5, 3500, 4000,
         'Dear NextGen Health, I am excited to apply for the Full-Stack Developer position. With a strong background in JavaScript, React, and Node.js, I have developed scalable applications that improve healthcare delivery and patient outcomes.',
-        3, 4),
+        3, 1,4),
 
        (6, 3500, 4000,
         'Dear Eco Builders, I am writing to express my interest in the Sales Manager position. With over 7 years of experience in sales and a passion for sustainability, I am eager to help Eco Builders expand its reach and build lasting client relationships.',
-        4, 15),
+        4, 4,15),
 
        (7, 3200, 3700,
         'Dear Edu Future, I am excited to apply for the Customer Success Manager position. As someone who is deeply passionate about education, I have dedicated my career to ensuring that students and professionals achieve their learning goals.',
-        5, 7),
+        5, 4,7),
 
        (8, 2800, 3300,
         'Dear Agro Corp, I am writing to express my interest in the Operations Analyst position. I have a strong background in data analysis and business operations, and I am eager to bring my skills to Agro Corp. With my experience in analyzing supply chain processes and identifying efficiencies, I believe I can contribute to the optimization of your agricultural operations.',
-        6, 20),
+        6, 4,20),
 
        (9, 3200, 3700,
         'Dear HR manager, I am writing to apply for the Data Analyst position. I have a strong background in data analysis and a deep understanding of business operations. I am highly skilled in tools such as SQL, Python, and Tableau, and I have experience working with large datasets to extract meaningful insights.',
-        5, 20),
+        5, 1,20),
 
        (10, 3500, 4000,
         'Dear Future Investments, I am excited to apply for the Financial Analyst position. With my background in finance and experience in financial modeling, I am confident that I can make valuable contributions to your team. I have a strong understanding of financial analysis and have successfully built financial models that assist in forecasting and budgeting.',
-        6, 20),
+        6, 4,20),
 
        (11, 3000, 3500,
         'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
-        2, 21),
+        2, 1,21),
 
        (12, 2900, 4150,
         'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
-        3, 21);
+        3, 4,21);
 
 -- job_ads_job_applications Table --
 

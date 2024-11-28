@@ -17,6 +17,10 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     @Override
     List<JobApplication> findAll();
 
+    @Query("SELECT j FROM JobApplication j " +
+            "WHERE (:status IS NULL OR j.status.type LIKE %:status%)")
+    List<JobApplication> findJobApplicationsByStatus(String status);
+
     Optional<JobApplication> findJobApplicationById(int jobApplicationId);
 
     @Query("SELECT j FROM JobApplication j " +
