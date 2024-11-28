@@ -23,5 +23,7 @@ public interface JobApplicationService {
 
     List<JobApplication> getAllJobApplications();
 
+    List<JobApplication> getAllJobApplications(String status);
+
     List<JobApplication> searchJobApplications(String location, Double minSalary, Double maxSalary, String skill, String keyword);
 }

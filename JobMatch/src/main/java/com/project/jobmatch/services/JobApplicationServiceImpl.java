@@ -61,6 +61,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
+    public List<JobApplication> getAllJobApplications(String status) {
+        return jobApplicationRepository.findJobApplicationsByStatus(status);
+    }
+
+    @Override
     public List<JobApplication> searchJobApplications(String location,
                                                       Double minSalary,
                                                       Double maxSalary,

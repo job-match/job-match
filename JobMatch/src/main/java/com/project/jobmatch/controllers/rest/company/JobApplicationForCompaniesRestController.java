@@ -21,6 +21,8 @@ import java.util.List;
 @RequestMapping("/api/company-portal/job-applications")
 public class JobApplicationForCompaniesRestController {
 
+    public static final String ACTIVE = "Active";
+
     private final JobApplicationService jobApplicationService;
     private final JobAdService jobAdService;
     private final AuthenticationHelper authenticationHelper;
@@ -40,7 +42,7 @@ public class JobApplicationForCompaniesRestController {
     public List<JobApplicationDtoOut> getAllJobApplications(@RequestHeader HttpHeaders httpHeaders) {
         try {
             authenticationHelper.tryGetCompany(httpHeaders);
-            List<JobApplication> jobApplicationList = jobApplicationService.getAllJobApplications();
+            List<JobApplication> jobApplicationList = jobApplicationService.getAllJobApplications(ACTIVE);
 
             return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(jobApplicationList);
         } catch (AuthorizationException e) {
