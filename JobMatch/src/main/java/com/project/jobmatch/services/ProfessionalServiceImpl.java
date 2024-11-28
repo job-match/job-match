@@ -66,6 +66,13 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     }
 
     @Override
+    public Professional getProfessionalByJobApplicationId(int jobApplicationId) {
+        return professionalRepository
+                .findProfessionalByJobApplicationId(jobApplicationId)
+                .orElseThrow(() -> new EntityNotFoundException("Job Application", jobApplicationId));
+    }
+
+    @Override
     public void updateProfessional(Professional professionalAuthenticated,
                                    Professional professionalMapped) {
 

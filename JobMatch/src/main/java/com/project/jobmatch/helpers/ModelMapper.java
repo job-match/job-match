@@ -13,7 +13,6 @@ import com.project.jobmatch.models.dto.CompanyDtoOut;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import com.project.jobmatch.services.interfaces.StatusService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -295,4 +294,23 @@ public class ModelMapper {
 
         return jobApplication;
     }
+
+    public JobApplication fromJobApplicationDtoInUpdateToJobApplication(
+            int jobApplicationId,
+            JobApplicationDtoInUpdate jobApplicationDtoInUpdate) {
+        JobApplication jobApplication = new JobApplication();
+
+        jobApplication.setId(jobApplicationId);
+        jobApplication.setProfessional(professionalService.getProfessionalByJobApplicationId(jobApplicationId));
+        jobApplication.setMinDesiredSalary(jobApplicationDtoInUpdate.getMinDesiredSalary());
+        jobApplication.setMaxDesiredSalary(jobApplicationDtoInUpdate.getMaxDesiredSalary());
+        jobApplication.setMotivationLetter(jobApplicationDtoInUpdate.getMotivationLetter());
+        jobApplication.setLocation(locationService.getLocationByName(jobApplicationDtoInUpdate.getLocation()));
+        jobApplication.setStatus(statusService.getStatusByType(jobApplicationDtoInUpdate.getStatus()));
+        jobApplication.setSkills(fromStringSetToSkillsSet(jobApplicationDtoInUpdate.getSkills()));
+
+        return jobApplication;
+    }
+
+
 }

@@ -19,6 +19,8 @@ public interface ProfessionalService {
 
     Professional getProfessionalById(int id);
 
+    Professional getProfessionalByJobApplicationId(int jobApplicationId);
+
     List<Professional> getAllProfessionals();
 
 }

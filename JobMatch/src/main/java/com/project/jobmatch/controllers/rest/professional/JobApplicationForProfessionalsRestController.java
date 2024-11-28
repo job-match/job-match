@@ -1,11 +1,13 @@
 package com.project.jobmatch.controllers.rest.professional;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.JobApplicationDtoInCreate;
+import com.project.jobmatch.models.dto.JobApplicationDtoInUpdate;
 import com.project.jobmatch.models.dto.JobApplicationDtoOut;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
@@ -58,6 +60,41 @@ public class JobApplicationForProfessionalsRestController {
             jobApplicationService.createJobApplication(jobApplication);
 
             return modelMapper.fromJobApplicationToJobApplicationDtoOut(jobApplication);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @PutMapping("/{jobApplicationId}")
+    public JobApplicationDtoOut updateJobApplication(@RequestHeader HttpHeaders httpHeaders,
+                                               @PathVariable int jobApplicationId,
+                                               @Valid @RequestBody JobApplicationDtoInUpdate jobApplicationDtoInUpdate) {
+        try {
+            Professional professionalAuthenticated =
+                    authenticationHelper.tryGetProfessional(httpHeaders);
+            JobApplication jobApplicationMapped =
+                    modelMapper.fromJobApplicationDtoInUpdateToJobApplication(
+                            jobApplicationId,
+                            jobApplicationDtoInUpdate);
+            jobApplicationService.updateJobApplication(professionalAuthenticated, jobApplicationMapped);
+
+            return modelMapper.fromJobApplicationToJobApplicationDtoOut(jobApplicationMapped);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{jobApplicationId}")
+    public void deleteJobApplication(@RequestHeader HttpHeaders httpHeaders,
+                                     @PathVariable int jobApplicationId) {
+        try {
+            Professional professionalAuthenticated =
+                    authenticationHelper.tryGetProfessional(httpHeaders);
+            JobApplication jobApplicationToDelete = jobApplicationService.getJobApplicationById(jobApplicationId);
+
+            jobApplicationService.deleteJobApplication(jobApplicationToDelete, professionalAuthenticated);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
