@@ -46,4 +46,11 @@ public class JobApplicationForCompaniesRestController {
         throw new UnsupportedOperationException();
     }
 
+    // /api/company-portal/job-applications/{jobApplicationId}/match-request-by/{jobAdId}
+    @PostMapping("/{jobApplicationId}/match-request-by/{jobAdId}")
+    public void jobAdRequestMatchWithJobApplication(@RequestHeader HttpHeaders headers,
+                                                    @PathVariable int jobApplicationId,
+                                                    @PathVariable int jobAdId) {
+        throw new UnsupportedOperationException();
+    }
 }
