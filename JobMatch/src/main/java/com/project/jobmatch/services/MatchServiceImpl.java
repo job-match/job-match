@@ -26,7 +26,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public void createMatch(JobAd jobAd, JobApplication jobApplication, Company companyAuthenticated) {
+    public void confirmMatchWithJobApplication(JobAd jobAd, JobApplication jobApplication, Company companyAuthenticated) {
 
         checkPermissions(companyAuthenticated, jobAd.getCompany());
 

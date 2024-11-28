@@ -6,5 +6,5 @@ import com.project.jobmatch.models.JobApplication;
 
 public interface MatchService {
 
-    void createMatch(JobAd jobAd, JobApplication jobApplication, Company companyAuthenticated);
+    void confirmMatchWithJobApplication(JobAd jobAd, JobApplication jobApplication, Company companyAuthenticated);
 }

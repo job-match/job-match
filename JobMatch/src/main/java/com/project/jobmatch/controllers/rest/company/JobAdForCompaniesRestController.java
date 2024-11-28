@@ -1,7 +1,6 @@
 package com.project.jobmatch.controllers.rest.company;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
-import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
@@ -11,7 +10,6 @@ import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.dto.JobAdDtoInUpdate;
 import com.project.jobmatch.models.dto.JobAdDtoInCreate;
 import com.project.jobmatch.models.dto.JobAdDtoOut;
-import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.MatchService;
@@ -95,7 +93,7 @@ public class JobAdForCompaniesRestController {
             JobAd jobAd = jobAdService.getJobAdById(jobAdId);
             JobApplication jobApplication = jobApplicationService.getJobApplicationById(jobAppId);
 
-            matchService.createMatch(jobAd, jobApplication, companyAuthenticated);
+            matchService.confirmMatchWithJobApplication(jobAd, jobApplication, companyAuthenticated);
 
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
