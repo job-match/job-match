@@ -87,7 +87,7 @@ public class JobApplicationForCompaniesRestController {
     }
 
     // /api/company-portal/job-applications/{jobApplicationId}/match-request-by/{jobAdId}
-    // /api/company-portal/job-applications/{12}/match-request-by/{1}
+    // /api/company-portal/job-applications/12/match-request-by/1
     @PostMapping("/{jobApplicationId}/match-request-by/{jobAdId}")
     public void jobAdRequestMatchWithJobApplication(@RequestHeader HttpHeaders headers,
                                                     @PathVariable int jobApplicationId,
