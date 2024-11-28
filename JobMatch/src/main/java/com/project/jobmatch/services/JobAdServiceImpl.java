@@ -86,11 +86,6 @@ public class JobAdServiceImpl implements JobAdService {
         if (company != null) {
             company.getJobAds().remove(jobAdToDelete);
         }
-        jobAdToDelete.setCompany(null);
-
-        jobAdToDelete.getRequirements().clear();
-        jobAdToDelete.setLocation(null);
-        jobAdToDelete.setStatus(null);
 
         jobAdRepository.delete(jobAdToDelete);
     }

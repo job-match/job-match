@@ -94,11 +94,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         if (professional != null) {
             professional.getJobApplications().remove(jobApplicationToDelete);
         }
-        jobApplicationToDelete.setProfessional(null);
-
-        jobApplicationToDelete.getSkills().clear();
-        jobApplicationToDelete.setLocation(null);
-        jobApplicationToDelete.setStatus(null);
 
         jobApplicationRepository.delete(jobApplicationToDelete);
     }
