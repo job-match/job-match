@@ -3,6 +3,7 @@ package com.project.jobmatch.models.dto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class JobApplicationDtoOut {
     private String status;
     private String professionalName;
     private List<SkillDtoOut> skills;
+    private List<JobAdDtoOut> matchRequestsList;
 
     public JobApplicationDtoOut() {
     }
@@ -73,5 +75,13 @@ public class JobApplicationDtoOut {
 
     public void setSkills(List<SkillDtoOut> skills) {
         this.skills = skills;
+    }
+
+    public List<JobAdDtoOut> getMatchRequestsList() {
+        return matchRequestsList;
+    }
+
+    public void setMatchRequestsList(List<JobAdDtoOut> matchRequestsList) {
+        this.matchRequestsList = matchRequestsList;
     }
 }

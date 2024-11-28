@@ -42,7 +42,6 @@ public class JobApplicationForCompaniesRestController {
     public List<JobApplicationDtoOut> getAllJobApplications(@RequestHeader HttpHeaders httpHeaders) {
         try {
             authenticationHelper.tryGetCompany(httpHeaders);
-            //TODO getAllActiveJobApplications()
             List<JobApplication> jobApplicationList = jobApplicationService.getAllActiveJobApplications();
 
             return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(jobApplicationList);
