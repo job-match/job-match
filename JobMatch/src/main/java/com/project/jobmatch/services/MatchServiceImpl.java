@@ -1,6 +1,7 @@
 package com.project.jobmatch.services;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.repositories.interfaces.JobAdRepository;
 import com.project.jobmatch.repositories.interfaces.JobApplicationRepository;
@@ -9,8 +10,7 @@ import com.project.jobmatch.services.interfaces.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.project.jobmatch.helpers.ServicesConstants.JOB_AD_OWNER_ERROR_MESSAGE;
-import static com.project.jobmatch.helpers.ServicesConstants.JOB_APPLICATION_OWNER_ERROR_MESSAGE;
+import static com.project.jobmatch.helpers.ServicesConstants.*;
 
 @Service
 public class MatchServiceImpl implements MatchService {
@@ -68,19 +68,28 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public void createMatch(JobAd jobAd, JobApplication jobApplication) {
-        Match match = new Match();
-        match.setJobAd(jobAd);
-        match.setJobApplication(jobApplication);
-        matchRepository.save(match);
 
-        if (jobAd.getListOfApplicationMatchRequests().contains(jobApplication)) {
-            jobAd.getListOfApplicationMatchRequests().remove(jobApplication);
-            jobAdRepository.save(jobAd);
-        }
+        boolean alreadyMatched = matchRepository.existsMatchByJobAdAndJobApplication(jobAd, jobApplication);
 
-        if (jobApplication.getListOfAdMatchRequests().contains(jobAd)) {
-            jobApplication.getListOfAdMatchRequests().remove(jobAd);
-            jobApplicationRepository.save(jobApplication);
+        if (alreadyMatched) {
+            throw new EntityDuplicateException(ALREADY_MATCHED_ERROR_MESSAGE);
+
+        } else {
+
+            Match match = new Match();
+            match.setJobAd(jobAd);
+            match.setJobApplication(jobApplication);
+            matchRepository.save(match);
+
+            if (jobAd.getListOfApplicationMatchRequests().contains(jobApplication)) {
+                jobAd.getListOfApplicationMatchRequests().remove(jobApplication);
+                jobAdRepository.save(jobAd);
+            }
+
+            if (jobApplication.getListOfAdMatchRequests().contains(jobAd)) {
+                jobApplication.getListOfAdMatchRequests().remove(jobAd);
+                jobApplicationRepository.save(jobApplication);
+            }
         }
     }
 }
