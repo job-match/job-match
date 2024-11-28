@@ -94,11 +94,11 @@ public class JobAdServiceImpl implements JobAdService {
 
     @Override
     public void updateJobAd(JobAd jobAd, Company company) {
-        checkModifyPermissions(company, jobAd);
+        checkModifyPermissions(jobAd, company);
         jobAdRepository.save(jobAd);
     }
 
-    private void checkModifyPermissions(Company company, JobAd jobAd) {
+    private void checkModifyPermissions(JobAd jobAd, Company company) {
         if (!(jobAd.getCompany().equals(company))) {
             throw new AuthorizationException(MODIFY_JOB_AD_ERROR_MESSAGE);
         }

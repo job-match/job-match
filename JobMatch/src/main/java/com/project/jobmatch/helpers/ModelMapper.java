@@ -261,7 +261,7 @@ public class ModelMapper {
         return jobApplicationDtoOut;
     }
 
-    public List<JobApplicationDtoOut> fromSetJobApplicationToSetJobApplicationDtoOut(List<JobApplication> jobApplications) {
+    public List<JobApplicationDtoOut> fromListJobApplicationToListJobApplicationDtoOut(List<JobApplication> jobApplications) {
         if (jobApplications == null) {
             return new ArrayList<>();
         }

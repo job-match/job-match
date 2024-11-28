@@ -53,6 +53,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
+    public List<JobApplication> getAllJobApplications() {
+        return jobApplicationRepository.findAll();
+    }
+
+    @Override
     public void createJobApplication(JobApplication jobApplication) {
         jobApplicationRepository.save(jobApplication);
     }
