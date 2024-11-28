@@ -5,10 +5,8 @@ import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.dto.JobApplicationDtoOut;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.http.HttpHeaders;
 import java.util.List;
 
 @RestController
@@ -51,6 +49,9 @@ public class JobApplicationForCompaniesRestController {
     public void jobAdRequestMatchWithJobApplication(@RequestHeader HttpHeaders headers,
                                                     @PathVariable int jobApplicationId,
                                                     @PathVariable int jobAdId) {
-        throw new UnsupportedOperationException();
+        try {
+            authenticationHelper.tryGetCompany(headers);
+            
+        }
     }
 }
