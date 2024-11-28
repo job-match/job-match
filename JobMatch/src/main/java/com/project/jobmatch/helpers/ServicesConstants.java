@@ -16,10 +16,10 @@ public class ServicesConstants {
     public static final String HYBRID_LOCATION = "Hybrid";
     public static final String JOB_AD_OWNER_ERROR_MESSAGE = "Only company which is owner of this Job Ad can confirm match with Job Application!";
     public static final String MODIFY_PROFESSIONAL_ERROR_MESSAGE = "Only owner can make changes to the professional info.";
-    public static final String DELETE_PROFILE_ERROR_MESSAGE =
-            "Only professional account's owner can delete their job applications!";
+    public static final String DELETE_PROFILE_ERROR_MESSAGE = "Only professional account's owner can delete their job applications!";
     public static final String YOU_ALREADY_SHOWED_INTEREST_ERROR_MESSAGE = "You already showed interest for this job application!";
     public static final String AD_REQUEST_DENIED_ERROR_MESSAGE = "This job ad's requirements do not meet the applicant's preferences!";
     public static final String JOB_APPLICATION_OWNER_ERROR_MESSAGE = "Only professional which is owner of this Job Application can confirm match with Job Ad!";
+    public static final String ALREADY_MATCHED_ERROR_MESSAGE = "Already Matched!";
 
 }

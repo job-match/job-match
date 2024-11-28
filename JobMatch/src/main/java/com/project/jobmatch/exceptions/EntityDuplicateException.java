@@ -1,6 +1,10 @@
 package com.project.jobmatch.exceptions;
 
 public class EntityDuplicateException extends RuntimeException {
+    public EntityDuplicateException(String message) {
+        super(message);
+    }
+
     public EntityDuplicateException(String type, int id) {
         this(type, "id", String.valueOf(id));
     }
