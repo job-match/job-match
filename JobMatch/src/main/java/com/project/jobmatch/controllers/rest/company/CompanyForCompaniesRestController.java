@@ -22,11 +22,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.util.List;
 
+import static com.project.jobmatch.controllers.rest.RestControllersConstants.UPLOAD_COMPANY_PICTURE_ERROR_MESSAGE;
+
 @RestController
 @RequestMapping("/api/company-portal/companies")
 public class CompanyForCompaniesRestController {
-    public static final String UPLOAD_COMPANY_PICTURE_ERROR_MESSAGE = "Could not upload company's picture!";
-
 
     private final AuthenticationHelper authenticationHelper;
     private final ModelMapper modelMapper;

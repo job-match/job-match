@@ -10,13 +10,11 @@ import com.project.jobmatch.repositories.interfaces.ProfessionalRepository;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import static com.project.jobmatch.services.ServicesConstants.MODIFY_PROFESSIONAL_ERROR_MESSAGE;
 
 @Service
 public class ProfessionalServiceImpl implements ProfessionalService {
-    private static final String MODIFY_PROFESSIONAL_ERROR_MESSAGE =
-            "Only owner can make changes to the professional info.";
 
     private final ProfessionalRepository professionalRepository;
     private final PictureRepository pictureRepository;
