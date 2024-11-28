@@ -5,7 +5,6 @@ import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
-import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.ProfessionalDtoInCreate;
 import com.project.jobmatch.models.dto.ProfessionalDtoInUpdate;
@@ -23,7 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.util.List;
 
-import static com.project.jobmatch.controllers.rest.RestControllersConstants.UPLOAD_PROFESSIONAL_PICTURE_ERROR_MESSAGE;
+import static com.project.jobmatch.helpers.RestControllersConstants.UPLOAD_PROFESSIONAL_PICTURE_ERROR_MESSAGE;
 
 @RestController
 @RequestMapping("/api/professional-portal/professionals")

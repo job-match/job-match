@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
-import static com.project.jobmatch.services.ServicesConstants.*;
+import static com.project.jobmatch.helpers.ServicesConstants.*;
 
 @Service
 public class JobApplicationServiceImpl implements JobApplicationService {

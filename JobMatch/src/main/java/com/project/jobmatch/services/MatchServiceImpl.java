@@ -9,8 +9,8 @@ import com.project.jobmatch.services.interfaces.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.project.jobmatch.services.ServicesConstants.JOB_AD_OWNER_ERROR_MESSAGE;
-import static com.project.jobmatch.services.ServicesConstants.JOB_APPLICATION_OWNER_ERROR_MESSAGE;
+import static com.project.jobmatch.helpers.ServicesConstants.JOB_AD_OWNER_ERROR_MESSAGE;
+import static com.project.jobmatch.helpers.ServicesConstants.JOB_APPLICATION_OWNER_ERROR_MESSAGE;
 
 @Service
 public class MatchServiceImpl implements MatchService {

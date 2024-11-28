@@ -1,4 +1,4 @@
-package com.project.jobmatch.services;
+package com.project.jobmatch.helpers;
 
 public class ServicesConstants {
     public static final String TEMP_FILE = "temp-file";
