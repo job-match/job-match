@@ -1,5 +1,6 @@
 package com.project.jobmatch.services.interfaces;
 
+import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
 
@@ -12,6 +13,8 @@ public interface JobApplicationService {
     void updateJobApplication(Professional professionalAuthenticated, JobApplication jobApplicationMapped);
 
     void deleteJobApplication(JobApplication jobApplicationToDelete, Professional professionalAuthenticated);
+
+    void addJobAdToListOfAdMatchRequests(JobApplication jobApplication, JobAd jobAd);
 
     JobApplication getJobApplicationById(int jobApplicationId);
 

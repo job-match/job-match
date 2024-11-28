@@ -100,4 +100,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         jobApplicationRepository.delete(jobApplicationToDelete);
     }
 
+    @Override
+    public void addJobAdToListOfAdMatchRequests(JobApplication jobApplication, JobAd jobAd) {
+
+    }
+
 }
