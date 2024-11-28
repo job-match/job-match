@@ -1,14 +1,20 @@
 package com.project.jobmatch.controllers.rest.company;
 
+import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
+import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.dto.JobApplicationDtoOut;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.net.http.HttpHeaders;
+import org.springframework.http.HttpHeaders;
+
 import java.util.List;
 
 @RestController
@@ -31,19 +37,53 @@ public class JobApplicationForCompaniesRestController {
     }
 
     @GetMapping
-    public List<JobApplicationDtoOut> getAllJobApplications(@RequestHeader HttpHeaders headers) {
-        throw new UnsupportedOperationException();
+    public List<JobApplicationDtoOut> getAllJobApplications(@RequestHeader HttpHeaders httpHeaders) {
+        try {
+            authenticationHelper.tryGetCompany(httpHeaders);
+            List<JobApplication> jobApplicationList = jobApplicationService.getAllJobApplications();
+
+            return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(jobApplicationList);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
     }
 
     @GetMapping("/search")
-    public List<JobApplicationDtoOut> searchJobApplications(@RequestHeader HttpHeaders headers) {
-        throw new UnsupportedOperationException();
+    public List<JobApplicationDtoOut> searchJobApplications(@RequestHeader HttpHeaders httpHeaders,
+                                                            @RequestParam(required = false) String location,
+                                                            @RequestParam(required = false) Double minSalary,
+                                                            @RequestParam(required = false) Double maxSalary,
+                                                            @RequestParam(required = false) String skill,
+                                                            @RequestParam(required = false) String keyword) {
+        try {
+            authenticationHelper.tryGetCompany(httpHeaders);
+
+            List<JobApplication> jobApplicationList = jobApplicationService.searchJobApplications(
+                    location,
+                    minSalary,
+                    maxSalary,
+                    skill,
+                    keyword);
+
+            return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(jobApplicationList);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
-    public JobApplicationDtoOut getJobApplicationById(@RequestHeader HttpHeaders headers,
+    public JobApplicationDtoOut getJobApplicationById(@RequestHeader HttpHeaders httpHeaders,
                                                       @PathVariable int id) {
-        throw new UnsupportedOperationException();
+        try {
+            authenticationHelper.tryGetCompany(httpHeaders);
+
+            return modelMapper.fromJobApplicationToJobApplicationDtoOut(
+                    jobApplicationService.getJobApplicationById(id));
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
     }
 
     // /api/company-portal/job-applications/{jobApplicationId}/match-request-by/{jobAdId}
