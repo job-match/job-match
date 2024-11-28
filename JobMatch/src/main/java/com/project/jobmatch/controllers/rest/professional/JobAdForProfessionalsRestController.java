@@ -1,9 +1,9 @@
 package com.project.jobmatch.controllers.rest.professional;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.exceptions.MatchRequestDeniedException;
-import com.project.jobmatch.exceptions.MatchRequestDuplicateException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.JobAd;
@@ -96,7 +96,7 @@ public class JobAdForProfessionalsRestController {
             jobAdService.addJobApplicationToListOfApplicationMatchRequests(jobAd, jobApplication);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
-        } catch (MatchRequestDuplicateException e) {
+        } catch (EntityDuplicateException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         } catch (MatchRequestDeniedException e) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
