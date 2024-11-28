@@ -11,8 +11,8 @@ import com.project.jobmatch.services.interfaces.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import static com.project.jobmatch.services.ServicesConstants.COMPANY;
-import static com.project.jobmatch.services.ServicesConstants.MODIFY_PROFILE_ERROR_MESSAGE;
+import static com.project.jobmatch.helpers.ServicesConstants.COMPANY;
+import static com.project.jobmatch.helpers.ServicesConstants.MODIFY_PROFILE_ERROR_MESSAGE;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {

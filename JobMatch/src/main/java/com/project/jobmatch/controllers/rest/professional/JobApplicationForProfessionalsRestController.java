@@ -4,12 +4,16 @@ import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
+import com.project.jobmatch.models.Company;
+import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.JobApplicationDtoInCreate;
 import com.project.jobmatch.models.dto.JobApplicationDtoInUpdate;
 import com.project.jobmatch.models.dto.JobApplicationDtoOut;
+import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
+import com.project.jobmatch.services.interfaces.MatchService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
@@ -25,13 +29,22 @@ public class JobApplicationForProfessionalsRestController {
 
     private final AuthenticationHelper authenticationHelper;
     private final JobApplicationService jobApplicationService;
+    private final JobAdService jobAdService;
+    private final MatchService matchService;
     private final ProfessionalService professionalService;
     private final ModelMapper modelMapper;
 
-    public JobApplicationForProfessionalsRestController(AuthenticationHelper authenticationHelper, JobApplicationService jobApplicationService, ProfessionalService professionalService, ModelMapper modelMapper) {
+    public JobApplicationForProfessionalsRestController(AuthenticationHelper authenticationHelper,
+                                                        JobApplicationService jobApplicationService,
+                                                        ProfessionalService professionalService,
+                                                        JobAdService jobAdService,
+                                                        MatchService matchService,
+                                                        ModelMapper modelMapper) {
         this.authenticationHelper = authenticationHelper;
         this.jobApplicationService = jobApplicationService;
         this.professionalService = professionalService;
+        this.jobAdService = jobAdService;
+        this.matchService = matchService;
         this.modelMapper = modelMapper;
     }
 
@@ -89,6 +102,24 @@ public class JobApplicationForProfessionalsRestController {
             return modelMapper.fromJobApplicationToJobApplicationDtoOut(jobApplication);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @PostMapping("/{jobAppId}/match-requests/{jobAdId}")
+    public void confirmMatchWithJobApplication(@RequestHeader HttpHeaders headers,
+                                               @PathVariable int jobAdId,
+                                               @PathVariable int jobAppId) {
+        try {
+            Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(headers);
+            JobAd jobAd = jobAdService.getJobAdById(jobAdId);
+            JobApplication jobApplication = jobApplicationService.getJobApplicationById(jobAppId);
+
+            matchService.confirmMatchWithJobAd(jobAd, jobApplication, professionalAuthenticated);
+
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 

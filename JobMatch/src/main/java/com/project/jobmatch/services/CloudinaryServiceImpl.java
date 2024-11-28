@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import static com.project.jobmatch.services.ServicesConstants.*;
+import static com.project.jobmatch.helpers.ServicesConstants.*;
 
 @Service
 public class CloudinaryServiceImpl implements CloudinaryService {
