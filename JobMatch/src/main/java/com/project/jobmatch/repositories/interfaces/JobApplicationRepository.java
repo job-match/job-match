@@ -27,7 +27,7 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
 
     @Query("SELECT j FROM JobApplication j " +
             "WHERE j.id = :jobApplicationId AND j.status.type != :statusToIgnore")
-    Optional<JobApplication> findJobApplicationById(int jobApplicationId, String statusToIgnore);
+    Optional<JobApplication> findJobApplicationByIdFromCompany(int jobApplicationId, String statusToIgnore);
 
     @Query("SELECT j FROM JobApplication j " +
             "WHERE j.status.type = :#{T(com.project.jobmatch.helpers.RestControllersConstants).JOB_APP_STATUS_TO_ACCEPT} " +

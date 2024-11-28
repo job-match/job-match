@@ -13,7 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
+
+import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_IGNORE;
 import static com.project.jobmatch.helpers.ServicesConstants.*;
+
+import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_ACCEPT;
 
 @Service
 public class JobApplicationServiceImpl implements JobApplicationService {
@@ -59,8 +63,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
-    public List<JobApplication> getAllJobApplications(String status) {
-        return jobApplicationRepository.findJobApplicationsByStatus(status);
+    public List<JobApplication> getAllActiveJobApplications() {
+        return jobApplicationRepository.findJobApplicationsByStatus(JOB_APP_STATUS_TO_ACCEPT);
     }
 
     @Override
@@ -91,10 +95,10 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
-    public JobApplication getJobApplicationById(int jobApplicationId, String statusToIgnore) {
+    public JobApplication getJobApplicationByIdFromCompany(int id) {
         return jobApplicationRepository
-                .findJobApplicationById(jobApplicationId, statusToIgnore)
-                .orElseThrow(()-> new EntityNotFoundException("Job application", jobApplicationId));
+                .findJobApplicationByIdFromCompany(id, JOB_APP_STATUS_TO_IGNORE)
+                .orElseThrow(()-> new EntityNotFoundException("Job application", id));
     }
 
     @Override

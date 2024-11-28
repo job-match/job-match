@@ -54,7 +54,7 @@ public class JobApplicationForProfessionalsRestController {
     public List<JobApplicationDtoOut> getAllJobApplications(@RequestHeader HttpHeaders httpHeaders) {
         try {
             authenticationHelper.tryGetProfessional(httpHeaders);
-            List<JobApplication> jobApplicationList = jobApplicationService.getAllJobApplications(JOB_APP_STATUS_TO_ACCEPT);
+            List<JobApplication> jobApplicationList = jobApplicationService.getAllActiveJobApplications();
 
             return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(jobApplicationList);
         } catch (AuthorizationException e) {
@@ -69,7 +69,7 @@ public class JobApplicationForProfessionalsRestController {
             authenticationHelper.tryGetProfessional(httpHeaders);
 
             return modelMapper.fromJobApplicationToJobApplicationDtoOut(
-                    jobApplicationService.getJobApplicationById(id, JOB_APP_STATUS_TO_IGNORE));
+                    jobApplicationService.getJobApplicationById(id));
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (AuthorizationException e) {

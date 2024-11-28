@@ -16,16 +16,16 @@ public interface JobApplicationService {
 
     void addJobAdToListOfAdMatchRequests(JobApplication jobApplication, JobAd jobAd);
 
-    JobApplication getJobApplicationById(int jobApplicationId);
+    JobApplication getJobApplicationByIdFromCompany(int id);
 
-    JobApplication getJobApplicationById(int jobApplicationId, String statusToIgnore);
+    JobApplication getJobApplicationById(int jobApplicationId);
 
     List<JobApplication> getAllJobApplicationsOfProfessional
             (Professional professionalToRetrieveJobAppsFrom, Professional professionalAuthenticated);
 
     List<JobApplication> getAllJobApplications();
 
-    List<JobApplication> getAllJobApplications(String status);
+    List<JobApplication> getAllActiveJobApplications();
 
     List<JobApplication> searchJobApplications(String location, Double minSalary, Double maxSalary, String skill, String keyword);
 }
