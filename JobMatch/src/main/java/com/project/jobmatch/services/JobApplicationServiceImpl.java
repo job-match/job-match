@@ -63,6 +63,15 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
+    public List<JobApplication> searchJobApplications(String location,
+                                                      Double minSalary,
+                                                      Double maxSalary,
+                                                      String skill,
+                                                      String keyword) {
+        return jobApplicationRepository.searchJobApplications(location, minSalary, maxSalary, skill, keyword);
+    }
+
+    @Override
     public void createJobApplication(JobApplication jobApplication) {
         jobApplicationRepository.save(jobApplication);
     }

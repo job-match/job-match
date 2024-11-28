@@ -22,4 +22,6 @@ public interface JobApplicationService {
             (Professional professionalToRetrieveJobAppsFrom, Professional professionalAuthenticated);
 
     List<JobApplication> getAllJobApplications();
+
+    List<JobApplication> searchJobApplications(String location, Double minSalary, Double maxSalary, String skill, String keyword);
 }
