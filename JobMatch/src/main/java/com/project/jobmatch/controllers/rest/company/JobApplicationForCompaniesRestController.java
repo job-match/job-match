@@ -6,10 +6,7 @@ import com.project.jobmatch.models.dto.JobApplicationDtoOut;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpHeaders;
 import java.util.List;
@@ -40,6 +37,12 @@ public class JobApplicationForCompaniesRestController {
 
     @GetMapping("/search")
     public List<JobApplicationDtoOut> searchJobApplications(@RequestHeader HttpHeaders headers) {
+        throw new UnsupportedOperationException();
+    }
+
+    @GetMapping("/{id}")
+    public JobApplicationDtoOut getJobApplicationById(@RequestHeader HttpHeaders headers,
+                                                      @PathVariable int id) {
         throw new UnsupportedOperationException();
     }
 
