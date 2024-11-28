@@ -1,12 +1,19 @@
 package com.project.jobmatch.controllers.rest.company;
 
+import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
+import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.dto.JobApplicationDtoOut;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 @RestController
@@ -51,7 +58,13 @@ public class JobApplicationForCompaniesRestController {
                                                     @PathVariable int jobAdId) {
         try {
             authenticationHelper.tryGetCompany(headers);
-            
+
+            JobApplication jobApplication = jobApplicationService.getJobApplicationById(jobApplicationId);
+            JobAd jobAd = jobAdService.getJobAdById(jobAdId);
+
+            jobApplicationService.addJobAdToListOfAdMatchRequests(jobApplication, jobAd);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
 }
