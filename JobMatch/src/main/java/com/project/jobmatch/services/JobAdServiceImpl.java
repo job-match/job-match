@@ -1,9 +1,9 @@
 package com.project.jobmatch.services;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.exceptions.MatchRequestDeniedException;
-import com.project.jobmatch.exceptions.MatchRequestDuplicateException;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.repositories.interfaces.JobAdRepository;
 import com.project.jobmatch.services.interfaces.JobAdService;
@@ -75,7 +75,7 @@ public class JobAdServiceImpl implements JobAdService {
 
             if (doSalariesMatch && doSkillsAndRequirementsMatch && doLocationsMatch) {
                 if (jobAd.getListOfApplicationMatchRequests().contains(jobApplication)) {
-                    throw new MatchRequestDuplicateException(YOU_ALREADY_APPLIED_ERROR_MESSAGE);
+                    throw new EntityDuplicateException(YOU_ALREADY_APPLIED_ERROR_MESSAGE);
                 }
                 jobAd.getListOfApplicationMatchRequests().add(jobApplication);
                 jobAdRepository.save(jobAd);
