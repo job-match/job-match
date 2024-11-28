@@ -35,6 +35,33 @@ public class JobApplicationForProfessionalsRestController {
         this.modelMapper = modelMapper;
     }
 
+    @GetMapping
+    public List<JobApplicationDtoOut> getAllJobApplications(@RequestHeader HttpHeaders httpHeaders) {
+        try {
+            authenticationHelper.tryGetProfessional(httpHeaders);
+            List<JobApplication> jobApplicationList = jobApplicationService.getAllJobApplications();
+
+            return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(jobApplicationList);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}")
+    public JobApplicationDtoOut getJobApplicationById(@RequestHeader HttpHeaders httpHeaders,
+                                                      @PathVariable int id) {
+        try {
+            authenticationHelper.tryGetProfessional(httpHeaders);
+
+            return modelMapper.fromJobApplicationToJobApplicationDtoOut(
+                    jobApplicationService.getJobApplicationById(id));
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
     @GetMapping("/professional/{id}")
     public List<JobApplicationDtoOut> getAllJobApplicationsOfProfessional(@RequestHeader HttpHeaders httpHeaders,
                                                                           @PathVariable int id) {
@@ -44,7 +71,7 @@ public class JobApplicationForProfessionalsRestController {
             List<JobApplication> jobApplications =
                     jobApplicationService.getAllJobApplicationsOfProfessional
                             (professionalToRetrieveJobAppsFrom, professionalAuthenticated);
-            return modelMapper.fromSetJobApplicationToSetJobApplicationDtoOut(jobApplications);
+            return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(jobApplications);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
