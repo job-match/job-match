@@ -2,21 +2,16 @@ package com.project.jobmatch.services;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-
 import com.project.jobmatch.services.interfaces.CloudinaryService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import static com.project.jobmatch.services.ServicesConstants.*;
 
 @Service
 public class CloudinaryServiceImpl implements CloudinaryService {
-
-    private static final String TEMP_FILE = "temp-file";
-    private static final String URL = "url";
-    private static final String PUBLIC_ID = "public_id";
 
     private final Cloudinary cloudinary;
 

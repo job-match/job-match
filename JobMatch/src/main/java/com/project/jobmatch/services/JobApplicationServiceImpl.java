@@ -10,11 +10,9 @@ import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Set;
-
-import static com.project.jobmatch.services.JobAdServiceImpl.*;
+import static com.project.jobmatch.services.ServicesConstants.*;
 
 @Service
 public class JobApplicationServiceImpl implements JobApplicationService {

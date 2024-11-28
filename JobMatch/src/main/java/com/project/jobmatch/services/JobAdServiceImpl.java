@@ -9,22 +9,12 @@ import com.project.jobmatch.repositories.interfaces.JobAdRepository;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Set;
+import static com.project.jobmatch.services.ServicesConstants.*;
 
 @Service
 public class JobAdServiceImpl implements JobAdService {
-
-    private static final String MODIFY_JOB_AD_ERROR_MESSAGE = "Only job ad owner can modify/delete the job ad!";
-    public static final String YOU_ALREADY_APPLIED_ERROR_MESSAGE = "You already applied for this job ad!";
-    public static final String APPLICATION_DENIED_ERROR_MESSAGE = "You do not meet ad's requirements!";
-    public static final double REQUIREMENTS_THRESHOLD_PERCENTAGE = 50.0;
-    public static final double MIN_SALARY_THRESHOLD_COEFFICIENT = 0.8;
-    public static final double MAX_SALARY_THRESHOLD_COEFFICIENT = 1.2;
-    public static final String REMOTE_LOCATION = "Remote";
-    public static final String HYBRID_LOCATION = "Hybrid";
-
 
     private JobAdRepository jobAdRepository;
 
