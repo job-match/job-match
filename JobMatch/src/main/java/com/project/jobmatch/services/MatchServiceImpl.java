@@ -65,4 +65,22 @@ public class MatchServiceImpl implements MatchService {
         jobApplication.getListOfAdMatchRequests().remove(jobAd);
         jobApplicationRepository.save(jobApplication);
     }
+
+    @Override
+    public void createMatch(JobAd jobAd, JobApplication jobApplication) {
+        Match match = new Match();
+        match.setJobAd(jobAd);
+        match.setJobApplication(jobApplication);
+        matchRepository.save(match);
+
+        if (jobAd.getListOfApplicationMatchRequests().contains(jobApplication)) {
+            jobAd.getListOfApplicationMatchRequests().remove(jobApplication);
+            jobAdRepository.save(jobAd);
+        }
+
+        if (jobApplication.getListOfAdMatchRequests().contains(jobAd)) {
+            jobApplication.getListOfAdMatchRequests().remove(jobAd);
+            jobApplicationRepository.save(jobApplication);
+        }
+    }
 }
