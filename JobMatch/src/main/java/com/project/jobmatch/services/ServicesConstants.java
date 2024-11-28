@@ -16,5 +16,6 @@ public class ServicesConstants {
     public static final String HYBRID_LOCATION = "Hybrid";
     public static final String JOB_AD_OWNER_ERROR_MESSAGE = "Only company which is owner of this Job Ad can confirm match with Job Application!";
     public static final String MODIFY_PROFESSIONAL_ERROR_MESSAGE = "Only owner can make changes to the professional info.";
+    public static final String JOB_APPLICATION_OWNER_ERROR_MESSAGE = "Only professional which is owner of this Job Application can confirm match with Job Ad!";
 
 }
