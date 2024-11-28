@@ -2,7 +2,6 @@ package com.project.jobmatch.services;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
-import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
@@ -67,7 +66,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     @Override
     public JobApplication getJobApplicationById(int jobApplicationId) {
         return jobApplicationRepository
-                .findJobApplicationsById(jobApplicationId)
+                .findJobApplicationById(jobApplicationId)
                 .orElseThrow(()-> new EntityNotFoundException("Job application", jobApplicationId));
     }
 
