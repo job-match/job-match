@@ -33,7 +33,7 @@ public class MatchServiceImpl implements MatchService {
                                                Company companyAuthenticated) {
 
         if (!(companyAuthenticated.equals(jobAd.getCompany()))) {
-            throw new AuthorizationException(JOB_APPLICATION_OWNER_ERROR_MESSAGE);
+            throw new AuthorizationException(JOB_AD_OWNER_ERROR_MESSAGE);
         }
 
         Match match = new Match();
