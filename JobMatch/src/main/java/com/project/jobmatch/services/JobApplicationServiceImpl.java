@@ -140,4 +140,17 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
         return REQUIREMENTS_THRESHOLD_PERCENTAGE <= metRequirementsPercentage;
     }
+
+    private boolean checkLocations(String jobApplicationLocationName, String jobAdLocationName) {
+        if (jobAdLocationName.equalsIgnoreCase(REMOTE_LOCATION)) {
+            return true;
+
+        } else if (jobAdLocationName.equalsIgnoreCase(HYBRID_LOCATION) &&
+                (!jobApplicationLocationName.equalsIgnoreCase(REMOTE_LOCATION))) {
+            return true;
+
+        } else {
+            return jobAdLocationName.equalsIgnoreCase(jobApplicationLocationName);
+        }
+    }
 }
