@@ -99,7 +99,7 @@ public class JobApplicationForProfessionalsRestController {
             Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(httpHeaders);
             JobApplication jobApplication = modelMapper.fromJobApplicationDtoInCreateToJobApplication(
                     professionalAuthenticated, jobApplicationDtoInCreate);
-            jobApplicationService.createJobApplication(jobApplication);
+            jobApplicationService.createJobApplication(jobApplication, professionalAuthenticated);
 
             return modelMapper.fromJobApplicationToJobApplicationDtoOut(jobApplication);
         } catch (AuthorizationException e) {
