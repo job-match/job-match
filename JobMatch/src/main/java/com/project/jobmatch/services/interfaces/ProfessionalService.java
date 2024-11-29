@@ -23,4 +23,5 @@ public interface ProfessionalService {
 
     List<Professional> getAllProfessionals();
 
+    List<Professional> searchProfessionals(String username, String name, String email, String keyword, String location);
 }
