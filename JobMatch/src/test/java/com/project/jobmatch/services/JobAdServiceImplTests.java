@@ -76,4 +76,16 @@ public class JobAdServiceImplTests {
                 .searchJobAds(Mockito.anyString(), Mockito.anyString(), Mockito.anyDouble(),
                         Mockito.anyDouble(), Mockito.anyString());
     }
+
+    @Test
+    public void createJobAd_Should_CallRepository() {
+        //Arrange
+        JobAd mockJobAd = createMockJobAd();
+
+        //Act
+        mockJobAdService.createJobAd(mockJobAd);
+
+        //Assert
+        Mockito.verify(mockJobAdRepository, Mockito.times(1)).save(mockJobAd);
+    }
 }
