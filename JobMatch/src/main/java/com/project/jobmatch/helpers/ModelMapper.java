@@ -300,7 +300,7 @@ public class ModelMapper {
         }
 
         return requirements.stream()
-                .map(requirementService::getRequirementByName)
+                .map(requirementService::createRequirement)
                 .collect(Collectors.toSet());
     }
 
