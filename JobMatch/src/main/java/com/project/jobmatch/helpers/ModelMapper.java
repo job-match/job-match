@@ -137,7 +137,7 @@ public class ModelMapper {
         jobAd.setMaxSalaryBoundary(jobAdDtoInCreate.getMaxSalaryBoundary());
         jobAd.setJobDescription(jobAdDtoInCreate.getDescription());
         jobAd.setLocation(locationService.getLocationByName(jobAdDtoInCreate.getLocation()));
-        jobAd.setRequirements(fromStringSetToRequirementSet(jobAdDtoInCreate.getRequirements()));
+        jobAd.setRequirements(fromStringSetToRequirementsSet(jobAdDtoInCreate.getRequirements()));
         jobAd.setStatus(statusService.getStatusByType("Active"));
         jobAd.setCompany(company);
 
@@ -164,16 +164,6 @@ public class ModelMapper {
         return jobAds.stream()
                 .map(this::fromJobAdToJobAdDtoOut)
                 .collect(Collectors.toList());
-    }
-
-    public Set<Requirement> fromStringSetToRequirementSet(Set<String> requirementSet) {
-        if (requirementSet == null) {
-            return new HashSet<>();
-        }
-
-        return requirementSet.stream()
-                .map(requirementService::getRequirementByName)
-                .collect(Collectors.toSet());
     }
 
     public ProfessionalDtoOut fromProfessionalToProfessionalDtoOut(Professional professional) {
