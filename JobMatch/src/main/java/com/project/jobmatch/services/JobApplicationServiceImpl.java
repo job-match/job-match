@@ -24,14 +24,16 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     private final JobApplicationRepository jobApplicationRepository;
     private final ProfessionalService professionalService;
+    private final MailjetServiceImpl mailjetService;
     private final MatchService matchService;
 
     @Autowired
     public JobApplicationServiceImpl(JobApplicationRepository jobApplicationRepository,
-                                     ProfessionalService professionalService,
+                                     ProfessionalService professionalService, MailjetServiceImpl mailjetService,
                                      MatchService matchService) {
         this.jobApplicationRepository = jobApplicationRepository;
         this.professionalService = professionalService;
+        this.mailjetService = mailjetService;
         this.matchService = matchService;
     }
 
@@ -66,6 +68,14 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         if (professionalAuthenticated.getStatus().getType().equalsIgnoreCase(PROFESSIONAL_STATUS_BUSY)){
             throw new AuthorizationException(CREATE_JOB_APPLICATION_ERROR_MESSAGE);
         }
+
+        mailjetService.sendEmail(
+                professionalAuthenticated.getEmail(),
+                professionalAuthenticated.getFirstName(),
+                JOB_APP_CREATION_SUBJECT_MESSAGE,
+                JOB_APP_CREATION_TEXT_CONTENT,
+                String.format(JOB_APP_CREATION_HTML_CONTENT, professionalAuthenticated.getFirstName())
+        );
 
         jobApplicationRepository.save(jobApplication);
     }
