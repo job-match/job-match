@@ -1,7 +1,10 @@
 package com.project.jobmatch.services;
 
+import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
+import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.repositories.interfaces.JobAdRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,10 +14,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 
-import static com.project.jobmatch.Helpers.createMockJobAd;
+import static com.project.jobmatch.Helpers.*;
 
 @ExtendWith(MockitoExtension.class)
 public class JobAdServiceImplTests {
@@ -87,5 +89,75 @@ public class JobAdServiceImplTests {
 
         //Assert
         Mockito.verify(mockJobAdRepository, Mockito.times(1)).save(mockJobAd);
+    }
+
+    @Test
+    public void deleteJobAd_Should_RemoveJobAd_When_PermissionsAreValid() {
+        // Arrange
+        JobAd mockJobAd = createMockJobAd();
+        Company mockCompany = mockJobAd.getCompany();
+        JobApplication mockJobApplication = createMockApplication();
+
+        Set<JobApplication> jobApplications = new HashSet<>();
+        jobApplications.add(mockJobApplication);
+
+        mockJobAd.setListOfApplicationMatchRequests(jobApplications);
+        mockJobApplication.getListOfAdMatchRequests().add(mockJobAd);
+
+        // Act
+        mockJobAdService.deleteJobAd(mockJobAd, mockCompany);
+
+        // Assert
+        Assertions.assertTrue(mockJobAd.getListOfApplicationMatchRequests().isEmpty());
+        Assertions.assertFalse(mockJobApplication.getListOfAdMatchRequests().contains(mockJobAd));
+        Mockito.verify(mockJobAdRepository, Mockito.times(1)).delete(mockJobAd);
+    }
+
+
+    @Test
+    public void deleteJobAd_Should_ThrowException_When_CompanyDoesNotHavePermission() {
+        // Arrange
+        JobAd mockJobAd = createMockJobAd();
+        Company unauthorizedCompany = createMockCompany();
+        unauthorizedCompany.setId(mockJobAd.getCompany().getId() + 1);
+
+        // Act & Assert
+        Assertions.assertThrows(AuthorizationException.class,
+                () -> mockJobAdService.deleteJobAd(mockJobAd, unauthorizedCompany));
+
+    }
+
+    @Test
+    public void deleteJobAd_Should_RemoveJobAdFromCompany_When_JobAdIsDeleted() {
+        // Arrange
+        JobAd mockJobAd = createMockJobAd();
+        Company mockCompany = mockJobAd.getCompany();
+
+        // Act
+        mockJobAdService.deleteJobAd(mockJobAd, mockCompany);
+
+        // Assert
+        Assertions.assertFalse(mockCompany.getJobAds().contains(mockJobAd));
+        Mockito.verify(mockJobAdRepository, Mockito.times(1)).delete(mockJobAd);
+    }
+
+    @Test
+    public void deleteJobAd_Should_ClearApplicationMatchRequests_When_JobAdIsDeleted() {
+        // Arrange
+        JobAd mockJobAd = createMockJobAd();
+        JobApplication mockJobApplication = createMockApplication();
+
+        Set<JobApplication> jobApplications = new HashSet<>();
+        jobApplications.add(mockJobApplication);
+
+        mockJobAd.setListOfApplicationMatchRequests(jobApplications);
+        mockJobApplication.getListOfAdMatchRequests().add(mockJobAd);
+
+        // Act
+        mockJobAdService.deleteJobAd(mockJobAd, mockJobAd.getCompany());
+
+        // Assert
+        Assertions.assertTrue(mockJobAd.getListOfApplicationMatchRequests().isEmpty());
+        Assertions.assertFalse(mockJobApplication.getListOfAdMatchRequests().contains(mockJobAd));
     }
 }
