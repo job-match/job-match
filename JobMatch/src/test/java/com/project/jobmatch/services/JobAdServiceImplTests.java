@@ -218,6 +218,7 @@ public class JobAdServiceImplTests {
         // Arrange
         JobAd mockJobAd = createMockJobAd();
         JobApplication mockJobApplication = createMockApplication();
+
         mockJobApplication.getListOfAdMatchRequests().add(mockJobAd);
 
         // Act
@@ -228,21 +229,21 @@ public class JobAdServiceImplTests {
                 .createMatch(mockJobAd, mockJobApplication);
     }
 
-//    @Test
-//    public void addJobApplicationToListOfApplicationMatchRequests_Should_Throw_When_RequestDenied() {
-//        // Arrange
-//        JobApplication mockJobApplication = createMockApplication();
-//        JobAd mockJobAd = createMockJobAd();
-//
-//        mockJobApplication.getListOfAdMatchRequests().add(mockJobAd);
-//
-//        // Act & Assert
-//        Assertions.assertThrows(MatchRequestDeniedException.class, () ->
-//                mockJobAdService.addJobApplicationToListOfApplicationMatchRequests(mockJobAd, mockJobApplication)
-//        );
-//
-//        Mockito.verify(mockJobAdRepository, Mockito.never()).save(mockJobAd);
-//    }
+    @Test
+    public void addJobApplicationToListOfApplicationMatchRequests_Should_Throw_When_RequestDenied() {
+        // Arrange
+        JobApplication mockJobApplication = createMockApplication();
+        JobAd mockJobAd = createMockJobAd();
+
+        mockJobAd.getListOfApplicationMatchRequests().add(mockJobApplication);
+
+        // Act & Assert
+        Assertions.assertThrows(MatchRequestDeniedException.class, () ->
+                mockJobAdService.addJobApplicationToListOfApplicationMatchRequests(mockJobAd, mockJobApplication)
+        );
+
+        Mockito.verify(mockJobAdRepository, Mockito.never()).save(mockJobAd);
+    }
 
     @Test
     void checkSalaryMatch_Should_ReturnTrue_When_SalariesMatch() {
