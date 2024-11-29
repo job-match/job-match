@@ -1,6 +1,8 @@
 package com.project.jobmatch;
 
 import com.project.jobmatch.models.*;
+import com.project.jobmatch.services.CloudinaryImage;
+
 import java.util.HashSet;
 
 public class Helpers {
@@ -115,5 +117,13 @@ public class Helpers {
         mockStatus.setType("MockStatusType");
 
         return mockStatus;
+    }
+
+    public static CloudinaryImage createMockCloudinaryImage() {
+        CloudinaryImage mockCloudinaryImage = new CloudinaryImage();
+        mockCloudinaryImage.setPublicId("MockPublicId");
+        mockCloudinaryImage.setUrl("MockUrl");
+
+        return mockCloudinaryImage;
     }
 }
