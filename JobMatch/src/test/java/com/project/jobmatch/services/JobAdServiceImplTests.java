@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static com.project.jobmatch.Helpers.createMockJobAd;
@@ -44,5 +45,19 @@ public class JobAdServiceImplTests {
         //Act, Assert
         Assertions.assertThrows(EntityNotFoundException.class,
                 () -> mockJobAdService.getJobAdById(Mockito.anyInt()));
+    }
+
+    @Test
+    public void getAll_Should_CallRepository() {
+        //Arrange
+        Mockito.when(mockJobAdRepository.findAll())
+                .thenReturn(new ArrayList<JobAd>());
+
+        //Act
+        mockJobAdService.getAll();
+
+        //Assert
+        Mockito.verify(mockJobAdRepository, Mockito.times(1)).findAll();
+
     }
 }
