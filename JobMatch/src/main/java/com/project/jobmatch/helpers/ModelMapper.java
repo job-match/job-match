@@ -15,7 +15,6 @@ import com.project.jobmatch.services.interfaces.ProfessionalService;
 import com.project.jobmatch.services.interfaces.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -280,7 +279,7 @@ public class ModelMapper {
         }
 
         return skills.stream()
-                .map(skillService::getSkillByName)
+                .map(skillService::createSkill)
                 .collect(Collectors.toSet());
     }
 
