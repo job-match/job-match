@@ -2,9 +2,11 @@ package com.project.jobmatch.services;
 
 import com.project.jobmatch.Helpers;
 import com.project.jobmatch.exceptions.AuthorizationException;
-import com.project.jobmatch.models.JobApplication;
-import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.exceptions.EntityNotFoundException;
+import com.project.jobmatch.exceptions.MatchRequestDeniedException;
+import com.project.jobmatch.models.*;
 import com.project.jobmatch.repositories.interfaces.JobApplicationRepository;
+import com.project.jobmatch.services.interfaces.MatchService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,15 +14,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Optional;
+import java.util.Set;
 import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_ACCEPT;
+import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_IGNORE;
 import static com.project.jobmatch.helpers.ServicesConstants.PROFESSIONAL_STATUS_BUSY;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class JobApplicationServiceImplTests {
@@ -29,6 +31,9 @@ public class JobApplicationServiceImplTests {
 
     @Mock
     private ProfessionalService mockProfessionalService;
+
+    @Mock
+    private MatchService mockMatchService;
 
     @InjectMocks
     JobApplicationServiceImpl mockJobApplicationService;
@@ -43,7 +48,7 @@ public class JobApplicationServiceImplTests {
         mockJobApplicationService.getAllJobApplications();
 
         // Assert
-        verify(mockJobApplicationRepository, Mockito.times(1)).
+        verify(mockJobApplicationRepository, times(1)).
                 findAll();
     }
 
@@ -58,7 +63,7 @@ public class JobApplicationServiceImplTests {
         mockJobApplicationService.createJobApplication(mockJobApplication, mockAuthenticatedProfessional);
 
         // Assert
-        verify(mockJobApplicationRepository, Mockito.times(1)).
+        verify(mockJobApplicationRepository, times(1)).
                 save(mockJobApplication);
     }
 
@@ -85,7 +90,7 @@ public class JobApplicationServiceImplTests {
         mockJobApplicationService.updateJobApplication(mockAuthenticatedProfessional, mockJobApplication);
 
         // Assert
-        verify(mockJobApplicationRepository, Mockito.times(1)).
+        verify(mockJobApplicationRepository, times(1)).
                 save(mockJobApplication);
     }
 
@@ -203,5 +208,164 @@ public class JobApplicationServiceImplTests {
         assertEquals(mockApplications, result);
         verify(mockJobApplicationRepository).searchJobApplications(location, minSalary, maxSalary, skill, keyword);
     }
-    
+
+    @Test
+    void addJobAdToListOfAdMatchRequests_Should_CallCreateMatch_When_MatchExists() {
+        // Arrange
+        JobApplication mockJobApplication = Helpers.createMockApplication();
+        JobAd mockJobAd = Helpers.createMockJobAd();
+
+        mockJobAd.getListOfApplicationMatchRequests().add(mockJobApplication);
+
+        // Act
+        mockJobApplicationService.addJobAdToListOfAdMatchRequests(mockJobApplication, mockJobAd);
+
+        // Assert
+        verify(mockMatchService, times(1)).createMatch(mockJobAd, mockJobApplication);
+        verify(mockJobApplicationRepository, Mockito.never()).save(mockJobApplication);
+    }
+
+    @Test
+    void addJobAdToListOfAdMatchRequests_Should_Throw_When_RequestDenied() {
+        // Arrange
+        JobApplication mockJobApplication = Helpers.createMockApplication();
+        JobAd mockJobAd = Helpers.createMockJobAd();
+
+        mockJobApplication.getListOfAdMatchRequests().add(mockJobAd);
+
+        // Act & Assert
+        assertThrows(MatchRequestDeniedException.class, () ->
+                mockJobApplicationService.addJobAdToListOfAdMatchRequests(mockJobApplication, mockJobAd)
+        );
+
+        verify(mockJobApplicationRepository, Mockito.never()).save(mockJobApplication);
+    }
+
+    @Test
+    void checkSalaryMatch_Should_ReturnTrue_When_SalariesMatch() {
+        // Act
+        boolean result = mockJobApplicationService.checkSalaryMatch(2000.0, 3000.0, 1800.0, 3200.0);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    void checkSalaryMatch_Should_ReturnFalse_When_SalariesDoNotMatch() {
+        // Act
+        boolean result = mockJobApplicationService.checkSalaryMatch(2000.0, 3000.0, 1500.0, 1900.0);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void checkSkillsAndRequirements_Should_ReturnFalse_When_RequirementsNotMet() {
+        // Arrange
+        Set<Skill> mockSkills = new HashSet<>();
+
+        Requirement mockRequirement = Helpers.createMockRequirement();
+        mockRequirement.setType("NotMetRequirement");
+        Set<Requirement> mockRequirements = new HashSet<>();
+        mockRequirements.add(mockRequirement);
+
+        // Act
+        boolean result = mockJobApplicationService.checkSkillsAndRequirements(mockSkills, mockRequirements);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void checkLocations_Should_ReturnTrue_When_LocationIsRemote() {
+        // Act
+        boolean result = mockJobApplicationService.checkLocations("SomeLocation", "REMOTE");
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    void checkLocations_Should_ReturnFalse_When_LocationIsDifferent() {
+        // Act
+        boolean result = mockJobApplicationService.checkLocations("CityA", "CityB");
+
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void checkLocations_Should_ReturnTrue_When_LocationIsHybrid() {
+        // Act
+        boolean result = mockJobApplicationService.checkLocations("CityA", "HYBRID");
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    public void getJobApplicationByIdFromCompany_Should_ReturnJobApplication_When_Exist() {
+        // Arrange
+        int jobApplicationId = 1;
+        JobApplication mockJobApplication = new JobApplication();
+        mockJobApplication.setId(jobApplicationId);
+        when(mockJobApplicationRepository.findJobApplicationByIdFromCompany(jobApplicationId, JOB_APP_STATUS_TO_IGNORE))
+                .thenReturn(Optional.of(mockJobApplication));
+
+        // Act
+        JobApplication result = mockJobApplicationService.getJobApplicationByIdFromCompany(jobApplicationId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(jobApplicationId, result.getId());
+        verify(mockJobApplicationRepository, times(1)).findJobApplicationByIdFromCompany(jobApplicationId, JOB_APP_STATUS_TO_IGNORE);
+    }
+
+    @Test
+    public void getJobApplicationByIdFromCompany_Should_ThrowEntityNotFoundException_When_NotFound() {
+        // Arrange
+        int jobApplicationId = 1;
+        when(mockJobApplicationRepository.findJobApplicationByIdFromCompany(jobApplicationId, JOB_APP_STATUS_TO_IGNORE))
+                .thenReturn(Optional.empty());
+
+        // Act & Assert
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
+            mockJobApplicationService.getJobApplicationByIdFromCompany(jobApplicationId);
+        });
+
+        assertEquals("Job application with id 1 not found.", exception.getMessage());
+    }
+
+    @Test
+    public void getJobApplicationById_Should_ReturnJobApplication_When_Exist() {
+        // Arrange
+        int jobApplicationId = 1;
+        JobApplication mockJobApplication = new JobApplication();
+        mockJobApplication.setId(jobApplicationId);
+        when(mockJobApplicationRepository.findJobApplicationById(jobApplicationId))
+                .thenReturn(Optional.of(mockJobApplication));
+
+        // Act
+        JobApplication result = mockJobApplicationService.getJobApplicationById(jobApplicationId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(jobApplicationId, result.getId());
+        verify(mockJobApplicationRepository, times(1)).findJobApplicationById(jobApplicationId);
+    }
+
+    @Test
+    public void getJobApplicationById_Should_ThrowEntityNotFoundException_When_NotFound() {
+        // Arrange
+        int jobApplicationId = 1;
+        when(mockJobApplicationRepository.findJobApplicationById(jobApplicationId))
+                .thenReturn(Optional.empty());
+
+        // Act & Assert
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
+            mockJobApplicationService.getJobApplicationById(jobApplicationId);
+        });
+
+        assertEquals("Job application with id 1 not found.", exception.getMessage());
+    }
 }
