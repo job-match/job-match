@@ -5,6 +5,7 @@ import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.models.Picture;
 import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.repositories.interfaces.JobApplicationRepository;
 import com.project.jobmatch.repositories.interfaces.PictureRepository;
 import com.project.jobmatch.repositories.interfaces.ProfessionalRepository;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
@@ -18,12 +19,14 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
     private final ProfessionalRepository professionalRepository;
     private final PictureRepository pictureRepository;
+    private final JobApplicationRepository jobApplicationRepository;
 
     @Autowired
     public ProfessionalServiceImpl(ProfessionalRepository professionalRepository,
-                                   PictureRepository pictureRepository) {
+                                   PictureRepository pictureRepository, JobApplicationRepository jobApplicationRepository) {
         this.professionalRepository = professionalRepository;
         this.pictureRepository = pictureRepository;
+        this.jobApplicationRepository = jobApplicationRepository;
     }
 
     @Override
@@ -61,6 +64,15 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     @Override
     public List<Professional> getAllProfessionals() {
         return professionalRepository.findAll();
+    }
+
+    @Override
+    public List<Professional> searchProfessionals(String username,
+                                                  String name,
+                                                  String email,
+                                                  String keyword,
+                                                  String location) {
+        return jobApplicationRepository.searchProfessionals(username, name, email, keyword, location);
     }
 
     @Override

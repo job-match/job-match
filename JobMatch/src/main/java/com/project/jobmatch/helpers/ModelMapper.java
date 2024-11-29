@@ -125,9 +125,11 @@ public class ModelMapper {
         jobAd.setJobDescription(jobAdDtoInUpdate.getDescription());
         jobAd.setLocation(locationService.getLocationByName(jobAdDtoInUpdate.getLocation()));
         jobAd.setStatus(statusService.getStatusByType(jobAdDtoInUpdate.getStatus()));
+        jobAd.setRequirements(fromStringSetToRequirementsSet(jobAdDtoInUpdate.getRequirements()));
 
         return jobAd;
     }
+
     public JobAd fromJobAdDtoIn(JobAdDtoInCreate jobAdDtoInCreate, Company company) {
         JobAd jobAd = new JobAd();
         jobAd.setPositionTitle(jobAdDtoInCreate.getTitle());
@@ -288,6 +290,16 @@ public class ModelMapper {
 
         return skills.stream()
                 .map(skillService::getSkillByName)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<Requirement> fromStringSetToRequirementsSet(Set<String> requirements) {
+        if (requirements == null) {
+            return new HashSet<>();
+        }
+
+        return requirements.stream()
+                .map(requirementService::createRequirement)
                 .collect(Collectors.toSet());
     }
 
