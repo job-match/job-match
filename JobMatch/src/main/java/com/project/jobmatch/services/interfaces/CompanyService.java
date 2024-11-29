@@ -20,4 +20,6 @@ public interface CompanyService {
     Company getCompanyById(int id);
 
     List<Company> getAllCompanies();
+
+    List<Company> searchCompanies(String username, String name, String email, String keyword, String location);
 }
