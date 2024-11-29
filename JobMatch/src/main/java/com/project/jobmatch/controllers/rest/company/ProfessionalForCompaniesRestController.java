@@ -58,4 +58,27 @@ public class ProfessionalForCompaniesRestController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
+
+    @GetMapping("/search")
+    public List<ProfessionalDtoOut> searchProfessionals(@RequestHeader HttpHeaders httpHeaders,
+                                                        @RequestParam(required = false) String username,
+                                                        @RequestParam(required = false) String name,
+                                                        @RequestParam(required = false) String email,
+                                                        @RequestParam(required = false) String keyword,
+                                                        @RequestParam(required = false) String location) {
+        try {
+            authenticationHelper.tryGetCompany(httpHeaders);
+
+            List<Professional> professionalList = professionalService.searchProfessionals(
+                    username,
+                    name,
+                    email,
+                    keyword,
+                    location);
+
+            return modelMapper.fromListProfessionalsToListProfessionalDtoOut(professionalList);
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
 }

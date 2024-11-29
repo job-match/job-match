@@ -47,6 +47,15 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public List<Company> searchCompanies(String username,
+                                         String name,
+                                         String email,
+                                         String keyword,
+                                         String location) {
+        return companyRepository.searchCompanies(username, name, email, keyword, location);
+    }
+
+    @Override
     public void registerCompany(Company company) {
         boolean existsDuplicate = true;
 

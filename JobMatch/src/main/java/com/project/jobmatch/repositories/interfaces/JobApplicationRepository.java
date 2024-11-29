@@ -1,6 +1,7 @@
 package com.project.jobmatch.repositories.interfaces;
 
 import com.project.jobmatch.models.JobApplication;
+import com.project.jobmatch.models.Professional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -41,4 +42,18 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
                                                @Param("maxSalary") Double maxSalary,
                                                @Param("skill") String skill,
                                                @Param("keyword") String keyword);
+
+    @Query("SELECT p FROM Professional p " +
+            "WHERE (:username IS NULL OR p.username LIKE %:username%) " +
+            "AND (:name IS NULL OR " +
+            "LOWER(p.firstName) LIKE LOWER(CONCAT('%', :name, '%')) OR " +
+            "LOWER(p.lastName) LIKE LOWER(CONCAT('%', :name, '%'))) " +
+            "AND (:email IS NULL OR p.email LIKE %:email%) " +
+            "AND (:keyword IS NULL OR LOWER(p.summary) LIKE LOWER(CONCAT('%', :keyword, '%'))) " +
+            "AND (:location IS NULL OR LOWER(p.location.name) LIKE LOWER(CONCAT('%', :location, '%')))")
+    List<Professional> searchProfessionals(@Param("username") String username,
+                                           @Param("name") String name,
+                                           @Param("email") String email,
+                                           @Param("keyword") String keyword,
+                                           @Param("location") String location);
 }
