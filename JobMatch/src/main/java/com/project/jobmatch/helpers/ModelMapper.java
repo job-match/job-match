@@ -126,6 +126,7 @@ public class ModelMapper {
         jobAd.setLocation(locationService.getLocationByName(jobAdDtoInUpdate.getLocation()));
         jobAd.setStatus(statusService.getStatusByType(jobAdDtoInUpdate.getStatus()));
 
+        //TODO: jobAd.setRequirements(requirementsService.findRequirementsByName(jobAdDtoInUpdate.getRequirements()));
         return jobAd;
     }
     public JobAd fromJobAdDtoIn(JobAdDtoInCreate jobAdDtoInCreate, Company company) {

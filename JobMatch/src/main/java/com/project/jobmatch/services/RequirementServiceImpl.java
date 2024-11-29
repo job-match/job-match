@@ -18,6 +18,17 @@ public class RequirementServiceImpl implements RequirementService {
     }
 
     @Override
+    public Requirement createRequirement(String requirementName) {
+        return requirementRepository
+                .findRequirementByType(requirementName)
+                .orElseGet(() -> {
+                    Requirement requirement = new Requirement();
+                    requirement.setType(requirementName);
+                    return requirementRepository.save(requirement);
+                });
+    }
+
+    @Override
     public Requirement getRequirementByName(String name) {
         return requirementRepository
                 .findRequirementByType(name)
