@@ -50,6 +50,28 @@ public class JobAdServiceImplTests {
     }
 
     @Test
+    public void getJobAdByTitle_Should_ReturnJobAd_When_TitleExists() {
+        // Arrange
+        JobAd mockJobAd = createMockJobAd();
+
+        Mockito.when(mockJobAdRepository.findJobAdByPositionTitle(Mockito.anyString()))
+                .thenReturn(Optional.of(mockJobAd));
+
+        // Act
+        JobAd jobAd = mockJobAdService.getJobAdByTitle(Mockito.anyString());
+
+        // Assert
+        Assertions.assertEquals(mockJobAd, jobAd);
+    }
+
+    @Test
+    public void getJobAdByTitle_Should_ThrowException_When_TitleDoesNotExist() {
+        //Act, Assert
+        Assertions.assertThrows(EntityNotFoundException.class,
+                () -> mockJobAdService.getJobAdByTitle(Mockito.anyString()));
+    }
+
+    @Test
     public void getAll_Should_CallRepository() {
         //Arrange
         Mockito.when(mockJobAdRepository.findAll())
