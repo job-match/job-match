@@ -267,7 +267,6 @@ public class ModelMapper {
         jobApplicationDtoOut.setStatus(jobApplication.getStatus().getType());
         jobApplicationDtoOut.setProfessionalName(jobApplication.getProfessional().getUsername());
         jobApplicationDtoOut.setSkills(fromSetSkillsToListSkillsDtoOut(jobApplication.getSkills()));
-        jobApplicationDtoOut.setMatchRequestsList(fromSetJobAdToListJobAdDtoOut(jobApplication.getListOfAdMatchRequests()));
 
         return jobApplicationDtoOut;
     }

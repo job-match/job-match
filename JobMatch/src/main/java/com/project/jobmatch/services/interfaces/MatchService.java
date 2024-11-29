@@ -1,9 +1,8 @@
 package com.project.jobmatch.services.interfaces;
 
-import com.project.jobmatch.models.Company;
-import com.project.jobmatch.models.JobAd;
-import com.project.jobmatch.models.JobApplication;
-import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.models.*;
+
+import java.util.List;
 
 public interface MatchService {
 
@@ -13,4 +12,7 @@ public interface MatchService {
 
     void createMatch(JobAd jobAd, JobApplication jobApplication);
 
+    List<JobApplication> getMatchedJobApplications(Company company);
+
+    List<Match> getAllMatches();
 }

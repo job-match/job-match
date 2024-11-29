@@ -10,6 +10,9 @@ import com.project.jobmatch.services.interfaces.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+
 import static com.project.jobmatch.helpers.ServicesConstants.*;
 
 @Service
@@ -91,5 +94,22 @@ public class MatchServiceImpl implements MatchService {
                 jobApplicationRepository.save(jobApplication);
             }
         }
+    }
+
+    @Override
+    public List<JobApplication> getMatchedJobApplications(Company company) {
+
+        return matchRepository.findJobApplicationsByCompany(company);
+    }
+
+    @Override
+    public List<JobAd> getMatchedJobAds(Professional professional) {
+
+        return matchRepository.findJobAdByProfessional(professional);
+    }
+
+    @Override
+    public List<Match> getAllMatches() {
+        return matchRepository.findAll();
     }
 }
