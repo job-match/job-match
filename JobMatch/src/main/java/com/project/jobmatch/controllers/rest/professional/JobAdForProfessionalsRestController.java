@@ -8,9 +8,11 @@ import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
+import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.JobAdDtoOut;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
+import com.project.jobmatch.services.interfaces.MatchService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +25,18 @@ import java.util.List;
 public class JobAdForProfessionalsRestController {
 
     private final JobAdService jobAdService;
+    private final MatchService matchService;
     private final AuthenticationHelper authenticationHelper;
     private final ModelMapper modelMapper;
     private final JobApplicationService jobApplicationService;
 
     public JobAdForProfessionalsRestController(JobAdService jobAdService,
+                                               MatchService matchService,
                                                AuthenticationHelper authenticationHelper,
                                                ModelMapper modelMapper,
                                                JobApplicationService jobApplicationService) {
         this.jobAdService = jobAdService;
+        this.matchService = matchService;
         this.authenticationHelper = authenticationHelper;
         this.modelMapper = modelMapper;
         this.jobApplicationService = jobApplicationService;
@@ -76,6 +81,19 @@ public class JobAdForProfessionalsRestController {
             return modelMapper.fromJobAdToJobAdDtoOut(jobAdService.getJobAdById(id));
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @GetMapping("/successful-matches")
+    public List<JobAdDtoOut> getSuccessfulMatchedJobAds(@RequestHeader HttpHeaders httpHeaders) {
+        try{
+            Professional professional = authenticationHelper.tryGetProfessional(httpHeaders);
+
+            List<JobAd> listMatchedJobAds = matchService.getMatchedJobAds(professional);
+
+            return modelMapper.fromListJobAdToListJobAdDtoOut(listMatchedJobAds);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }

@@ -14,5 +14,7 @@ public interface MatchService {
 
     List<JobApplication> getMatchedJobApplications(Company company);
 
+    List<JobAd> getMatchedJobAds(Professional professional);
+
     List<Match> getAllMatches();
 }

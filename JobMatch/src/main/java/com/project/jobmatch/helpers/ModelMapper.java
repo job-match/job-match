@@ -249,7 +249,7 @@ public class ModelMapper {
                 .collect(Collectors.toList());
     }
 
-    public List<JobAdDtoOut> fromSetJobAdToListJobAdDtoOut(Set<JobAd> jobAds) {
+    public List<JobAdDtoOut> fromListJobAdToListJobAdDtoOut(List<JobAd> jobAds) {
         if (jobAds == null) {
             return new ArrayList<>();
         }
