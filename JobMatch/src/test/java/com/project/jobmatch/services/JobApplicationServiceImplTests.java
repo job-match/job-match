@@ -132,4 +132,76 @@ public class JobApplicationServiceImplTests {
         );
     }
 
+    @Test
+    void getAllJobApplicationsOfProfessional_Should_ReturnListOfJobApplications() {
+        // Arrange
+        Professional mockProfessional = Helpers.createMockProfessional();
+        Professional mockAuthenticatedProfessional = Helpers.createMockProfessional();
+        List<JobApplication> mockApplications = List.of(Helpers.createMockApplication());
+
+        when(mockJobApplicationRepository.findJobApplicationsByProfessionalId(mockProfessional.getId()))
+                .thenReturn(mockApplications);
+
+        // Act
+        List<JobApplication> result = mockJobApplicationService.getAllJobApplicationsOfProfessional(
+                mockProfessional, mockAuthenticatedProfessional
+        );
+
+        // Assert
+        assertEquals(mockApplications, result);
+        verify(mockJobApplicationRepository).findJobApplicationsByProfessionalId(mockProfessional.getId());
+    }
+
+    @Test
+    void getAllJobApplicationsOfProfessional_Should_Throw_When_Unauthorized() {
+        // Arrange
+        Professional mockProfessional = Helpers.createMockProfessional();
+        Professional mockAuthenticatedProfessional = Helpers.createMockProfessional();
+        mockAuthenticatedProfessional.setId(2);
+
+        // Act, Assert
+        assertThrows(AuthorizationException.class, () ->
+                mockJobApplicationService.getAllJobApplicationsOfProfessional(
+                        mockProfessional, mockAuthenticatedProfessional
+                )
+        );
+    }
+
+    @Test
+    void getAllActiveJobApplications_Should_ReturnListOfAllActiveJobApplications() {
+        // Arrange
+        List<JobApplication> mockApplications = List.of(Helpers.createMockApplication());
+
+        when(mockJobApplicationRepository.findJobApplicationsByStatus(JOB_APP_STATUS_TO_ACCEPT))
+                .thenReturn(mockApplications);
+
+        // Act
+        List<JobApplication> result = mockJobApplicationService.getAllActiveJobApplications();
+
+        // Assert
+        assertEquals(mockApplications, result);
+        verify(mockJobApplicationRepository).findJobApplicationsByStatus(JOB_APP_STATUS_TO_ACCEPT);
+    }
+
+    @Test
+    void searchJobApplications_Should_ReturnListOfFilteredJobApplications() {
+        // Arrange
+        String location = "MockLocationName";
+        Double minSalary = 2000.0;
+        Double maxSalary = 3000.0;
+        String skill = "Java";
+        String keyword = "Developer";
+        List<JobApplication> mockApplications = List.of(Helpers.createMockApplication());
+
+        when(mockJobApplicationService.searchJobApplications(location, minSalary, maxSalary, skill, keyword))
+                .thenReturn(mockApplications);
+
+        // Act
+        List<JobApplication> result = mockJobApplicationService.searchJobApplications(location, minSalary, maxSalary, skill, keyword);
+
+        // Assert
+        assertEquals(mockApplications, result);
+        verify(mockJobApplicationRepository).searchJobApplications(location, minSalary, maxSalary, skill, keyword);
+    }
+    
 }
