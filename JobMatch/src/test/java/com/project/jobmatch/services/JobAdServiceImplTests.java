@@ -58,6 +58,22 @@ public class JobAdServiceImplTests {
 
         //Assert
         Mockito.verify(mockJobAdRepository, Mockito.times(1)).findAll();
+    }
 
+    @Test
+    public void searchJobAds_Should_CallRepository() {
+        //Arrange
+        Mockito.when(mockJobAdRepository.searchJobAds(Mockito.anyString(), Mockito.anyString(),
+                        Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyString()))
+                .thenReturn(new ArrayList<JobAd>());
+
+        //Act
+        mockJobAdService.searchJobAds(Mockito.anyString(), Mockito.anyString(),
+                Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyString());
+
+        //Assert
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .searchJobAds(Mockito.anyString(), Mockito.anyString(), Mockito.anyDouble(),
+                        Mockito.anyDouble(), Mockito.anyString());
     }
 }
