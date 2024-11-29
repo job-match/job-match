@@ -125,11 +125,11 @@ public class ModelMapper {
         jobAd.setJobDescription(jobAdDtoInUpdate.getDescription());
         jobAd.setLocation(locationService.getLocationByName(jobAdDtoInUpdate.getLocation()));
         jobAd.setStatus(statusService.getStatusByType(jobAdDtoInUpdate.getStatus()));
+        jobAd.setRequirements(fromStringSetToRequirementsSet(jobAdDtoInUpdate.getRequirements()));
 
-        //TODO: jobAd.setRequirements(requirementsService.findRequirementsByName(jobAdDtoInUpdate.getRequirements()));
-        jobAd.setRequirements(requirementService.createRequirement(jobAdDtoInUpdate.getRequirements));
         return jobAd;
     }
+
     public JobAd fromJobAdDtoIn(JobAdDtoInCreate jobAdDtoInCreate, Company company) {
         JobAd jobAd = new JobAd();
         jobAd.setPositionTitle(jobAdDtoInCreate.getTitle());
