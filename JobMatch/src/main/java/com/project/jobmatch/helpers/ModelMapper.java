@@ -238,7 +238,7 @@ public class ModelMapper {
                 .collect(Collectors.toList());
     }
 
-    public List<JobAdDtoOut> fromSetJobAdToListJobAdDtoOut(Set<JobAd> jobAds) {
+    public List<JobAdDtoOut> fromListJobAdToListJobAdDtoOut(List<JobAd> jobAds) {
         if (jobAds == null) {
             return new ArrayList<>();
         }
@@ -258,7 +258,6 @@ public class ModelMapper {
         jobApplicationDtoOut.setStatus(jobApplication.getStatus().getType());
         jobApplicationDtoOut.setProfessionalName(jobApplication.getProfessional().getUsername());
         jobApplicationDtoOut.setSkills(fromSetSkillsToListSkillsDtoOut(jobApplication.getSkills()));
-        jobApplicationDtoOut.setMatchRequestsList(fromSetJobAdToListJobAdDtoOut(jobApplication.getListOfAdMatchRequests()));
 
         return jobApplicationDtoOut;
     }

@@ -6,11 +6,13 @@ import com.project.jobmatch.exceptions.MatchRequestDeniedException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
+import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.dto.JobApplicationDtoOut;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
+import com.project.jobmatch.services.interfaces.MatchService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,15 +27,18 @@ public class JobApplicationForCompaniesRestController {
 
     private final JobApplicationService jobApplicationService;
     private final JobAdService jobAdService;
+    private final MatchService matchService;
     private final AuthenticationHelper authenticationHelper;
     private final ModelMapper modelMapper;
 
     public JobApplicationForCompaniesRestController(JobApplicationService jobApplicationService,
                                                     JobAdService jobAdService,
                                                     AuthenticationHelper authenticationHelper,
-                                                    ModelMapper modelMapper) {
+                                                    ModelMapper modelMapper,
+                                                    MatchService matchService) {
         this.jobApplicationService = jobApplicationService;
         this.jobAdService = jobAdService;
+        this.matchService = matchService;
         this.authenticationHelper = authenticationHelper;
         this.modelMapper = modelMapper;
     }
@@ -83,6 +88,19 @@ public class JobApplicationForCompaniesRestController {
                     jobApplicationService.getJobApplicationByIdFromCompany(id));
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (AuthorizationException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @GetMapping("/successful-matches")
+    public List<JobApplicationDtoOut> getSuccessfulMatchedJobApplications(@RequestHeader HttpHeaders httpHeaders) {
+        try{
+            Company company = authenticationHelper.tryGetCompany(httpHeaders);
+
+            List<JobApplication> listMatchedJobApplication = matchService.getMatchedJobApplications(company);
+
+            return modelMapper.fromListJobApplicationToListJobApplicationDtoOut(listMatchedJobApplication);
         } catch (AuthorizationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }

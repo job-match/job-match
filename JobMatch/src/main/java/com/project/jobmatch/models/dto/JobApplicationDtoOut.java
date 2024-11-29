@@ -16,7 +16,6 @@ public class JobApplicationDtoOut {
     private String status;
     private String professionalName;
     private List<SkillDtoOut> skills;
-    private List<JobAdDtoOut> matchRequestsList;
 
     public JobApplicationDtoOut() {
     }
@@ -75,13 +74,5 @@ public class JobApplicationDtoOut {
 
     public void setSkills(List<SkillDtoOut> skills) {
         this.skills = skills;
-    }
-
-    public List<JobAdDtoOut> getMatchRequestsList() {
-        return matchRequestsList;
-    }
-
-    public void setMatchRequestsList(List<JobAdDtoOut> matchRequestsList) {
-        this.matchRequestsList = matchRequestsList;
     }
 }
