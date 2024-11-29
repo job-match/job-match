@@ -16,6 +16,17 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
+    public Skill createSkill(String skillName) {
+        return skillRepository
+                .findSkillByType(skillName)
+                .orElseGet(() -> {
+                    Skill skill = new Skill();
+                    skill.setType(skillName);
+                    return skillRepository.save(skill);
+                });
+    }
+
+    @Override
     public Skill getSkillByName(String name) {
         return skillRepository
                 .findSkillByType(name)
