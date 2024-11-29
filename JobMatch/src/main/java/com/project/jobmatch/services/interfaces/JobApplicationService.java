@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface JobApplicationService {
 
-    void createJobApplication(JobApplication jobApplication);
+    void createJobApplication(JobApplication jobApplication, Professional professionalAuthenticated);
 
     void updateJobApplication(Professional professionalAuthenticated, JobApplication jobApplicationMapped);
 

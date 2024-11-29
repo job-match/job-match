@@ -35,21 +35,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         this.matchService = matchService;
     }
 
-    private void checkModifyPermissions
-            (Professional professionalAuthenticated, Professional professionalToRetrieveJobAppsFrom) {
-        if (!(professionalAuthenticated.equals(professionalToRetrieveJobAppsFrom))) {
-            throw new AuthorizationException(MODIFY_PROFILE_ERROR_MESSAGE);
-        }
-    }
-
-    private void checkDeletePermissions
-            (Professional professionalAuthenticated, JobApplication jobApplicationToDelete) {
-        Professional professionalJobApplicationOwner =
-                professionalService.getProfessionalByJobApplicationId(jobApplicationToDelete.getId());
-        if (!(professionalAuthenticated.equals(professionalJobApplicationOwner))) {
-            throw new AuthorizationException(DELETE_PROFILE_ERROR_MESSAGE);
-        }
-    }
 
     @Override
     public List<JobApplication> getAllJobApplicationsOfProfessional(Professional professionalToRetrieveJobAppsFrom, Professional professionalAuthenticated) {
@@ -77,7 +62,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
-    public void createJobApplication(JobApplication jobApplication) {
+    public void createJobApplication(JobApplication jobApplication, Professional professionalAuthenticated) {
+        if (professionalAuthenticated.getStatus().getType().equalsIgnoreCase(PROFESSIONAL_STATUS_BUSY)){
+            throw new AuthorizationException(CREATE_JOB_APPLICATION_ERROR_MESSAGE);
+        }
+
         jobApplicationRepository.save(jobApplication);
     }
 
@@ -187,6 +176,22 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
         } else {
             return jobAdLocationName.equalsIgnoreCase(jobApplicationLocationName);
+        }
+    }
+
+    private void checkModifyPermissions
+            (Professional professionalAuthenticated, Professional professionalToRetrieveJobAppsFrom) {
+        if (!(professionalAuthenticated.equals(professionalToRetrieveJobAppsFrom))) {
+            throw new AuthorizationException(MODIFY_PROFILE_ERROR_MESSAGE);
+        }
+    }
+
+    private void checkDeletePermissions
+            (Professional professionalAuthenticated, JobApplication jobApplicationToDelete) {
+        Professional professionalJobApplicationOwner =
+                professionalService.getProfessionalByJobApplicationId(jobApplicationToDelete.getId());
+        if (!(professionalAuthenticated.equals(professionalJobApplicationOwner))) {
+            throw new AuthorizationException(DELETE_PROFILE_ERROR_MESSAGE);
         }
     }
 }

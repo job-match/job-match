@@ -5,6 +5,7 @@ public class ServicesConstants {
     public static final String URL = "url";
     public static final String PUBLIC_ID = "public_id";
     public static final String COMPANY = "Company";
+    public static final String PROFESSIONAL_STATUS_BUSY = "Busy";
     public static final String MODIFY_PROFILE_ERROR_MESSAGE = "Only company's account can make changes to the company.";
     public static final String MODIFY_JOB_AD_ERROR_MESSAGE = "Only job ad owner can modify/delete the job ad!";
     public static final String YOU_ALREADY_APPLIED_ERROR_MESSAGE = "You already applied for this job ad!";
@@ -21,5 +22,6 @@ public class ServicesConstants {
     public static final String AD_REQUEST_DENIED_ERROR_MESSAGE = "This job ad's requirements do not meet the applicant's preferences!";
     public static final String JOB_APPLICATION_OWNER_ERROR_MESSAGE = "Only professional which is owner of this Job Application can confirm match with Job Ad!";
     public static final String ALREADY_MATCHED_ERROR_MESSAGE = "Already Matched!";
+    public static final String CREATE_JOB_APPLICATION_ERROR_MESSAGE = "You cannot create Job Application because your status is Busy!";
 
 }
