@@ -3,6 +3,7 @@ package com.project.jobmatch.models.dto;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.util.Set;
 
 public class JobAdDtoInUpdate {
 
@@ -29,6 +30,8 @@ public class JobAdDtoInUpdate {
     @NotNull(message = "Status cannot be empty!")
     @Size(min = 2, max = 50, message = "Status should be between 2 and 50 symbols!")
     private String status;
+
+    Set<String> requirements;
 
     public JobAdDtoInUpdate() {
     }
@@ -79,5 +82,13 @@ public class JobAdDtoInUpdate {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<String> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(Set<String> requirements) {
+        this.requirements = requirements;
     }
 }
