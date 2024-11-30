@@ -16,6 +16,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static com.project.jobmatch.Helpers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -183,5 +185,62 @@ public class MatchServiceImplTests {
         Mockito.verify(mockJobApplicationRepository, Mockito.never()).save(mockJobApplication);
     }
 
+    @Test
+    public void getMatchedJobApplications_Should_ReturnApplications_When_CompanyHasMatches() {
+        // Arrange
+        Company mockCompany = createMockCompany();
+        JobApplication mockJobApplication1 = createMockApplication();
+        JobApplication mockJobApplication2 = createMockApplication();
+
+        Mockito.when(mockMatchRepository.findJobApplicationsByCompany(mockCompany))
+                .thenReturn(List.of(mockJobApplication1, mockJobApplication2));
+
+        // Act
+        List<JobApplication> result = mockMatchServiceImpl.getMatchedJobApplications(mockCompany);
+
+        // Assert
+        Assertions.assertEquals(2, result.size());
+        Assertions.assertTrue(result.contains(mockJobApplication1));
+        Assertions.assertTrue(result.contains(mockJobApplication2));
+        Mockito.verify(mockMatchRepository, Mockito.times(1)).findJobApplicationsByCompany(mockCompany);
+    }
+
+    @Test
+    public void getMatchedJobAds_Should_ReturnAds_When_ProfessionalHasMatches() {
+        // Arrange
+        Professional mockProfessional = createMockProfessional();
+        JobAd mockJobAd1 = createMockJobAd();
+        JobAd mockJobAd2 = createMockJobAd();
+
+        Mockito.when(mockMatchRepository.findJobAdByProfessional(mockProfessional))
+                .thenReturn(List.of(mockJobAd1, mockJobAd2));
+
+        // Act
+        List<JobAd> result = mockMatchServiceImpl.getMatchedJobAds(mockProfessional);
+
+        // Assert
+        Assertions.assertEquals(2, result.size());
+        Assertions.assertTrue(result.contains(mockJobAd1));
+        Assertions.assertTrue(result.contains(mockJobAd2));
+        Mockito.verify(mockMatchRepository, Mockito.times(1)).findJobAdByProfessional(mockProfessional);
+    }
+
+    @Test
+    public void getAllMatches_Should_ReturnAllMatches_When_RepositoryIsNotEmpty() {
+        // Arrange
+        Match mockMatch1 = createMockMatch();
+        Match mockMatch2 = createMockMatch();
+
+        Mockito.when(mockMatchRepository.findAll()).thenReturn(List.of(mockMatch1, mockMatch2));
+
+        // Act
+        List<Match> result = mockMatchServiceImpl.getAllMatches();
+
+        // Assert
+        Assertions.assertEquals(2, result.size());
+        Assertions.assertTrue(result.contains(mockMatch1));
+        Assertions.assertTrue(result.contains(mockMatch2));
+        Mockito.verify(mockMatchRepository, Mockito.times(1)).findAll();
+    }
 
 }
