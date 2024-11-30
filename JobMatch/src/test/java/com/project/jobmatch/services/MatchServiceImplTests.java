@@ -1,6 +1,7 @@
 package com.project.jobmatch.services;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.repositories.interfaces.JobAdRepository;
 import com.project.jobmatch.repositories.interfaces.JobApplicationRepository;
@@ -65,6 +66,19 @@ public class MatchServiceImplTests {
     }
 
     @Test
+    public void confirmMatchWithJobAd_Should_ThrowException_When_ProfessionalIsNotOwner() {
+        //Arrange
+        JobAd mockJobAd = createMockJobAd();
+        JobApplication mockJobApplication = createMockApplication();
+        Professional mockProfessional = createMockProfessional();
+        mockProfessional.setId(mockProfessional.getId() + 1);
+
+        //Act, Assert
+        Assertions.assertThrows(AuthorizationException.class,
+                () -> mockMatchServiceImpl.confirmMatchWithJobAd(mockJobAd, mockJobApplication, mockProfessional));
+    }
+
+    @Test
     public void confirmMatchWithJobAd_Should_CreateMatch_When_ProfessionalIsOwner() {
         //Arrange
         JobAd mockJobAd = createMockJobAd();
@@ -82,17 +96,92 @@ public class MatchServiceImplTests {
 
     }
 
-
     @Test
-    public void confirmMatchWithJobAd_Should_ThrowException_When_ProfessionalIsNotOwner() {
+    public void createMatch_Should_ThrowException_When_MatchAlreadyExists() {
         //Arrange
         JobAd mockJobAd = createMockJobAd();
         JobApplication mockJobApplication = createMockApplication();
-        Professional mockProfessional = createMockProfessional();
-        mockProfessional.setId(mockProfessional.getId() + 1);
 
-        //Act, Assert
-        Assertions.assertThrows(AuthorizationException.class,
-                () -> mockMatchServiceImpl.confirmMatchWithJobAd(mockJobAd, mockJobApplication, mockProfessional));
+        //Act
+        Mockito.when(mockMatchRepository.existsMatchByJobAdAndJobApplication(mockJobAd, mockJobApplication))
+                .thenReturn(true);
+
+        //Assert
+        Assertions.assertThrows(EntityDuplicateException.class,
+                () -> mockMatchServiceImpl.createMatch(mockJobAd, mockJobApplication));
     }
+
+    @Test
+    public void createMatch_Should_CreateMatch_When_NoExistingMatch() {
+        // Arrange
+        JobAd mockJobAd = createMockJobAd();
+        JobApplication mockJobApplication = createMockApplication();
+        Match mockMatch = createMockMatch();
+
+        Mockito.when(mockMatchRepository.existsMatchByJobAdAndJobApplication(mockJobAd, mockJobApplication))
+                .thenReturn(false);
+
+        // Act
+        mockMatchServiceImpl.createMatch(mockJobAd, mockJobApplication);
+
+        // Assert
+        Mockito.verify(mockMatchRepository, Mockito.times(1)).save(Mockito.any(Match.class));
+    }
+
+    @Test
+    public void createMatch_Should_RemoveJobApplicationFromAdRequests_When_ItExists() {
+        // Arrange
+        JobAd mockJobAd = createMockJobAd();
+        JobApplication mockJobApplication = createMockApplication();
+
+        mockJobAd.getListOfApplicationMatchRequests().add(mockJobApplication);
+
+        Mockito.when(mockMatchRepository.existsMatchByJobAdAndJobApplication(mockJobAd, mockJobApplication))
+                .thenReturn(false);
+
+        // Act
+        mockMatchServiceImpl.createMatch(mockJobAd, mockJobApplication);
+
+        // Assert
+        Assertions.assertFalse(mockJobAd.getListOfApplicationMatchRequests().contains(mockJobApplication));
+        Mockito.verify(mockJobAdRepository, Mockito.times(1)).save(mockJobAd);
+    }
+
+    @Test
+    public void createMatch_Should_RemoveJobAdFromApplicationRequests_When_ItExists() {
+        // Arrange
+        JobAd mockJobAd = createMockJobAd();
+        JobApplication mockJobApplication = createMockApplication();
+
+        mockJobApplication.getListOfAdMatchRequests().add(mockJobAd);
+
+        Mockito.when(mockMatchRepository.existsMatchByJobAdAndJobApplication(mockJobAd, mockJobApplication))
+                .thenReturn(false);
+
+        // Act
+        mockMatchServiceImpl.createMatch(mockJobAd, mockJobApplication);
+
+        // Assert
+        Assertions.assertFalse(mockJobApplication.getListOfAdMatchRequests().contains(mockJobAd));
+        Mockito.verify(mockJobApplicationRepository, Mockito.times(1)).save(mockJobApplication);
+    }
+
+    @Test
+    public void createMatch_Should_NotModifyRequests_When_NoneExist() {
+        // Arrange
+        JobAd mockJobAd = createMockJobAd();
+        JobApplication mockJobApplication = createMockApplication();
+
+        Mockito.when(mockMatchRepository.existsMatchByJobAdAndJobApplication(mockJobAd, mockJobApplication))
+                .thenReturn(false);
+
+        // Act
+        mockMatchServiceImpl.createMatch(mockJobAd, mockJobApplication);
+
+        // Assert
+        Mockito.verify(mockJobAdRepository, Mockito.never()).save(mockJobAd);
+        Mockito.verify(mockJobApplicationRepository, Mockito.never()).save(mockJobApplication);
+    }
+
+
 }
