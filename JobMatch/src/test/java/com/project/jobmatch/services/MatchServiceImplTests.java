@@ -64,35 +64,35 @@ public class MatchServiceImplTests {
 
     }
 
-//    @Test
-//    public void confirmMatchWithJobAd_Should_CreateMatch_When_ProfessionalIsOwner() {
-//        //Arrange
-//        JobAd mockJobAd = createMockJobAd();
-//        JobApplication mockJobApplication = createMockApplication();
-//        Professional mockProfessional = createMockProfessional();
-//        Match mockMatch = createMockMatch();
-//
-//        //Act
-//        mockMatchServiceImpl.confirmMatchWithJobAd(mockJobAd, mockJobApplication, mockProfessional);
-//        mockMatchRepository.save(mockMatch);
-//
-//        // Assert
-//        Mockito.verify(mockMatchRepository, Mockito.times(1)).save(mockMatch);
-//        Mockito.verify(mockJobApplicationRepository, Mockito.times(1)).save(mockJobApplication);
-//
-//    }
-//
-//
-//    @Test
-//    public void confirmMatchWithJobAd_Should_ThrowException_When_ProfessionalIsNotOwner() {
-//        //Arrange
-//        JobAd mockJobAd = createMockJobAd();
-//        JobApplication mockJobApplication = createMockApplication();
-//        Professional mockProfessional = createMockProfessional();
-//        mockProfessional.setId(mockProfessional.getId() + 1);
-//
-//        //Act, Assert
-//        Assertions.assertThrows(AuthorizationException.class,
-//                () -> mockMatchServiceImpl.confirmMatchWithJobAd(mockJobAd, mockJobApplication, mockProfessional));
-//    }
+    @Test
+    public void confirmMatchWithJobAd_Should_CreateMatch_When_ProfessionalIsOwner() {
+        //Arrange
+        JobAd mockJobAd = createMockJobAd();
+        JobApplication mockJobApplication = createMockApplication();
+        Professional mockProfessional = createMockProfessional();
+        Match mockMatch = createMockMatch();
+
+        //Act
+        mockMatchServiceImpl.confirmMatchWithJobAd(mockJobAd, mockJobApplication, mockProfessional);
+        mockMatchRepository.save(mockMatch);
+
+        // Assert
+        Mockito.verify(mockMatchRepository, Mockito.times(1)).save(mockMatch);
+        Mockito.verify(mockJobApplicationRepository, Mockito.times(1)).save(mockJobApplication);
+
+    }
+
+
+    @Test
+    public void confirmMatchWithJobAd_Should_ThrowException_When_ProfessionalIsNotOwner() {
+        //Arrange
+        JobAd mockJobAd = createMockJobAd();
+        JobApplication mockJobApplication = createMockApplication();
+        Professional mockProfessional = createMockProfessional();
+        mockProfessional.setId(mockProfessional.getId() + 1);
+
+        //Act, Assert
+        Assertions.assertThrows(AuthorizationException.class,
+                () -> mockMatchServiceImpl.confirmMatchWithJobAd(mockJobAd, mockJobApplication, mockProfessional));
+    }
 }
