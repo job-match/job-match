@@ -22,4 +22,17 @@ public interface ProfessionalRepository extends JpaRepository<Professional, Inte
     @Override
     List<Professional> findAll();
 
+    @Query("SELECT p FROM Professional p " +
+            "WHERE (:username IS NULL OR p.username LIKE %:username%) " +
+            "AND (:name IS NULL OR " +
+            "LOWER(p.firstName) LIKE LOWER(CONCAT('%', :name, '%')) OR " +
+            "LOWER(p.lastName) LIKE LOWER(CONCAT('%', :name, '%'))) " +
+            "AND (:email IS NULL OR p.email LIKE %:email%) " +
+            "AND (:keyword IS NULL OR LOWER(p.summary) LIKE LOWER(CONCAT('%', :keyword, '%'))) " +
+            "AND (:location IS NULL OR LOWER(p.location.name) LIKE LOWER(CONCAT('%', :location, '%')))")
+    List<Professional> searchProfessionals(@Param("username") String username,
+                                           @Param("name") String name,
+                                           @Param("email") String email,
+                                           @Param("keyword") String keyword,
+                                           @Param("location") String location);
 }

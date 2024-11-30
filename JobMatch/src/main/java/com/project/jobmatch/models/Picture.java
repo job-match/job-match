@@ -2,6 +2,8 @@ package com.project.jobmatch.models;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "pictures")
 public class Picture {
@@ -36,5 +38,18 @@ public class Picture {
 
     public void setPublicId(String publicId) {
         this.publicId = publicId;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Picture picture = (Picture) object;
+        return id == picture.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

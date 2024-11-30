@@ -72,7 +72,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
                                                   String email,
                                                   String keyword,
                                                   String location) {
-        return jobApplicationRepository.searchProfessionals(username, name, email, keyword, location);
+        return professionalRepository.searchProfessionals(username, name, email, keyword, location);
     }
 
     @Override
