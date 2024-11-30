@@ -25,13 +25,23 @@ public class ServicesConstants {
     public static final String CREATE_JOB_APPLICATION_ERROR_MESSAGE = "You cannot create Job Application because your status is Busy!";
 
     //MAILJET
-    // Job application creating message
+    // Job application creating messages
     public static final String JOB_APP_CREATION_SUBJECT_MESSAGE = "This is an automatic response from Job-Match!";
     public static final String JOB_APP_CREATION_TEXT_CONTENT = "Job application creation";
     public static final String JOB_APP_CREATION_HTML_CONTENT = "<h2>Hello %s!<h2>" +
-            "<p><h3>This is an automatic response from Job-Match for letting you know about a job application you have just created.<h3><p>" +
+            "<p><h3>This is an automatic response from Job-Match to let you know about a job application you have just created.<h3><p>" +
             "<p><h3>We wish you good luck!<h3><p>" +
             "<p><h4>Best,<h4><p>" +
             "<p><h5>Job-Match team<h5><p>";
+
+    // Job application job add messages
+    public static final String JOB_APP_JOB_AD_TWO_SIDE_MATCH_SUBJECT_MESSAGE = "You have got a match!";
+    public static final String JOB_APP_JOB_AD_TWO_SIDE_MATCH_TEXT_CONTENT = "Congratulations! You've just got a match for your job add with id:%s";
+    public static final String JOB_APP_JOB_AD_TWO_SIDE_MATCH_HTML_CONTENT =
+            "<h2>Hello %s!<h2>" +
+                    "<p><h3>This is an automatic response from Job-Match to let you know that %s responded to your match request.<h3><p>" +
+                    "<p><h3>We hope that you both find what you are looking for!<h3><p>" +
+                    "<p><h4>Best,<h4><p>" +
+                    "<p><h5>Job-Match team<h5><p>";
 
 }
