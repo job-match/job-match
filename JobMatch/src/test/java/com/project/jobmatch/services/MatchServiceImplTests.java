@@ -6,8 +6,6 @@ import com.project.jobmatch.models.*;
 import com.project.jobmatch.repositories.interfaces.JobAdRepository;
 import com.project.jobmatch.repositories.interfaces.JobApplicationRepository;
 import com.project.jobmatch.repositories.interfaces.MatchRepository;
-import com.project.jobmatch.services.interfaces.JobAdService;
-import com.project.jobmatch.services.interfaces.MatchService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
