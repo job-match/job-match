@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_ACCEPT;
 import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_IGNORE;
-import static com.project.jobmatch.helpers.ServicesConstants.PROFESSIONAL_STATUS_BUSY;
+import static com.project.jobmatch.helpers.ServicesConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -34,6 +34,9 @@ public class JobApplicationServiceImplTests {
 
     @Mock
     private MatchService mockMatchService;
+
+    @Mock
+    MailjetServiceImpl mockMailjetService;
 
     @InjectMocks
     JobApplicationServiceImpl mockJobApplicationService;
@@ -223,6 +226,33 @@ public class JobApplicationServiceImplTests {
         // Assert
         verify(mockMatchService, times(1)).createMatch(mockJobAd, mockJobApplication);
         verify(mockJobApplicationRepository, Mockito.never()).save(mockJobApplication);
+    }
+
+    @Test
+    public void addJobAdToListOfAdMatchRequests_Should_SendEmailToBothParties_WhenJobAppContainsJobAdd() {
+        JobApplication mockJobApplication = Helpers.createMockApplication();
+        JobAd mockJobAd = Helpers.createMockJobAd();
+
+        mockJobAd.getListOfApplicationMatchRequests().add(mockJobApplication);
+
+        mockJobApplicationService.addJobAdToListOfAdMatchRequests(mockJobApplication, mockJobAd);
+
+        Mockito.verify(mockMatchService).createMatch(mockJobAd, mockJobApplication);
+        Mockito.verify(mockMailjetService, Mockito.times(1)).sendEmail(
+                Mockito.eq(mockJobAd.getCompany().getEmail()),
+                Mockito.eq(mockJobAd.getCompany().getName()),
+                Mockito.eq(SUCCESSFUL_MATCH_SUBJECT_MESSAGE),
+                Mockito.eq(SUCCESSFUL_MATCH_TEXT_CONTENT),
+                Mockito.anyString()
+        );
+        Mockito.verify(mockMailjetService, Mockito.times(1)).sendEmail(
+                Mockito.eq(mockJobApplication.getProfessional().getEmail()),
+                Mockito.eq(mockJobApplication.getProfessional().getFirstName()),
+                Mockito.eq(SUCCESSFUL_MATCH_SUBJECT_MESSAGE),
+                Mockito.eq(SUCCESSFUL_MATCH_TEXT_CONTENT),
+                Mockito.anyString()
+        );
+
     }
 
     @Test

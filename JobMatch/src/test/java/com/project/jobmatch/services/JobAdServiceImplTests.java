@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.*;
 
 import static com.project.jobmatch.Helpers.*;
+import static com.project.jobmatch.helpers.ServicesConstants.*;
 
 @ExtendWith(MockitoExtension.class)
 public class JobAdServiceImplTests {
@@ -26,6 +27,9 @@ public class JobAdServiceImplTests {
 
     @Mock
     MatchService mockMatchService;
+
+    @Mock
+    MailjetServiceImpl mockMailjetService;
 
     @InjectMocks
     JobAdServiceImpl mockJobAdService;
@@ -228,6 +232,34 @@ public class JobAdServiceImplTests {
         Mockito.verify(mockMatchService, Mockito.times(1))
                 .createMatch(mockJobAd, mockJobApplication);
     }
+
+    @Test
+    public void addJobApplicationToListOfApplicationMatchRequests_Should_SendEmailToBothParties_WhenJobAppContainsJobAdd() {
+        JobAd mockJobAd = createMockJobAd();
+        JobApplication mockJobApplication = createMockApplication();
+
+        mockJobApplication.getListOfAdMatchRequests().add(mockJobAd);
+
+        mockJobAdService.addJobApplicationToListOfApplicationMatchRequests(mockJobAd, mockJobApplication);
+
+        Mockito.verify(mockMatchService).createMatch(mockJobAd, mockJobApplication);
+        Mockito.verify(mockMailjetService, Mockito.times(1)).sendEmail(
+                Mockito.eq(mockJobAd.getCompany().getEmail()),
+                Mockito.eq(mockJobAd.getCompany().getName()),
+                Mockito.eq(SUCCESSFUL_MATCH_SUBJECT_MESSAGE),
+                Mockito.eq(SUCCESSFUL_MATCH_TEXT_CONTENT),
+                Mockito.anyString()
+        );
+        Mockito.verify(mockMailjetService, Mockito.times(1)).sendEmail(
+                Mockito.eq(mockJobApplication.getProfessional().getEmail()),
+                Mockito.eq(mockJobApplication.getProfessional().getFirstName()),
+                Mockito.eq(SUCCESSFUL_MATCH_SUBJECT_MESSAGE),
+                Mockito.eq(SUCCESSFUL_MATCH_TEXT_CONTENT),
+                Mockito.anyString()
+        );
+
+    }
+
 
     @Test
     public void addJobApplicationToListOfApplicationMatchRequests_Should_Throw_When_RequestDenied() {

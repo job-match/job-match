@@ -165,18 +165,22 @@ public class CompanyServiceImplTests {
     @Test
     public void uploadPicture_Should_CallRepository_When_CompanyIsOwner() {
         Company mockCompany = createMockCompany();
-        Picture mockPicture = createMockPicture();
         CloudinaryImage mockCloudinaryImage = createMockCloudinaryImage();
 
         mockCompanyService.uploadPictureToCompany(mockCompany, mockCompany, mockCloudinaryImage);
-        mockPictureRepository.save(mockPicture);
 
         Mockito.verify(mockPictureRepository, Mockito.times(1))
-                .save(mockPicture);
+                .save(Mockito.argThat(picture ->
+                        picture.getUrl().equals(mockCloudinaryImage.getUrl()) &&
+                                picture.getPublicId().equals(mockCloudinaryImage.getPublicId())
+                ));
+
         Mockito.verify(mockPictureRepository, Mockito.times(1))
-                .findPictureByUrl(Mockito.anyString());
+                .findPictureByUrl(mockCloudinaryImage.getUrl());
+
         Mockito.verify(mockCompanyRepository, Mockito.times(1))
                 .save(mockCompany);
+
     }
 
     @Test
