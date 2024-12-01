@@ -171,7 +171,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         }
     }
 
-    private boolean checkSalaryMatch(double minJobAppSalary,
+    public boolean checkSalaryMatch(double minJobAppSalary,
                                      double maxJobAppSalary,
                                      double minJobAdSalary,
                                      double maxJobAdSalary) {
@@ -181,7 +181,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                         && maxJobAppSalary <= maxJobAdSalary * MAX_SALARY_THRESHOLD_COEFFICIENT);
     }
 
-    private boolean checkSkillsAndRequirements(Set<Skill> skills, Set<Requirement> requirements) {
+    public boolean checkSkillsAndRequirements(Set<Skill> skills, Set<Requirement> requirements) {
         int requirementsMetCounter = 0;
 
         for (Requirement requirement : requirements) {
@@ -200,7 +200,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         return REQUIREMENTS_THRESHOLD_PERCENTAGE <= metRequirementsPercentage;
     }
 
-    private boolean checkLocations(String jobApplicationLocationName, String jobAdLocationName) {
+    public boolean checkLocations(String jobApplicationLocationName, String jobAdLocationName) {
         if (jobAdLocationName.equalsIgnoreCase(REMOTE_LOCATION)) {
             return true;
 
