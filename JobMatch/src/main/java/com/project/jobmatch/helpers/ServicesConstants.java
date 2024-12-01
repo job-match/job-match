@@ -24,24 +24,36 @@ public class ServicesConstants {
     public static final String ALREADY_MATCHED_ERROR_MESSAGE = "Already Matched!";
     public static final String CREATE_JOB_APPLICATION_ERROR_MESSAGE = "You cannot create Job Application because your status is Busy!";
 
-    //MAILJET
-    // Job application creating messages
-    public static final String JOB_APP_CREATION_SUBJECT_MESSAGE = "This is an automatic response from Job-Match!";
-    public static final String JOB_APP_CREATION_TEXT_CONTENT = "Job application creation";
-    public static final String JOB_APP_CREATION_HTML_CONTENT = "<h2>Hello %s!<h2>" +
-            "<p><h3>This is an automatic response from Job-Match to let you know about a job application you have just created.<h3><p>" +
-            "<p><h3>We wish you good luck!<h3><p>" +
-            "<p><h4>Best,<h4><p>" +
-            "<p><h5>Job-Match team<h5><p>";
+    // Mailjet API
 
-    // Job application job add messages
-    public static final String JOB_APP_JOB_AD_TWO_SIDE_MATCH_SUBJECT_MESSAGE = "You have got a match!";
-    public static final String JOB_APP_JOB_AD_TWO_SIDE_MATCH_TEXT_CONTENT = "Congratulations! You've just got a match for your job add with id:%s";
-    public static final String JOB_APP_JOB_AD_TWO_SIDE_MATCH_HTML_CONTENT =
-            "<h2>Hello %s!<h2>" +
-                    "<p><h3>This is an automatic response from Job-Match to let you know that %s responded to your match request.<h3><p>" +
-                    "<p><h3>We hope that you both find what you are looking for!<h3><p>" +
-                    "<p><h4>Best,<h4><p>" +
-                    "<p><h5>Job-Match team<h5><p>";
+    // LETTING BOTH PARTIES KNOW OF A SUCCESSFUL MATCH
+    public static final String SUCCESSFUL_MATCH_SUBJECT_MESSAGE = "You have got a match!";
+    public static final String SUCCESSFUL_MATCH_TEXT_CONTENT = "Congratulations! You've just got a match!";
+    public static final String SUCCESSFUL_MATCH_HTML_CONTENT =
+            "<h4 style='font-family: Arial, sans-serif; color: #333;'>Hello %s!</h4>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'>This is an automatic response from <strong>Job-Match</strong> to let you know you have got a match!.</p>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'>We hope that you both find what you are looking for!</p>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'>Best regards,</p>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'><strong>Job-Match Team</strong></p>";
+
+    // NOTIFYING THE PROFESSIONAL FOR A MATCH REQUEST BY A COMPANY
+    public static final String JOB_APP_MATCH_REQUEST_SUBJECT_MESSAGE = "A company has liked you job application!";
+    public static final String JOB_APP_MATCH_REQUEST_TEXT_CONTENT = "Hey %s, you have got a match request to your job app by a %s.";
+    public static final String JOB_APP_MATCH_REQUEST_HTML_CONTENT =
+            "<h4 style='font-family: Arial, sans-serif; color: #333;'>Hello %s!</h4>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'>This is an automatic response from <strong>Job-Match</strong> to let you know that you have received a match request!</p>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'>Feel free to explore the job ad and the company behind it.</p>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'>Best regards,</p>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'><strong>Job-Match Team</strong></p>";
+
+    // NOTIFYING THE COMPANY FOR A MATCH REQUEST BY A PROFESSIONAL
+    public static final String JOB_AD_MATCH_REQUEST_SUBJECT_MESSAGE = "A professional has liked your job ad!";
+    public static final String JOB_AD_MATCH_REQUEST_TEXT_CONTENT = "Hey %s, you have got a match request to your job ad by a %s.";
+    public static final String JOB_AD_MATCH_REQUEST_HTML_CONTENT =
+            "<h4 style='font-family: Arial, sans-serif; color: #333;'>Hello %s!</h4>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'>This is an automatic response from <strong>Job-Match</strong> to let you know that you have received a match request!</p>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'>Feel free to explore the job application and the professional who stands behind it.</p>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'>Best regards,</p>" +
+                    "<p style='font-family: Arial, sans-serif; font-size: 14px; color: #555;'><strong>Job-Match Team</strong></p>";
 
 }

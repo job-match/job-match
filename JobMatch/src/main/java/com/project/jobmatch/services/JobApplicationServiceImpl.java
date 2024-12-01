@@ -69,14 +69,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
             throw new AuthorizationException(CREATE_JOB_APPLICATION_ERROR_MESSAGE);
         }
 
-        mailjetService.sendEmail(
-                professionalAuthenticated.getEmail(),
-                professionalAuthenticated.getFirstName(),
-                JOB_APP_CREATION_SUBJECT_MESSAGE,
-                JOB_APP_CREATION_TEXT_CONTENT,
-                String.format(JOB_APP_CREATION_HTML_CONTENT, professionalAuthenticated.getFirstName())
-        );
-
         jobApplicationRepository.save(jobApplication);
     }
 
@@ -123,6 +115,24 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         if (jobAd.getListOfApplicationMatchRequests().contains(jobApplication)) {
             matchService.createMatch(jobAd, jobApplication);
 
+            // Notifying both parties for a successful match.
+            mailjetService.sendEmail(
+                    jobAd.getCompany().getEmail(),
+                    jobAd.getCompany().getName(),
+                    SUCCESSFUL_MATCH_SUBJECT_MESSAGE,
+                    SUCCESSFUL_MATCH_TEXT_CONTENT,
+                    String.format(SUCCESSFUL_MATCH_HTML_CONTENT,
+                            jobAd.getCompany().getName())
+            );
+            mailjetService.sendEmail(
+                    jobApplication.getProfessional().getEmail(),
+                    jobApplication.getProfessional().getFirstName(),
+                    SUCCESSFUL_MATCH_SUBJECT_MESSAGE,
+                    SUCCESSFUL_MATCH_TEXT_CONTENT,
+                    String.format(SUCCESSFUL_MATCH_HTML_CONTENT,
+                            jobApplication.getProfessional().getFirstName())
+            );
+
         } else {
             boolean doSalariesMatch = checkSalaryMatch(jobApplication.getMinDesiredSalary(),
                     jobApplication.getMaxDesiredSalary(),
@@ -141,6 +151,20 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                 }
                 jobApplication.getListOfAdMatchRequests().add(jobAd);
                 jobApplicationRepository.save(jobApplication);
+
+                //Notifying the professional that a company, through its job ad,
+                // has sent a match request for a job application of theirs.
+                mailjetService.sendEmail(
+                        jobApplication.getProfessional().getEmail(),
+                        jobApplication.getProfessional().getFirstName(),
+                        JOB_APP_MATCH_REQUEST_SUBJECT_MESSAGE,
+                        String.format(JOB_APP_MATCH_REQUEST_TEXT_CONTENT,
+                                jobApplication.getProfessional().getFirstName(),
+                                jobAd.getCompany().getName()),
+                        String.format(JOB_APP_MATCH_REQUEST_HTML_CONTENT,
+                                jobApplication.getProfessional().getFirstName())
+                );
+
             } else {
                 throw new MatchRequestDeniedException(AD_REQUEST_DENIED_ERROR_MESSAGE);
             }

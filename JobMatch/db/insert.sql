@@ -128,7 +128,7 @@ values (1, 'Dev Experts', 'devexperts', 'password', 'devexperts@mail.bg',
         'Market Gurus is a leading digital marketing agency that helps companies build strong online presences. With expertise in SEO, content marketing, and social media strategies, they enable clients to reach their target audiences effectively. Market Gurus prides itself on data-driven strategies that yield measurable results.',
         6, '101 Digital St, Burgas, +1 234 567 8904'),
 
-       (5, 'NextGen Health', 'nextgenhealth', 'password', 'nextgenhealth@mail.bg',
+       (5, 'NextGen Health', 'nextgenhealth', 'password', 'k.kirilov@creasevisuals.com',
         'NextGen Health is a healthcare technology company focused on improving patient care through innovative solutions. Their products include electronic health record (EHR) systems, telemedicine platforms, and patient management tools. NextGen Health’s mission is to make healthcare more accessible and efficient by leveraging technology.',
         3, '102 Health Ln, Sofia, +1 234 567 8905'),
 
@@ -155,7 +155,7 @@ values (1, 'Dev Experts', 'devexperts', 'password', 'devexperts@mail.bg',
 -- professionals Table --
 insert into job_match.professionals (professional_id, username, password, first_name, last_name, email, summary,
                                      location_id)
-values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilkirilov@mail.bg',
+values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilovmail90@gmail.com',
         'Experienced software engineer with over 10 years of expertise in backend development and system architecture. Skilled in Java, Python, and cloud-based technologies, specializing in creating scalable and efficient solutions for complex business challenges. Known for analytical thinking, strong problem-solving skills, and the ability to communicate technical information effectively to both technical and non-technical stakeholders.',
         3),
 
@@ -372,7 +372,11 @@ values (1, 3500, 4000,
 
        (13, 3400, 4800,
         'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to meet the demands of this role and contribute effectively to your team.',
-        3, 5,2);
+        3, 5,2),
+
+       (14, 3500, 4000,
+        'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at NextGen Health. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to meet the demands of this role and contribute effectively to your team.',
+        3, 1,1);
 
 -- job_ads_job_applications Table --
 
@@ -680,6 +684,13 @@ values (12, 1),  -- Java
        (12, 6);  -- SQL
 #        (12, 29), -- Critical Thinking
 #        (12, 7);  -- Attention to detail
+
+insert into job_match.job_applications_skills (job_application_id, skill_id)
+values (14, 2),  -- Java
+       (14, 5),  -- Problem-Solving
+       (14, 6), -- SQL
+       (14, 18),-- HTML
+       (14, 29);-- Critical Thinking
 
 -- matches Table --
 
