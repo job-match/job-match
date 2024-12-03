@@ -1,13 +1,13 @@
 # JobMatch 
 
-![JobMatchLogo](JobMatch/src/main/resources/static/images/logo-jobMatch.png)
+![JobMatchLogo](JobMatch/src/main/resources/static/images/logo-jobMatch-for-Github.png)
 
 ## 💡 Description
 
 JobMatch is an application that can match Professionals and Companies which are looking for each other.
 The application has two main parts:
-Employer Portal – here, the companies can create a company profile and job ads – to show what they do (business sector) and what they want to search for. 
-Professionals Portal – Individuals create a professional profile and job applications - to show what they can do (qualifications) and what they want and search for.
+1. Employer Portal – here, the companies can create a company profile and job ads – to show what they do (business sector) and what they want to search for. 
+2. Professionals Portal – Individuals create a professional profile and job applications - to show what they can do (qualifications) and what they want and search for.
 
 ## 🚀 Set and Start up project
 
