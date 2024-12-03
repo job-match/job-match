@@ -43,8 +43,6 @@ Start the project and go to [Swagger Docs](http://localhost:8080/swagger-ui/inde
 * 📜 Swagger
 * 📦 Gradle
 * 🍃 Thymeleaf
-  
-## 🔧 Functionality
 
 ## 🏢💼🌐 Company Portal `/api/company-portal`
 
