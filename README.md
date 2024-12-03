@@ -90,9 +90,7 @@ Start the project and go to [Swagger Docs](http://localhost:8080/swagger-ui/inde
 
 
 
-
-
-### 👨‍💼💻👩‍💼 Professional  `/api/professional-portal`
+### 👨‍💼💻👩‍💼 Professional Portal  `/api/professional-portal`
 
 ### GET
 | Resource           | Endpoint                                              | Description                                         |
