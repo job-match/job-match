@@ -1,6 +1,6 @@
 # JobMatch 
 
-![JobMatchLogo](JobMatch/src/main/resources/static/images/logo-jobMatch-for-Github)
+![JobMatchLogo](JobMatch/src/main/resources/static/images/logo-jobMatch-for-Github.png)
 
 ## 💡 Description
 
