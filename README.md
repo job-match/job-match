@@ -31,3 +31,78 @@ You can find it in `JobMatch/db`.
 
 ## 📜 Swagger
 Start the project and go to [Swagger Docs](http://localhost:8080/swagger-ui/index.html)
+
+## 💻 Technologies
+* ☕️ Java
+* 🌱 Spring Boot 
+* 🗄️ Hibernate
+* 💾 MariaDB
+* 🌐 REST API
+* ☁️ Cloudinary
+* 📧 Mailjet
+* 📜 Swagger
+* 📦 Gradle
+* 🍃 Thymeleaf
+  
+## 🔧 Functionality
+
+### 🏢💼🌐 Company `/api/company-portal`
+
+* `GET /companies`  - Get all Companies
+* `GET /companies/{id}`  - Get Company by id
+* `POST /companies`  - Register Company 
+* `POST /companies/{id}/picture`  - Update Picture of Company
+* `PUT /companies/{id}`  - Update Company
+* `DELETE /companies/{id}`  - Delete Company
+
+
+* `GET /job-ads`  - Get all Job Ads
+* `GET /job-ads/{id}`  - Get Job Ad by id
+* `POST /job-ads`  - Create Job ad 
+* `POST /job-ads/{jobAdId}/match-requests/{jobAppId}`  - Confirm Match with Job Application
+* `PUT /job-ads/{id}`  - Update Job Ad
+* `DELETE /job-ads/{id}`  - Delete Job Ad
+
+
+* `GET /job-applications`  - Get all Job Applications
+* `GET /job-applications/search`  - Search Job Applications by location, salary, skil, keyword
+* `GET /job-applications/{id}`  - Get Job Application by id
+* `GET /job-applications/successful-matches`  - Get Successful Matched Job Applications
+* `POST /job-applications/{jobApplicationId}/match-request-by/{jobAdId}`  - Create Job Ad Request Match With Job Application
+
+
+* `GET /professionals`  - Get all Professionals
+* `GET /professionals/search`  - Search Professionals by username, name, email, keyword, location
+* `GET /professionals/{id}`  - Get Professional by id
+
+
+### 👨‍💼💻👩‍💼 Professional  `/api/professional-portal`
+
+* `GET /professionals`  - Get all Professionals
+* `GET /professionals/{id}`  - Get Professional by id
+* `POST /professionals`  - Register Professional 
+* `POST /professionals/{id}/picture`  - Update Picture of Professional
+* `PUT /professionals/{id}`  - Update Professional
+* `DELETE /professionals/{id}`  - Delete Professional
+
+
+* `GET /job-applications`  - Get all Job Applications
+* `GET /job-applications/{id}`  - Get Job Application by id
+* `POST /job-applications`  - Create Job Application 
+* `POST /job-applications/{jobAppId}/match-requests/{jobAdId}`  - Confirm Match with Job Ad
+* `PUT /job-applications/{id}`  - Update Job Appication
+* `DELETE /job-applications/{id}`  - Delete Job Application
+
+
+* `GET /job-ads`  - Get all Job Ads
+* `GET /job-ads/search`  - Search Job Ads by position title, salary, requirement, location
+* `GET /job-ads/{id}`  - Get Job Ad by id
+* `GET /job-ads/successful-matches`  - Get Successful Matched Job Ads
+* `POST /job-ads/{jobAdId}/match-request-by/{jobAppId}`  - Create Job Application Request Match With Job Ad
+
+
+* `GET /companies`  - Get all Companies
+* `GET /companies/search`  - Search Companies by username, name, email, keyword, location
+* `GET /companies/{id}`  - Get Company by id
+
+
