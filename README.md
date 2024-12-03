@@ -48,7 +48,7 @@ Start the project and go to [Swagger Docs](http://localhost:8080/swagger-ui/inde
 
 ### 🏢💼🌐 Company Portal `/api/company-portal`
 
-#### GET
+### GET
 | Resource           | Endpoint                                              | Description                                         |
 |--------------------|------------------------------------------------------|-----------------------------------------------------|
 | Companies          | `/companies`                                         | Get all Companies                                   |
@@ -65,7 +65,7 @@ Start the project and go to [Swagger Docs](http://localhost:8080/swagger-ui/inde
 
 
 
-#### POST
+### POST
 | Resource           | Endpoint                                              | Description                                         |
 |--------------------|------------------------------------------------------|-----------------------------------------------------|
 | Companies          | `/companies`                                         | Register Company                                    |
@@ -76,7 +76,7 @@ Start the project and go to [Swagger Docs](http://localhost:8080/swagger-ui/inde
 
 
 
-#### PUT
+### PUT
 | Resource           | Endpoint                                              | Description                                         |
 |--------------------|------------------------------------------------------|-----------------------------------------------------|
 | Companies          | `/companies/{id}`                                    | Update Company                                      |
@@ -84,7 +84,7 @@ Start the project and go to [Swagger Docs](http://localhost:8080/swagger-ui/inde
 
 
 
-#### DELETE
+### DELETE
 | Resource           | Endpoint                                              | Description                                         |
 |--------------------|------------------------------------------------------|-----------------------------------------------------|
 | Companies          | `/companies/{id}`                                    | Delete Company                                      |
