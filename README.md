@@ -25,6 +25,7 @@ You can find them in `JobMatch/db`.
    - Go to `/src/main/resources/application.properties` and set up your personal Cloud Name, and API Key;
    - To set up API Secret you need to create Environment Variable because it is hidden in `application.properties`.
    - Go to navigation bar in IntelliJ IDEA and follow the path: `Run -> Edit Configuration -> Select SpringBoot -> Select ForumManagementSystemAplication -> Modify Options -> Select Environment variables` and create environment variable with `Name: CLOUDINARY_API_SECRET` and `Value: Your personal API Secret`.
+7. 📧 [Mailjet](https://dev.mailjet.com/email/guides/send-api-v31/) - Follow the same steps as for set up of Cloudinary
   
 ## 📊 Database relations
 You can find it in `JobMatch/db`.
