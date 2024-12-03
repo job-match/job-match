@@ -108,7 +108,7 @@ public class JobApplicationForProfessionalsRestController {
     }
 
     @PostMapping("/{jobAppId}/match-requests/{jobAdId}")
-    public void confirmMatchWithJobApplication(@RequestHeader HttpHeaders headers,
+    public void confirmMatchWithJobAd(@RequestHeader HttpHeaders headers,
                                                @PathVariable int jobAdId,
                                                @PathVariable int jobAppId) {
         try {
