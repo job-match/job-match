@@ -368,14 +368,14 @@ img {
 }
 
 .bg_image--2 {
-  background-image: url(../images/bg/background-interview-image-2.jpg);
+  background-image: url(../images/bg/background-pattern-image-1.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
 }
 
 .bg_image--3 {
-  background-image: url(../images/bg/bg_image--3.jpg);
+  background-image: url(../images/bg/background-index-image-2.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
