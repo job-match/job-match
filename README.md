@@ -46,35 +46,49 @@ Start the project and go to [Swagger Docs](http://localhost:8080/swagger-ui/inde
   
 ## 🔧 Functionality
 
-### 🏢💼🌐 Company `/api/company-portal`
+### 🏢💼🌐 Company Portal `/api/company-portal`
 
-* `GET /companies`  - Get all Companies
-* `GET /companies/{id}`  - Get Company by id
-* `POST /companies`  - Register Company 
-* `POST /companies/{id}/picture`  - Update Picture of Company
-* `PUT /companies/{id}`  - Update Company
-* `DELETE /companies/{id}`  - Delete Company
-
-
-* `GET /job-ads`  - Get all Job Ads
-* `GET /job-ads/{id}`  - Get Job Ad by id
-* `POST /job-ads`  - Create Job ad 
-* `POST /job-ads/{jobAdId}/match-requests/{jobAppId}`  - Confirm Match with Job Application
-* `PUT /job-ads/{id}`  - Update Job Ad
-* `DELETE /job-ads/{id}`  - Delete Job Ad
-
-
-* `GET /job-applications`  - Get all Job Applications
-* `GET /job-applications/search`  - Search Job Applications by location, salary, skil, keyword
-* `GET /job-applications/{id}`  - Get Job Application by id
-* `GET /job-applications/successful-matches`  - Get Successful Matched Job Applications
-* `POST /job-applications/{jobApplicationId}/match-request-by/{jobAdId}`  - Create Job Ad Request Match With Job Application
+### GET
+| Resource           | Endpoint                                              | Description                                         |
+|--------------------|------------------------------------------------------|-----------------------------------------------------|
+| Companies          | `/companies`                                         | Get all Companies                                   |
+| Companies          | `/companies/{id}`                                    | Get Company by ID                                   |
+| Job Ads            | `/job-ads`                                           | Get all Job Ads                                     |
+| Job Ads            | `/job-ads/{id}`                                      | Get Job Ad by ID                                    |
+| Job Applications   | `/job-applications`                                  | Get all Job Applications                            |
+| Job Applications   | `/job-applications/search`                          | Search Job Applications by location, salary, skill, keyword |
+| Job Applications   | `/job-applications/{id}`                            | Get Job Application by ID                           |
+| Job Applications   | `/job-applications/successful-matches`              | Get Successful Matched Job Applications            |
+| Professionals      | `/professionals`                                     | Get all Professionals                               |
+| Professionals      | `/professionals/search`                             | Search Professionals by username, name, email, keyword, location |
+| Professionals      | `/professionals/{id}`                               | Get Professional by ID                              |
 
 
-* `GET /professionals`  - Get all Professionals
-* `GET /professionals/search`  - Search Professionals by username, name, email, keyword, location
-* `GET /professionals/{id}`  - Get Professional by id
 
+### POST
+| Resource           | Endpoint                                              | Description                                         |
+|--------------------|------------------------------------------------------|-----------------------------------------------------|
+| Companies          | `/companies`                                         | Register Company                                    |
+| Companies          | `/companies/{id}/picture`                            | Update Picture of Company                          |
+| Job Ads            | `/job-ads`                                           | Create Job Ad                                       |
+| Job Ads            | `/job-ads/{jobAdId}/match-requests/{jobAppId}`       | Confirm Match with Job Application                 |
+| Job Applications   | `/job-applications/{jobApplicationId}/match-request-by/{jobAdId}` | Create Job Ad Request Match with Job Application  |
+
+
+
+### PUT
+| Resource           | Endpoint                                              | Description                                         |
+|--------------------|------------------------------------------------------|-----------------------------------------------------|
+| Companies          | `/companies/{id}`                                    | Update Company                                      |
+| Job Ads            | `/job-ads/{id}`                                      | Update Job Ad                                       |
+
+
+
+### DELETE
+| Resource           | Endpoint                                              | Description                                         |
+|--------------------|------------------------------------------------------|-----------------------------------------------------|
+| Companies          | `/companies/{id}`                                    | Delete Company                                      |
+| Job Ads            | `/job-ads/{id}`                                      | Delete Job Ad                                       |
 
 ### 👨‍💼💻👩‍💼 Professional  `/api/professional-portal`
 
