@@ -132,8 +132,4 @@ Start the project and go to [Swagger Docs](http://localhost:8080/swagger-ui/inde
 | Companies          | `/companies/{id}`                                     | Delete Company                                      |
 
 
-* `GET /companies`  - Get all Companies
-* `GET /companies/search`  - Search Companies by username, name, email, keyword, location
-* `GET /companies/{id}`  - Get Company by id
-
 
