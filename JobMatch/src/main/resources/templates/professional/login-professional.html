@@ -1,30 +1,13 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>JobMatch - Job Board</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Place favicon.ico in the root directory -->
-    <link href="/images/favicon-jobMatch.png" type="img/x-icon" rel="shortcut icon"
-          th:href="@{/images/favicon-jobMatch.png}">
-    <!-- All css files are included here. -->
-    <link rel="stylesheet" href="/css/vendor/bootstrap.min.css" th:href="@{/css/vendor/bootstrap.min.css}">
-    <link rel="stylesheet" href="/css/vendor/iconfont.min.css" th:href="@{/css/vendor/iconfont.min.css}">
-    <link rel="stylesheet" href="/css/vendor/helper.css" th:href="@{/css/vendor/helper.css}">
-    <link rel="stylesheet" href="/css/plugins/plugins.css" th:href="@{/css/plugins/plugins.css}">
-    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
-    <!-- Modernizr JS -->
-    <script src="/js/vendor/modernizr-3.10.0.min.js" th:src="@{/js/vendor/modernizr-3.10.0.min.js}"></script>
-</head>
+<head th:replace="~{fragments/page-frame :: head('Login')}"></head>
 
 <body class="template-color-1">
 
     <div id="main-wrapper">
         <!--Header section start-->
-        <header class="header-absolute sb-border header-sticky d-none d-lg-block">
+        <header class="black-logo-version header-sticky sticky-white d-none d-lg-block">
             <div class="main-header">
                 <div class="container-fluid pl-50 pl-lg-15 pl-md-15 pr-0">
                     <div class="row align-items-center g-0">
@@ -32,9 +15,7 @@
                         <!--Logo start-->
                         <div class="col-xl-2 col-lg-2 col-12">
                             <div class="logo">
-                                <a href="index.html" th:href="@{/}"><img src="/images/logo-jobMatch-white.png"
-                                                                         alt="JobMatch-logo"
-                                                                         th:src="@{/images/logo-jobMatch-white.png}"></a>
+                                <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
                             </div>
                         </div>
                         <!--Logo end-->
@@ -43,47 +24,90 @@
                         <div class="col-xl-7 col-lg-7 col-12">
                             <nav class="main-menu">
                                 <ul>
-                                    <li>
-                                        <a href="index.html" th:href="@{/}">Home</a>
+                                    <li><a href="index.html">Home <small class="icon-arrow"></small></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="index.html">Home V1</a></li>
+                                            <li><a href="index-2.html">Home V2</a></li>
+                                            <li><a href="index-3.html">Home V3</a></li>
+                                            <li><a href="index-4.html">Home V4</a></li>
+                                        </ul>
                                     </li>
-                                    <li><a href="job-listing.html">Job Ads</a></li>
-                                    <li><a href="job-listing.html">Job Applications</a>
+                                    <li><a href="job-listing.html"><span class="label-status hot">hot</span>Jobs <small class="icon-arrow"></small></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="job-listing.html">Jobs Listing</a></li>
+                                            <li><a href="job-with-map.html">Jobs With Map</a></li>
+                                            <li><a href="job-details.html">Job Detail <small class="icon-arrow"></small></a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="job-details.html">Job Detail V1</a></li>
+                                                    <li><a href="job-details-two.html">Job Detail V2</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </li>
-                                    <li><a href="candidates-listing.html">Professionals</a>
+                                    <li><a href="candidates-listing.html"><span class="label-status new">new</span> Candidates <small class="icon-arrow"></small></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="candidates-listing.html">Candidates Listing</a></li>
+                                            <li><a href="candidate-details.html">Candidate Detail <small class="icon-arrow"></small></a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="candidate-details.html">Candidate Details V1</a></li>
+                                                    <li><a href="candidate-details-two.html">Candidate Details V2</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </li>
-                                    <li><a href="#">Companies</a>
+                                    <li><a href="#">Employers <small class="icon-arrow"></small></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="employer-listing.html">Employers Listing</a></li>
+                                            <li><a href="employer-details.html">Employer Details <small class="icon-arrow"></small></a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="employer-details.html">Employer Detail V1</a></li>
+                                                    <li><a href="employer-details-two.html">Employer Detail V2</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </li>
-                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="blog.html">Blog <small class="icon-arrow"></small></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="blog-details.html">Single Post</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Pages <small class="icon-arrow"></small></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="about.html">About us</a></li>
+                                            <li><a href="contact.html">Contact Us</a></li>
+                                            <li><a href="faq.html">FAQS</a></li>
+                                            <li><a href="pricing.html">Pricing & Plan</a></li>
+                                            <li><a href="login-register.html">Login & Register</a></li>
+                                            <li><a href="dashboard.html">Dashboard</a></li>
+                                            <li><a href="404.html">404 Error</a></li>
+                                            <li><a href="shop.html">Shop <small class="icon-arrow"></small></a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="shop.html">Shop</a></li>
+                                                    <li><a href="product-details.html">Product Details</a></li>
+                                                    <li><a href="cart.html">Cart</a></li>
+                                                    <li><a href="checkout.html">Checkout</a></li>
+                                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
                         <!--Menu end-->
 
-                        <!-- Login/Register Area Start -->
+                        <!-- Cart & Search Area Start -->
                         <div class="col-xl-3 col-lg-3 col-12">
                             <div class="header-btn-action d-flex justify-content-end">
                                 <div class="btn-action-wrap d-flex">
-                                    <div class="jp-author main-menu">
-                                        <ul>
-                                            <li><a href="login-professional.html"><i class="lnr lnr-user"></i> Login <small
-                                                    class="icon-arrow"></small></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="contact.html">Professionals</a></li>
-                                                    <li><a href="about.html">Companies</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                    <div class="jp-author item">
+                                        <a href="login-register.html">
+                                            <i class="lnr lnr-user"></i>
+                                            <span>Login</span>
+                                        </a>
                                     </div>
-                                    <div class="jp-author main-menu">
-                                        <ul>
-                                            <li><a href="login-professional.html"> Register <small
-                                                    class="icon-arrow"></small></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="contact.html">Professionals</a></li>
-                                                    <li><a href="about.html">Companies</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                    <div class="jp-author-action item">
+                                        <a href="#quick-view-modal-container" data-toggle="modal"> <span>Employer</span> <span class="fw-400">Post a job</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -330,120 +354,7 @@
         <!-- Login Register Section End -->
 
         <!--Footer section start-->
-        <footer class="footer-section section st-border">
-
-            <!-- Footer Top Section Start -->
-            <div class="footer-top-section section pt-115 pt-lg-95 pt-md-75 pt-sm-55 pt-xs-45 pb-90 pb-lg-70 pb-md-40 pb-sm-20 pb-xs-15">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-xl-4 col-lg-3 col-md-6">
-                            <!-- Footer Widget Start -->
-                            <div class="footer-widget mb-30">
-                                <h6 class="title">Contact Info</h6>
-                                <div class="address">
-                                    <i class="lnr lnr-map-marker"></i>
-                                    <span>8375 E. Heather Drive Tonawanda, Manchester 14150, United Kingdom</span>
-                                </div>
-                                <div class="email">
-                                    <i class="lnr lnr-envelope"></i>
-                                    <span>jopota@recruitment.com</span>
-                                </div>
-                                <div class="phone theme-color">(+1) 000 987-1234</div>
-                                <div class="footer-widget-image d-flex mt-35">
-                                    <a class="mr-5" href="#"><img src="assets/images/app-store/app-store-2.png" alt=""></a>
-                                    <a href="#"><img src="assets/images/app-store/app-chplay-2.png" alt=""></a>
-                                </div>
-                            </div>
-                            <!-- Footer Widget End -->
-                        </div>
-
-                        <div class="col-xl-2 col-lg-2 col-md-6">
-                            <!-- Footer Widget Start -->
-                            <div class="footer-widget mb-30">
-                                <h6 class="title">Useful Links</h6>
-                                <div class="footer-widget-link">
-                                    <ul>
-                                        <li><a href="#">Press Corner</a></li>
-                                        <li><a href="#">Policy Privacy</a></li>
-                                        <li><a href="#">Terms And Conditions</a></li>
-                                        <li><a href="#">Partner</a></li>
-                                        <li><a href="#">Help Center</a></li>
-                                        <li><a href="#">Contact Us</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Footer Widget End -->
-                        </div>
-
-                        <div class="col-xl-2 col-lg-3 col-md-6">
-                            <!-- Footer Widget Start -->
-                            <div class="footer-widget mb-30">
-                                <h6 class="title">Featured Jobs</h6>
-                                <div class="footer-widget-link">
-                                    <ul>
-                                        <li><a href="#">Teachers</a></li>
-                                        <li><a href="#">Accounting</a></li>
-                                        <li><a href="#">Customer Service</a></li>
-                                        <li><a href="#">Digital Marketing</a></li>
-                                        <li><a href="#">Web & Software Dev</a></li>
-                                        <li><a href="#">Science & Analitycs</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Footer Widget End -->
-                        </div>
-
-                        <div class="col-xl-4 col-lg-4 col-md-6">
-                            <!-- Footer Widget Start -->
-                            <div class="footer-widget mb-30">
-                                <h6 class="title">Newsletter</h6>
-                                <div class="newsletter">
-                                    <p>Join our email subscription now to get updates on <strong>new jobs</strong> and <strong>notifications</strong>.</p>
-                                    <div class="newsletter-form">
-                                        <form id="mc-form" class="mc-form">
-                                            <input type="email" placeholder="Enter Your email..." required="" name="EMAIL">
-                                            <button class="ht-btn small-btn" type="submit" value="submit">Subscribe</button>
-                                        </form>
-                                    </div>
-                                    <!-- mailchimp-alerts Start -->
-                                    <div class="mailchimp-alerts">
-                                        <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                        <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                                        <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                                    </div>
-                                    <!-- mailchimp-alerts end -->
-                                </div>
-                            </div>
-                            <!-- Footer Widget End -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer Top Section End -->
-
-            <!--Footer bottom start-->
-            <div class="footer-bottom section fb-60">
-                <div class="container">
-                    <div class="row g-0 st-border pt-35 pb-35 align-items-center justify-content-between">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="copyright">
-                                <p>&copy;2022 <a href="https://hasthemes.com/">Jetapo</a>. All rights reserved.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="footer-social">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-google"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Footer bottom end-->
-
-        </footer>
+        <footer th:replace="~{fragments/page-frame :: footer}"></footer>
         <!--Footer section end-->
 
         <!-- Modal Area Strat -->
@@ -603,15 +514,7 @@
     <!-- Placed js at the end of the document so the pages load faster -->
 
     <!-- All jquery file included here -->
-    <script src="assets/js/vendor/jquery-3.5.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-migrate-3.1.0.min.js"></script>
-    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/plugins/plugins.js"></script>
-
-
-    <script src="assets/js/main.js"></script>
-
-    
+    <div th:replace="~{fragments/page-frame :: script}"></div>
 
 </body>
 
