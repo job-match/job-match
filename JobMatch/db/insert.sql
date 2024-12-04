@@ -16,7 +16,9 @@ values (1, 'remote'),
        (3, 'Sofia'),
        (4, 'Plovdiv'),
        (5, 'Varna'),
-       (6, 'Burgas');
+       (6, 'Burgas'),
+       (7, 'Ruse'),
+       (8, 'Blagoevgrad');
 
 -- requirements Table --
 insert into job_match.requirements (requirement_id, type)

@@ -7,6 +7,8 @@ import com.project.jobmatch.services.interfaces.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LocationServiceImpl implements LocationService {
 
@@ -23,4 +25,11 @@ public class LocationServiceImpl implements LocationService {
                 .findLocationByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Location", "name", name));
     }
+
+    @Override
+    public List<Location> getAllLocations() {
+        return locationRepository.findAll();
+    }
+
+
 }
