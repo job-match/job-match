@@ -2175,6 +2175,10 @@ body.template-color-4 .copyright p a:hover {
   background: #F50809;
 }
 
+.bg_color--10 {
+  background: #313131;
+}
+
 /*----------------------------------------*/
 /*  04. Header CSS
 /*----------------------------------------*/
