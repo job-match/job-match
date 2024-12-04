@@ -54,6 +54,17 @@ public class JobAdServiceImpl implements JobAdService {
     }
 
     @Override
+    public List<JobAd> getJobAdsByLocation(Location location) {
+        return jobAdRepository
+                .findJobAdsByLocation(location);
+    }
+
+    @Override
+    public List<JobAd> getSixMostRecentJobAds() {
+        return jobAdRepository.getSixMostRecentJobAds().stream().limit(6).toList();
+    }
+
+    @Override
     public void createJobAd(JobAd jobAd) {
         jobAdRepository.save(jobAd);
     }

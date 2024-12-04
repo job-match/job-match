@@ -3,6 +3,7 @@ package com.project.jobmatch.services.interfaces;
 import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
+import com.project.jobmatch.models.Location;
 
 import java.util.List;
 
@@ -23,4 +24,8 @@ public interface JobAdService {
     List<JobAd> getAll();
 
     List<JobAd> searchJobAds(String positionTitle, String location, Double minSalary, Double maxSalary, String requirement);
+
+    List<JobAd> getJobAdsByLocation(Location location);
+
+    List<JobAd> getSixMostRecentJobAds();
 }
