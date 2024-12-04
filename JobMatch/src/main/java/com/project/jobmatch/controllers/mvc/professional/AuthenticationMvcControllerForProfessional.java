@@ -53,7 +53,7 @@ public class AuthenticationMvcControllerForProfessional {
             return "redirect:/";
         } catch (AuthorizationException e) {
             bindingResult.rejectValue("username", "auth_error", e.getMessage());
-            return "login";
+            return "login-professional";
         }
     }
 }
