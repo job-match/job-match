@@ -1,37 +1,30 @@
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login Register || Jetapo</title>
+    <title>JobMatch - Job Board</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
-    <link href="assets/images/favicon.ico" type="img/x-icon" rel="shortcut icon">
+    <link href="/images/favicon-jobMatch.png" type="img/x-icon" rel="shortcut icon"
+          th:href="@{/images/favicon-jobMatch.png}">
     <!-- All css files are included here. -->
-    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/vendor/iconfont.min.css">
-    <link rel="stylesheet" href="assets/css/vendor/helper.css">
-    <link rel="stylesheet" href="assets/css/plugins/plugins.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/css/vendor/bootstrap.min.css" th:href="@{/css/vendor/bootstrap.min.css}">
+    <link rel="stylesheet" href="/css/vendor/iconfont.min.css" th:href="@{/css/vendor/iconfont.min.css}">
+    <link rel="stylesheet" href="/css/vendor/helper.css" th:href="@{/css/vendor/helper.css}">
+    <link rel="stylesheet" href="/css/plugins/plugins.css" th:href="@{/css/plugins/plugins.css}">
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
     <!-- Modernizr JS -->
-    <script src="assets/js/vendor/modernizr-3.10.0.min.js"></script>
+    <script src="/js/vendor/modernizr-3.10.0.min.js" th:src="@{/js/vendor/modernizr-3.10.0.min.js}"></script>
 </head>
 
 <body class="template-color-1">
 
     <div id="main-wrapper">
-
-
-
-
-
-
-
-
         <!--Header section start-->
-        <header class="black-logo-version header-sticky sticky-white d-none d-lg-block">
+        <header class="header-absolute sb-border header-sticky d-none d-lg-block">
             <div class="main-header">
                 <div class="container-fluid pl-50 pl-lg-15 pl-md-15 pr-0">
                     <div class="row align-items-center g-0">
@@ -39,7 +32,9 @@
                         <!--Logo start-->
                         <div class="col-xl-2 col-lg-2 col-12">
                             <div class="logo">
-                                <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                <a href="index.html" th:href="@{/}"><img src="/images/logo-jobMatch-white.png"
+                                                                         alt="JobMatch-logo"
+                                                                         th:src="@{/images/logo-jobMatch-white.png}"></a>
                             </div>
                         </div>
                         <!--Logo end-->
@@ -48,90 +43,47 @@
                         <div class="col-xl-7 col-lg-7 col-12">
                             <nav class="main-menu">
                                 <ul>
-                                    <li><a href="index.html">Home <small class="icon-arrow"></small></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.html">Home V1</a></li>
-                                            <li><a href="index-2.html">Home V2</a></li>
-                                            <li><a href="index-3.html">Home V3</a></li>
-                                            <li><a href="index-4.html">Home V4</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="index.html" th:href="@{/}">Home</a>
                                     </li>
-                                    <li><a href="job-listing.html"><span class="label-status hot">hot</span>Jobs <small class="icon-arrow"></small></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="job-listing.html">Jobs Listing</a></li>
-                                            <li><a href="job-with-map.html">Jobs With Map</a></li>
-                                            <li><a href="job-details.html">Job Detail <small class="icon-arrow"></small></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="job-details.html">Job Detail V1</a></li>
-                                                    <li><a href="job-details-two.html">Job Detail V2</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                    <li><a href="job-listing.html">Job Ads</a></li>
+                                    <li><a href="job-listing.html">Job Applications</a>
                                     </li>
-                                    <li><a href="candidates-listing.html"><span class="label-status new">new</span> Candidates <small class="icon-arrow"></small></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="candidates-listing.html">Candidates Listing</a></li>
-                                            <li><a href="candidate-details.html">Candidate Detail <small class="icon-arrow"></small></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="candidate-details.html">Candidate Details V1</a></li>
-                                                    <li><a href="candidate-details-two.html">Candidate Details V2</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                    <li><a href="candidates-listing.html">Professionals</a>
                                     </li>
-                                    <li><a href="#">Employers <small class="icon-arrow"></small></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="employer-listing.html">Employers Listing</a></li>
-                                            <li><a href="employer-details.html">Employer Details <small class="icon-arrow"></small></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="employer-details.html">Employer Detail V1</a></li>
-                                                    <li><a href="employer-details-two.html">Employer Detail V2</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                    <li><a href="#">Companies</a>
                                     </li>
-                                    <li><a href="blog.html">Blog <small class="icon-arrow"></small></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog-details.html">Single Post</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Pages <small class="icon-arrow"></small></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="about.html">About us</a></li>
-                                            <li><a href="contact.html">Contact Us</a></li>
-                                            <li><a href="faq.html">FAQS</a></li>
-                                            <li><a href="pricing.html">Pricing & Plan</a></li>
-                                            <li><a href="login-register.html">Login & Register</a></li>
-                                            <li><a href="dashboard.html">Dashboard</a></li>
-                                            <li><a href="404.html">404 Error</a></li>
-                                            <li><a href="shop.html">Shop <small class="icon-arrow"></small></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="shop.html">Shop</a></li>
-                                                    <li><a href="product-details.html">Product Details</a></li>
-                                                    <li><a href="cart.html">Cart</a></li>
-                                                    <li><a href="checkout.html">Checkout</a></li>
-                                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="about.html">About</a></li>
                                 </ul>
                             </nav>
                         </div>
                         <!--Menu end-->
 
-                        <!-- Cart & Search Area Start -->
+                        <!-- Login/Register Area Start -->
                         <div class="col-xl-3 col-lg-3 col-12">
                             <div class="header-btn-action d-flex justify-content-end">
                                 <div class="btn-action-wrap d-flex">
-                                    <div class="jp-author item">
-                                        <a href="login-register.html">
-                                            <i class="lnr lnr-user"></i>
-                                            <span>Login</span>
-                                        </a>
+                                    <div class="jp-author main-menu">
+                                        <ul>
+                                            <li><a href="login-professional.html"><i class="lnr lnr-user"></i> Login <small
+                                                    class="icon-arrow"></small></a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="contact.html">Professionals</a></li>
+                                                    <li><a href="about.html">Companies</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="jp-author-action item">
-                                        <a href="#quick-view-modal-container" data-toggle="modal"> <span>Employer</span> <span class="fw-400">Post a job</span></a>
+                                    <div class="jp-author main-menu">
+                                        <ul>
+                                            <li><a href="login-professional.html"> Register <small
+                                                    class="icon-arrow"></small></a>
+                                                <ul class="sub-menu">
+                                                    <li><a href="contact.html">Professionals</a></li>
+                                                    <li><a href="about.html">Companies</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -145,58 +97,6 @@
         <!--Header section end-->
 
         <!--Header Mobile section start-->
-        <header class="header-mobile bg_color--2 d-block d-lg-none">
-            <div class="header-bottom menu-right">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="header-mobile-navigation d-block d-lg-none">
-                                <div class="row align-items-center">
-                                    <div class="col-3 col-md-3">
-                                        <div class="mobile-navigation text-right">
-                                            <div class="header-icon-wrapper">
-                                                <ul class="icon-list justify-content-start">
-                                                    <li class="popup-mobile-click">
-                                                        <a href="javascript:void(0)"><i class="lnr lnr-menu"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-6">
-                                        <div class="header-logo text-center">
-                                            <a href="index.html">
-                                                <img src="assets/images/logo-mobile.png" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 col-md-3">
-                                        <div class="mobile-navigation text-right">
-                                            <div class="header-icon-wrapper">
-                                                <ul class="icon-list justify-content-end">
-                                                    <li>
-                                                        <div class="header-cart-icon">
-                                                            <a href="#" class="header-search-toggle"><i class="lnr lnr-magnifier"></i></a>
-                                                        </div>
-                                                        <div class="header-search-form">
-                                                            <form action="#">
-                                                                <input type="text" placeholder="Type and hit enter">
-                                                                <button><i class="lnr lnr-magnifier"></i></button>
-                                                            </form>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </header>
         <!--Header Mobile section end-->
 
         <!-- Start Popup Menu -->
@@ -270,7 +170,7 @@
                                 <li><a href="contact.html"><span>Contact Us</span></a></li>
                                 <li><a href="faq.html"><span>FAQS</span></a></li>
                                 <li><a href="pricing.html"><span>Pricing & Plan</span></a></li>
-                                <li><a href="login-register.html"><span>Login / Register</span></a></li>
+                                <li><a href="login-professional.html"><span>Login / Register</span></a></li>
                                 <li><a href="dashboard.html"><span>Dashboard</span></a></li>
                                 <li><a href="shop.html"><span>Shop</span></a></li>
                                 <li><a href="product-details.html"><span>Product Details</span></a></li>
@@ -288,85 +188,9 @@
         <!-- End Popup Menu -->
 
         <!-- Bottom Navbar Mobile Start -->
-        <div class="bottom-navbar-mobile section d-block d-lg-none">
-            <nav>
-                <ul class="list-actions">
-                    <li>
-                        <a class="toggle-btn active" href="index.html">
-                            <span><i class="lnr lnr-home"></i></span>
-                            <span class="text">Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="toggle-btn toggle-btn-js" data-target="#job-list-mobile-id" href="#">
-                            <span><i class="lnr lnr-list"></i></span>
-                            <span class="text">Jobs list</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="login-register.html">
-                            <span><i class="lnr lnr-heart"></i></span>
-                            <span class="text">Save</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="toggle-btn-two toggle-btn-js" data-target="#notifications-mobile-id" href="#">
-                            <span><i class="lnr lnr-alarm"></i></span>
-                            <span class="text">Notifications</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="login-register.html">
-                            <span><i class="lnr lnr-user"></i></span>
-                            <span class="text">Account</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
         <!-- Bottom Navbar Mobile End -->
 
         <!-- Bottom Navbar Mobile Popup Start -->
-        <div class="mobile-popup">
-            <div class="job-list-mobile" id="job-list-mobile-id">
-                <div class="heading">
-                    <div class="title">
-                        <i class="lnr lnr-list"></i>
-                        <h3>All Jobs list</h3>
-                    </div>
-                    <a class="view-all" href="#">See all jobs</a>
-                </div>
-                <div class="content-popup-scroll">
-                    <ul class="list-item">
-                        <li><a href="job-listing.html"><i class="lnr lnr-printer"></i>Accounting </a></li>
-                        <li><a href="job-listing.html"><i class="lnr lnr-film-play"></i>Broadcasting </a></li>
-                        <li><a href="job-listing.html"><i class="lnr lnr-phone"></i>Customer Service </a></li>
-                        <li><a href="job-listing.html"><i class="lnr lnr-bullhorn"></i>Digital Marketing </a></li>
-                        <li><a href="job-listing.html"><i class="lnr lnr-chart-bars"></i>Finance & Accounting </a></li>
-                        <li><a href="job-listing.html"><i class="lnr lnr-smartphone"></i>Game Mobile </a></li>
-                        <li><a href="job-listing.html"><i class="lnr lnr-picture"></i>Graphics & Design </a></li>
-                        <li><a href="job-listing.html"><i class="lnr lnr-home"></i>Graphics & Design </a></li>
-                        <li><a href="job-listing.html"><i class="lnr lnr-database"></i>Medical Doctor </a></li>
-                        <li><a href="job-listing.html"><i class="lnr lnr-dinner"></i>Restaurant </a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="notifications-mobile" id="notifications-mobile-id">
-                <div class="heading">
-                    <div class="title">
-                        <i class="lnr lnr-list"></i>
-                        <h3>All Notifications</h3>
-                    </div>
-                    <a class="view-all" href="#">See all jobs</a>
-                </div>
-                <div class="content-popup-scroll">
-                    <ul class="list-item">
-                        <li><a href="login-register.html"><i class="lnr lnr-book"></i><span><b class="highlight">Register now</b> to reach dream jobs easier.</span> </a></li>
-                        <li><a href="job-with-map.html"><i class="lnr lnr-book"></i><span><b class="highlight">Job suggestion</b> you might be interested based on your profile.</span> </a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <!-- Bottom Navbar Mobile Popup End -->
 
         <!-- Breadcrumb Section Start -->
