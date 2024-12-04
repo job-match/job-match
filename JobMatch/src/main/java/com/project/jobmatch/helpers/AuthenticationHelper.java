@@ -97,15 +97,15 @@ public class AuthenticationHelper {
 //        return userService.getByUsername(currentUsername);
 //    }
 //
-//    public User verifyAuthentication(String username, String password) {
-//        try {
-//            User user = userService.getByUsername(username);
-//            if (!user.getPassword().equals(password)) {
-//                throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-//            }
-//            return user;
-//        } catch (EntityNotFoundException e) {
-//            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-//        }
-//    }
+    public Professional verifyAuthenticationProfessional(String username, String password) {
+        try {
+            Professional professional = professionalService.getByUsername(username);
+            if (!professional.getPassword().equals(password)) {
+                throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+            }
+            return professional;
+        } catch (EntityNotFoundException e) {
+            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+        }
+    }
 }
