@@ -85,6 +85,7 @@ create table job_ads
     location_id         int,
     company_id          int,
     status_id           int default 1,
+    created_at timestamp default current_timestamp,
 
     constraint job_ads_locations_location_id_fk
         foreign key (location_id) references locations (location_id) on delete set null,
@@ -108,6 +109,7 @@ create table job_applications
     location_id        int,
     status_id          int default 4,
     professional_id    int,
+    created_at timestamp default current_timestamp,
 
     constraint job_applications_locations_location_id_fk
         foreign key (location_id) references locations (location_id) on delete set null,
