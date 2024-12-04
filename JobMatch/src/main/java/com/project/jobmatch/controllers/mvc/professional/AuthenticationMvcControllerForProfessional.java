@@ -35,16 +35,16 @@ public class AuthenticationMvcControllerForProfessional {
 
     @GetMapping("/professional/login")
     public String showLoginPage(Model model) {
-        model.addAttribute("login", new ProfessionalLoginDto());
-        return "login-professional";
+        model.addAttribute("loginProfessional", new ProfessionalLoginDto());
+        return "professional/login-professional";
     }
 
     @PostMapping("/professional/login")
-    public String handleLogin(@Valid @ModelAttribute("login") ProfessionalLoginDto professionalLoginDto,
+    public String handleLogin(@Valid @ModelAttribute("loginProfessional") ProfessionalLoginDto professionalLoginDto,
                               BindingResult bindingResult,
                               HttpSession session) {
         if (bindingResult.hasErrors()) {
-            return "login-professional";
+            return "professional/login-professional";
         }
 
         try {
@@ -53,7 +53,7 @@ public class AuthenticationMvcControllerForProfessional {
             return "redirect:/";
         } catch (AuthorizationException e) {
             bindingResult.rejectValue("username", "auth_error", e.getMessage());
-            return "login-professional";
+            return "professional/login-professional";
         }
     }
 }
