@@ -20,8 +20,82 @@
 </head>
 <body>
 
-<!--Header Fragment Start-->
-<header th:fragment="header" class="header-absolute sb-border header-sticky d-none d-lg-block">
+<!--Header Home Fragment Start-->
+
+<header th:fragment="header-all-others" class="black-logo-version header-sticky sticky-white d-none d-lg-block">
+    <div class="main-header">
+        <div class="container-fluid pl-50 pl-lg-15 pl-md-15 pr-0">
+            <div class="row align-items-center g-0">
+
+                <!--Logo start-->
+                <div class="col-xl-2 col-lg-2 col-12">
+                    <div class="logo">
+                        <a href="index.html" th:href="@{/}"><img src="/images/logo-jobMatch.png"
+                                                                 alt="JobMatch-logo"
+                                                                 th:src="@{/images/logo-jobMatch.png}"></a>
+                    </div>
+                </div>
+                <!--Logo end-->
+
+                <!--Menu start-->
+                <div class="col-xl-7 col-lg-7 col-12">
+                    <nav class="main-menu">
+                        <ul>
+                            <li>
+                                <a href="index.html" th:href="@{/}">Home</a>
+                            </li>
+                            <li><a href="job-listing.html">Job Ads</a></li>
+                            <li><a href="job-listing.html">Job Applications</a>
+                            </li>
+                            <li><a href="candidates-listing.html">Professionals</a>
+                            </li>
+                            <li><a href="#">Companies</a>
+                            </li>
+                            <li><a href="about.html">About</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!--Menu end-->
+
+                <!-- Login/Register Area Start -->
+                <div class="col-xl-3 col-lg-3 col-12">
+                    <div class="header-btn-action d-flex justify-content-end">
+                        <div class="btn-action-wrap d-flex">
+                            <div class="jp-author main-menu">
+                                <ul>
+                                    <li><a href="login-register.html"><i class="lnr lnr-user"></i> Login <small
+                                            class="icon-arrow"></small></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="contact.html">Professionals</a></li>
+                                            <li><a href="about.html">Companies</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="jp-author main-menu">
+                                <ul>
+                                    <li><a href="login-register.html"> Register <small
+                                            class="icon-arrow"></small></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="contact.html">Professionals</a></li>
+                                            <li><a href="about.html">Companies</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Login/Register Area End -->
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--Header Home Fragment End-->
+
+<!--Header Home Fragment Start-->
+<header th:fragment="header-home" class="header-absolute sb-border header-sticky d-none d-lg-block">
     <div class="main-header">
         <div class="container-fluid pl-50 pl-lg-15 pl-md-15 pr-0">
             <div class="row align-items-center g-0">
@@ -91,7 +165,7 @@
     </div>
 </header>
 
-<!-- Header Fragment End -->
+<!-- Header Home Fragment End -->
 
 <!-- Footer Fragment Start -->
 
