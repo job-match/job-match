@@ -4,6 +4,7 @@ import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.dto.ProfessionalLoginDto;
+import com.project.jobmatch.models.dto.ProfessionalRegisterDto;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -56,4 +57,32 @@ public class AuthenticationMvcControllerForProfessional {
             return "professional/login-professional";
         }
     }
+
+    @GetMapping("/professional/register")
+    public String showRegisterPage(Model model) {
+        model.addAttribute("registerProfessional", new ProfessionalRegisterDto());
+        return "professional/login-professional";
+    }
+
+//    @PostMapping("professional//register")
+//    public String handleRegister(@Valid @ModelAttribute("register") ProfessionalRegisterDto professionalRegisterDto,
+//                                 BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return "professional/login-professional";
+//        }
+//
+//        if (!professionalRegisterDto.getPassword().equals(professionalRegisterDto.getPasswordConfirmation())) {
+//            bindingResult.rejectValue("passwordConfirm", "password_error", PASSWORD_CONFIRMATION_ERROR_MESSAGE);
+//            return "professional/login-professional";
+//        }
+//
+//        try {
+//            Professional professional = modelMapper.fromProfessionalDtoInToProfessional(professionalRegisterDto);
+//            userService.register(user);
+//            return "redirect:/auth/login";
+//        } catch (EntityDuplicateException e) {
+//            bindingResult.rejectValue("username", "username_error", e.getMessage());
+//            return "professional/login-professional";
+//        }
+//    }
 }
