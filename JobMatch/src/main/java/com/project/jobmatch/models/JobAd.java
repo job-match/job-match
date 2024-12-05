@@ -2,6 +2,8 @@ package com.project.jobmatch.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,6 +32,9 @@ public class JobAd {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
     private Status status;
+
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
@@ -139,6 +144,14 @@ public class JobAd {
 
     public void setListOfApplicationMatchRequests(Set<JobApplication> listOfApplicationMatchRequests) {
         this.listOfApplicationMatchRequests = listOfApplicationMatchRequests;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override

@@ -123,11 +123,11 @@
                         <!-- Single Funfact Start -->
                         <div class="single-funfact">
                             <div class="icon-img">
-                                <img src="assets/images/icons/candidates.png" alt="">
+                                <img src="/images/icons/candidates.png" th:src="@{/images/icons/candidates.png}" alt="">
                             </div>
                             <div class="funfact-content">
-                                <span class="counter">87,360</span>
-                                <span class="text theme-color">Candidates</span>
+                                <span class="counter" th:text="${allProfessionals.size()}">87,360</span>
+                                <span class="text theme-color" th:text="'Professionals'">Professionals</span>
                             </div>
                         </div>
                         <!-- Single Funfact End -->
@@ -137,11 +137,11 @@
                         <!-- Single Funfact Start -->
                         <div class="single-funfact">
                             <div class="icon-img">
-                                <img src="assets/images/icons/total-jobs.png" alt="">
+                                <img src="/images/icons/total-jobs.png" th:src="@{/images/icons/total-jobs.png}" alt="">
                             </div>
                             <div class="funfact-content">
-                                <span class="counter">20,258</span>
-                                <span class="text theme-color">Total Jobs</span>
+                                <span class="counter" th:text="${allJobAds.size()}">20,258</span>
+                                <span class="text theme-color" th:text="'Total Job Ads'">Total Job Ads</span>
                             </div>
                         </div>
                         <!-- Single Funfact End -->
@@ -151,11 +151,11 @@
                         <!-- Single Funfact Start -->
                         <div class="single-funfact">
                             <div class="icon-img">
-                                <img src="assets/images/icons/employers.png" alt="">
+                                <img src="/images/icons/employers.png" th:src="@{/images/icons/employers.png}" alt="">
                             </div>
                             <div class="funfact-content">
-                                <span class="counter">8,650</span>
-                                <span class="text theme-color">Employers</span>
+                                <span class="counter" th:text="${allCompanies.size()}">8,650</span>
+                                <span class="text theme-color" th:text="'Companies'">Companies</span>
                             </div>
                         </div>
                         <!-- Single Funfact End -->
@@ -165,11 +165,12 @@
                         <!-- Single Funfact Start -->
                         <div class="single-funfact">
                             <div class="icon-img">
-                                <img src="assets/images/icons/job-applications.png" alt="">
+                                <img src="/images/icons/job-applications.png"
+                                     th:src="@{/images/icons/job-applications.png}" alt="">
                             </div>
                             <div class="funfact-content">
-                                <span class="counter">50,299</span>
-                                <span class="text theme-color">job applications</span>
+                                <span class="counter" th:text="${allJobApplications.size()}">50,299</span>
+                                <span class="text theme-color" th:text="'Job Applications'">job applications</span>
                             </div>
                         </div>
                         <!-- Single Funfact End -->
@@ -238,7 +239,7 @@
                 <div class="col-lg-12">
                     <div class="section-title-wrap mb-45">
                         <div class="section-title">
-                            <span>JOB FROM EMPLOYERS</span>
+                            <!--                            <span>JOB FROM EMPLOYERS</span>-->
                             <h3 class="title">Companies Spotlight</h3>
                         </div>
                         <div class="jetapo-link">
@@ -280,7 +281,7 @@
                     <div class="section-title-wrap mb-45">
                         <div class="section-title">
                             <span>JOB BY LOCATIONS</span>
-                            <h3 class="title">Top Places to Work</h3>
+                            <h3 class="title" th:text="'Top Places to Work'">Top Places to Work</h3>
                         </div>
                         <div class="jetapo-link">
                             <a href="#">Browse All Locations <i class="lnr lnr-chevron-right"></i></a>
@@ -294,11 +295,12 @@
 
                         <div class="col-lg-3">
                             <!-- Single Job Location Start -->
-                            <div class="single-job-location bg-image" data-bg="./assets/images/location/petaling.jpg">
+                            <div class="single-job-location bg-image" data-bg="/images/location/remote.jpg">
                                 <div class="overlay-gradient"></div>
                                 <div class="location-info">
-                                    <a class="city-name" href="job-with-map.html">Chicago</a>
-                                    <span class="count-job">2 Open Jobs</span>
+                                    <a class="city-name" th:text="${allLocations.get(0).getName()}"></a>
+                                    <span class="count-job"
+                                          th:text="${jobCountByLocation[allLocations.get(0)] + ' Job Ads'}">X Open Jobs</span>
                                 </div>
                             </div>
                             <!-- Single Job Location End -->
@@ -306,12 +308,12 @@
 
                         <div class="col-lg-3">
                             <!-- Single Job Location Start -->
-                            <div class="single-job-location bg-image"
-                                 data-bg="./assets/images/location/jacksonville.jpg">
+                            <div class="single-job-location bg-image" data-bg="/images/location/hybrid.jpg">
                                 <div class="overlay-gradient"></div>
                                 <div class="location-info">
-                                    <a class="city-name" href="job-with-map.html">New York</a>
-                                    <span class="count-job">1 Open Jobs</span>
+                                    <a class="city-name" th:text="${allLocations.get(1).getName()}"></a>
+                                    <span class="count-job"
+                                          th:text="${jobCountByLocation[allLocations.get(1)] + ' Job Ads'}"></span>
                                 </div>
                             </div>
                             <!-- Single Job Location End -->
@@ -319,11 +321,12 @@
 
                         <div class="col-lg-3">
                             <!-- Single Job Location Start -->
-                            <div class="single-job-location bg-image" data-bg="./assets/images/location/houston.jpg">
+                            <div class="single-job-location bg-image" data-bg="/images/location/sofia.jpg">
                                 <div class="overlay-gradient"></div>
                                 <div class="location-info">
-                                    <a class="city-name" href="job-with-map.html">Da Nang</a>
-                                    <span class="count-job">1 Open Jobs</span>
+                                    <a class="city-name" th:text="${allLocations.get(2).getName()}"></a>
+                                    <span class="count-job"
+                                          th:text="${jobCountByLocation[allLocations.get(2)] + ' Job Ads'}"></span>
                                 </div>
                             </div>
                             <!-- Single Job Location End -->
@@ -331,11 +334,12 @@
 
                         <div class="col-lg-3">
                             <!-- Single Job Location Start -->
-                            <div class="single-job-location bg-image" data-bg="./assets/images/location/Seville.jpg">
+                            <div class="single-job-location bg-image" data-bg="/images/location/plovdiv.jpg">
                                 <div class="overlay-gradient"></div>
                                 <div class="location-info">
-                                    <a class="city-name" href="job-with-map.html">Seville</a>
-                                    <span class="count-job">1 Open Jobs</span>
+                                    <a class="city-name" th:text="${allLocations.get(3).getName()}"></a>
+                                    <span class="count-job"
+                                          th:text="${jobCountByLocation[allLocations.get(3)] + ' Job Ads'}"></span>
                                 </div>
                             </div>
                             <!-- Single Job Location End -->
@@ -343,11 +347,25 @@
 
                         <div class="col-lg-3">
                             <!-- Single Job Location Start -->
-                            <div class="single-job-location bg-image" data-bg="./assets/images/location/india.jpg">
+                            <div class="single-job-location bg-image" data-bg="/images/location/varna.jpg">
                                 <div class="overlay-gradient"></div>
                                 <div class="location-info">
-                                    <a class="city-name" href="job-with-map.html">Hanoi</a>
-                                    <span class="count-job">1 Open Jobs</span>
+                                    <a class="city-name" th:text="${allLocations.get(4).getName()}"></a>
+                                    <span class="count-job"
+                                          th:text="${jobCountByLocation[allLocations.get(4)] + ' Job Ads'}"></span>
+                                </div>
+                            </div>
+                            <!-- Single Job Location End -->
+                        </div>
+
+                        <div class="col-lg-3">
+                            <!-- Single Job Location Start -->
+                            <div class="single-job-location bg-image" data-bg="/images/location/burgas.jpg">
+                                <div class="overlay-gradient"></div>
+                                <div class="location-info">
+                                    <a class="city-name" th:text="${allLocations.get(5).getName()}"></a>
+                                    <span class="count-job"
+                                          th:text="${jobCountByLocation[allLocations.get(5)] + ' Job Ads'}"></span>
                                 </div>
                             </div>
                             <!-- Single Job Location End -->
@@ -367,18 +385,18 @@
                 <div class="col-lg-12">
                     <div class="section-title-wrap mb-45">
                         <div class="section-title">
-                            <span>SEASON FEATURE JOBS</span>
+                            <span>FEATURE JOBS</span>
                             <h3 class="title">Job Will You Love</h3>
                         </div>
-                        <div class="jetapo-tab-menu">
-                            <ul class="nav">
-                                <li><a class="active show" data-bs-toggle="tab" href="#fullTime"> Full Time </a></li>
-                                <li><a data-bs-toggle="tab" href="#partTime"> Part Time </a></li>
-                                <li><a data-bs-toggle="tab" href="#remote"> Remote </a></li>
-                                <li><a data-bs-toggle="tab" href="#freelancer"> Freelancer </a></li>
-                                <li><a data-bs-toggle="tab" href="#internship"> Internship </a></li>
-                            </ul>
-                        </div>
+                        <!--                        <div class="jetapo-tab-menu">-->
+                        <!--                            <ul class="nav">-->
+                        <!--                                <li><a class="active show" data-bs-toggle="tab" href="#fullTime"> Full Time </a></li>-->
+                        <!--                                <li><a data-bs-toggle="tab" href="#partTime"> Part Time </a></li>-->
+                        <!--                                <li><a data-bs-toggle="tab" href="#remote"> Remote </a></li>-->
+                        <!--                                <li><a data-bs-toggle="tab" href="#freelancer"> Freelancer </a></li>-->
+                        <!--                                <li><a data-bs-toggle="tab" href="#internship"> Internship </a></li>-->
+                        <!--                            </ul>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -388,13 +406,14 @@
                         <div id="fullTime" class="tab-pane fade show active">
                             <div class="row">
 
-                                <div class="col-lg-6 mb-30">
+                                <div class="col-lg-6 mb-30" th:each="jobAd : ${sixMostRecentJobAds}">
                                     <!-- Single Job Start  -->
                                     <div class="single-job">
                                         <div class="info-top">
                                             <div class="job-image">
                                                 <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo1.jpg"
+                                                    <img src="/images/companies_logo/logo-big/logo1.jpg"
+                                                         th:src="@{'/images/companies_logo/logo' + ${jobAd.getCompany().id} + '.jpg'}"
                                                          alt="logo">
                                                 </a>
                                             </div>
@@ -402,30 +421,36 @@
                                                 <div class="job-info-inner">
                                                     <div class="job-info-top">
                                                         <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
+                                                            <!--                                                            <span class="featured-label">featured</span>-->
                                                             <a class="save-job ml-20" href="#quick-view-modal-container"
                                                                data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
                                                             </a>
                                                         </div>
                                                         <div class="title-name">
                                                             <h3 class="job-title">
-                                                                <a href="job-details.html">Chief Accountant</a>
+                                                                <a href="job-details.html"
+                                                                   th:text="${jobAd.getPositionTitle()}">Chief
+                                                                    Accountant</a>
                                                             </h3>
                                                             <div class="employer-name">
-                                                                <a href="employer-details.html">Shippo Company</a>
+                                                                <a href="employer-details.html"
+                                                                   th:text="${jobAd.getCompany().getName()}">Shippo
+                                                                    Company</a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <span class="job-salary">$700 - $900</span>
+                                                    <span class="job-salary"
+                                                          th:text="'$' + ${jobAd.getMinSalaryBoundary()} + ' - $' + ${jobAd.getMaxSalaryBoundary()}">$700 - $900</span>
                                                     <div class="job-meta">
                                                         <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">Ho Chi Minh City</a></div>
+                                                                href="#" th:text="${jobAd.getLocation().getName()}">Ho
+                                                            Chi Minh City</a></div>
 
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
+                                                        <!--                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a-->
+                                                        <!--                                                                class="def-color" href="#">Full Time</a></div>-->
 
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Nov 7, 2022
+                                                        <div class="job-date"><i class="lnr lnr-clock"></i>
+                                                            <span th:text="${#dates.format(jobAd.getCreatedAt(), 'MMM d, yyyy')}"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -434,1042 +459,317 @@
                                     </div>
                                     <!-- Single Job End -->
                                 </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo3.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Senior Data Engineer</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Radio Game</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$900 - $1,200</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">Houston</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo4.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Construction Worker</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Digital Vine</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,000 - $1,500</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo2.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Tax Manager</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Vsmarttech</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,500 - $2,000</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">Los Angeles</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo5.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Receptionist</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Digital Vine</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$900 - $1,200</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo1.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Jr. Developer Shopify</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">InwaveThemes</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,000 - $1,500</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                            </div>
-                        </div>
-                        <div id="partTime" class="tab-pane fade">
-                            <div class="row">
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo4.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Construction Worker</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Digital Vine</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,000 - $1,500</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo2.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Tax Manager</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Vsmarttech</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,500 - $2,000</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">Los Angeles</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo5.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Receptionist</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Digital Vine</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$900 - $1,200</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo1.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Jr. Developer Shopify</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">InwaveThemes</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,000 - $1,500</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                            </div>
-                        </div>
-                        <div id="remote" class="tab-pane fade">
-                            <div class="row">
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo3.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Senior Data Engineer</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Radio Game</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$900 - $1,200</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">Houston</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="#">
-                                                    <img src="assets/images/companies_logo/logo-big/logo4.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Construction Worker</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Digital Vine</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,000 - $1,500</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo5.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Receptionist</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Digital Vine</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$900 - $1,200</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                            </div>
-                        </div>
-                        <div id="freelancer" class="tab-pane fade">
-                            <div class="row">
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo1.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Jr. Developer Shopify</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">InwaveThemes</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,000 - $1,500</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                            </div>
-                        </div>
-                        <div id="internship" class="tab-pane fade">
-                            <div class="row">
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo4.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Construction Worker</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Digital Vine</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,000 - $1,500</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">New York</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
-                                <div class="col-lg-6 mb-30">
-                                    <!-- Single Job Start  -->
-                                    <div class="single-job">
-                                        <div class="info-top">
-                                            <div class="job-image">
-                                                <a href="job-details.html">
-                                                    <img src="assets/images/companies_logo/logo-big/logo2.jpg"
-                                                         alt="logo">
-                                                </a>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-info-inner">
-                                                    <div class="job-info-top">
-                                                        <div class="saveJob for-listing">
-                                                            <span class="featured-label">featured</span>
-                                                            <a class="save-job ml-20" href="#quick-view-modal-container"
-                                                               data-toggle="modal">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="title-name">
-                                                            <h3 class="job-title">
-                                                                <a href="job-details.html">Tax Manager</a>
-                                                            </h3>
-                                                            <div class="employer-name">
-                                                                <a href="employer-details.html">Vsmarttech</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="job-salary">$1,500 - $2,000</span>
-                                                    <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#">Los Angeles</a></div>
-
-                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a
-                                                                class="def-color" href="#">Full Time</a></div>
-
-                                                        <div class="job-date"><i class="lnr lnr-clock"></i>Sep 12, 2022
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Job End -->
-                                </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="all-link-button text-center mt-15">
-                        <a class="ht-btn lg-btn" href="#">Browse All Featured Jobs</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Job Section End -->
-
-    <!-- Blog Section Start  -->
-    <!--    <div class="blog-section section pt-115 pt-lg-95 pt-md-75 pt-sm-55 pt-xs-45 pb-90 pb-lg-70 pb-md-50 pb-sm-30 pb-xs-20">-->
-    <!--        <div class="container">-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-lg-12">-->
-    <!--                    <div class="section-title-wrap mb-45">-->
-    <!--                        <div class="section-title">-->
-    <!--                            <span> FROM OUR BLOG</span>-->
-    <!--                            <h3 class="title"> Latest News & Post</h3>-->
-    <!--                        </div>-->
-    <!--                        <div class="jetapo-link">-->
-    <!--                            <a href="#"> Browse All Articles <i class="lnr lnr-chevron-right"></i></a>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="row">-->
-
-    <!--                <div class="col-lg-4 col-md-6 mb-30">-->
-    <!--                    &lt;!&ndash; Single Blog Start &ndash;&gt;-->
-    <!--                    <div class="single-blog">-->
-    <!--                        <div class="blog-image">-->
-    <!--                            <a href="blog-details.html">-->
-    <!--                                <img src="assets/images/blog/blog1.jpg" alt="">-->
-    <!--                            </a>-->
-    <!--                            <div class="blog-cat">-->
-    <!--                                <a href="#" rel="category tag">Job Skills</a>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                        <div class="blog-content">-->
-    <!--                            <h4 class="title">-->
-    <!--                                <a href="blog-details.html">The Reason Why Software Developer Repeats As ‘Best Job’</a>-->
-    <!--                            </h4>-->
-    <!--                            <div class="blog-meta">-->
-    <!--                                <p class="blog-author">-->
-    <!--                                    <i class="lnr lnr-user"></i>-->
-    <!--                                    <span class="text">Posted:</span>-->
-    <!--                                    <span class="author">Hien Tran</span>-->
-    <!--                                </p>-->
-    <!--                                <p class="blog-date-post">-->
-    <!--                                    <i class="lnr lnr-clock"></i>Oct 24, 2022-->
-    <!--                                </p>-->
-    <!--                            </div>-->
-    <!--                            <p class="blog-desc">-->
-    <!--                                The news comes just after "full stack software developer" was named the-->
-    <!--                            </p>-->
-    <!--                            <a href="#" class="read-more">Read More <i class="lnr lnr-chevron-right"></i></a>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    &lt;!&ndash; Single Blog End &ndash;&gt;-->
-    <!--                </div>-->
-
-    <!--                <div class="col-lg-4 col-md-6 mb-30">-->
-    <!--                    &lt;!&ndash; Single Blog Start &ndash;&gt;-->
-    <!--                    <div class="single-blog">-->
-    <!--                        <div class="blog-image">-->
-    <!--                            <a href="blog-details.html">-->
-    <!--                                <img src="assets/images/blog/blog2.jpg" alt="">-->
-    <!--                            </a>-->
-    <!--                            <div class="blog-cat">-->
-    <!--                                <a href="#" rel="category tag">News & Update</a>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                        <div class="blog-content">-->
-    <!--                            <h4 class="title">-->
-    <!--                                <a href="blog-details.html">7 Answers to the Most Frequently Asked Questions About-->
-    <!--                                    Job</a>-->
-    <!--                            </h4>-->
-    <!--                            <div class="blog-meta">-->
-    <!--                                <p class="blog-author">-->
-    <!--                                    <i class="lnr lnr-user"></i>-->
-    <!--                                    <span class="text">Posted:</span>-->
-    <!--                                    <span class="author">Hien Tran</span>-->
-    <!--                                </p>-->
-    <!--                                <p class="blog-date-post">-->
-    <!--                                    <i class="lnr lnr-clock"></i>Oct 24, 2022-->
-    <!--                                </p>-->
-    <!--                            </div>-->
-    <!--                            <p class="blog-desc">-->
-    <!--                                The news comes just after "full stack software developer" was named the-->
-    <!--                            </p>-->
-    <!--                            <a href="#" class="read-more">Read More <i class="lnr lnr-chevron-right"></i></a>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    &lt;!&ndash; Single Blog End &ndash;&gt;-->
-    <!--                </div>-->
-
-    <!--                <div class="col-lg-4 col-md-6 mb-30">-->
-    <!--                    &lt;!&ndash; Single Blog Start &ndash;&gt;-->
-    <!--                    <div class="single-blog">-->
-    <!--                        <div class="blog-image">-->
-    <!--                            <a href="blog-details.html">-->
-    <!--                                <img src="assets/images/blog/blog3.jpg" alt="">-->
-    <!--                            </a>-->
-    <!--                            <div class="blog-cat">-->
-    <!--                                <a href="#" rel="category tag">Career Advice</a>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                        <div class="blog-content">-->
-    <!--                            <h4 class="title">-->
-    <!--                                <a href="blog-details.html">The Question Everyone Working in Job Should Know to-->
-    <!--                                    Answer</a>-->
-    <!--                            </h4>-->
-    <!--                            <div class="blog-meta">-->
-    <!--                                <p class="blog-author">-->
-    <!--                                    <i class="lnr lnr-user"></i>-->
-    <!--                                    <span class="text">Posted:</span>-->
-    <!--                                    <span class="author">Hien Tran</span>-->
-    <!--                                </p>-->
-    <!--                                <p class="blog-date-post">-->
-    <!--                                    <i class="lnr lnr-clock"></i>Oct 24, 2022-->
-    <!--                                </p>-->
-    <!--                            </div>-->
-    <!--                            <p class="blog-desc">-->
-    <!--                                The news comes just after "full stack software developer" was named the-->
-    <!--                            </p>-->
-    <!--                            <a href="#" class="read-more">Read More <i class="lnr lnr-chevron-right"></i></a>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    &lt;!&ndash; Single Blog End &ndash;&gt;-->
-    <!--                </div>-->
-
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!-- Blog Section End -->
-
-    <!-- Testimonial Section Start -->
-    <!--    <div class="testimonial-section section bg-image-proparty bg_image&#45;&#45;2 pt-115 pt-lg-95 pt-md-75 pt-sm-55 pt-xs-45 pb-180 pb-lg-160 pb-md-140 pb-sm-60 pb-xs-30">-->
-    <!--        <div class="container">-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-lg-12">-->
-    <!--                    <div class="section-title-wrap mb-45">-->
-    <!--                        <div class="section-title">-->
-    <!--                            <span> OUR HAPPY CLIENTS</span>-->
-    <!--                            <h3 class="title"> From Testimonials</h3>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="testimonial-slider">-->
-
-    <!--                <div class="col-lg-6">-->
-    <!--                    &lt;!&ndash; Single Testimonial Start &ndash;&gt;-->
-    <!--                    <div class="single-testimonial">-->
-    <!--                        <div class="testimonial-author">-->
-    <!--                            <div class="testimonial-avatar">-->
-    <!--                                <img src="assets/images/testimonial/testimonial-1.png" alt="">-->
-    <!--                            </div>-->
-    <!--                            <div class="testimonial-meta">-->
-    <!--                                <h5 class="name">Kilian Sanjeev</h5>-->
-    <!--                                <p class="text">-->
-    <!--                                    <span class="position">CEO at</span>-->
-    <!--                                    <span class="company theme-color">Alpha Investing</span>-->
-    <!--                                </p>-->
-    <!--                            </div>-->
-    <!--                            <span class="icon-quote theme-color">-->
-    <!--                                <i class="fas fa-quote-right"></i>-->
-    <!--                            </span>-->
-    <!--                        </div>-->
-    <!--                        <div class="testimonial-comment">-->
-    <!--                            <p>"I am so pleased with this product. Jopota Recruitment has completely surpassed our-->
-    <!--                                expectations. If you aren't sure, always go for Jopota Recruitment. Jopota Recruitment-->
-    <!--                                is the real deal!"</p>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    &lt;!&ndash; Single Testimonial End &ndash;&gt;-->
-    <!--                </div>-->
-
-    <!--                <div class="col-lg-6">-->
-    <!--                    &lt;!&ndash; Single Testimonial Start &ndash;&gt;-->
-    <!--                    <div class="single-testimonial">-->
-    <!--                        <div class="testimonial-author">-->
-    <!--                            <div class="testimonial-avatar">-->
-    <!--                                <img src="assets/images/testimonial/testimonial-2.png" alt="">-->
-    <!--                            </div>-->
-    <!--                            <div class="testimonial-meta">-->
-    <!--                                <h5 class="name">Arina Sebastian</h5>-->
-    <!--                                <p class="text">-->
-    <!--                                    <span class="position">Freelance Designer</span>-->
-    <!--                                </p>-->
-    <!--                            </div>-->
-    <!--                            <span class="icon-quote theme-color">-->
-    <!--                                <i class="fas fa-quote-right"></i>-->
-    <!--                            </span>-->
-    <!--                        </div>-->
-    <!--                        <div class="testimonial-comment">-->
-    <!--                            <p>"I am so pleased with this product. Jopota Recruitment has completely surpassed our-->
-    <!--                                expectations. If you aren't sure, always go for Jopota Recruitment. Jopota Recruitment-->
-    <!--                                is the real deal!"</p>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    &lt;!&ndash; Single Testimonial End &ndash;&gt;-->
-    <!--                </div>-->
-
-    <!--                <div class="col-lg-6">-->
-    <!--                    &lt;!&ndash; Single Testimonial Start &ndash;&gt;-->
-    <!--                    <div class="single-testimonial">-->
-    <!--                        <div class="testimonial-author">-->
-    <!--                            <div class="testimonial-avatar">-->
-    <!--                                <img src="assets/images/testimonial/testimonial-3.jpg" alt="">-->
-    <!--                            </div>-->
-    <!--                            <div class="testimonial-meta">-->
-    <!--                                <h5 class="name">Kilian Sanjeev</h5>-->
-    <!--                                <p class="text">-->
-    <!--                                    <span class="position">Freelance Designer at</span>-->
-    <!--                                    <span class="company theme-color">Alpha</span>-->
-    <!--                                </p>-->
-    <!--                            </div>-->
-    <!--                            <span class="icon-quote theme-color">-->
-    <!--                                <i class="fas fa-quote-right"></i>-->
-    <!--                            </span>-->
-    <!--                        </div>-->
-    <!--                        <div class="testimonial-comment">-->
-    <!--                            <p>"I am so pleased with this product. Jopota Recruitment has completely surpassed our-->
-    <!--                                expectations. If you aren't sure, always go for Jopota Recruitment. Jopota Recruitment-->
-    <!--                                is the real deal!"</p>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    &lt;!&ndash; Single Testimonial End &ndash;&gt;-->
-    <!--                </div>-->
-
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!-- Testimonial Section End -->
-
-    <!-- CTA Section Start  -->
-    <div class="cta-section section bg_image--3 height-100vh pt-50 pt-xs-40">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="cta-wrap mb-45">
-                        <div class="cta-info">
-                            <span> Getting started to work</span>
-                            <h3 class="title"> Don’t just find. Be found. Put your <br> CV in front of great employers
-                            </h3>
-                            <p>It helps you to increase your chances of finding a suitable job and let recruiters <br>
-                                contact you about jobs that are not needed to pay for advertising.</p>
-                            <a class="ht-btn lg-btn" href="#"><i class="lnr lnr-cloud-upload"></i>Upload Your Resume</a>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="all-link-button text-center mt-15">
+                            <a class="ht-btn lg-btn" href="#">Browse All Featured Jobs</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- CTA Section End  -->
+        <!-- Job Section End -->
 
-    <!-- Brand Section Start  -->
-    <div class="brand-section section bg_color--3 pt-40 pb-40">
-        <div class="container">
-            <div class="row row-five-column align-items-center">
+        <!-- Blog Section Start  -->
+        <!--    <div class="blog-section section pt-115 pt-lg-95 pt-md-75 pt-sm-55 pt-xs-45 pb-90 pb-lg-70 pb-md-50 pb-sm-30 pb-xs-20">-->
+        <!--        <div class="container">-->
+        <!--            <div class="row">-->
+        <!--                <div class="col-lg-12">-->
+        <!--                    <div class="section-title-wrap mb-45">-->
+        <!--                        <div class="section-title">-->
+        <!--                            <span> FROM OUR BLOG</span>-->
+        <!--                            <h3 class="title"> Latest News & Post</h3>-->
+        <!--                        </div>-->
+        <!--                        <div class="jetapo-link">-->
+        <!--                            <a href="#"> Browse All Articles <i class="lnr lnr-chevron-right"></i></a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="row">-->
 
-                <div class="col-xl-2 col-20">
-                    <div class="brand-heading">
-                        <h3 class="title">We are <br> trusted by</h3>
+        <!--                <div class="col-lg-4 col-md-6 mb-30">-->
+        <!--                    &lt;!&ndash; Single Blog Start &ndash;&gt;-->
+        <!--                    <div class="single-blog">-->
+        <!--                        <div class="blog-image">-->
+        <!--                            <a href="blog-details.html">-->
+        <!--                                <img src="assets/images/blog/blog1.jpg" alt="">-->
+        <!--                            </a>-->
+        <!--                            <div class="blog-cat">-->
+        <!--                                <a href="#" rel="category tag">Job Skills</a>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                        <div class="blog-content">-->
+        <!--                            <h4 class="title">-->
+        <!--                                <a href="blog-details.html">The Reason Why Software Developer Repeats As ‘Best Job’</a>-->
+        <!--                            </h4>-->
+        <!--                            <div class="blog-meta">-->
+        <!--                                <p class="blog-author">-->
+        <!--                                    <i class="lnr lnr-user"></i>-->
+        <!--                                    <span class="text">Posted:</span>-->
+        <!--                                    <span class="author">Hien Tran</span>-->
+        <!--                                </p>-->
+        <!--                                <p class="blog-date-post">-->
+        <!--                                    <i class="lnr lnr-clock"></i>Oct 24, 2022-->
+        <!--                                </p>-->
+        <!--                            </div>-->
+        <!--                            <p class="blog-desc">-->
+        <!--                                The news comes just after "full stack software developer" was named the-->
+        <!--                            </p>-->
+        <!--                            <a href="#" class="read-more">Read More <i class="lnr lnr-chevron-right"></i></a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash; Single Blog End &ndash;&gt;-->
+        <!--                </div>-->
+
+        <!--                <div class="col-lg-4 col-md-6 mb-30">-->
+        <!--                    &lt;!&ndash; Single Blog Start &ndash;&gt;-->
+        <!--                    <div class="single-blog">-->
+        <!--                        <div class="blog-image">-->
+        <!--                            <a href="blog-details.html">-->
+        <!--                                <img src="assets/images/blog/blog2.jpg" alt="">-->
+        <!--                            </a>-->
+        <!--                            <div class="blog-cat">-->
+        <!--                                <a href="#" rel="category tag">News & Update</a>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                        <div class="blog-content">-->
+        <!--                            <h4 class="title">-->
+        <!--                                <a href="blog-details.html">7 Answers to the Most Frequently Asked Questions About-->
+        <!--                                    Job</a>-->
+        <!--                            </h4>-->
+        <!--                            <div class="blog-meta">-->
+        <!--                                <p class="blog-author">-->
+        <!--                                    <i class="lnr lnr-user"></i>-->
+        <!--                                    <span class="text">Posted:</span>-->
+        <!--                                    <span class="author">Hien Tran</span>-->
+        <!--                                </p>-->
+        <!--                                <p class="blog-date-post">-->
+        <!--                                    <i class="lnr lnr-clock"></i>Oct 24, 2022-->
+        <!--                                </p>-->
+        <!--                            </div>-->
+        <!--                            <p class="blog-desc">-->
+        <!--                                The news comes just after "full stack software developer" was named the-->
+        <!--                            </p>-->
+        <!--                            <a href="#" class="read-more">Read More <i class="lnr lnr-chevron-right"></i></a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash; Single Blog End &ndash;&gt;-->
+        <!--                </div>-->
+
+        <!--                <div class="col-lg-4 col-md-6 mb-30">-->
+        <!--                    &lt;!&ndash; Single Blog Start &ndash;&gt;-->
+        <!--                    <div class="single-blog">-->
+        <!--                        <div class="blog-image">-->
+        <!--                            <a href="blog-details.html">-->
+        <!--                                <img src="assets/images/blog/blog3.jpg" alt="">-->
+        <!--                            </a>-->
+        <!--                            <div class="blog-cat">-->
+        <!--                                <a href="#" rel="category tag">Career Advice</a>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                        <div class="blog-content">-->
+        <!--                            <h4 class="title">-->
+        <!--                                <a href="blog-details.html">The Question Everyone Working in Job Should Know to-->
+        <!--                                    Answer</a>-->
+        <!--                            </h4>-->
+        <!--                            <div class="blog-meta">-->
+        <!--                                <p class="blog-author">-->
+        <!--                                    <i class="lnr lnr-user"></i>-->
+        <!--                                    <span class="text">Posted:</span>-->
+        <!--                                    <span class="author">Hien Tran</span>-->
+        <!--                                </p>-->
+        <!--                                <p class="blog-date-post">-->
+        <!--                                    <i class="lnr lnr-clock"></i>Oct 24, 2022-->
+        <!--                                </p>-->
+        <!--                            </div>-->
+        <!--                            <p class="blog-desc">-->
+        <!--                                The news comes just after "full stack software developer" was named the-->
+        <!--                            </p>-->
+        <!--                            <a href="#" class="read-more">Read More <i class="lnr lnr-chevron-right"></i></a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash; Single Blog End &ndash;&gt;-->
+        <!--                </div>-->
+
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!-- Blog Section End -->
+
+        <!-- Testimonial Section Start -->
+        <!--    <div class="testimonial-section section bg-image-proparty bg_image&#45;&#45;2 pt-115 pt-lg-95 pt-md-75 pt-sm-55 pt-xs-45 pb-180 pb-lg-160 pb-md-140 pb-sm-60 pb-xs-30">-->
+        <!--        <div class="container">-->
+        <!--            <div class="row">-->
+        <!--                <div class="col-lg-12">-->
+        <!--                    <div class="section-title-wrap mb-45">-->
+        <!--                        <div class="section-title">-->
+        <!--                            <span> OUR HAPPY CLIENTS</span>-->
+        <!--                            <h3 class="title"> From Testimonials</h3>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="testimonial-slider">-->
+
+        <!--                <div class="col-lg-6">-->
+        <!--                    &lt;!&ndash; Single Testimonial Start &ndash;&gt;-->
+        <!--                    <div class="single-testimonial">-->
+        <!--                        <div class="testimonial-author">-->
+        <!--                            <div class="testimonial-avatar">-->
+        <!--                                <img src="assets/images/testimonial/testimonial-1.png" alt="">-->
+        <!--                            </div>-->
+        <!--                            <div class="testimonial-meta">-->
+        <!--                                <h5 class="name">Kilian Sanjeev</h5>-->
+        <!--                                <p class="text">-->
+        <!--                                    <span class="position">CEO at</span>-->
+        <!--                                    <span class="company theme-color">Alpha Investing</span>-->
+        <!--                                </p>-->
+        <!--                            </div>-->
+        <!--                            <span class="icon-quote theme-color">-->
+        <!--                                <i class="fas fa-quote-right"></i>-->
+        <!--                            </span>-->
+        <!--                        </div>-->
+        <!--                        <div class="testimonial-comment">-->
+        <!--                            <p>"I am so pleased with this product. Jopota Recruitment has completely surpassed our-->
+        <!--                                expectations. If you aren't sure, always go for Jopota Recruitment. Jopota Recruitment-->
+        <!--                                is the real deal!"</p>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash; Single Testimonial End &ndash;&gt;-->
+        <!--                </div>-->
+
+        <!--                <div class="col-lg-6">-->
+        <!--                    &lt;!&ndash; Single Testimonial Start &ndash;&gt;-->
+        <!--                    <div class="single-testimonial">-->
+        <!--                        <div class="testimonial-author">-->
+        <!--                            <div class="testimonial-avatar">-->
+        <!--                                <img src="assets/images/testimonial/testimonial-2.png" alt="">-->
+        <!--                            </div>-->
+        <!--                            <div class="testimonial-meta">-->
+        <!--                                <h5 class="name">Arina Sebastian</h5>-->
+        <!--                                <p class="text">-->
+        <!--                                    <span class="position">Freelance Designer</span>-->
+        <!--                                </p>-->
+        <!--                            </div>-->
+        <!--                            <span class="icon-quote theme-color">-->
+        <!--                                <i class="fas fa-quote-right"></i>-->
+        <!--                            </span>-->
+        <!--                        </div>-->
+        <!--                        <div class="testimonial-comment">-->
+        <!--                            <p>"I am so pleased with this product. Jopota Recruitment has completely surpassed our-->
+        <!--                                expectations. If you aren't sure, always go for Jopota Recruitment. Jopota Recruitment-->
+        <!--                                is the real deal!"</p>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash; Single Testimonial End &ndash;&gt;-->
+        <!--                </div>-->
+
+        <!--                <div class="col-lg-6">-->
+        <!--                    &lt;!&ndash; Single Testimonial Start &ndash;&gt;-->
+        <!--                    <div class="single-testimonial">-->
+        <!--                        <div class="testimonial-author">-->
+        <!--                            <div class="testimonial-avatar">-->
+        <!--                                <img src="assets/images/testimonial/testimonial-3.jpg" alt="">-->
+        <!--                            </div>-->
+        <!--                            <div class="testimonial-meta">-->
+        <!--                                <h5 class="name">Kilian Sanjeev</h5>-->
+        <!--                                <p class="text">-->
+        <!--                                    <span class="position">Freelance Designer at</span>-->
+        <!--                                    <span class="company theme-color">Alpha</span>-->
+        <!--                                </p>-->
+        <!--                            </div>-->
+        <!--                            <span class="icon-quote theme-color">-->
+        <!--                                <i class="fas fa-quote-right"></i>-->
+        <!--                            </span>-->
+        <!--                        </div>-->
+        <!--                        <div class="testimonial-comment">-->
+        <!--                            <p>"I am so pleased with this product. Jopota Recruitment has completely surpassed our-->
+        <!--                                expectations. If you aren't sure, always go for Jopota Recruitment. Jopota Recruitment-->
+        <!--                                is the real deal!"</p>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash; Single Testimonial End &ndash;&gt;-->
+        <!--                </div>-->
+
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!-- Testimonial Section End -->
+
+        <!-- CTA Section Start  -->
+        <div class="cta-section section bg_image--3 height-100vh pt-50 pt-xs-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="cta-wrap mb-45">
+                            <div class="cta-info">
+                                <span> Getting started to work</span>
+                                <h3 class="title"> Don’t just find. Be found. Put your <br> CV in front of great
+                                    employers
+                                </h3>
+                                <p>It helps you to increase your chances of finding a suitable job and let recruiters
+                                    <br>
+                                    contact you about jobs that are not needed to pay for advertising.</p>
+                                <a class="ht-btn lg-btn" href="#"><i class="lnr lnr-cloud-upload"></i>Upload Your Resume</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-xl-2 col-20">
-                    <!-- Single Brand Start  -->
-                    <div class="single-brand">
-                        <a href="#"><img src="assets/images/brand/brand-1.png" alt=""></a>
-                    </div>
-                    <!-- Single Brand End -->
-                </div>
-
-                <div class="col-xl-2 col-20">
-                    <!-- Single Brand Start  -->
-                    <div class="single-brand">
-                        <a href="#"><img src="assets/images/brand/brand-2.png" alt=""></a>
-                    </div>
-                    <!-- Single Brand End -->
-                </div>
-
-                <div class="col-xl-2 col-20">
-                    <!-- Single Brand Start  -->
-                    <div class="single-brand">
-                        <a href="#"><img src="assets/images/brand/brand-3.png" alt=""></a>
-                    </div>
-                    <!-- Single Brand End -->
-                </div>
-
-                <div class="col-xl-2 col-20">
-                    <!-- Single Brand Start  -->
-                    <div class="single-brand">
-                        <a href="#"><img src="assets/images/brand/brand-4.png" alt=""></a>
-                    </div>
-                    <!-- Single Brand End -->
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Brand Section End  -->
+        <!-- CTA Section End  -->
+
+        <!-- Brand Section Start  -->
+        <div class="brand-section section bg_color--3 pt-40 pb-40">
+            <div class="container">
+                <div class="row row-five-column align-items-center">
+
+                    <div class="col-xl-2 col-20">
+                        <div class="brand-heading">
+                            <h3 class="title">We are <br> trusted by</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-20">
+                        <!-- Single Brand Start  -->
+                        <div class="single-brand">
+                            <a href="#"><img src="/images/brand/brand-1.png" alt=""></a>
+                        </div>
+                        <!-- Single Brand End -->
+                    </div>
+
+                    <div class="col-xl-2 col-20">
+                        <!-- Single Brand Start  -->
+                        <div class="single-brand">
+                            <a href="#"><img src="/images/brand/brand-2.png" alt=""></a>
+                        </div>
+                        <!-- Single Brand End -->
+                    </div>
+
+                    <div class="col-xl-2 col-20">
+                        <!-- Single Brand Start  -->
+                        <div class="single-brand">
+                            <a href="#"><img src="/images/brand/brand-3.png" alt=""></a>
+                        </div>
+                        <!-- Single Brand End -->
+                    </div>
+
+                    <div class="col-xl-2 col-20">
+                        <!-- Single Brand Start  -->
+                        <div class="single-brand">
+                            <a href="#"><img src="/images/brand/brand-4.png" alt=""></a>
+                        </div>
+                        <!-- Single Brand End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Brand Section End  -->
 
 
     <!--Footer section start-->

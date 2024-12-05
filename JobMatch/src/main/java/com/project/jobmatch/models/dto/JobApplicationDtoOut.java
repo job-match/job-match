@@ -3,6 +3,7 @@ package com.project.jobmatch.models.dto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class JobApplicationDtoOut {
     private String status;
     private String professionalName;
     private List<SkillDtoOut> skills;
+    private Timestamp createdAt;
 
     public JobApplicationDtoOut() {
     }
@@ -74,5 +76,13 @@ public class JobApplicationDtoOut {
 
     public void setSkills(List<SkillDtoOut> skills) {
         this.skills = skills;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 }

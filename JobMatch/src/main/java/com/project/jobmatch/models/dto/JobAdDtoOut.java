@@ -1,5 +1,7 @@
 package com.project.jobmatch.models.dto;
 
+import java.sql.Timestamp;
+
 public class JobAdDtoOut {
 
     private String title;
@@ -8,6 +10,7 @@ public class JobAdDtoOut {
     private String description;
     private String location;
     private String status;
+    private Timestamp createdAt;
 
     public JobAdDtoOut() {
     }
@@ -58,5 +61,13 @@ public class JobAdDtoOut {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 }

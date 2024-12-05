@@ -1,6 +1,7 @@
 package com.project.jobmatch.repositories.interfaces;
 
 import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.Location;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,9 @@ public interface JobAdRepository extends JpaRepository<JobAd, Integer> {
                              @Param("minSalary") Double minSalary,
                              @Param("maxSalary") Double maxSalary,
                              @Param("requirement") String requirement);
+
+    List<JobAd> findJobAdsByLocation(Location location);
+
+    @Query("SELECT j FROM JobAd j ORDER BY j.createdAt DESC")
+    List<JobAd> getSixMostRecentJobAds();
 }
