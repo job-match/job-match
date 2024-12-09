@@ -18,7 +18,7 @@ public class CompanyDtoInUpdate {
     private String email;
 
     @NotNull(message = "Description cannot be empty!")
-    @Size(min = 10, max = 500, message = "Description should be between 10 and 500 symbols!")
+    @Size(min = 10, max = 2500, message = "Description should be between 10 and 500 symbols!")
     private String description;
 
     @NotNull(message = "Location cannot be empty!")

@@ -115,7 +115,22 @@ values (1, 'Java'),
 -- companies Table --
 insert into job_match.companies (company_id, name, username, password, email, description, location_id, contacts)
 values (1, 'Dev Experts', 'devexperts', 'password', 'devexperts@mail.bg',
-        'Dev Experts is a renowned software development company specializing in high-performance trading platforms and financial technology solutions. They provide reliable, scalable, and secure applications tailored to the specific needs of financial institutions globally.',
+        '<h3>Overview:</h3>
+        <p>Dev Experts is a renowned software development company specializing in high-performance trading platforms and financial technology solutions. We provide reliable, scalable, and secure applications tailored to the specific needs of financial institutions globally. Our team of highly skilled professionals is dedicated to creating innovative and effective solutions that cater to the complex needs of our clients. With a global presence and a focus on excellence, we are committed to pushing the boundaries of what is possible in the tech world.</p>
+
+        <h3>Benefits we offer:</h3>
+        <p>Working at Dev Experts is an exciting opportunity to be part of a dynamic, forward-thinking company. We foster a collaborative environment where innovation thrives and where you can grow both professionally and personally. Our culture encourages creativity and continuous learning, ensuring that every team member feels valued and empowered to contribute their best work. Joining us means being part of a team that is dedicated to making a real impact in the financial technology sector.</p>
+
+        <ul>
+            <li>Extra private health insurance coverage to help you stay focused on work</li>
+            <li>Flexible working time schedule and leave policy for a great work-life balance</li>
+            <li>Exposure to the latest technology and innovative ideas worldwide</li>
+            <li>Company trips and team-building events</li>
+            <li>13th salary and project bonuses</li>
+            <li>Work-from-home policy</li>
+            <li>Support for laptop and other essential tools</li>
+            <li>Extra healthcare packages</li>
+        </ul>',
         3, '123 Technology Ave, Sofia, +1 234 567 8901'),
 
        (2, 'Green Solutions', 'greensolutions', 'password', 'greensolutions@mail.bg',

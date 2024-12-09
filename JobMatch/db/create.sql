@@ -39,10 +39,11 @@ create table companies
     username    varchar(20)  not null unique,
     password    varchar(15)  not null,
     email       varchar(50)  not null unique,
-    description varchar(500) not null,
+    description varchar(2500) not null,
     location_id int,
     contacts    varchar(255) not null,
     picture_id  int,
+    created_at timestamp default current_timestamp,
 
     constraint companies_pictures_picture_id_fk
         foreign key (picture_id) references pictures (picture_id) on delete set null,
@@ -64,6 +65,7 @@ create table professionals
     location_id     int,
     status_id       int default 1,
     picture_id      int,
+    created_at timestamp default current_timestamp,
 
     constraint professionals_pictures_picture_id_fk
         foreign key (picture_id) references pictures (picture_id) on delete set null,
