@@ -65,6 +65,11 @@ public class JobAdServiceImpl implements JobAdService {
     }
 
     @Override
+    public List<JobAd> getJobAdsByCompanyId(int companyId) {
+        return jobAdRepository.getJobAdByCompanyId(companyId);
+    }
+
+    @Override
     public void createJobAd(JobAd jobAd) {
         jobAdRepository.save(jobAd);
     }

@@ -5258,6 +5258,12 @@ body.template-color-4 .copyright p a:hover {
   line-height: 19px;
   padding-left: 50px;
 }
+.single-meta-field .field-value.no-transform {
+  display: block;
+  text-transform: none;
+  line-height: 19px;
+  padding-left: 50px;
+}
 .single-meta-field .field-value.salary {
   font-size: 18px;
   color: #fe281f;
@@ -6465,7 +6471,8 @@ body.template-color-4 .copyright p a:hover {
   text-transform: capitalize;
 }
 .skill-tag li {
-  display: inline-block;
+  display: inline;
+  margin-right: 10px;
 }
 .skill-tag li a {
   background-color: #f2f5fc;
@@ -12603,4 +12610,8 @@ body.template-color-4 .copyright p a:hover {
   border-color: #d0d0d0;
   background-color: #eee;
   cursor: pointer;
+}
+
+.no-capitalization {
+  text-transform: none;
 }

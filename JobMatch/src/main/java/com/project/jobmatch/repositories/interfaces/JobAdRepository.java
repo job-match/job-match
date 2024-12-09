@@ -33,4 +33,7 @@ public interface JobAdRepository extends JpaRepository<JobAd, Integer> {
 
     @Query("SELECT j FROM JobAd j ORDER BY j.createdAt DESC")
     List<JobAd> getSixMostRecentJobAds();
+
+    @Query("SELECT j FROM JobAd j WHERE j.company.id = :companyId")
+    List<JobAd> getJobAdByCompanyId(int companyId);
 }

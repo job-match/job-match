@@ -28,4 +28,6 @@ public interface JobAdService {
     List<JobAd> getJobAdsByLocation(Location location);
 
     List<JobAd> getSixMostRecentJobAds();
+
+    List<JobAd> getJobAdsByCompanyId(int companyId);
 }
