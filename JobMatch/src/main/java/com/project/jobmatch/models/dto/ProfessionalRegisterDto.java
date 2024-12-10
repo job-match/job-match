@@ -1,12 +1,20 @@
 package com.project.jobmatch.models.dto;
 
-public class ProfessionalRegisterDto extends ProfessionalLoginDto{
+import jakarta.validation.constraints.NotEmpty;
+
+public class ProfessionalRegisterDto extends ProfessionalLoginDto {
+
+    @NotEmpty(message = "Cannot be empty!")
     private String passwordConfirmation;
+    @NotEmpty(message = "Cannot be empty!")
     private String firstName;
+    @NotEmpty(message = "Cannot be empty!")
     private String lastName;
+    @NotEmpty(message = "Cannot be empty!")
     private String email;
 
-    public ProfessionalRegisterDto() {}
+    public ProfessionalRegisterDto() {
+    }
 
     public String getPasswordConfirmation() {
         return passwordConfirmation;
