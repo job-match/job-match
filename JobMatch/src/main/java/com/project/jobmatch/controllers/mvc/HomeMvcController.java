@@ -56,4 +56,9 @@ public class HomeMvcController {
         return "index";
 
     }
+
+    @GetMapping("/about")
+    public String showAboutPage() {
+        return "about";
+    }
 }
