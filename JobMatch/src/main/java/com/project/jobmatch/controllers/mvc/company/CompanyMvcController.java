@@ -1,8 +1,6 @@
 package com.project.jobmatch.controllers.mvc.company;
 
 import com.project.jobmatch.exceptions.EntityNotFoundException;
-import com.project.jobmatch.models.Company;
-import com.project.jobmatch.repositories.interfaces.CompanyRepository;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +34,15 @@ public class CompanyMvcController {
                 model.addAttribute("jobAdsOfCompany", new ArrayList<>());
             }
         }
+    }
+
+    @GetMapping
+    public String getAllCompanies(Model model, HttpSession httpSession) {
+        //TODO Authenticate when ready
+
+        model.addAttribute("allCompanies", companyService.getAllCompanies());
+
+        return "company/companies-view";
     }
 
     @GetMapping("/{id}")
