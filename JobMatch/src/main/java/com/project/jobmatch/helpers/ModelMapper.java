@@ -194,6 +194,16 @@ public class ModelMapper {
         return professional;
     }
 
+    public Professional fromProfessionalRegisterDto(ProfessionalRegisterDto professionalRegisterDto) {
+        Professional professional = new Professional();
+        professional.setUsername(professionalRegisterDto.getUsername());
+        professional.setPassword(professionalRegisterDto.getPassword());
+        professional.setFirstName(professionalRegisterDto.getFirstName());
+        professional.setLastName(professionalRegisterDto.getLastName());
+        professional.setEmail(professionalRegisterDto.getEmail());
+        return professional;
+    }
+
     public Professional fromProfessionalDtoInToProfessional(int id, ProfessionalDtoInUpdate professionalDtoInUpdate) {
         Professional professional = new Professional();
         professional.setId(id);
