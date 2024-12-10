@@ -55,6 +55,12 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
+    public List<JobApplication> getAllActiveJobApplicationsOfProfessional(Professional professional) {
+
+        return jobApplicationRepository.findActiveJobApplicationsOfProfessional(professional.getId(), 1);
+    }
+
+    @Override
     public List<JobApplication> searchJobApplications(String location,
                                                       Double minSalary,
                                                       Double maxSalary,
