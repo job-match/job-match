@@ -210,12 +210,11 @@
                                                                 <span th:text="${jobAd.getLocation().getName()}"></span>
                                                             </div>
                                                         </div>
-                                                        <div class="job-skill-tag">
-                                                            <a href="#">Android</a>
-                                                            <a href="#">app</a>
-                                                            <a href="#">ReactJs</a>
-                                                            <a href="#">Ruby</a>
-                                                        </div>
+                                                        <ul class="job-skill-tag">
+                                                            <li th:each="requirement : ${jobAd.getRequirements()}">
+                                                                <a href="#" th:text="${requirement.getType()}"></a>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>

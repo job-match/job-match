@@ -4274,10 +4274,10 @@ body.template-color-4 .copyright p a:hover {
   color: #1dae0e;
 }
 .single-job .job-info .job-info-inner .job-skill-tag {
+  display: flex;
   margin-top: 15px;
 }
 .single-job .job-info .job-info-inner .job-skill-tag a {
-  display: inline-block;
   font-size: 13px;
   font-weight: 500;
   padding: 0 10px;
