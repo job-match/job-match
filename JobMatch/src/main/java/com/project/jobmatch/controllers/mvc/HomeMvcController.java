@@ -58,7 +58,17 @@ public class HomeMvcController {
     }
 
     @GetMapping("/about")
-    public String showAboutPage() {
+    public String showAboutPage(Model model) {
+        List<Company> allCompanies = companyService.getAllCompanies();
+        List<Professional> allProfessionals = professionalService.getAllProfessionals();
+        List<JobAd> allJobAds = jobAdService.getAll();
+        List<JobApplication> allJobApplications = jobApplicationService.getAllJobApplications();
+
+        model.addAttribute("allCompanies", allCompanies);
+        model.addAttribute("allProfessionals", allProfessionals);
+        model.addAttribute("allJobAds", allJobAds);
+        model.addAttribute("allJobApplications", allJobApplications);
+
         return "about";
     }
 }
