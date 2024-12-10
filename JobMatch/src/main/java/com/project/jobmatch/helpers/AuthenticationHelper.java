@@ -6,6 +6,7 @@ import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -87,16 +88,26 @@ public class AuthenticationHelper {
         return info.substring(firstSpace + 1);
     }
 
-//    public User tryGetCurrentUser(HttpSession session) {
-//        String currentUsername = session.getAttribute("currentUser").toString();
-//
-//        if (currentUsername == null) {
-//            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
-//        }
-//
-//        return userService.getByUsername(currentUsername);
-//    }
-//
+    public Professional tryGetCurrentProfessional(HttpSession session) {
+        String currentUsername = session.getAttribute("currentUser").toString();
+
+        if (currentUsername == null) {
+            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+        }
+
+        return professionalService.getByUsername(currentUsername);
+    }
+
+    public Company tryGetCurrentCompany(HttpSession session) {
+        String currentUsername = session.getAttribute("currentUser").toString();
+
+        if (currentUsername == null) {
+            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+        }
+
+        return companyService.getCompanyByUsername(currentUsername);
+    }
+
     public Professional verifyAuthenticationProfessional(String username, String password) {
         try {
             Professional professional = professionalService.getByUsername(username);
