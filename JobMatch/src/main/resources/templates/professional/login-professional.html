@@ -141,17 +141,23 @@
                             <div class="tab-content">
                                 <div id="login" class="tab-pane fade show active">
                                     <div class="login-register-form">
-                                        <form action="#" th:action="@{/auth/professional/login}" th:object="${loginProfessional}" method="post">
+                                        <form th:action="@{/auth/professional-portal/login}" th:object="${loginProfessional}" method="post">
                                             <p>Login to JobMatch with your registered account</p>
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="single-input">
+                                                        <label for="username">Username</label>
                                                         <input type="text" placeholder="Username" name="username" th:field="*{username}">
+                                                        <label class="text-danger font-weight-bold" th:errors="*{username}">Username error
+                                                            placeholder</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="single-input">
+                                                        <label for="password">Password</label>
                                                         <input type="password" placeholder="Password" name="password" th:field="*{password}">
+                                                        <label class="text-danger font-weight-bold" th:errors="*{password}">Password error
+                                                            placeholder</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 mb-25"><button class="ht-btn">Login</button></div>
@@ -163,39 +169,55 @@
 <!--                                TODO: implement register form-->
                                 <div id="register" class="tab-pane fade">
                                     <div class="login-register-form">
-                                        <form action="#" method="post">
+                                        <form th:action="@{/auth/professional-portal/register}" th:object="${registerProfessional}" method="post">
                                             <p>Create Your account</p>
                                             <div class="row row-5">
                                                 <div class="col-12">
                                                     <div class="single-input">
-                                                        <input type="text" placeholder="Your Username" name="name">
+                                                        <label for="username">Username</label>
+                                                        <input type="text" placeholder="Your Username" name="username" th:field="*{username}" id="username">
+                                                        <label class="text-danger font-weight-bold" th:errors="*{username}">Username error
+                                                            placeholder</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="single-input">
+                                                        <label for="firstName">Fist Name</label>
+                                                        <input type="text" placeholder="First Name" name="firstName" th:field="*{firstName}" id="firstName">
+                                                        <label class="text-danger font-weight-bold" th:errors="*{firstName}">First name
+                                                            error placeholder</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="single-input">
+                                                        <label for="lastName">Last Name</label>
+                                                        <input type="text" placeholder="Last Name" name="lastName" th:field="*{lastName}" id="lastName">
+                                                        <label class="text-danger font-weight-bold" th:errors="*{lastName}">Last name error
+                                                            placeholder</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="single-input">
-                                                        <input type="email" placeholder="Your Email Address" name="emain">
+                                                        <label for="email">Email Address</label>
+                                                        <input type="email" placeholder="Your Email Address" name="email" th:field="*{email}" id="email">
+                                                        <label class="text-danger font-weight-bold" th:errors="*{email}">Email error
+                                                            placeholder</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="single-input">
-                                                        <input type="password" placeholder="Password" name="password">
+                                                        <label for="password">Password</label>
+                                                        <input type="password" placeholder="Password" name="password" th:field="*{password}" id="password">
+                                                        <label class="text-danger font-weight-bold" th:errors="*{password}">Password error
+                                                            placeholder</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="single-input">
-                                                        <input type="password" placeholder="Confirm Password" name="conPassword">
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="checkbox-input">
-                                                        <input type="checkbox" name="login-form-candidate" id="login-form-candidate">
-                                                        <label for="login-form-candidate">I am a candidate</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="checkbox-input">
-                                                        <input type="checkbox" name="login-form-employer" id="login-form-employer">
-                                                        <label for="login-form-employer">I am a employer</label>
+                                                        <label for="confirmPassword">Confirm Password</label>
+                                                        <input type="password" placeholder="Confirm Password" name="passwordConfirmation" th:field="*{passwordConfirmation}" id="confirmPassword">
+                                                        <label class="text-danger font-weight-bold" th:errors="*{passwordConfirmation}">Password
+                                                            error placeholder</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -235,11 +257,9 @@
                                     <li class="reason">Showcase your CV to thousands of employers</li>
                                     <li class="reason">Keep a record of all your applications</li>
                                 </ul>
-                                <span class="sale-text theme-color border-color">Login today &amp; Get 15% Off Coupon for the first planning purchase</span>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
