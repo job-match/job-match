@@ -121,7 +121,7 @@
                                     <form action="#" id="sortForm" method="get">
                                         <label class="text-sortby">Sort by:</label>
                                         <select class="nice-select" name="sortField" id="sortField">
-                                            <option value="name" th:selected="${sortField == 'positionTitle'}" th:text="'Title'"></option>
+                                            <option value="positionTitle" th:selected="${sortField == 'positionTitle'}" th:text="'Title'"></option>
                                             <option value="location" th:selected="${sortField == 'location'}" th:text="'Location'"></option>
                                         </select>
                                         <label class="text-sortby">Order:</label>
