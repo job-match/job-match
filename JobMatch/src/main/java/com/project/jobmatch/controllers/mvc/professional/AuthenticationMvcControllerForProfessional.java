@@ -46,6 +46,7 @@ public class AuthenticationMvcControllerForProfessional {
         if (!model.containsAttribute("registerProfessional")) {
             model.addAttribute("registerProfessional", new ProfessionalRegisterDto());
         }
+        model.addAttribute("activeTab", "login");
         return "professional/login-professional";
     }
 
@@ -93,14 +94,16 @@ public class AuthenticationMvcControllerForProfessional {
             if (!model.containsAttribute("loginProfessional")) {
                 model.addAttribute("loginProfessional", new ProfessionalLoginDto());
             }
+            model.addAttribute("activeTab", "register");
             return "professional/login-professional";
         }
 
         if (!professionalRegisterDto.getPassword().equals(professionalRegisterDto.getPasswordConfirmation())) {
-            bindingResult.rejectValue("passwordConfirm", "password_error", PASSWORD_CONFIRMATION_ERROR_MESSAGE);
+            bindingResult.rejectValue("passwordConfirmation", "password_error", PASSWORD_CONFIRMATION_ERROR_MESSAGE);
             if (!model.containsAttribute("loginProfessional")) {
                 model.addAttribute("loginProfessional", new ProfessionalLoginDto());
             }
+            model.addAttribute("activeTab", "register");
             return "professional/login-professional";
         }
 
@@ -113,6 +116,7 @@ public class AuthenticationMvcControllerForProfessional {
             if (!model.containsAttribute("loginProfessional")) {
                 model.addAttribute("loginProfessional", new ProfessionalLoginDto());
             }
+            model.addAttribute("activeTab", "register");
             return "professional/login-professional";
         }
     }
