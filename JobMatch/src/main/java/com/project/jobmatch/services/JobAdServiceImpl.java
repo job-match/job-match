@@ -9,6 +9,8 @@ import com.project.jobmatch.repositories.interfaces.JobAdRepository;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,6 +53,11 @@ public class JobAdServiceImpl implements JobAdService {
                                     String requirement) {
 
         return jobAdRepository.searchJobAds(positionTitle, location, minSalary, maxSalary, requirement);
+    }
+
+    @Override
+    public Page<JobAd> searchJobAdsPaginated(String positionTitle, String location, Double minSalary, Double maxSalary, String requirement, PageRequest pageRequest) {
+        return jobAdRepository.searchJobAdsPaginated(positionTitle, location, minSalary, maxSalary, requirement, pageRequest);
     }
 
     @Override
