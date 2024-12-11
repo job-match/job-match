@@ -10356,6 +10356,14 @@ body.template-color-4 .copyright p a:hover {
   margin-bottom: 25px;
 }
 
+/*-- Sidebar Title --*/
+.sidebar-title-small {
+  font-size: 17px;
+  line-height: 25px;
+  font-weight: 550;
+  margin-bottom: 10px;
+}
+
 /*-- Sidebar Search --*/
 .sidebar-search-form form {
   position: relative;
@@ -10529,9 +10537,12 @@ body.template-color-4 .copyright p a:hover {
 
 /*-- Sidebar Price --*/
 .sidebar-salary {
-  overflow: hidden;
+  overflow: hidden; /* Ensure the content doesn't overflow */
+  width: 100%; /* Ensure the container is fully expanded */
+  padding: 0 20px; /* Optional: add some padding for better aesthetics */
 }
-.sidebar-salary #salary-range {
+
+#salary-range {
   position: relative;
   width: 100%;
   height: 5px;
@@ -10540,69 +10551,71 @@ body.template-color-4 .copyright p a:hover {
   background-color: #e5e5e5;
   border: 0;
 }
-.sidebar-salary #salary-range .ui-slider-range {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  background-color: #1dae0e;
+
+#salary-range-new {
+  position: relative;
+  width: 100%;
+  height: 5px;
+  margin: 7px 0;
+  border-radius: 50px;
+  background-color: #e5e5e5;
+  border: 0;
 }
-.sidebar-salary #salary-range .ui-slider-handle {
-  background-color: #1dae0e;
-  min-width: 18px;
+
+#salary-range-new ::before{
+  display: none; /* Hide the pseudo-element */
+}
+
+#salary-range-new ::after{
+  display: none; /* Hide the pseudo-element */
+}
+
+/* noUiSlider specific styles */
+#salary-range-new .noUi-handle {
+  background-color: white;
+  width: 18px;
   height: 18px;
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important;
-  border: 1px solid #1dae0e;
-  outline: none;
-  top: -6px;
-  margin-left: -6px;
   border-radius: 50%;
+  border: 2px solid #1dae0e;
+  outline: none;
   cursor: pointer;
-  -webkit-transition: none;
-  transition: none;
+  box-shadow: none;
+  transition: background-color 0.3s ease;
+  position: absolute; /* This will allow proper positioning */
+  z-index: 10; /* Ensure handles are above the range */
 }
-.sidebar-salary #salary-range .ui-slider-handle:after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 10px;
-  width: 10px;
-  background: #ffffff;
-  border-radius: 100%;
-  opacity: 1;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+
+/* Style for the range (selected area between the handles) */
+#salary-range-new .noUi-connect {
+  background-color: #1dae0e;
+  border-radius: 50px;
 }
-.sidebar-salary .salary-range-group {
-  display: -webkit-box;
-  display: -ms-flexbox;
+
+/* Ensure no overflow and slider fits correctly */
+.salary-range-group {
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
+  margin-top: 10px;
 }
-.sidebar-salary .salary-range-group label {
+
+.salary-range-group label {
   margin-bottom: 0;
   margin-right: 10px;
-  max-width: 80px;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 80px;
-          flex: 0 0 80px;
+  font-size: 16px;
+  font-weight: 600;
 }
-.sidebar-salary .salary-range-group input {
-  height: auto;
-  padding: 0;
-  margin: 0;
-  width: auto;
+
+.salary-range-group input {
   font-size: 16px;
   font-weight: 600;
   color: #ff2626;
-  border: none;
   background-color: transparent;
-  display: block;
+  border: none;
+  width: 100%;
+  padding: 5px 10px;
+  text-align: center;
 }
+
 
 /*-- Sidebar Action Button --*/
 .sidebar-job-apply .action-button {
