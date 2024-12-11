@@ -48,12 +48,19 @@
                             <div class="common-sidebar-widget sidebar-two">
                                 <h2 class="sidebar-title" th:text="'Find A Company'"></h2>
                                 <div class="sidebar-search-form-two">
+                                    <h3 class="sidebar-title-small" th:text="'Company Name'"></h3>
                                     <form action="#" th:action="@{/professional-portal/companies}" method="get" th:object="${companyDtoSearch}">
                                         <div class="input-group">
-                                            <input type="text" name="search" placeholder="Search..." th:field="*{name}">
+                                            <input type="text" name="search" placeholder="Search..." th:placeholder="'Name...'" th:field="*{name}">
                                             <i class="lnr lnr-magnifier"></i>
                                         </div>
-                                        <button type="submit" class="ht-btn theme-btn theme-btn-two w-100">Search</button>
+                                        <h3 class="sidebar-title-small" th:text="'Location'"></h3>
+                                        <div class="input-group">
+                                            <input type="text" name="location" placeholder="Enter location" th:placeholder="'Location...'"
+                                                   th:field="*{location}">
+                                            <i class="far fa-dot-circle"></i>
+                                        </div>
+                                        <button type="submit" class="ht-btn theme-btn theme-btn-two w-100" th:text="'Filter'"></button>
                                     </form>
                                 </div>
                             </div>
@@ -71,7 +78,7 @@
                         <div class="filter-form">
                             <div class="result-sorting">
                                 <div class="total-result">
-                                    <span class="total" th:text="${companiesPaged.size()}"></span>
+                                    <span class="total" th:text="${companiesAllSize}"></span>
                                     <span th:text="'Results Founds'"></span>
                                 </div>
                                 <div class="form-left">
