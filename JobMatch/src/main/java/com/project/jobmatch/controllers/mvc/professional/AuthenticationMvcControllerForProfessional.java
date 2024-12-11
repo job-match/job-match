@@ -59,6 +59,7 @@ public class AuthenticationMvcControllerForProfessional {
             if (!model.containsAttribute("registerProfessional")) {
                 model.addAttribute("registerProfessional", new ProfessionalRegisterDto());
             }
+            model.addAttribute("activeTab", "login");
             return "professional/login-professional";
         }
 
@@ -71,6 +72,7 @@ public class AuthenticationMvcControllerForProfessional {
             if (!model.containsAttribute("registerProfessional")) {
                 model.addAttribute("registerProfessional", new ProfessionalRegisterDto());
             }
+            model.addAttribute("activeTab", "login");
             return "professional/login-professional";
         }
     }
