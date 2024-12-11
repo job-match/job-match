@@ -4842,6 +4842,7 @@ body.template-color-4 .copyright p a:hover {
 }
 .filter-form .result-sorting .form-left .sort-by form .nice-select {
   margin-left: 10px;
+  margin-right: 10px;
   width: 150px;
 }
 .filter-form .result-sorting .form-left .layout-switcher {

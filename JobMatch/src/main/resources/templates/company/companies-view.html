@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments/page-frame :: head('Companies Listing')}"></head>
+<body class="template-color-1">
+
+    <div id="main-wrapper">
+        <!--Header section start-->
+        <header th:replace="~{fragments/page-frame :: header-all-others}"></header>
+        <!--Header section end-->
+
+        <!--Header Mobile section start-->
+        <!--Header Mobile section end-->
+
+        <!-- Start Popup Menu -->
+        <!-- End Popup Menu -->
+
+        <!-- Bottom Navbar Mobile Start -->
+        <!-- Bottom Navbar Mobile End -->
+
+        <!-- Bottom Navbar Mobile Popup Start -->
+        <!-- Bottom Navbar Mobile Popup End -->
+
+        <!-- Breadcrumb Section Start -->
+        <div class="breadcrumb-section section bg_color--5 pt-60 pt-sm-50 pt-xs-40 pb-60 pb-sm-50 pb-xs-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-breadcrumb-content">
+                            <ul class="page-breadcrumb">
+                                <li><a th:href="@{/}">Home</a></li>
+                                <li><a th:href="@{/professional-portal/companies}">Companies</a></li>
+                            </ul>
+                            <h1>Companies</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb Section Start -->
+
+        <!-- Employers Listing Section Start -->
+        <div class="employers-listing-section section bg_color--5 pb-120 pb-lg-100 pb-md-75 pb-sm-60 pb-xs-50">
+            <div class="container">
+                <div class="row g-0">
+
+                    <div class="col-lg-4 order-lg-1 order-2 pr-55 pr-md-15 pr-sm-15 pr-xs-15">
+                        <div class="sidebar-wrapper-two mt-sm-40 mt-xs-40">
+                            <div class="common-sidebar-widget sidebar-two">
+                                <h2 class="sidebar-title" th:text="'Find A Company'"></h2>
+                                <div class="sidebar-search-form-two">
+                                    <form action="#" th:action="@{/professional-portal/companies}" method="get" th:object="${companyDtoSearch}">
+                                        <div class="input-group">
+                                            <input type="text" name="search" placeholder="Search..." th:field="*{name}">
+                                            <i class="lnr lnr-magnifier"></i>
+                                        </div>
+                                        <button type="submit" class="ht-btn theme-btn theme-btn-two w-100">Search</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="common-sidebar-widget sidebar-two">
+                                <div class="sidbar-image">
+                                    <a href="#">
+                                        <img src="assets/images/banner/ads-three.jpg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 order-lg-2 order-1">
+                        <div class="filter-form">
+                            <div class="result-sorting">
+                                <div class="total-result">
+                                    <span class="total" th:text="${companiesPaged.size()}"></span>
+                                    <span th:text="'Results Founds'"></span>
+                                </div>
+                                <div class="form-left">
+                                    <div class="sort-by">
+                                        <form action="#" id="sortForm" method="get">
+                                            <label class="text-sortby">Sort by:</label>
+                                            <select class="nice-select" name="sortField" id="sortField" style="margin-right: 100px;">
+                                                <option value="name" th:selected="${sortField == 'name'}" th:text="'Name'"></option>
+                                                <option value="location" th:selected="${sortField == 'location'}" th:text="'Location'"></option>
+                                            </select>
+                                            <label class="text-sortby">Order:</label>
+                                            <select class="nice-select" name="sortDirection" id="sortDirection" style="margin-right: 15px;">
+                                                <option value="asc" th:selected="${sortDirection == 'asc'}" th:text="'Ascending'"></option>
+                                                <option value="desc" th:selected="${sortDirection == 'desc'}" th:text="'Descending'"></option>
+                                            </select>
+                                            <form action="#" th:action="@{/professional-portal/companies}" method="get" th:object="${companyDtoSearch}">
+                                                <button type="submit" class="ht-btn theme-btn theme-btn-two w-10">Sort</button>
+                                            </form>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div id="list" class="tab-pane fade show active">
+                                <div class="row">
+
+                                    <div class="col-lg-12 mb-20" th:each="company : ${companiesPaged}">
+                                        <!-- Single Job Start  -->
+                                        <div class="single-employer-list style-two">
+                                            <div class="info-top align-items-start">
+                                                <div class="employer-image">
+                                                    <a th:href="@{'/professional-portal/companies/' + ${company.getId()}}">
+                                                        <img th:src="@{'/images/companies_logo/logo' + ${company.getId()} + '.jpg'}" alt="logo">
+                                                    </a>
+                                                </div>
+                                                <div class="employer-info">
+                                                    <div class="employer-info-inner">
+                                                        <div class="employer-info-top">
+                                                            <div class="saveJob for-listing">
+                                                                <span class="featured-label mr-20" th:text="${company.getJobAds().size() > 1 ? company.getJobAds().size() + ' Open Jobs' : company.getJobAds().size() + ' Open Job'}">Open Job</span>
+                                                            </div>
+                                                            <div class="title-name">
+                                                                <h3 class="employer-title">
+                                                                    <a th:href="@{'/professional-portal/companies/' + ${company.getId()}}" th:text="${company.getName()}"></a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="employer-meta">
+                                                            <div class="field-map">
+                                                                <i class="lnr lnr-map-marker"></i>
+                                                                <span th:text="${company.getLocation().getName()}"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="field-description">
+                                                            <p th:text="${company.getDescription().length() > 200 ? #strings.substring(company.getDescription(), 0, 200) + '...' : company.getDescription()}"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Job End -->
+                                    </div>
+                                </div>
+                                <!-- Page Pagination -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="page-pagination">
+                                            <!-- Previous Page -->
+                                            <li th:class="${currentPage == 0} ? 'disabled'">
+                                                <a th:href="@{'/professional-portal/companies?page=' + (${currentPage} - 0)}" th:if="${currentPage > 1}">
+                                                    <i class="fa fa-angle-left"></i>
+                                                </a>
+                                                <a th:if="${currentPage == 0}">
+                                                    <i class="fa fa-angle-left"></i>
+                                                </a>
+                                            </li>
+                                            <!-- Previous Page -->
+                                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active'">
+                                                <a th:href="@{'/professional-portal/companies?page=' + ${i}}" th:text="${i + 1}"></a>
+                                            </li>
+                                            <!-- Next Page -->
+                                            <li th:class="${currentPage == totalPages - 1} ? 'disabled'">
+                                                <a th:href="@{'/professional-portal/companies?page=' + (${currentPage} + 1)}" th:if="${currentPage < totalPages - 1}">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                                <a th:if="${currentPage == totalPages - 1}">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Page Pagination -->
+                            </div>
+                            <div id="grid" class="tab-pane fade">
+                                <div class="row">
+
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-30">
+                                        <!-- Single Employer Item Start -->
+                                        <div class="employer-item border">
+                                            <div class="saveJob for-grid">
+                                                <span class="featured-label mr-20">featured</span>
+                                                <a class="save-job" href="#quick-view-modal-container" data-toggle="modal">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                            </div>
+                                            <div class="employer-image">
+                                                <img src="assets/images/companies_logo/logo-1.jpg" alt="">
+                                            </div>
+                                            <div class="employer-info-top">
+                                                <span class="employer-location"><i class="lnr lnr-map-marker"></i>  Beijing, Beijing</span>
+                                                <h3 class="employer-name"><a href="employer-details.html">Digital Asset</a></h3>
+                                                <div class="employer-info-rate d-flex align-items-center">
+                                                    <div class="star">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="total">1 Ratings </span>
+                                                </div>
+                                                <a href="#" class="link-openjobs">2 Jobs</a>
+                                            </div>
+                                        </div>
+                                        <!-- Single Employer Item End -->
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-30">
+                                        <!-- Single Employer Item Start -->
+                                        <div class="employer-item border">
+                                            <div class="saveJob for-grid">
+                                                <span class="featured-label mr-20">featured</span>
+                                                <a class="save-job" href="#quick-view-modal-container" data-toggle="modal">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                            </div>
+                                            <div class="employer-image">
+                                                <img src="assets/images/companies_logo/logo-2.jpg" alt="">
+                                            </div>
+                                            <div class="employer-info-top">
+                                                <span class="employer-location"><i class="lnr lnr-map-marker"></i>  Victoria</span>
+                                                <h3 class="employer-name"><a href="employer-details.html">Liquididea Design</a></h3>
+                                                <div class="employer-info-rate d-flex align-items-center">
+                                                    <div class="star">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="total">2 Ratings </span>
+                                                </div>
+                                                <a href="#" class="link-openjobs">3 Jobs</a>
+                                            </div>
+                                        </div>
+                                        <!-- Single Employer Item End -->
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-30">
+                                        <!-- Single Employer Item Start -->
+                                        <div class="employer-item border">
+                                            <div class="saveJob for-grid">
+                                                <span class="featured-label mr-20">featured</span>
+                                                <a class="save-job" href="#quick-view-modal-container" data-toggle="modal">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                            </div>
+                                            <div class="employer-image">
+                                                <img src="assets/images/companies_logo/logo-3.jpg" alt="">
+                                            </div>
+                                            <div class="employer-info-top">
+                                                <span class="employer-location"><i class="lnr lnr-map-marker"></i> Osaka, Osaka</span>
+                                                <h3 class="employer-name"><a href="employer-details.html">Shippo Company</a></h3>
+                                                <div class="employer-info-rate d-flex align-items-center">
+                                                    <div class="star">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="total">1 Ratings </span>
+                                                </div>
+                                                <a href="#" class="link-openjobs">1 Jobs</a>
+                                            </div>
+                                        </div>
+                                        <!-- Single Employer Item End -->
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-30">
+                                        <!-- Single Employer Item Start -->
+                                        <div class="employer-item border">
+                                            <span class="featured-employer-label color-green">Featured</span>
+                                            <div class="employer-image">
+                                                <img src="assets/images/companies_logo/logo-4.jpg" alt="">
+                                            </div>
+                                            <div class="employer-info-top">
+                                                <span class="employer-location"><i class="lnr lnr-map-marker"></i>  Chicago, California</span>
+                                                <h3 class="employer-name"><a href="employer-details.html">Alpha Investing <i class="fas fa-check-circle"></i></a></h3>
+                                                <div class="employer-info-rate d-flex align-items-center">
+                                                    <div class="star">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="total">1 Ratings </span>
+                                                </div>
+                                                <a href="#" class="link-openjobs">2 Jobs</a>
+                                            </div>
+                                        </div>
+                                        <!-- Single Employer Item End -->
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-30">
+                                        <!-- Single Employer Item Start -->
+                                        <div class="employer-item border">
+                                            <div class="saveJob for-grid">
+                                                <span class="featured-label mr-20">featured</span>
+                                                <a class="save-job" href="#quick-view-modal-container" data-toggle="modal">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                            </div>
+                                            <div class="employer-image">
+                                                <img src="assets/images/companies_logo/logo-5.jpg" alt="">
+                                            </div>
+                                            <div class="employer-info-top">
+                                                <span class="employer-location"><i class="lnr lnr-map-marker"></i>  New York, New York</span>
+                                                <h3 class="employer-name"><a href="employer-details.html">Radio Game</a></h3>
+                                                <div class="employer-info-rate d-flex align-items-center">
+                                                    <div class="star">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="total">3 Ratings </span>
+                                                </div>
+                                                <a href="#" class="link-openjobs">4 Jobs</a>
+                                            </div>
+                                        </div>
+                                        <!-- Single Employer Item End -->
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mb-30">
+                                        <!-- Single Employer Item Start -->
+                                        <div class="employer-item border">
+                                            <div class="saveJob for-grid">
+                                                <span class="featured-label mr-20">featured</span>
+                                                <a class="save-job" href="#quick-view-modal-container" data-toggle="modal">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                            </div>
+                                            <div class="employer-image">
+                                                <img src="assets/images/companies_logo/logo-6.jpg" alt="">
+                                            </div>
+                                            <div class="employer-info-top">
+                                                <span class="employer-location"><i class="lnr lnr-map-marker"></i>Seville, Andalusia</span>
+                                                <h3 class="employer-name"><a href="employer-details.html">Digital Vine <i class="fas fa-check-circle"></i></a></h3>
+                                                <div class="employer-info-rate d-flex align-items-center">
+                                                    <div class="star">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="total">3 Ratings </span>
+                                                </div>
+                                                <a href="#" class="link-openjobs">3 Jobs</a>
+                                            </div>
+                                        </div>
+                                        <!-- Single Employer Item End -->
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <ul class="page-pagination">
+                                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                            <li class="active"><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Employers Listing Section End -->
+
+        <!--Footer section start-->
+        <footer th:replace="~{fragments/page-frame :: footer}"></footer>
+        <!--Footer section end-->
+
+    </div>
+
+    <!-- All jquery file included here -->
+    <div th:replace="~{fragments/page-frame :: script}"></div>
+
+</body>
+
+</html>
