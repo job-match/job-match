@@ -9,6 +9,8 @@ import com.project.jobmatch.repositories.interfaces.CompanyRepository;
 import com.project.jobmatch.repositories.interfaces.PictureRepository;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import static com.project.jobmatch.helpers.ServicesConstants.COMPANY;
@@ -44,6 +46,16 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();
+    }
+
+    @Override
+    public Page<Company> getPaginatedCompanies(PageRequest pageRequest) {
+        return companyRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public Page<Company> searchCompaniesPaginated(String username, String name, String email, String keyword, String location, PageRequest pageRequest) {
+        return companyRepository.searchCompaniesPaginated(username, name, email, keyword, location, pageRequest);
     }
 
     @Override
