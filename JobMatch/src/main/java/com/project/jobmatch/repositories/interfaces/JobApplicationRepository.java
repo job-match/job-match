@@ -2,6 +2,7 @@ package com.project.jobmatch.repositories.interfaces;
 
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.models.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -42,4 +43,9 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
                                                @Param("maxSalary") Double maxSalary,
                                                @Param("skill") String skill,
                                                @Param("keyword") String keyword);
+
+
+    @Query("SELECT ja FROM JobApplication ja WHERE ja.professional.id = :professionalId AND ja.status.id = :statusId")
+    List<JobApplication> findActiveJobApplicationsOfProfessional(@Param("professionalId") int professionalId,
+                                                   @Param("statusId") int statusId);
 }
