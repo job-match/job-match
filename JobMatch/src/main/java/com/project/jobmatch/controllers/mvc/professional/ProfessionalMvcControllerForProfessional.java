@@ -73,4 +73,18 @@ public class ProfessionalMvcControllerForProfessional {
 
         return "professional/professional-profile-view";
     }
+
+    @GetMapping("/update")
+    public String getUpdateProfessionalProfile(Model model, HttpSession session) {
+        Professional professional;
+        try {
+//            professional = authenticationHelper.tryGetCurrentProfessional(session);
+            professional = professionalService.getProfessionalById(21);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
+
+        model.addAttribute("professional", professional);
+        return "professional/professional-update-profile-view";
+    }
 }
