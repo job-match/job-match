@@ -23,8 +23,6 @@ public interface CompanyService {
 
     List<Company> getAllCompanies();
 
-    Page<Company> getPaginatedCompanies(PageRequest pageRequest);
-
     Page<Company> searchCompaniesPaginated(String username, String name, String email, String keyword, String location, PageRequest pageRequest);
 
     List<Company> searchCompanies(String username, String name, String email, String keyword, String location);

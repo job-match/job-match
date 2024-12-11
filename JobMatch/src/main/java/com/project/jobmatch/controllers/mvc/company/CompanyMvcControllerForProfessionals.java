@@ -65,7 +65,9 @@ public class CompanyMvcControllerForProfessionals {
                 companyDtoSearch.getKeyword(),
                 companyDtoSearch.getLocation(),
                 pageRequest);
+
         model.addAttribute("companiesPaged", companyPage.getContent());
+        model.addAttribute("companiesAllSize", companyPage.getTotalElements());
         model.addAttribute("currentPage", companyPage.getNumber());
         model.addAttribute("totalPages", companyPage.getTotalPages());
         model.addAttribute("sortField", sortField);

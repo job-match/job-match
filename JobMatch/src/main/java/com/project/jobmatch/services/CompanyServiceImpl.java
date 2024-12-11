@@ -49,11 +49,6 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Page<Company> getPaginatedCompanies(PageRequest pageRequest) {
-        return companyRepository.findAll(pageRequest);
-    }
-
-    @Override
     public Page<Company> searchCompaniesPaginated(String username, String name, String email, String keyword, String location, PageRequest pageRequest) {
         return companyRepository.searchCompaniesPaginated(username, name, email, keyword, location, pageRequest);
     }
