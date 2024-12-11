@@ -204,7 +204,7 @@
                                                                 <span th:text="'$' + ${jobAd.getMinSalaryBoundary()} + ' - $' + ${jobAd.getMaxSalaryBoundary()}"></span>
                                                             </div>
                                                             <div class="field-datetime"><i class="lnr lnr-clock"></i>
-                                                                <span th:text="${#dates.format(jobAd.getCreatedAt(), 'MMM dd, yyyy')}"></span>
+                                                                <span th:text="${#dates.format(company.getCreatedAt(), 'dd/MM/yyyy')}"></span>
                                                             </div>
                                                             <div class="field-map"><i class="lnr lnr-map-marker"></i>
                                                                 <span th:text="${jobAd.getLocation().getName()}"></span>

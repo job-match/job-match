@@ -2,6 +2,8 @@ package com.project.jobmatch.services.interfaces;
 
 import com.project.jobmatch.models.Company;
 import com.project.jobmatch.services.CloudinaryImage;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -20,6 +22,10 @@ public interface CompanyService {
     Company getCompanyById(int id);
 
     List<Company> getAllCompanies();
+
+    Page<Company> getPaginatedCompanies(PageRequest pageRequest);
+
+    Page<Company> searchCompaniesPaginated(String username, String name, String email, String keyword, String location, PageRequest pageRequest);
 
     List<Company> searchCompanies(String username, String name, String email, String keyword, String location);
 }

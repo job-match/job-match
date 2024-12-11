@@ -5,7 +5,7 @@
 
     <div id="main-wrapper">
         <!--Header section start-->
-        <header th:replace="~{fragments/page-frame :: header-home}"></header>
+        <header th:replace="~{fragments/page-frame :: header-all-others}"></header>
         <!--Header section end-->
 
         <!--Header Mobile section start-->
@@ -28,7 +28,7 @@
                         <div class="page-breadcrumb-content">
                             <ul class="page-breadcrumb">
                                 <li><a th:href="@{/}">Home</a></li>
-                                <li><a th:href="@{/companies}">Companies</a></li>
+                                <li><a th:href="@{/professional-portal/companies}">Companies</a></li>
                             </ul>
                             <h1>Companies</h1>
                         </div>
@@ -46,129 +46,16 @@
                     <div class="col-lg-4 order-lg-1 order-2 pr-55 pr-md-15 pr-sm-15 pr-xs-15">
                         <div class="sidebar-wrapper-two mt-sm-40 mt-xs-40">
                             <div class="common-sidebar-widget sidebar-two">
-                                <h2 class="sidebar-title" th:text="'Find A Company'">Find A Company</h2>
+                                <h2 class="sidebar-title" th:text="'Find A Company'"></h2>
                                 <div class="sidebar-search-form-two">
-                                    <form action="#">
+                                    <form action="#" th:action="@{/professional-portal/companies}" method="get" th:object="${companyDtoSearch}">
                                         <div class="input-group">
-                                            <input type="text" name="search" placeholder="Search...">
+                                            <input type="text" name="search" placeholder="Search..." th:field="*{name}">
                                             <i class="lnr lnr-magnifier"></i>
                                         </div>
                                         <button type="submit" class="ht-btn theme-btn theme-btn-two w-100">Search</button>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="common-sidebar-widget sidebar-two">
-                                <h2 class="sidebar-title">Search by first letter</h2>
-                                <div class="sidebar-search-letter">
-                                    <ul class="search-by-first-letter">
-                                        <li><a href="#">A</a></li>
-                                        <li><a href="#">B</a></li>
-                                        <li><a href="#">C</a></li>
-                                        <li><a href="#">D</a></li>
-                                        <li><a href="#">E</a></li>
-                                        <li><a href="#">F</a></li>
-                                        <li><a href="#">G</a></li>
-                                        <li><a href="#">H</a></li>
-                                        <li><a href="#">I</a></li>
-                                        <li><a href="#">J</a></li>
-                                        <li><a href="#">K</a></li>
-                                        <li><a href="#">L</a></li>
-                                        <li><a href="#">M</a></li>
-                                        <li><a href="#">N</a></li>
-                                        <li><a href="#">O</a></li>
-                                        <li><a href="#">P</a></li>
-                                        <li><a href="#">Q</a></li>
-                                        <li><a href="#">R</a></li>
-                                        <li><a href="#">S</a></li>
-                                        <li><a href="#">T</a></li>
-                                        <li><a href="#">U</a></li>
-                                        <li><a href="#">V</a></li>
-                                        <li><a href="#">W</a></li>
-                                        <li><a href="#">X</a></li>
-                                        <li><a href="#">Y</a></li>
-                                        <li><a href="#">Z</a></li>
-                                        <li><a href="#">0-9</a></li>
-                                        <li><a href="#">#</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="common-sidebar-widget sidebar-two">
-                                <h2 class="sidebar-title">Location</h2>
-                                <div class="sidebar-location-form">
-                                    <form action="#">
-                                        <div class="input-group">
-                                            <input type="text" name="search" placeholder="Enter location">
-                                            <i class="far fa-dot-circle"></i>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="sidebar-location-range mt-10">
-                                    <div class="location-range">
-                                        <label for="amount">Radius:</label>
-                                        <input type="text" id="amount" readonly>
-                                    </div>
-                                    <div id="slider-range-min"></div>
-                                </div>
-                            </div>
-                            <div class="common-sidebar-widget sidebar-two">
-                                <h2 class="sidebar-title">Category</h2>
-                                <div class="sidebar-category">
-                                    <select class="nice-select wide">
-                                        <option value="1">Choose Category</option>
-                                        <option value="2">Accounting</option>
-                                        <option value="3">Broadcasting</option>
-                                        <option value="4">Customer Service</option>
-                                        <option value="5">Digital Marketing</option>
-                                        <option value="6">Finance & Accounting</option>
-                                        <option value="7">Game Mobile</option>
-                                        <option value="8">Graphics & Design</option>
-                                        <option value="9">Human Resources</option>
-                                        <option value="10">Medical Doctor</option>
-                                        <option value="11">Restaurant</option>
-                                        <option value="12">Sale & Marketing</option>
-                                        <option value="13">Sale Assistance</option>
-                                        <option value="14">Science & Analitycs</option>
-                                        <option value="15">Teachers</option>
-                                        <option value="16">Web & Software Dev</option>
-                                        <option value="17">Writing & Translations</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="common-sidebar-widget sidebar-two">
-                                <h2 class="sidebar-title">Rating</h2>
-                                <ul class="sidebar-cbx-list">
-                                    <li>
-                                        <div class="filter-name-item">
-                                            <input type="checkbox" name="expericence" id="filter-cbx">
-                                            <label for="filter-cbx"> 5 Star</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="filter-name-item">
-                                            <input type="checkbox" name="expericence" id="filter-cbx-two">
-                                            <label for="filter-cbx-two"> 4 Star</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="filter-name-item">
-                                            <input type="checkbox" name="expericence" id="filter-cbx-three">
-                                            <label for="filter-cbx-three">3 Star</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="common-sidebar-widget sidebar-two">
-                                <h2 class="sidebar-title">Skills</h2>
-                                <ul class="sidebar-tag">
-                                    <li><a href="#">Account Manager</a></li>
-                                    <li><a href="#">Administrative</a></li>
-                                    <li><a href="#">Android</a></li>
-                                    <li><a href="#">Angular</a></li>
-                                    <li><a href="#">app</a></li>
-                                    <li><a href="#">ASP.NET</a></li>
-                                    <li><a href="#">Automotive</a></li>
-                                    <li><a href="#">Banner</a></li>
-                                </ul>
                             </div>
                             <div class="common-sidebar-widget sidebar-two">
                                 <div class="sidbar-image">
@@ -184,26 +71,34 @@
                         <div class="filter-form">
                             <div class="result-sorting">
                                 <div class="total-result">
-                                    <span class="total">10</span>
-                                    Results Found
+                                    <span class="total" th:text="${companiesPaged.size()}"></span>
+                                    <span th:text="'Results Founds'"></span>
                                 </div>
                                 <div class="form-left">
                                     <div class="sort-by">
-                                        <form action="#">
+                                        <form action="#" id="sortForm" method="get">
                                             <label class="text-sortby">Sort by:</label>
-                                            <select class="nice-select">
-                                                <option value="1">Title</option>
-                                                <option value="2">Date</option>
-                                                <option value="3">Salary</option>
+                                            <select class="nice-select" name="sortField" id="sortField" style="margin-right: 15px;">
+                                                <option value="name" th:selected="${sortField == 'name'}" th:text="'Name'"></option>
+                                                <option value="location" th:selected="${sortField == 'location'}" th:text="'Location'"></option>
                                             </select>
+                                            <label class="text-sortby">Order:</label>
+                                            <select class="nice-select" name="sortDirection" id="sortDirection" style="margin-right: 15px;">
+                                                <option value="asc" th:selected="${sortDirection == 'asc'}" th:text="'Ascending'"></option>
+                                                <option value="desc" th:selected="${sortDirection == 'desc'}" th:text="'Descending'"></option>
+                                            </select>
+                                            <form action="#" th:action="@{/professional-portal/companies}" method="get" th:object="${companyDtoSearch}">
+                                                <button type="submit" class="ht-btn theme-btn theme-btn-two w-10">Sort</button>
+                                            </form>
                                         </form>
                                     </div>
-                                    <div class="layout-switcher">
-                                        <ul class="nav">
-                                            <li><a class="active show" data-bs-toggle="tab" href="#list"><i class="fa fa-list"></i></a></li>
-                                            <li><a data-bs-toggle="tab" href="#grid"><i class="fa fa-th"></i></a></li>
-                                        </ul>
-                                    </div>
+
+<!--                                    <div class="layout-switcher">-->
+<!--                                        <ul class="nav">-->
+<!--                                            <li><a class="active show" data-bs-toggle="tab" href="#list"><i class="fa fa-list"></i></a></li>-->
+<!--                                            <li><a data-bs-toggle="tab" href="#grid"><i class="fa fa-th"></i></a></li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -211,12 +106,12 @@
                             <div id="list" class="tab-pane fade show active">
                                 <div class="row">
 
-                                    <div class="col-lg-12 mb-20" th:each="company : ${allCompanies}">
+                                    <div class="col-lg-12 mb-20" th:each="company : ${companiesPaged}">
                                         <!-- Single Job Start  -->
                                         <div class="single-employer-list style-two">
                                             <div class="info-top align-items-start">
                                                 <div class="employer-image">
-                                                    <a th:href="@{'/companies/' + ${company.getId()}}">
+                                                    <a th:href="@{'/professional-portal/companies/' + ${company.getId()}}">
                                                         <img th:src="@{'/images/companies_logo/logo' + ${company.getId()} + '.jpg'}" alt="logo">
                                                     </a>
                                                 </div>
@@ -225,24 +120,11 @@
                                                         <div class="employer-info-top">
                                                             <div class="saveJob for-listing">
                                                                 <span class="featured-label mr-20" th:text="${company.getJobAds().size() > 1 ? company.getJobAds().size() + ' Open Jobs' : company.getJobAds().size() + ' Open Job'}">Open Job</span>
-<!--                                                                <a class="save-job" href="#quick-view-modal-container" data-toggle="modal">-->
-<!--                                                                    <i class="far fa-heart"></i>-->
-<!--                                                                </a>-->
                                                             </div>
                                                             <div class="title-name">
                                                                 <h3 class="employer-title">
-                                                                    <a th:href="@{'/companies/' + ${company.getId()}}" th:text="${company.getName()}"></a>
+                                                                    <a th:href="@{'/professional-portal/companies/' + ${company.getId()}}" th:text="${company.getName()}"></a>
                                                                 </h3>
-<!--                                                                <div class="employer-rate">-->
-<!--                                                                    <div class="star">-->
-<!--                                                                        <i class="fa fa-star"></i>-->
-<!--                                                                        <i class="fa fa-star"></i>-->
-<!--                                                                        <i class="fa fa-star"></i>-->
-<!--                                                                        <i class="fa fa-star"></i>-->
-<!--                                                                        <i class="fa fa-star"></i>-->
-<!--                                                                    </div>-->
-<!--                                                                    <span class="total">1 Ratings </span>-->
-<!--                                                                </div>-->
                                                             </div>
                                                         </div>
                                                         <div class="employer-meta">
@@ -254,17 +136,6 @@
                                                         <div class="field-description">
                                                             <p th:text="${company.getDescription().length() > 200 ? #strings.substring(company.getDescription(), 0, 200) + '...' : company.getDescription()}"></p>
                                                         </div>
-<!--                                                        <div class="employer-bottom">-->
-<!--                                                            <div class="employer-skill-tag">-->
-<!--                                                                <a href="#">Android</a>-->
-<!--                                                                <a href="#">app</a>-->
-<!--                                                                <a href="#">ReactJs</a>-->
-<!--                                                                <a href="#">Ruby</a>-->
-<!--                                                            </div>-->
-<!--                                                            <div class="openjobs">-->
-<!--                                                                <a href="#">1 Open Job </a>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -272,17 +143,36 @@
                                         <!-- Single Job End -->
                                     </div>
                                 </div>
+                                <!-- Page Pagination -->
                                 <div class="row">
                                     <div class="col-12">
                                         <ul class="page-pagination">
-                                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                            <li class="active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                            <!-- Previous Page -->
+                                            <li th:class="${currentPage == 0} ? 'disabled'">
+                                                <a th:href="@{'/professional-portal/companies?page=' + (${currentPage} - 0)}" th:if="${currentPage > 1}">
+                                                    <i class="fa fa-angle-left"></i>
+                                                </a>
+                                                <a th:if="${currentPage == 0}">
+                                                    <i class="fa fa-angle-left"></i>
+                                                </a>
+                                            </li>
+                                            <!-- Previous Page -->
+                                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active'">
+                                                <a th:href="@{'/professional-portal/companies?page=' + ${i}}" th:text="${i + 1}"></a>
+                                            </li>
+                                            <!-- Next Page -->
+                                            <li th:class="${currentPage == totalPages - 1} ? 'disabled'">
+                                                <a th:href="@{'/professional-portal/companies?page=' + (${currentPage} + 1)}" th:if="${currentPage < totalPages - 1}">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                                <a th:if="${currentPage == totalPages - 1}">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
+                                <!-- Page Pagination -->
                             </div>
                             <div id="grid" class="tab-pane fade">
                                 <div class="row">
@@ -772,6 +662,12 @@
 
 
     <script src="assets/js/main.js"></script>
+
+<!--    <script>-->
+<!--        function submitSortForm() {-->
+<!--            document.getElementById('sortForm').submit();-->
+<!--        }-->
+<!--    </script>-->
 
 
     
