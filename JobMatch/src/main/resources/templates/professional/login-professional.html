@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
-<head th:replace="~{fragments/page-frame :: head('Login')}"></head>
+<head th:replace="~{fragments/page-frame :: head('Login | Register')}"></head>
 
 <body class="template-color-1">
 
@@ -134,12 +134,19 @@
                         <div class="login-register-form-area">
                             <div class="login-tab-menu">
                                 <ul class="nav">
-                                    <li><a class="active show" data-bs-toggle="tab" href="#login">Login</a></li>
-                                    <li><a data-bs-toggle="tab" href="#register">Register</a></li>
+                                    <li>
+                                        <a th:classappend="${activeTab == 'login'} ? 'active show'" data-bs-toggle="tab" href="#login">Login</a>
+                                    </li>
+                                    <li>
+                                        <a th:classappend="${activeTab == 'register'} ? 'active show'" data-bs-toggle="tab" href="#register">Register</a>
+                                    </li>
+<!--                                    <li><a class="active show" data-bs-toggle="tab" href="#login">Login</a></li>-->
+<!--                                    <li><a data-bs-toggle="tab" href="#register">Register</a></li>-->
                                 </ul>
                             </div>
                             <div class="tab-content">
-                                <div id="login" class="tab-pane fade show active">
+<!--                                <div id="login" class="tab-pane fade show active">-->
+                                <div id="login" th:classappend="${activeTab == 'login'} ? 'show active' : ''" class="tab-pane fade">
                                     <div class="login-register-form">
                                         <form th:action="@{/auth/professional-portal/login}" th:object="${loginProfessional}" method="post">
                                             <p>Login to JobMatch with your registered account</p>
@@ -167,7 +174,8 @@
                                 </div>
 
 <!--                                TODO: implement register form-->
-                                <div id="register" class="tab-pane fade">
+                                <div id="register" th:classappend="${activeTab == 'register'} ? 'show active' : ''" class="tab-pane fade">
+<!--                                <div id="register" class="tab-pane fade">-->
                                     <div class="login-register-form">
                                         <form th:action="@{/auth/professional-portal/register}" th:object="${registerProfessional}" method="post">
                                             <p>Create Your account</p>
