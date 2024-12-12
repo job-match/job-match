@@ -17,15 +17,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/professional-portal/job-ads")
 public class JobAdMvcControllerForProfessionals {
 
+    public static final String JOB_ADS_BY_PAGE = "6";
     private final JobAdService jobAdService;
 
     public JobAdMvcControllerForProfessionals(JobAdService jobAdService) {
         this.jobAdService = jobAdService;
     }
 
+    @ModelAttribute("isAuthenticated")
+    public boolean populateIsAuthenticated(HttpSession session) {
+        return session.getAttribute("currentUser") != null;
+    }
+
     @GetMapping
     public String getAllJobAds(@RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "6") int size,
+                               @RequestParam(defaultValue = JOB_ADS_BY_PAGE) int size,
                                @RequestParam(defaultValue = "positionTitle") String sortField,
                                @RequestParam(defaultValue = "asc") String sortDirection,
                                @ModelAttribute("jobAdDtoSearch")JobAdDtoSearch jobAdDtoSearch,

@@ -10,6 +10,8 @@ import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.MatchService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
@@ -67,6 +69,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                                                       String skill,
                                                       String keyword) {
         return jobApplicationRepository.searchJobApplications(location, minSalary, maxSalary, skill, keyword);
+    }
+
+    @Override
+    public Page<JobApplication> searchJobApplicationsPaginated(String location, Double minSalary, Double maxSalary, String skill, String keyword, PageRequest pageRequest) {
+        return jobApplicationRepository.searchJobApplicationsPaginated(location, minSalary, maxSalary, skill, keyword, pageRequest);
     }
 
     @Override

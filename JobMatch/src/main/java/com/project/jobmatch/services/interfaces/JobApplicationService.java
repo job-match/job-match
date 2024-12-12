@@ -3,6 +3,8 @@ package com.project.jobmatch.services.interfaces;
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -30,4 +32,6 @@ public interface JobApplicationService {
     List<JobApplication> getAllActiveJobApplicationsOfProfessional(Professional professional);
 
     List<JobApplication> searchJobApplications(String location, Double minSalary, Double maxSalary, String skill, String keyword);
+
+    Page<JobApplication> searchJobApplicationsPaginated(String location, Double minSalary, Double maxSalary, String skill, String keyword, PageRequest pageRequest);
 }

@@ -3,6 +3,8 @@ package com.project.jobmatch.repositories.interfaces;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.Status;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -44,8 +46,24 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
                                                @Param("skill") String skill,
                                                @Param("keyword") String keyword);
 
+    @Query("SELECT j FROM JobApplication j " +
+            "WHERE j.status.type = :#{T(com.project.jobmatch.helpers.RestControllersConstants).JOB_APP_STATUS_TO_ACCEPT} " +
+            "AND (:location IS NULL OR j.location.name LIKE %:location%) " +
+            "AND (:minSalary IS NULL OR j.minDesiredSalary >= :minSalary) " +
+            "AND (:maxSalary IS NULL OR j.maxDesiredSalary <= :maxSalary) " +
+            "AND (:skill IS NULL OR EXISTS (SELECT s FROM j.skills s WHERE s.type LIKE %:skill%))" +
+            "AND (:keyword IS NULL OR LOWER(j.motivationLetter) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+    Page<JobApplication> searchJobApplicationsPaginated(
+            @Param("location") String location,
+            @Param("minSalary") Double minSalary,
+            @Param("maxSalary") Double maxSalary,
+            @Param("skill") String skill,
+            @Param("keyword") String keyword,
+            PageRequest pageRequest);
+
 
     @Query("SELECT ja FROM JobApplication ja WHERE ja.professional.id = :professionalId AND ja.status.id = :statusId")
     List<JobApplication> findActiveJobApplicationsOfProfessional(@Param("professionalId") int professionalId,
                                                    @Param("statusId") int statusId);
+
 }

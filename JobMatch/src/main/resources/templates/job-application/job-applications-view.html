@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments/page-frame :: head('Job Application Listing')}"></head>
+<body class="template-color-1">
+
+<div id="main-wrapper">
+
+    <!--Header section start-->
+    <header th:replace="~{fragments/page-frame :: header-all-others}"></header>
+    <!--Header section end-->
+
+
+    <!-- Breadcrumb Section Start -->
+    <div class="breadcrumb-section section bg_color--5 pt-60 pt-sm-50 pt-xs-40 pb-60 pb-sm-50 pb-xs-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-breadcrumb-content">
+                        <ul class="page-breadcrumb">
+                            <li><a th:href="@{/}">Home</a></li>
+                            <li><a th:href="@{/company-portal/job-applications}">Job Applications</a></li>
+                        </ul>
+                        <h1>Jobs Applications</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Start -->
+
+    <!-- Job Listing Section Start -->
+    <div class="job-listing-section section bg_color--5 pb-120 pb-lg-100 pb-md-80 pb-sm-60 pb-xs-50">
+        <div class="container">
+            <div class="row g-0">
+
+                <div class="col-lg-4 order-lg-1 order-2 pr-55 pr-md-15 pr-sm-15 pr-xs-15">
+                    <div class="sidebar-wrapper-two mt-sm-40 mt-xs-40">
+                        <div class="common-sidebar-widget sidebar-two">
+                            <h2 class="sidebar-title">Find a job application</h2>
+                            <div class="sidebar-search-form-two">
+                                <h3 class="sidebar-title-small" th:text="'Keyword '"></h3>
+                                <form action="#" th:action="@{/company-portal/job-applications}" method="get"
+                                      th:object="${JobApplicationDtoSearch}">
+                                    <div class="input-group">
+                                        <input type="text" name="search" placeholder="Search..." th:placeholder="'Keyword...'"
+                                               th:field="*{keyword}">
+                                        <i class="lnr lnr-magnifier"></i>
+                                    </div>
+                                    <h3 class="sidebar-title-small" th:text="'Location'"></h3>
+                                    <div class="input-group">
+                                        <input type="text" name="location" placeholder="Enter location" th:placeholder="'Location...'"
+                                               th:field="*{location}">
+                                        <i class="far fa-dot-circle"></i>
+                                    </div>
+
+                                    <!-- Salary Slider Start -->
+                                    <h3 class="sidebar-title-small" th:text="'Salary'"></h3>
+                                    <div class="sidebar-salary">
+                                        <div id="salary-range-new" class="mb-20"></div>
+                                        <div class="salary-range-group">
+                                            <label for="salary-amount-txt">Range:</label>
+                                            <input type="text" id="salary-amount-txt" class="salary-amount" readonly>
+                                        </div>
+                                    </div>
+                                    <!-- Salary Slider End -->
+
+                                    <!-- Hidden Inputs for Salary Range (added dynamically) -->
+                                    <input type="hidden" name="minSalary" id="min-salary" th:field="*{minSalary}">
+                                    <input type="hidden" name="maxSalary" id="max-salary" th:field="*{maxSalary}">
+
+                                    <button type="submit" class="ht-btn theme-btn theme-btn-two w-100" th:text="'Filter'"></button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="common-sidebar-widget sidebar-two">
+                            <div class="sidbar-image">
+                                <a href="#">
+                                    <img src="assets/images/banner/ads.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 order-lg-2 order-1">
+                    <div class="filter-form">
+                        <div class="result-sorting">
+                            <div class="total-result">
+                                <span class="total" th:text="${jobAppAllSize}">(22)</span>
+                                <span th:text="'Results Found'"></span>
+                            </div>
+                            <div class="form-left">
+                                <div class="sort-by">
+                                    <form action="#" id="sortForm" method="get">
+                                        <label class="text-sortby">Sort by:</label>
+                                        <select class="nice-select" name="sortField" id="sortField">
+                                            <option value="location" th:selected="${sortField == 'location'}" th:text="'Location'"></option>
+                                            <option value="positionTitle" th:selected="${sortField == 'keyword'}" th:text="'Keyword'"></option>
+                                        </select>
+                                        <label class="text-sortby">Order:</label>
+                                        <select class="nice-select" name="sortDirection" id="sortDirection">
+                                            <option value="asc" th:selected="${sortDirection == 'asc'}" th:text="'Ascending'"></option>
+                                            <option value="desc" th:selected="${sortDirection == 'desc'}" th:text="'Descending'"></option>
+                                        </select>
+                                        <form action="#" th:action="@{/company-portal/job-applications}" method="get" th:object="${JobApplicationDtoSearch}">
+                                            <button type="submit" class="ht-btn theme-btn theme-btn-two w-10">Sort</button>
+                                        </form>
+                                    </form>
+                                </div>
+<!--                                <div class="layout-switcher">-->
+<!--                                    <ul class="nav">-->
+<!--                                        <li><a class="active show" data-bs-toggle="tab" href="#list"><i-->
+<!--                                                class="fa fa-list"></i></a></li>-->
+<!--                                        <li><a data-bs-toggle="tab" href="#grid"><i class="fa fa-th"></i></a></li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div id="list" class="tab-pane fade show active">
+                            <div class="row">
+
+                                <div class="col-lg-12 mb-20" th:each="jobApp : ${jobAppPage}">
+                                    <!-- Single Job Start  -->
+                                    <div class="single-job style-two">
+                                        <div class="info-top">
+                                            <div class="job-info">
+                                                <div class="job-info-inner">
+                                                    <div class="job-info-top">
+                                                        <div class="title-name">
+                                                            <h3 class="job-title">
+                                                                <a th:href="@{/company-portal/job-applications/{id}(id=${jobApp.getId()})}"
+                                                                   th:text="'Job Application #' + ${jobApp.getId()} + ' by ' + ${jobApp.getProfessional().getFirstName()} + ' ' + ${jobApp.getProfessional().getLastName()}"></a>
+                                                            </h3>
+                                                            <div class="field-description">
+                                                                <a th:text="${jobApp.getMotivationLetter().length() > 100 ? #strings.substring(jobApp.getMotivationLetter(), 0, 100) + '...' : jobApp.getMotivationLetter()}"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="job-meta-two">
+                                                        <div class="field-salary_from"
+                                                             th:text="'$' + ${jobApp.getMinDesiredSalary()} + ' - $' + ${jobApp.getMaxDesiredSalary()}">
+                                                        </div>
+                                                        <div class="field-datetime"><i class="lnr lnr-clock"></i>
+                                                            <span th:text="${#dates.format(jobApp.getCreatedAt(), 'dd/MM/yyyy')}"></span>
+                                                        </div>
+                                                        <div class="field-map"><i class="lnr lnr-map-marker"></i>
+                                                            <span th:text="${jobApp.getLocation().getName()}"></span>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="job-skill-tag">
+                                                        <li th:each="skill : ${jobApp.getSkills()}">
+                                                            <a th:text="${skill.getType()}"></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Job End -->
+                                </div>
+                            </div>
+
+                            <!-- Page Pagination -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="page-pagination">
+                                        <!-- Previous Page -->
+                                        <li th:class="${currentPage == 0} ? 'disabled'">
+                                            <a th:href="@{'/company-portal/job-applications?page=' + (${currentPage} - 0)}"
+                                               th:if="${currentPage > 1}">
+                                                <i class="fa fa-angle-left"></i>
+                                            </a>
+                                            <a th:if="${currentPage == 0}">
+                                                <i class="fa fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                        <!-- Previous Page -->
+                                        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                            th:class="${i == currentPage} ? 'active'">
+                                            <a th:href="@{'/company-portal/job-applications?page=' + ${i}}"
+                                               th:text="${i + 1}"></a>
+                                        </li>
+                                        <!-- Next Page -->
+                                        <li th:class="${currentPage == totalPages - 1} ? 'disabled'">
+                                            <a th:href="@{'/company-portal/job-applications?page=' + (${currentPage} + 1)}"
+                                               th:if="${currentPage < totalPages - 1}">
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                            <a th:if="${currentPage == totalPages - 1}">
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Page Pagination -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Job Listing Section End -->
+
+    <!--Footer section start-->
+    <footer th:replace="~{fragments/page-frame :: footer}"></footer>
+    <!--Footer section end-->
+
+</div>
+
+<!-- All jquery file included here -->
+<div th:replace="~{fragments/page-frame :: script}"></div>
+
+</body>
+
+</html>

@@ -1,24 +1,16 @@
 package com.project.jobmatch.models.dto;
 
-public class JobAdDtoSearch {
+public class JobApplicationDtoSearch {
 
-    private String positionTitle;
     private String location;
     private Double minSalary;
     private Double maxSalary;
+    private String skill;
     private String keyword;
     private String sortBy;
     private String sortOrder;
 
-    public JobAdDtoSearch() {
-    }
-
-    public String getPositionTitle() {
-        return positionTitle;
-    }
-
-    public void setPositionTitle(String positionTitle) {
-        this.positionTitle = positionTitle;
+    public JobApplicationDtoSearch() {
     }
 
     public String getLocation() {
@@ -45,12 +37,12 @@ public class JobAdDtoSearch {
         this.maxSalary = maxSalary;
     }
 
-    public String getRequirement() {
-        return keyword;
+    public String getSkill() {
+        return skill;
     }
 
-    public void setRequirement(String keyword) {
-        this.keyword = keyword;
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 
     public String getSortBy() {
@@ -67,5 +59,13 @@ public class JobAdDtoSearch {
 
     public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }
