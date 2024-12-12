@@ -174,7 +174,7 @@
                                                                    th:text="${jobAd.positionTitle}"></a>
                                                             </h3>
                                                             <div class="employer-name">
-                                                                <a href="job-details.html"
+                                                                <a th:href="@{/professional-portal/companies/{id}(id=${jobAd.getCompany().getId()})}"
                                                                    th:text="${jobAd.company.name}"></a>
                                                             </div>
                                                             <div class="field-description">
