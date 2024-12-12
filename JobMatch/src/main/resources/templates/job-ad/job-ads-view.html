@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head th:replace="~{fragments/page-frame :: head('Companies Listing')}"></head>
+<head th:replace="~{fragments/page-frame :: head('Job Ads Listing')}"></head>
 <body class="template-color-1">
 
 <div id="main-wrapper">
@@ -153,7 +153,7 @@
                                     <div class="single-job style-two">
                                         <div class="info-top">
                                             <div class="job-image">
-                                                <a href="job-details.html">
+                                                <a th:href="@{/professional-portal/companies/{id}(id=${jobAd.getCompany().getId()})}">
                                                     <img th:src="@{'/images/companies_logo/logo' + ${jobAd.company.id} + '.jpg'}"
                                                          alt="logo">
                                                 </a>
@@ -170,7 +170,7 @@
                                                         <!--                                                            </div>-->
                                                         <div class="title-name">
                                                             <h3 class="job-title">
-                                                                <a href="job-details.html"
+                                                                <a th:href="@{/professional-portal/job-ads/{id}(id=${jobAd.getId()})}"
                                                                    th:text="${jobAd.positionTitle}"></a>
                                                             </h3>
                                                             <div class="employer-name">
