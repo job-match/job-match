@@ -204,7 +204,7 @@ public class ModelMapper {
         return professional;
     }
 
-    public Professional fromProfessionalDtoInToProfessional(int id, ProfessionalDtoInUpdate professionalDtoInUpdate) {
+    public Professional fromProfessionalDtoInUpdateToProfessional(int id, ProfessionalDtoInUpdate professionalDtoInUpdate) {
         Professional professional = new Professional();
         professional.setId(id);
 
@@ -216,6 +216,7 @@ public class ModelMapper {
         professional.setSummary(professionalDtoInUpdate.getSummary());
         professional.setLocation(locationService.getLocationByName(professionalDtoInUpdate.getLocation()));
         professional.setStatus(statusService.getStatusByType(professionalDtoInUpdate.getStatus()));
+        professional.setPicture(professionalService.getProfessionalById(id).getPicture());
 
         return professional;
     }
@@ -335,4 +336,19 @@ public class ModelMapper {
     }
 
 
+    public ProfessionalDtoOutUpdate fromProfessionalToProfessionalDtoOutUpdate(Professional professional) {
+        ProfessionalDtoOutUpdate professionalDtoOutUpdate = new ProfessionalDtoOutUpdate();
+
+        professionalDtoOutUpdate.setId(professional.getId());
+        professionalDtoOutUpdate.setPassword(professional.getPassword());
+        professionalDtoOutUpdate.setEmail(professional.getEmail());
+        professionalDtoOutUpdate.setFirstName(professional.getFirstName());
+        professionalDtoOutUpdate.setLastName(professional.getLastName());
+        professionalDtoOutUpdate.setLocation(professional.getLocation().getName());
+        professionalDtoOutUpdate.setStatus(professional.getStatus().getType());
+        professionalDtoOutUpdate.setSummary(professional.getSummary());
+        professionalDtoOutUpdate.setPicture(professional.getPicture());
+
+        return professionalDtoOutUpdate;
+    }
 }

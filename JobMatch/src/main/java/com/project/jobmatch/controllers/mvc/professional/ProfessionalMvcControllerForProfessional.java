@@ -4,15 +4,11 @@ import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
-import com.project.jobmatch.models.JobAd;
-import com.project.jobmatch.models.JobApplication;
-import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.models.*;
 import com.project.jobmatch.models.dto.ProfessionalDtoInUpdate;
+import com.project.jobmatch.models.dto.ProfessionalDtoOutUpdate;
 import com.project.jobmatch.services.CloudinaryImage;
-import com.project.jobmatch.services.interfaces.CloudinaryService;
-import com.project.jobmatch.services.interfaces.JobApplicationService;
-import com.project.jobmatch.services.interfaces.MatchService;
-import com.project.jobmatch.services.interfaces.ProfessionalService;
+import com.project.jobmatch.services.interfaces.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,6 +32,8 @@ public class ProfessionalMvcControllerForProfessional {
     private final JobApplicationService jobApplicationService;
     private final CloudinaryService cloudinaryService;
     private final MatchService matchService;
+    private final LocationService locationService;
+    private final StatusService statusService;
     private final ModelMapper modelMapper;
 
 
@@ -44,11 +43,15 @@ public class ProfessionalMvcControllerForProfessional {
                                                     JobApplicationService jobApplicationService,
                                                     CloudinaryService cloudinaryService,
                                                     ModelMapper modelMapper,
+                                                    LocationService locationService,
+                                                    StatusService statusService,
                                                     MatchService matchService) {
         this.authenticationHelper = authenticationHelper;
         this.professionalService = professionalService;
         this.jobApplicationService = jobApplicationService;
         this.cloudinaryService = cloudinaryService;
+        this.locationService = locationService;
+        this.statusService = statusService;
         this.modelMapper = modelMapper;
         this.matchService = matchService;
     }
@@ -56,6 +59,23 @@ public class ProfessionalMvcControllerForProfessional {
     @ModelAttribute("isAuthenticated")
     public boolean populateIsAuthenticated(HttpSession session) {
         return session.getAttribute("currentUser") != null;
+    }
+
+    @ModelAttribute("locations")
+    public List<Location> populateLocations() {
+        return locationService.getAllLocations();
+    }
+
+    @ModelAttribute("statuses")
+    public List<Status> populateStatuses() {
+        Status active = statusService.getStatusByType("Active");
+        Status busy = statusService.getStatusByType("Busy");
+
+        List<Status> statuses = new ArrayList<>();
+        statuses.add(active);
+        statuses.add(busy);
+
+        return statuses;
     }
 
     @GetMapping("/profile")
@@ -88,7 +108,8 @@ public class ProfessionalMvcControllerForProfessional {
             return "redirect:/auth/professional-portal/login";
         }
 
-        model.addAttribute("professional", professional);
+        ProfessionalDtoOutUpdate professionalDtoOutUpdate = modelMapper.fromProfessionalToProfessionalDtoOutUpdate(professional);
+        model.addAttribute("professional", professionalDtoOutUpdate);
         return "professional/professional-update-profile-view";
     }
 
@@ -112,7 +133,7 @@ public class ProfessionalMvcControllerForProfessional {
 
         try {
             Professional updatedProfessional =
-                    modelMapper.fromProfessionalDtoInToProfessional(professionalAuthenticated.getId(), professionalDtoInUpdate);
+                    modelMapper.fromProfessionalDtoInUpdateToProfessional(professionalAuthenticated.getId(), professionalDtoInUpdate);
 
             if (!professionalPicture.isEmpty()) {
                 CloudinaryImage cloudinaryImage = cloudinaryService.upload(professionalPicture);
@@ -135,10 +156,34 @@ public class ProfessionalMvcControllerForProfessional {
             return "error";
         }
 
-        model.addAttribute("professional", professionalService.getProfessionalById(professionalAuthenticated.getId()));
-        model.addAttribute("activeJobApplications", jobApplicationService.getAllActiveJobApplicationsOfProfessional(professionalAuthenticated));
-        model.addAttribute("matchedJobAds", matchService.getMatchedJobAds(professionalAuthenticated));
+        ProfessionalDtoOutUpdate professionalDtoOutUpdate = modelMapper.fromProfessionalToProfessionalDtoOutUpdate(professionalAuthenticated);
+        model.addAttribute("professional", professionalDtoOutUpdate);
 
         return "professional/professional-update-profile-view";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProfessional(@PathVariable int id, Model model, HttpSession session) {
+        Professional professionalAuthenticated;
+        try {
+            professionalAuthenticated = authenticationHelper.tryGetCurrentProfessional(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
+
+        try {
+            Professional professionalToDelete = professionalService.getProfessionalById(id);
+
+            professionalService.deleteProfessional(professionalToDelete, professionalAuthenticated);
+
+            return "redirect:/auth/professional-portal/logout";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            return "error";
+        }
     }
 }

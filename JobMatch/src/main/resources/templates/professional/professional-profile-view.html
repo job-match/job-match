@@ -65,6 +65,21 @@
                                                          th:text="${#dates.format(professional.getCreatedAt(), 'dd/MM/yyyy')}">Sep
                                     27, 2022</label>
                                 </li>
+                                <li class="date-publish">
+                                    <form th:action="@{/professional-portal/professionals/update}" method="get">
+                                        <button class="ht-btn theme-btn theme-btn-two mb-xs-20" type="submit">Update
+                                            Profile
+                                        </button>
+                                    </form>
+                                </li>
+                                <li class="date-publish">
+                                    <form th:action="@{/professional-portal/professionals/delete/{id}(id=${professional.id})}"
+                                          method="get">
+                                        <button class="ht-btn theme-btn theme-btn-two transparent-btn-two"
+                                                type="submit">Delete Account
+                                        </button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -123,25 +138,6 @@
                                         </div>
                                         <!-- Single Meta Field Start -->
                                     </div>
-
-<!--                                    <div class="col-lg-12">-->
-<!--                                        &lt;!&ndash; Single Meta Field Start &ndash;&gt;-->
-<!--                                        <div class="single-meta-field">-->
-<!--                                            <div class="field-label">-->
-<!--                                                <i class="lnr lnr-users"></i>-->
-<!--                                                <span>Social profiles </span>-->
-<!--                                            </div>-->
-<!--                                            <div class="field-value no-transform">-->
-<!--                                                <a class="facebook" href="https://www.facebook.com/"><i-->
-<!--                                                        class="fab fa-facebook"></i></a>-->
-<!--                                                <a class="twitter" href="https://www.instagram.com/"><i-->
-<!--                                                        class="fab fa-instagram"></i></a>-->
-<!--                                                <a class="linkedin" href="https://www.linkedin.com/"><i-->
-<!--                                                        class="fab fa-linkedin"></i></a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        &lt;!&ndash; Single Meta Field Start &ndash;&gt;-->
-<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
