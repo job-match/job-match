@@ -1,18 +1,17 @@
 package com.project.jobmatch.controllers.mvc.professional;
 
+import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.dto.JobAdDtoSearch;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/professional-portal/job-ads")
@@ -58,5 +57,19 @@ public class JobAdMvcControllerForProfessionals {
         model.addAttribute("sortDirection", sortDirection);
 
         return "job-ad/job-ads-view";
+    }
+
+    @GetMapping("/{id}")
+    public String showSingleJobAd(@PathVariable int id, Model model, HttpSession httpSession) {
+        //TODO Authenticate when ready
+
+        try {
+            model.addAttribute("jobAd", jobAdService.getJobAdById(id));
+
+            return "job-ad/job-ad-view";
+        } catch (EntityNotFoundException e) {
+            //TODO Create error view
+            throw new UnsupportedOperationException("Create empty view");
+        }
     }
 }
