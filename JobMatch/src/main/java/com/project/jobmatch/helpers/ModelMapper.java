@@ -339,6 +339,7 @@ public class ModelMapper {
     public ProfessionalDtoOutUpdate fromProfessionalToProfessionalDtoOutUpdate(Professional professional) {
         ProfessionalDtoOutUpdate professionalDtoOutUpdate = new ProfessionalDtoOutUpdate();
 
+        professionalDtoOutUpdate.setId(professional.getId());
         professionalDtoOutUpdate.setPassword(professional.getPassword());
         professionalDtoOutUpdate.setEmail(professional.getEmail());
         professionalDtoOutUpdate.setFirstName(professional.getFirstName());
