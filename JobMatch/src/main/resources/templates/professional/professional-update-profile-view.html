@@ -73,8 +73,24 @@
                                                         </div>
                                                         <div class="col-lg-10">
                                                             <div class="row">
-
-                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                                                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="status">Status
+                                                                            <span>*</span></label>
+                                                                        </br>
+                                                                        <select id="status" name="status" th:field="*{status}">
+                                                                            <option value="" disabled selected>-- Select Status --</option>
+                                                                            <option th:each="stat : ${statuses}"
+                                                                                    th:value="${stat.type}"
+                                                                                    th:text="${stat.type}">
+                                                                                <!-- Тук Thymeleaf ще замени стойностите -->
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
                                                                     <!-- Single Input Start -->
                                                                     <div class="single-input mb-25">
                                                                         <label for="first-name">First Name
@@ -91,7 +107,7 @@
                                                                     <!-- Single Input End -->
                                                                 </div>
 
-                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
                                                                     <!-- Single Input Start -->
                                                                     <div class="single-input mb-25">
                                                                         <label for="last-name">Last Name <span>*</span></label>
@@ -106,8 +122,23 @@
                                                                     </div>
                                                                     <!-- Single Input End -->
                                                                 </div>
-
-                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                                                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="location">Location <span>*</span></label>
+                                                                        </br>
+                                                                        <select id="location" name="location" th:field="*{location}">
+                                                                            <option value="" disabled selected>-- Select Location --</option>
+                                                                            <option th:each="location : ${locations}"
+                                                                                    th:value="${location.name}"
+                                                                                    th:text="${location.name}">
+                                                                                <!-- Тук Thymeleaf ще замени стойностите -->
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
                                                                     <!-- Single Input Start -->
                                                                     <div class="single-input mb-25">
                                                                         <label for="email">Email <span>*</span></label>
@@ -122,40 +153,7 @@
                                                                     </div>
                                                                     <!-- Single Input End -->
                                                                 </div>
-                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                                                    <!-- Single Input Start -->
-                                                                    <div class="single-input mb-25">
-                                                                        <label for="status">Status
-                                                                            <span>*</span></label>
-                                                                        <input type="text" id="status"
-                                                                               name="status"
-                                                                               placeholder="Active"
-                                                                               th:field="*{status}"
-                                                                               value="">
-                                                                        <label class="text-danger font-weight-bold"
-                                                                               th:errors="*{status}">
-                                                                            Status error placeholder
-                                                                        </label>
-                                                                    </div>
-                                                                    <!-- Single Input End -->
-                                                                </div>
-                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                                                                    <!-- Single Input Start -->
-                                                                    <div class="single-input mb-25">
-                                                                        <label for="location">Location <span>*</span></label>
-                                                                        <input type="text" id="location"
-                                                                               name="location"
-                                                                               placeholder="Plovdiv"
-                                                                               th:field="*{location}"
-                                                                               value="">
-                                                                        <label class="text-danger font-weight-bold"
-                                                                               th:errors="*{location}">
-                                                                            Location error placeholder
-                                                                        </label>
-                                                                    </div>
-                                                                    <!-- Single Input End -->
-                                                                </div>
-                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
                                                                     <!-- Single Input Start -->
                                                                     <div class="single-input mb-25">
                                                                         <label for="password">Password

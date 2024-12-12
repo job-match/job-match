@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,6 +32,8 @@ public class ProfessionalMvcControllerForProfessional {
     private final JobApplicationService jobApplicationService;
     private final CloudinaryService cloudinaryService;
     private final MatchService matchService;
+    private final LocationService locationService;
+    private final StatusService statusService;
     private final ModelMapper modelMapper;
 
 
@@ -40,11 +43,15 @@ public class ProfessionalMvcControllerForProfessional {
                                                     JobApplicationService jobApplicationService,
                                                     CloudinaryService cloudinaryService,
                                                     ModelMapper modelMapper,
+                                                    LocationService locationService,
+                                                    StatusService statusService,
                                                     MatchService matchService) {
         this.authenticationHelper = authenticationHelper;
         this.professionalService = professionalService;
         this.jobApplicationService = jobApplicationService;
         this.cloudinaryService = cloudinaryService;
+        this.locationService = locationService;
+        this.statusService = statusService;
         this.modelMapper = modelMapper;
         this.matchService = matchService;
     }
@@ -52,6 +59,23 @@ public class ProfessionalMvcControllerForProfessional {
     @ModelAttribute("isAuthenticated")
     public boolean populateIsAuthenticated(HttpSession session) {
         return session.getAttribute("currentUser") != null;
+    }
+
+    @ModelAttribute("locations")
+    public List<Location> populateLocations() {
+        return locationService.getAllLocations();
+    }
+
+    @ModelAttribute("statuses")
+    public List<Status> populateStatuses() {
+        Status active = statusService.getStatusByType("Active");
+        Status busy = statusService.getStatusByType("Busy");
+
+        List<Status> statuses = new ArrayList<>();
+        statuses.add(active);
+        statuses.add(busy);
+
+        return statuses;
     }
 
     @GetMapping("/profile")
