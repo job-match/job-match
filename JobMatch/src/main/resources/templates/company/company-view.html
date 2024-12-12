@@ -45,7 +45,7 @@
                             <h1 class="employer-name" th:text="${company.getUsername()}"><i class="fas fa-check-circle"></i></h1>
                             <ul class="employer-meta">
                                 <li class="view-employer">
-                                    <i class="lnr lnr-user"></i><span th:text="${company.getName()}"></span>
+                                    <i class="lnr lnr-user"></i><span th:text="${company.getUsername()}"></span>
                                 </li>
                                 <li class="date-publish">
                                     <i class="lnr lnr-clock"></i>
@@ -170,7 +170,7 @@
                             <h3 th:text="'Latest position titles by this company:'"></h3>
                             <ul class="skill-tag">
                                 <li th:each="jobAd : ${jobAdsOfCompany}">
-                                    <a href="#" th:text="${jobAd.getPositionTitle()}"></a>
+                                    <a th:href="@{/professional-portal/job-ads/{id}(id=${jobAd.getId()})}" th:text="${jobAd.getPositionTitle()}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -205,7 +205,7 @@
                                                             </div>
                                                             <div class="title-name">
                                                                 <h5 class="job-title">
-                                                                    <a href="#" th:text="${jobAd.getPositionTitle()}">Chief Accountant</a>
+                                                                    <a th:href="@{/professional-portal/job-ads/{id}(id=${jobAd.getId()})}" th:text="${jobAd.getPositionTitle()}">Chief Accountant</a>
                                                                 </h5>
                                                             </div>
                                                         </div>
