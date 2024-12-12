@@ -49,7 +49,7 @@
                                 </li>
                                 <li class="date-publish">
                                     <i class="lnr lnr-clock"></i>
-                                    Registered on: <label class="theme-color" th:text="${#dates.format(company.getCreatedAt(), 'MMM dd, yyyy')}">Sep 3, 2022</label>
+                                    Registered on: <label class="theme-color" th:text="${#dates.format(company.getCreatedAt(), 'dd/MM/yyyy')}">Sep 3, 2022</label>
                                 </li>
                             </ul>
                         </div>
@@ -113,7 +113,7 @@
                                         <!-- Single Meta Field Start -->
                                         <div class="single-meta-field">
                                             <div class="field-label">
-                                                <i class="lnr lnr-map-marker"></i>
+                                                <i class="lnr lnr-inbox"></i>
                                                 <span>Email </span>
                                             </div>
                                             <div class="field-value no-transform"
@@ -126,7 +126,7 @@
                                         <!-- Single Meta Field Start -->
                                         <div class="single-meta-field">
                                             <div class="field-label">
-                                                <i class="lnr lnr-inbox"></i>
+                                                <i class="lnr lnr-map-marker"></i>
                                                 <span>Location </span>
                                             </div>
                                             <div class="field-value no-transform" th:text="${company.getLocation().getName()}"></div>
