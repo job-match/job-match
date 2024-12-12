@@ -1,7 +1,10 @@
 package com.project.jobmatch.controllers.mvc.company;
 
+import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
+import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.models.Company;
+import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.CompanyDtoSearch;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.JobAdService;
@@ -21,25 +24,21 @@ public class CompanyMvcControllerForProfessionals {
 
     public static final String COMPANIES_PER_PAGE = "6";
 
+    private final AuthenticationHelper authenticationHelper;
     private final CompanyService companyService;
     private final JobAdService jobAdService;
 
-    public CompanyMvcControllerForProfessionals(CompanyService companyService, JobAdService jobAdService) {
+    public CompanyMvcControllerForProfessionals(AuthenticationHelper authenticationHelper, CompanyService companyService, JobAdService jobAdService) {
+        this.authenticationHelper = authenticationHelper;
         this.companyService = companyService;
         this.jobAdService = jobAdService;
     }
 
-    //TODO This is not needed
-    @ModelAttribute
-    public void getJobAdsByCompanyId(@PathVariable(required = false) Integer id, Model model) {
-        if (id != null) {
-            try {
-                model.addAttribute("jobAdsOfCompany", jobAdService.getJobAdsByCompanyId(id));
-            } catch (EntityNotFoundException e) {
-                model.addAttribute("jobAdsOfCompany", new ArrayList<>());
-            }
-        }
+    @ModelAttribute("isAuthenticated")
+    public boolean populateIsAuthenticated(HttpSession session) {
+        return session.getAttribute("currentUser") != null;
     }
+
 
     @GetMapping
     public String getAllCompanies(@RequestParam(defaultValue = "0") int page,
@@ -49,7 +48,11 @@ public class CompanyMvcControllerForProfessionals {
                                   @ModelAttribute("companyDtoSearch") CompanyDtoSearch companyDtoSearch,
                                   Model model,
                                   HttpSession httpSession) {
-        //TODO Authenticate when ready
+        try {
+            authenticationHelper.tryGetCurrentProfessional(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
 
         if ("location".equals(sortField)) {
             sortField = "location.name";
@@ -78,7 +81,11 @@ public class CompanyMvcControllerForProfessionals {
 
     @GetMapping("/{id}")
     public String showSingleCompany(@PathVariable int id, Model model, HttpSession httpSession) {
-        //TODO Authenticate when ready
+        try {
+            authenticationHelper.tryGetCurrentProfessional(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
 
         try {
             model.addAttribute("company", companyService.getCompanyById(id));
