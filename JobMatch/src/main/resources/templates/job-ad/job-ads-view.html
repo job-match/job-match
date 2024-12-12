@@ -190,7 +190,12 @@
                                                             <span th:text="${#dates.format(jobAd.getCreatedAt(), 'dd/MM/yyyy')}"></span>
                                                         </div>
                                                         <div class="field-map"><i class="lnr lnr-map-marker"></i>
-                                                            <span th:text="${jobAd.getLocation().getName()}"></span>
+                                                            <span th:if="${jobAd.getLocation().getName() == 'hybrid'}"
+                                                                  th:text="${jobAd.getLocation().getName()} + ' / ' + ${jobAd.getCompany().getLocation().getName()}">
+                                                            </span>
+                                                            <span th:unless="${jobAd.getLocation().getName() == 'hybrid'}"
+                                                                  th:text="${jobAd.getLocation().getName()}">
+                                                            </span>
                                                         </div>
                                                     </div>
                                                     <ul class="job-skill-tag">
