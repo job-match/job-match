@@ -192,6 +192,10 @@
                                                                                   name="summary" id="summary"
                                                                                   placeholder="Enter your Summary"
                                                                                   style="height: 150px"></textarea>
+                                                                        <label class="text-danger font-weight-bold"
+                                                                               th:errors="*{summary}">
+                                                                            Summary error placeholder
+                                                                        </label>
                                                                     </div>
                                                                     <!-- Single Input End -->
                                                                 </div>

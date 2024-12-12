@@ -111,7 +111,7 @@ public class ProfessionalForProfessionalsRestController {
                               @Valid @RequestBody ProfessionalDtoInUpdate professionalDtoInUpdate) {
         try {
             Professional professionalAuthenticated = authenticationHelper.tryGetProfessional(httpHeaders);
-            Professional professionalMapped = modelMapper.fromProfessionalDtoInToProfessional(id, professionalDtoInUpdate);
+            Professional professionalMapped = modelMapper.fromProfessionalDtoInUpdateToProfessional(id, professionalDtoInUpdate);
 
             professionalService.updateProfessional(professionalAuthenticated, professionalMapped);
 
