@@ -31,8 +31,6 @@ public class ProfessionalMvcControllerForProfessional {
     private final JobApplicationService jobApplicationService;
     private final CloudinaryService cloudinaryService;
     private final MatchService matchService;
-    private final LocationService locationService;
-    private final StatusService statusService;
     private final ModelMapper modelMapper;
 
 
@@ -42,16 +40,12 @@ public class ProfessionalMvcControllerForProfessional {
                                                     JobApplicationService jobApplicationService,
                                                     CloudinaryService cloudinaryService,
                                                     ModelMapper modelMapper,
-                                                    StatusService statusService,
-                                                    LocationService locationService,
                                                     MatchService matchService) {
         this.authenticationHelper = authenticationHelper;
         this.professionalService = professionalService;
         this.jobApplicationService = jobApplicationService;
         this.cloudinaryService = cloudinaryService;
         this.modelMapper = modelMapper;
-        this.statusService = statusService;
-        this.locationService = locationService;
         this.matchService = matchService;
     }
 
@@ -59,24 +53,6 @@ public class ProfessionalMvcControllerForProfessional {
     public boolean populateIsAuthenticated(HttpSession session) {
         return session.getAttribute("currentUser") != null;
     }
-
-//    @ModelAttribute("statuses")
-//    public List<Status> populateStatuses() {
-//        Status activeStatus = statusService.getStatusByType("Active");
-//        Status busyStatus = statusService.getStatusByType("Busy");
-//
-//        List<Status> statuses = new ArrayList<>();
-//        statuses.add(activeStatus);
-//        statuses.add(busyStatus);
-//
-//        return statuses;
-//    }
-
-//    @ModelAttribute("locations")
-//    public List<Location> populateLocations() {
-//
-//        return locationService.getAllLocations();
-//    }
 
     @GetMapping("/profile")
     public String getProfessionalProfileInfo(Model model, HttpSession session) {
@@ -159,10 +135,32 @@ public class ProfessionalMvcControllerForProfessional {
         ProfessionalDtoOutUpdate professionalDtoOutUpdate = modelMapper.fromProfessionalToProfessionalDtoOutUpdate(professionalAuthenticated);
         model.addAttribute("professional", professionalDtoOutUpdate);
 
-//        model.addAttribute("professional", professionalService.getProfessionalById(professionalAuthenticated.getId()));
-//        model.addAttribute("activeJobApplications", jobApplicationService.getAllActiveJobApplicationsOfProfessional(professionalAuthenticated));
-//        model.addAttribute("matchedJobAds", matchService.getMatchedJobAds(professionalAuthenticated));
-
         return "professional/professional-update-profile-view";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProfessional(@PathVariable int id, Model model, HttpSession session) {
+        Professional professionalAuthenticated;
+        try {
+            professionalAuthenticated = authenticationHelper.tryGetCurrentProfessional(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
+
+        try {
+            Professional professionalToDelete = professionalService.getProfessionalById(id);
+
+            professionalService.deleteProfessional(professionalToDelete, professionalAuthenticated);
+
+            //TODO logout!
+            return "redirect:/";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            return "error";
+        }
     }
 }
