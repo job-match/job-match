@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/page-frame :: head('Profile')}"></head>
+<body class="template-color-1">
+
+<div id="main-wrapper" th:object="${company}">
+
+    <!--Header section start-->
+    <header th:replace="~{fragments/page-frame :: header-all-others}"></header>
+    <!--Header section end-->
+
+    <!--Header Mobile section start-->
+    <!--Header Mobile section end-->
+
+    <!-- Start Popup Menu -->
+    <!-- End Popup Menu -->
+
+    <!-- Bottom Navbar Mobile Start -->
+    <!-- Bottom Navbar Mobile End -->
+
+    <!-- Bottom Navbar Mobile Popup Start -->
+    <!-- Bottom Navbar Mobile Popup End -->
+
+    <!-- Breadcrumb Section Start -->
+    <div class="breadcrumb-section section bg_color--5 pt-60 pt-sm-50 pt-xs-40 pb-60 pb-sm-50 pb-xs-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-breadcrumb-content mb-40">
+                        <ul class="page-breadcrumb">
+                            <li><a th:href="@{/company-portal/companies/profile}"
+                                   th:text="'Company Profile'"></a></li>
+                            <li th:text="${company.name}">Your Name</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="candidate-head-info">
+                        <div class="candidate-logo">
+                            <a href="#">
+                                <img th:src="@{'/images/companies_logo/logo' + ${company.getId()} + '.jpg'}"
+                                     alt="Profile picture"></a>
+                        </div>
+                        <div class="candidate-content">
+                            <h1 class="candidate-name"
+                                th:text="${company.name}">
+                                Your Name</h1>
+                            <ul class="candidate-meta">
+                                <li class="date-publish">
+                                    Job Ads: <label class="theme-color"
+                                                    th:text="${company.getJobAds().size()}"></label>
+                                </li>
+                                <li class="date-publish">
+                                    Matches: <label class="theme-color"
+                                                    th:text="${matchedJobApps.size()}">Matches</label>
+                                </li>
+                                <li class="date-publish">
+                                    <i class="lnr lnr-clock"></i>
+                                    Member since: <label class="theme-color"
+                                                         th:text="${#dates.format(professional.getCreatedAt(), 'dd/MM/yyyy')}">Sep
+                                    27, 2022</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Start -->
+
+    <!-- Job Details Section Start -->
+    <div class="job-details-section section pt-120 pt-lg-100 pt-md-80 pt-sm-50 pt-xs-40 pb-120 pb-lg-100 pb-md-80 pb-sm-60 pb-xs-50">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 order-lg-2 order-2 mt-sm-60 mt-xs-50">
+                    <div class="sidebar-wrapper-three">
+                        <div class="common-sidebar-widget sidebar-three">
+                            <h2 class="sidebar-title">Company Information</h2>
+                            <div class="sidebar-meta">
+                                <div class="row g-0">
+
+                                    <div class="col-lg-12">
+                                        <!-- Single Meta Field Start -->
+                                        <div class="single-meta-field">
+                                            <div class="field-label">
+                                                <i class="lnr lnr-earth"></i>
+                                                <span>Website </span>
+                                            </div>
+                                            <div class="field-value no-transform"
+                                                 th:text="'www.' + ${company.getUsername().toLowerCase()} + '.com'"></div>
+                                        </div>
+                                        <!-- Single Meta Field Start -->
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <!-- Single Meta Field Start -->
+                                        <div class="single-meta-field">
+                                            <div class="field-label">
+                                                <i class="lnr lnr-map-marker"></i>
+                                                <span>Location </span>
+                                            </div>
+                                            <div class="field-value no-transform"
+                                                 th:text="${company.getLocation().getName()}"></div>
+                                        </div>
+                                        <!-- Single Meta Field Start -->
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <!-- Single Meta Field Start -->
+                                        <div class="single-meta-field">
+                                            <div class="field-label">
+                                                <i class="lnr lnr-inbox"></i>
+                                                <span>Email </span>
+                                            </div>
+                                            <div class="field-value no-transform" th:text="${company.getEmail()}"></div>
+                                        </div>
+                                        <!-- Single Meta Field Start -->
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <!-- Single Meta Field Start -->
+                                        <div class="single-meta-field">
+                                            <div class="field-label">
+                                                <i class="lnr lnr-envelope"></i>
+                                                <span>Contacts </span>
+                                            </div>
+                                            <div class="field-value no-transform" th:text="${company.getContacts()}"></div>
+                                        </div>
+                                        <!-- Single Meta Field Start -->
+                                    </div>
+
+                                    <!--                                    <div class="col-lg-12">-->
+                                    <!--                                        &lt;!&ndash; Single Meta Field Start &ndash;&gt;-->
+                                    <!--                                        <div class="single-meta-field">-->
+                                    <!--                                            <div class="field-label">-->
+                                    <!--                                                <i class="lnr lnr-users"></i>-->
+                                    <!--                                                <span>Social profiles </span>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div class="field-value no-transform">-->
+                                    <!--                                                <a class="facebook" href="https://www.facebook.com/"><i-->
+                                    <!--                                                        class="fab fa-facebook"></i></a>-->
+                                    <!--                                                <a class="twitter" href="https://www.instagram.com/"><i-->
+                                    <!--                                                        class="fab fa-instagram"></i></a>-->
+                                    <!--                                                <a class="linkedin" href="https://www.linkedin.com/"><i-->
+                                    <!--                                                        class="fab fa-linkedin"></i></a>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        &lt;!&ndash; Single Meta Field Start &ndash;&gt;-->
+                                    <!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="common-sidebar-widget sidebar-three">
+                            <h2 class="sidebar-title">Social profiles: </h2>
+                            <div class="social-all">
+                                <a class="facebook" href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                                <a class="twitter" href="https://www.instagram.com/"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a class="linkedin" href="https://www.linkedin.com/"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 order-lg-1 order-1 pr-55 pr-md-15 pr-sm-15 pr-xs-15">
+
+                    <div class="candidate-main-content">
+                        <div class="field-description">
+                            <p th:utext="${company.getDescription()}"></p>
+                        </div>
+                        <div class="field-portfolio">
+                            <div class="job-area mt-60">
+                                <div class="job-container">
+                                    <h3>Active Job Ads</h3>
+                                    <div class="row">
+                                        <div class="col-lg-12" th:each="jobAd : ${company.getJobAds()}">
+                                            <!-- Single Job Start  -->
+                                            <div class="single-job style-two">
+                                                <div class="info-top">
+                                                    <div class="job-info">
+                                                        <div class="job-info-inner">
+                                                            <div class="job-info-top">
+                                                                <div class="title-name">
+                                                                    <h5 class="job-title">
+                                                                        <a href="#"
+                                                                           th:text="${jobAd.getPositionTitle()}">Chief
+                                                                            Accountant</a>
+                                                                    </h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="job-meta-two">
+                                                                <div class="field-salary_from">
+                                                                    <i class="gj-icon gj-icon-money"></i>
+                                                                    <span th:text="'$' + ${jobAd.getMinSalaryBoundary()} + ' - $' + ${jobAd.getMaxSalaryBoundary()}"></span>
+                                                                </div>
+                                                                <div class="field-datetime"><i
+                                                                        class="lnr lnr-clock"></i>
+                                                                    <span th:text="${#dates.format(jobAd.createdAt, 'dd/MM/yyyy')}"></span>
+                                                                </div>
+                                                                <div class="field-map"><i
+                                                                        class="lnr lnr-map-marker"></i>
+                                                                    <span th:if="${jobAd.getLocation().getName() == 'hybrid'}"
+                                                                          th:text="${jobAd.getLocation().getName()} + ' / ' + ${jobAd.getCompany().getLocation().getName()}">
+                                                            </span>
+                                                                    <span th:unless="${jobAd.getLocation().getName() == 'hybrid'}"
+                                                                          th:text="${jobAd.getLocation().getName()}">
+                                                            </span>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="job-skill-tag">
+                                                                <li th:each="requirement : ${jobAd.getRequirements()}">
+                                                                    <a href="#" th:text="${requirement.getType()}"></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Single Job End -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="job-area mt-60">
+                            <div class="job-container">
+                                <h3 class="title" th:text="'Matched Job Applications'"></h3>
+                                <div class="row">
+                                    <div class="col-lg-12" th:each="jobApp : ${matchedJobApps}">
+                                        <!-- Single Job Start  -->
+                                        <div class="single-job style-two">
+                                            <div class="info-top">
+                                                <div class="job-info">
+                                                    <div class="job-info-inner">
+                                                        <div class="job-info-top">
+                                                            <div class="saveJob for-listing">
+                                                            </div>
+                                                            <div class="title-name">
+                                                                <h5 class="job-title">
+                                                                    <a href="#"
+                                                                       th:text="'Job Application #' + ${jobApp.getId()}">Chief
+                                                                        Accountant</a>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="job-meta-two">
+                                                            <div class="field-salary_from">
+                                                                <i class="gj-icon gj-icon-money"></i>
+                                                                <span th:text="'$' + ${jobApp.getMinDesiredSalary()} + ' - $' + ${jobApp.getMaxDesiredSalary()}"></span>
+                                                            </div>
+                                                            <div class="field-datetime"><i class="lnr lnr-clock"></i>
+                                                                <span th:text="${#dates.format(jobApp.getCreatedAt(), 'dd/MM/yyyy')}"></span>
+                                                            </div>
+                                                            <div class="field-map"><i class="lnr lnr-map-marker"></i>
+                                                                <span th:text="${jobApp.getLocation().getName()}"></span>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="job-skill-tag">
+                                                            <li th:each="skill : ${jobApp.getSkills()}">
+                                                                <a href="#" th:text="${skill.getType()}"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Job End -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Job Details Section End -->
+
+    <!--Footer section start-->
+    <footer th:replace="~{fragments/page-frame :: footer}"></footer>
+    <!--Footer section end-->
+
+    <!-- Placed js at the end of the document so the pages load faster -->
+
+</div>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- All jquery file included here -->
+<div th:replace="~{fragments/page-frame :: script}"></div>
+
+</body>
+
+</html>
