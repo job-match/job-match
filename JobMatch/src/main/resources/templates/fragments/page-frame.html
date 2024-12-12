@@ -54,13 +54,14 @@
                                 <a th:href="@{/}">Home</a>
                             </li>
                             <li>
-                                <a th:href="@{/professional-portal/job-ads}">Job Ads</a>
+                                <a th:href="${isAuthenticated ? '/professional-portal/job-ads' : 'auth/professional-portal/login'}">Job Ads</a>
                             </li>
                             <li><a href="job-listing.html">Job Applications</a>
                             </li>
                             <li><a href="candidates-listing.html">Professionals</a>
                             </li>
-                            <li><a th:href="@{/professional-portal/companies}">Companies</a>
+                            <li>
+                                <a th:href="${isAuthenticated ? '/professional-portal/companies' : 'auth/professional-portal/login'}">Companies</a>
                             </li>
                             <li><a th:href="@{/about}">About</a></li>
                         </ul>
@@ -129,14 +130,15 @@
                                 <a th:href="@{/}">Home</a>
                             </li>
                             <li>
-                                <a th:href="@{/professional-portal/job-ads}">Job Ads</a>
+                                <a th:href="${isAuthenticated ? '/professional-portal/job-ads' : 'auth/professional-portal/login'}">Job Ads</a>
                             </li>
                             <li><a href="job-listing.html">Job Applications</a>
                             </li>
                             <li><a href="candidates-listing.html">Professionals</a>
                             </li>
                             </li>
-                            <li><a th:href="@{/professional-portal/companies}">Companies</a>
+                            <li >
+                                <a th:href="${isAuthenticated ? '/professional-portal/companies' : 'auth/professional-portal/login'}">Companies</a>
                             </li>
                             </li>
                             <li><a th:href="@{/about}">About</a></li>

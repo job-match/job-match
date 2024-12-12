@@ -2,9 +2,11 @@ package com.project.jobmatch.controllers.mvc;
 
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.services.interfaces.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
@@ -27,6 +29,11 @@ public class HomeMvcController {
         this.jobAdService = jobAdService;
         this.jobApplicationService = jobApplicationService;
         this.locationService = locationService;
+    }
+
+    @ModelAttribute("isAuthenticated")
+    public boolean populateIsAuthenticated(HttpSession session) {
+        return session.getAttribute("currentUser") != null;
     }
 
     @GetMapping
