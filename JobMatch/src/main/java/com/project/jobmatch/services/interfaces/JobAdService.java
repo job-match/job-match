@@ -34,4 +34,6 @@ public interface JobAdService {
     List<JobAd> getSixMostRecentJobAds();
 
     List<JobAd> getJobAdsByCompanyId(int companyId);
+
+    List<JobAd> getAllActiveJobAdsOfCompany(Company company);
 }

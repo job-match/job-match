@@ -1,10 +1,9 @@
-package com.project.jobmatch.controllers.mvc.company;
+package com.project.jobmatch.controllers.mvc.professional;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.models.Company;
-import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.CompanyDtoSearch;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.JobAdService;
@@ -15,8 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/professional-portal/companies")

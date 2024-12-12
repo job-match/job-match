@@ -51,4 +51,7 @@ public interface JobAdRepository extends JpaRepository<JobAd, Integer> {
 
     @Query("SELECT j FROM JobAd j WHERE j.company.id = :companyId")
     List<JobAd> getJobAdByCompanyId(int companyId);
+
+    @Query("SELECT ja FROM JobAd ja WHERE ja.company.id = :companyId AND ja.status.id = :statusId")
+    List<JobAd> findActiveJobAdsOfCompany(@Param("companyId")int companyId, @Param("statusId") int statusId);
 }
