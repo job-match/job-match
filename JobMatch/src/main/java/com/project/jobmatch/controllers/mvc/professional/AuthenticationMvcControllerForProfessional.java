@@ -122,4 +122,10 @@ public class AuthenticationMvcControllerForProfessional {
             return "professional/login-professional";
         }
     }
+
+    @GetMapping("/professional-portal/logout")
+    public String handleLogout(HttpSession session) {
+        session.removeAttribute("currentUser");
+        return "redirect:/";
+    }
 }
