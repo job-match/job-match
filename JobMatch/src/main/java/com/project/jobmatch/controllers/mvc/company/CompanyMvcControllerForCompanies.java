@@ -3,10 +3,10 @@ package com.project.jobmatch.controllers.mvc.company;
 import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
-import com.project.jobmatch.models.Company;
-import com.project.jobmatch.models.JobAd;
-import com.project.jobmatch.models.JobApplication;
-import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.helpers.ModelMapper;
+import com.project.jobmatch.models.*;
+import com.project.jobmatch.models.dto.CompanyDtoOutUpdate;
+import com.project.jobmatch.models.dto.ProfessionalDtoOutUpdate;
 import com.project.jobmatch.services.interfaces.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +30,26 @@ public class CompanyMvcControllerForCompanies {
     private final JobApplicationService jobApplicationService;
     private final JobAdService jobAdService;
     private final MatchService matchService;
+    private final LocationService locationService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public CompanyMvcControllerForCompanies(AuthenticationHelper authenticationHelper, CompanyService companyService, ProfessionalService professionalService, JobApplicationService jobApplicationService, JobAdService jobAdService, MatchService matchService) {
+    public CompanyMvcControllerForCompanies(AuthenticationHelper authenticationHelper,
+                                            CompanyService companyService,
+                                            ProfessionalService professionalService,
+                                            JobApplicationService jobApplicationService,
+                                            JobAdService jobAdService,
+                                            MatchService matchService,
+                                            LocationService locationService,
+                                            ModelMapper modelMapper) {
         this.authenticationHelper = authenticationHelper;
         this.companyService = companyService;
         this.professionalService = professionalService;
         this.jobApplicationService = jobApplicationService;
         this.jobAdService = jobAdService;
         this.matchService = matchService;
+        this.locationService = locationService;
+        this.modelMapper = modelMapper;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -62,6 +73,11 @@ public class CompanyMvcControllerForCompanies {
         return currentUser != null && currentUserClass.equals("Company");
     }
 
+    @ModelAttribute("locations")
+    public List<Location> populateLocations() {
+        return locationService.getAllLocations();
+    }
+
     @GetMapping("/profile")
     public String getCompanyProfileInfo(Model model, HttpSession httpSession) {
 
@@ -82,6 +98,20 @@ public class CompanyMvcControllerForCompanies {
         model.addAttribute("matchedJobApps", matchedJobApps);
 
         return "company/company-profile-view";
+    }
+
+    @GetMapping("/update")
+    public String getUpdateCompanyProfile(Model model, HttpSession session) {
+        Company company;
+        try {
+            company = authenticationHelper.tryGetCurrentCompany(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/company-portal/login";
+        }
+
+        CompanyDtoOutUpdate companyDtoOutUpdate = modelMapper.fromCompanyToCompanyDtoOutUpdate(company);
+        model.addAttribute("company", companyDtoOutUpdate);
+        return "company/company-update-profile-view";
     }
 
     @GetMapping("/delete/{id}")
