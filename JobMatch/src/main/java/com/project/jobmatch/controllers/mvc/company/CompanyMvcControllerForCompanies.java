@@ -61,26 +61,21 @@ public class CompanyMvcControllerForCompanies {
 
     @GetMapping("/profile")
     public String getCompanyProfileInfo(Model model, HttpSession httpSession) {
-        //TODO Uncomment the below code once login for company is ready
 
-        Professional professional;
         Company company;
-        List<JobApplication> activeJobApplications;
+        List<JobAd> activeJobAds;
         List<JobApplication> matchedJobApps;
 
-        company = companyService.getCompanyById(1);
-        professional = professionalService.getProfessionalById(1);
-        matchedJobApps = matchService.getMatchedJobApplications(company);
-
-//         try {
-//             Company company = authenticationHelper.tryGetCurrentCompany(httpSession);
-//         } catch (AuthorizationException e) {
-//             return "redirect:/auth/company-portal/login";
-//         }
+        try {
+            company = authenticationHelper.tryGetCurrentCompany(httpSession);
+            activeJobAds = jobAdService.getAllActiveJobAdsOfCompany(company);
+            matchedJobApps = matchService.getMatchedJobApplications(company);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/company-portal/login";
+        }
 
         model.addAttribute("company", company);
-        model.addAttribute("professional", professional);
-        model.addAttribute("activeJobAds", jobAdService.getAllActiveJobAdsOfCompany(company));
+        model.addAttribute("activeJobAds", activeJobAds);
         model.addAttribute("matchedJobApps", matchedJobApps);
 
         return "company/company-profile-view";
