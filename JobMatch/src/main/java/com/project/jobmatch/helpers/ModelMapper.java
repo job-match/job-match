@@ -124,6 +124,7 @@ public class ModelMapper {
         company.setLocation(locationService.getLocationByName(companyDtoInUpdate.getLocation()));
         company.setContacts(companyDtoInUpdate.getContacts());
         company.setJobAds(companyService.getCompanyById(id).getJobAds());
+        company.setPicture(companyService.getCompanyById(id).getPicture());
 
         return company;
     }
@@ -230,8 +231,8 @@ public class ModelMapper {
 
     public Professional fromProfessionalDtoInUpdateToProfessional(int id, ProfessionalDtoInUpdate professionalDtoInUpdate) {
         Professional professional = new Professional();
-        professional.setId(id);
 
+        professional.setId(id);
         professional.setUsername(professionalService.getProfessionalById(id).getUsername());
         professional.setPassword(professionalDtoInUpdate.getPassword());
         professional.setFirstName(professionalDtoInUpdate.getFirstName());
