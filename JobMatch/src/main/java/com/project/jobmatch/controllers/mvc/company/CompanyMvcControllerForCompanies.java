@@ -1,6 +1,7 @@
 package com.project.jobmatch.controllers.mvc.company;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
@@ -9,10 +10,12 @@ import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.services.interfaces.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -79,5 +82,30 @@ public class CompanyMvcControllerForCompanies {
         model.addAttribute("matchedJobApps", matchedJobApps);
 
         return "company/company-profile-view";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteCompany(@PathVariable int id, Model model, HttpSession session) {
+        Company companyAuthenticated;
+        try {
+            companyAuthenticated = authenticationHelper.tryGetCurrentCompany(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/company-portal/login";
+        }
+
+        try {
+            Company companyToDelete = companyService.getCompanyById(id);
+
+            companyService.deleteCompany(companyToDelete, companyAuthenticated);
+
+            return "redirect:/logout";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            return "error";
+        }
     }
 }
