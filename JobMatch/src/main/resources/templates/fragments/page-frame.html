@@ -57,7 +57,9 @@
                                 <a th:href="${isAuthenticated ? '/professional-portal/job-ads' : 'auth/professional-portal/login'}">Job
                                     Ads</a>
                             </li>
-                            <li><a href="job-listing.html">Job Applications</a>
+                            <li>
+                                <a th:href="${isAuthenticated ? '/company-portal/job-applications' : 'auth/company-portal/login'}">Job Applications
+                                </a>
                             </li>
                             <li><a href="candidates-listing.html">Professionals</a>
                             </li>
@@ -132,7 +134,7 @@
                                 <a th:href="${isAuthenticated ? '/professional-portal/job-ads' : 'auth/professional-portal/login'}">Job
                                     Ads</a>
                             </li>
-                            <li><a href="job-listing.html">Job Applications</a>
+                            <li><a th:href="${isAuthenticated ? '/company-portal/job-applications' : 'auth/company-portal/login'}">Job Applications</a>
                             </li>
                             <li><a href="candidates-listing.html">Professionals</a>
                             </li>
