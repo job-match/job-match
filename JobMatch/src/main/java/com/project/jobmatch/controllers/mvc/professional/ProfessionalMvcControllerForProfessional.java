@@ -130,7 +130,7 @@ public class ProfessionalMvcControllerForProfessional {
     }
 
     @PostMapping("/update")
-    public String updateUserProfile(@Valid @ModelAttribute("professional") ProfessionalDtoInUpdate professionalDtoInUpdate,
+    public String updateProfessionalProfile(@Valid @ModelAttribute("professional") ProfessionalDtoInUpdate professionalDtoInUpdate,
                                     BindingResult bindingResult,
                                     @RequestParam("professionalPicture") MultipartFile professionalPicture,
                                     Model model,
