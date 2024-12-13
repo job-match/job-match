@@ -119,4 +119,16 @@ public class AuthenticationHelper {
             throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
         }
     }
+
+    public Company verifyAuthenticationCompany(String username, String password) {
+        try {
+            Company company = companyService.getCompanyByUsername(username);
+            if (!company.getPassword().equals(password)) {
+                throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+            }
+            return company;
+        } catch (EntityNotFoundException e) {
+            throw new AuthorizationException(INVALID_AUTHENTICATION_ERROR);
+        }
+    }
 }
