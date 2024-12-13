@@ -169,8 +169,6 @@
                                     </form>
                                 </div>
                             </div>
-
-                            <!--                                TODO: implement register form-->
                             <div id="register" th:classappend="${activeTab == 'register'} ? 'show active' : ''" class="tab-pane fade">
                                 <div class="login-register-form">
                                     <form th:action="@{/auth/company-portal/register}" th:object="${registerCompany}" method="post">
