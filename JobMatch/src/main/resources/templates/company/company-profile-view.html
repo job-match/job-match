@@ -40,7 +40,7 @@
                     <div class="candidate-head-info">
                         <div class="candidate-logo">
                             <a href="#">
-                                <img th:src="@{'/images/companies_logo/logo' + ${company.getId()} + '.jpg'}"
+                                <img th:src="${company.picture != null ? company.picture.url : '/images/profile-picture/default-company-logo.png'}"
                                      alt="Profile picture"></a>
                         </div>
                         <div class="candidate-content">
@@ -59,7 +59,7 @@
                                 <li class="date-publish">
                                     <i class="lnr lnr-clock"></i>
                                     Member since: <label class="theme-color"
-                                                         th:text="${#dates.format(professional.getCreatedAt(), 'dd/MM/yyyy')}">Sep
+                                                         th:text="${#dates.format(company.getCreatedAt(), 'dd/MM/yyyy')}">Sep
                                     27, 2022</label>
                                 </li>
                                 <li class="date-publish">
@@ -70,7 +70,7 @@
                                     </form>
                                 </li>
                                 <li class="date-publish">
-                                    <form th:action="@{/company-portal/companies/delete/{id}(id=${professional.id})}"
+                                    <form th:action="@{/company-portal/companies/delete/{id}(id=${company.id})}"
                                           method="get">
                                         <button class="ht-btn theme-btn theme-btn-two transparent-btn-two"
                                                 type="submit">Delete Account
