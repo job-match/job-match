@@ -127,10 +127,4 @@ public class AuthenticationMvcControllerForCompanies {
             return "company/login-register";
         }
     }
-
-    @GetMapping("/company-portal/logout")
-    public String handleLogout(HttpSession session) {
-        session.removeAttribute("currentUser");
-        return "redirect:/";
-    }
 }
