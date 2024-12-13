@@ -52,6 +52,16 @@ public class HomeMvcController {
         return currentUser != null && currentUserClass.equals("Company");
     }
 
+    @ModelAttribute("currentUserUsername")
+    public String populateCurrentUserUsername(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        if (currentUser != null) {
+            return httpSession.getAttribute("currentUser").toString();
+        }
+
+        return "";
+    }
+
     @GetMapping
     public String showHomePage(Model model) {
         List<Company> allCompanies = companyService.getAllCompanies();

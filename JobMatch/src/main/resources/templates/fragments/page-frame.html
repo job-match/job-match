@@ -83,7 +83,8 @@
                         <div class="btn-action-wrap d-flex">
                             <div class="jp-author main-menu">
                                 <ul>
-                                    <li th:unless="${isAuthenticated}"><a href="#"><i class="lnr lnr-user"></i> Login |
+                                    <li th:unless="${isAuthenticated}">
+                                        <a href="#"><i class="lnr lnr-user"></i> Login |
                                         Register <small
                                                 class="icon-arrow"></small></a>
                                         <ul class="sub-menu">
@@ -98,7 +99,19 @@
                             <div class="jp-author main-menu">
                                 <ul>
                                     <li th:if="${isAuthenticated}">
-                                        <a th:href="@{/logout}"><i class="lnr lnr-user"></i> Logout </a>
+                                        <a href="#">
+                                            <i class="lnr lnr-user"></i>
+                                            <span th:text="${currentUserUsername}"></span>
+                                            <small class="icon-arrow"></small>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a>Profile</a>
+                                            </li>
+                                            <li>
+                                                <a th:href="@{/logout}">Logout</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </div>
@@ -184,7 +197,19 @@
                             <div class="jp-author main-menu">
                                 <ul>
                                     <li th:if="${isAuthenticated}">
-                                        <a th:href="@{/logout}"><i class="lnr lnr-user"></i> Logout </a>
+                                        <a href="#">
+                                            <i class="lnr lnr-user"></i>
+                                            <span th:text="${currentUserUsername}"></span>
+                                            <small class="icon-arrow"></small>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a>Profile</a>
+                                            </li>
+                                            <li>
+                                                <a th:href="@{/logout}">Logout</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </div>
