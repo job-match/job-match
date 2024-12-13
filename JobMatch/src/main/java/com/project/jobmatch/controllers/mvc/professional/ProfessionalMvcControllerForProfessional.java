@@ -115,10 +115,11 @@ public class ProfessionalMvcControllerForProfessional {
 
     @PostMapping("/update")
     public String updateUserProfile(@Valid @ModelAttribute("professional") ProfessionalDtoInUpdate professionalDtoInUpdate,
+                                    BindingResult bindingResult,
                                     @RequestParam("professionalPicture") MultipartFile professionalPicture,
                                     Model model,
-                                    BindingResult bindingResult,
                                     HttpSession session) {
+
         Professional professionalAuthenticated;
 
         try {
@@ -128,6 +129,9 @@ public class ProfessionalMvcControllerForProfessional {
         }
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("statuses", populateStatuses());
+            model.addAttribute("locations", populateLocations());
+            model.addAttribute("professional", professionalDtoInUpdate);
             return "professional/professional-update-profile-view";
         }
 
