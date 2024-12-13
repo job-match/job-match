@@ -66,6 +66,7 @@ public class AuthenticationMvcControllerForProfessional {
         try {
             authenticationHelper.verifyAuthenticationProfessional(professionalLoginDto.getUsername(), professionalLoginDto.getPassword());
             session.setAttribute("currentUser", professionalLoginDto.getUsername());
+            session.setAttribute("currentUserClass", "Professional");
             return "redirect:/";
         } catch (AuthorizationException e) {
             bindingResult.rejectValue("username", "auth_error", e.getMessage());

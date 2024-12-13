@@ -43,6 +43,22 @@ public class CompanyMvcControllerForCompanies {
         return session.getAttribute("currentUser") != null;
     }
 
+    @ModelAttribute("isProfessional")
+    public boolean populateIsProfessional(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        String currentUserClass = (String) httpSession.getAttribute("currentUserClass");
+
+        return currentUser != null && currentUserClass.equals("Professional");
+    }
+
+    @ModelAttribute("isCompany")
+    public boolean populateIsCompany(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        String currentUserClass = (String) httpSession.getAttribute("currentUserClass");
+
+        return currentUser != null && currentUserClass.equals("Company");
+    }
+
     @GetMapping("/profile")
     public String getCompanyProfileInfo(Model model, HttpSession httpSession) {
         //TODO Uncomment the below code once login for company is ready

@@ -71,6 +71,7 @@ public class AuthenticationMvcControllerForCompanies {
         try {
             authenticationHelper.verifyAuthenticationCompany(companyLoginDto.getUsername(), companyLoginDto.getPassword());
             session.setAttribute("currentUser", companyLoginDto.getUsername());
+            session.setAttribute("currentUserClass", "Company");
             return "redirect:/";
         } catch (AuthorizationException e) {
             bindingResult.rejectValue("username", "auth_error", e.getMessage());
