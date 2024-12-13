@@ -69,7 +69,7 @@ public class AuthenticationMvcControllerForCompanies {
         }
 
         try {
-            authenticationHelper.verifyAuthenticationProfessional(companyLoginDto.getUsername(), companyLoginDto.getPassword());
+            authenticationHelper.verifyAuthenticationCompany(companyLoginDto.getUsername(), companyLoginDto.getPassword());
             session.setAttribute("currentUser", companyLoginDto.getUsername());
             return "redirect:/";
         } catch (AuthorizationException e) {
