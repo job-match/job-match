@@ -1,7 +1,9 @@
 package com.project.jobmatch.controllers.mvc.professional;
 
 import com.project.jobmatch.exceptions.EntityNotFoundException;
+import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.JobAdDtoSearch;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +29,22 @@ public class JobAdMvcControllerForProfessionals {
     @ModelAttribute("isAuthenticated")
     public boolean populateIsAuthenticated(HttpSession session) {
         return session.getAttribute("currentUser") != null;
+    }
+
+    @ModelAttribute("isProfessional")
+    public boolean populateIsProfessional(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        String currentUserClass = (String) httpSession.getAttribute("currentUserClass");
+
+        return currentUser != null && currentUserClass.equals("Professional");
+    }
+
+    @ModelAttribute("isCompany")
+    public boolean populateIsCompany(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        String currentUserClass = (String) httpSession.getAttribute("currentUserClass");
+
+        return currentUser != null && currentUserClass.equals("Company");
     }
 
     @GetMapping

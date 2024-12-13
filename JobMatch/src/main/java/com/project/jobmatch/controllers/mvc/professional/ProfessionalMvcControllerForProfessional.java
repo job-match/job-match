@@ -61,6 +61,22 @@ public class ProfessionalMvcControllerForProfessional {
         return session.getAttribute("currentUser") != null;
     }
 
+    @ModelAttribute("isProfessional")
+    public boolean populateIsProfessional(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        String currentUserClass = (String) httpSession.getAttribute("currentUserClass");
+
+        return currentUser != null && currentUserClass.equals("Professional");
+    }
+
+    @ModelAttribute("isCompany")
+    public boolean populateIsCompany(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        String currentUserClass = (String) httpSession.getAttribute("currentUserClass");
+
+        return currentUser != null && currentUserClass.equals("Company");
+    }
+
     @ModelAttribute("locations")
     public List<Location> populateLocations() {
         return locationService.getAllLocations();
