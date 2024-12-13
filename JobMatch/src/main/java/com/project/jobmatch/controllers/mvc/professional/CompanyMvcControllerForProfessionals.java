@@ -52,6 +52,16 @@ public class CompanyMvcControllerForProfessionals {
         return currentUser != null && currentUserClass.equals("Company");
     }
 
+    @ModelAttribute("currentUserUsername")
+    public String populateCurrentUserUsername(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        if (currentUser != null) {
+            return httpSession.getAttribute("currentUser").toString();
+        }
+
+        return "";
+    }
+
     @GetMapping
     public String getAllCompanies(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = COMPANIES_PER_PAGE) int size,

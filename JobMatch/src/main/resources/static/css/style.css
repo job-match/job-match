@@ -12643,3 +12643,13 @@ body.template-color-4 .copyright p a:hover {
 .space-separator {
   margin: 40px 0; /* Adds some spacing above and below the line */
 }
+
+.icon-link {
+  display: flex;
+  align-items: center;  /* Vertically align icon and text */
+}
+
+.icon-link i {
+  font-size: 24px; /* Adjust the size of the icon */
+  margin-right: 8px; /* Optional: adds space between the icon and the text */
+}
