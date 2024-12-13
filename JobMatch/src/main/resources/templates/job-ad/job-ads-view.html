@@ -42,13 +42,15 @@
                                 <form action="#" th:action="@{/professional-portal/job-ads}" method="get"
                                       th:object="${jobAdDtoSearch}">
                                     <div class="input-group">
-                                        <input type="text" name="search" placeholder="Search..." th:placeholder="'Position Title...'"
+                                        <input type="text" name="search" placeholder="Search..."
+                                               th:placeholder="'Position Title...'"
                                                th:field="*{positionTitle}">
                                         <i class="lnr lnr-magnifier"></i>
                                     </div>
                                     <h3 class="sidebar-title-small" th:text="'Location'"></h3>
                                     <div class="input-group">
-                                        <input type="text" name="location" placeholder="Enter location" th:placeholder="'Location...'"
+                                        <input type="text" name="location" placeholder="Enter location"
+                                               th:placeholder="'Location...'"
                                                th:field="*{location}">
                                         <i class="far fa-dot-circle"></i>
                                     </div>
@@ -68,7 +70,8 @@
                                     <input type="hidden" name="minSalary" id="min-salary" th:field="*{minSalary}">
                                     <input type="hidden" name="maxSalary" id="max-salary" th:field="*{maxSalary}">
 
-                                    <button type="submit" class="ht-btn theme-btn theme-btn-two w-100" th:text="'Filter'"></button>
+                                    <button type="submit" class="ht-btn theme-btn theme-btn-two w-100"
+                                            th:text="'Filter'"></button>
                                 </form>
                             </div>
                         </div>
@@ -89,58 +92,64 @@
                                 <span class="total" th:text="${jobAdsAllSize}">(22)</span>
                                 <span th:text="'Results Found'"></span>
                             </div>
-<!--                            <div class="job-alert-form">-->
-<!--                                    <span class="btn-open-form">-->
-<!--                                    <i class="lnr lnr-envelope"></i>-->
-<!--                                    Email me jobs like these-->
-<!--                                </span>-->
-<!--                                <div class="job-alert-form-box">-->
-<!--                                    <h3 class="title"> Email me jobs like these</h3>-->
-<!--                                    <div class="btn-close-form"><i class="lnr lnr-cross-circle"></i></div>-->
-<!--                                    <form action="#">-->
-<!--                                        <div class="newsletter">-->
-<!--                                            <div class="row">-->
-<!--                                                <div class="col-md-5">-->
-<!--                                                    <input type="text" name="alert-name" placeholder="Job alert name..."-->
-<!--                                                           class="alert-name">-->
-<!--                                                </div>-->
-<!--                                                <div class="col-md-5">-->
-<!--                                                    <input type="email" class="alert-email"-->
-<!--                                                           placeholder="example@email.com" name="alert-email">-->
-<!--                                                </div>-->
-<!--                                                <div class="col-md-2">-->
-<!--                                                    <button class="ht-btn">Submit</button>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </form>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <!--                            <div class="job-alert-form">-->
+                            <!--                                    <span class="btn-open-form">-->
+                            <!--                                    <i class="lnr lnr-envelope"></i>-->
+                            <!--                                    Email me jobs like these-->
+                            <!--                                </span>-->
+                            <!--                                <div class="job-alert-form-box">-->
+                            <!--                                    <h3 class="title"> Email me jobs like these</h3>-->
+                            <!--                                    <div class="btn-close-form"><i class="lnr lnr-cross-circle"></i></div>-->
+                            <!--                                    <form action="#">-->
+                            <!--                                        <div class="newsletter">-->
+                            <!--                                            <div class="row">-->
+                            <!--                                                <div class="col-md-5">-->
+                            <!--                                                    <input type="text" name="alert-name" placeholder="Job alert name..."-->
+                            <!--                                                           class="alert-name">-->
+                            <!--                                                </div>-->
+                            <!--                                                <div class="col-md-5">-->
+                            <!--                                                    <input type="email" class="alert-email"-->
+                            <!--                                                           placeholder="example@email.com" name="alert-email">-->
+                            <!--                                                </div>-->
+                            <!--                                                <div class="col-md-2">-->
+                            <!--                                                    <button class="ht-btn">Submit</button>-->
+                            <!--                                                </div>-->
+                            <!--                                            </div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </form>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
                             <div class="form-left">
                                 <div class="sort-by">
                                     <form action="#" id="sortForm" method="get">
                                         <label class="text-sortby">Sort by:</label>
                                         <select class="nice-select" name="sortField" id="sortField">
-                                            <option value="positionTitle" th:selected="${sortField == 'positionTitle'}" th:text="'Title'"></option>
-                                            <option value="location" th:selected="${sortField == 'location'}" th:text="'Location'"></option>
+                                            <option value="positionTitle" th:selected="${sortField == 'positionTitle'}"
+                                                    th:text="'Title'"></option>
+                                            <option value="location" th:selected="${sortField == 'location'}"
+                                                    th:text="'Location'"></option>
                                         </select>
                                         <label class="text-sortby">Order:</label>
                                         <select class="nice-select" name="sortDirection" id="sortDirection">
-                                            <option value="asc" th:selected="${sortDirection == 'asc'}" th:text="'Ascending'"></option>
-                                            <option value="desc" th:selected="${sortDirection == 'desc'}" th:text="'Descending'"></option>
+                                            <option value="asc" th:selected="${sortDirection == 'asc'}"
+                                                    th:text="'Ascending'"></option>
+                                            <option value="desc" th:selected="${sortDirection == 'desc'}"
+                                                    th:text="'Descending'"></option>
                                         </select>
-                                        <form action="#" th:action="@{/professional-portal/job-ads}" method="get" th:object="${jobAdDtoSearch}">
-                                            <button type="submit" class="ht-btn theme-btn theme-btn-two w-10">Sort</button>
+                                        <form action="#" th:action="@{/professional-portal/job-ads}" method="get"
+                                              th:object="${jobAdDtoSearch}">
+                                            <button type="submit" class="ht-btn theme-btn theme-btn-two w-10">Sort
+                                            </button>
                                         </form>
                                     </form>
                                 </div>
-<!--                                <div class="layout-switcher">-->
-<!--                                    <ul class="nav">-->
-<!--                                        <li><a class="active show" data-bs-toggle="tab" href="#list"><i-->
-<!--                                                class="fa fa-list"></i></a></li>-->
-<!--                                        <li><a data-bs-toggle="tab" href="#grid"><i class="fa fa-th"></i></a></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
+                                <!--                                <div class="layout-switcher">-->
+                                <!--                                    <ul class="nav">-->
+                                <!--                                        <li><a class="active show" data-bs-toggle="tab" href="#list"><i-->
+                                <!--                                                class="fa fa-list"></i></a></li>-->
+                                <!--                                        <li><a data-bs-toggle="tab" href="#grid"><i class="fa fa-th"></i></a></li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -161,13 +170,9 @@
                                             <div class="job-info">
                                                 <div class="job-info-inner">
                                                     <div class="job-info-top">
-                                                        <!--                                                            <div class="saveJob for-listing">-->
-                                                        <!--                                                                <span class="featured-label">featured</span>-->
-                                                        <!--                                                                <a class="job-type-label ml-20 mr-20">Full Time</a>-->
-                                                        <!--                                                                <a class="save-job" href="#quick-view-modal-container" data-toggle="modal">-->
-                                                        <!--                                                                    <i class="far fa-heart"></i>-->
-                                                        <!--                                                                </a>-->
-                                                        <!--                                                            </div>-->
+                                                        <div class="saveJob for-listing">
+                                                            <span class="featured-label" th:text="${jobAd.getStatus().getType()}"></span>
+                                                        </div>
                                                         <div class="title-name">
                                                             <h3 class="job-title">
                                                                 <a th:href="@{/professional-portal/job-ads/{id}(id=${jobAd.getId()})}"
