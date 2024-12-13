@@ -46,9 +46,12 @@
                                      alt="Profile picture"></a>
                         </div>
                         <div class="candidate-content">
-                            <h1 class="candidate-name"
-                                th:utext="${professional.firstName} + ' ' + ${professional.lastName} + ' <i class=&quot;fas fa-check-circle&quot;></i>'">
-                                Your Name</h1>
+                            <div class="header-with-status">
+                                <h1 class="candidate-name"
+                                    th:utext="${professional.firstName} + ' ' + ${professional.lastName} + ' <i class=&quot;fas fa-check-circle&quot;></i>'">
+                                    Your Name</h1>
+                                <span class="featured-label" th:text="${professional.getStatus().getType()}">featured</span>
+                            </div>
                             <ul class="candidate-meta">
                                 <li class="date-publish">
                                     Job Applications: <label class="theme-color"

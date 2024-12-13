@@ -6359,6 +6359,16 @@ body.template-color-4 .copyright p a:hover {
   margin-top: 30px;
   margin-bottom: 0;
 }
+.candidate-head-info .candidate-content .header-with-status {
+  display: flex; /* Aligns items in a row */
+  align-items: center; /* Vertically aligns button with text */
+  justify-content: space-between; /* Ensures spacing between heading and button */
+}
+.header-with-status .candidate-name{
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+}
 @media only screen and (max-width: 479px) {
   .candidate-head-info .candidate-content .candidate-name {
     font-size: 28px;
