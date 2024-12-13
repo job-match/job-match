@@ -1,5 +1,6 @@
 package com.project.jobmatch.models.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -9,23 +10,23 @@ public class CompanyDtoInUpdate {
     @Size(min = 4, max = 15, message = "Password should be between 4 and 15 symbols!")
     private String password;
 
-    @NotNull(message = "Name cannot be empty!")
+    @NotEmpty(message = "Name cannot be empty!")
     @Size(min = 2, max = 50, message = "Name should be between 1 and 64 symbols!")
     private String name;
 
-    @NotNull(message = "Email cannot be empty!")
+    @NotEmpty(message = "Email cannot be empty!")
     @Size(min = 5, max = 50, message = "Email should be between 5 and 50 symbols!")
     private String email;
 
-    @NotNull(message = "Description cannot be empty!")
+    @NotEmpty(message = "Description cannot be empty!")
     @Size(min = 10, max = 2500, message = "Description should be between 10 and 500 symbols!")
     private String description;
 
-    @NotNull(message = "Location cannot be empty!")
+    @NotEmpty(message = "Location cannot be empty!")
     @Size(min = 2, max = 50, message = "Location should be between 2 and 50 symbols!")
     private String location;
 
-    @NotNull(message = "Contacts cannot be empty!")
+    @NotEmpty(message = "Contacts cannot be empty!")
     @Size(min = 10, max = 255, message = "Contacts should be between 10 and 255 symbols!")
     private String contacts;
 

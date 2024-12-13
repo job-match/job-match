@@ -65,6 +65,19 @@ public class ModelMapper {
         return companyDtoOut;
     }
 
+    public CompanyDtoOutUpdate fromCompanyToCompanyDtoOutUpdate(Company company) {
+        CompanyDtoOutUpdate companyDtoOutUpdate = new CompanyDtoOutUpdate();
+
+        companyDtoOutUpdate.setName(company.getName());
+        companyDtoOutUpdate.setLocation(company.getLocation().getName());
+        companyDtoOutUpdate.setEmail(company.getEmail());
+        companyDtoOutUpdate.setPicture(company.getPicture());
+        companyDtoOutUpdate.setDescription(company.getDescription());
+        companyDtoOutUpdate.setContacts(company.getContacts());
+
+        return companyDtoOutUpdate;
+    }
+
     public Company fromCompanyDtoInCreateToCompany(CompanyDtoInCreate companyDtoInCreate) {
         Company company = new Company();
 
@@ -362,4 +375,5 @@ public class ModelMapper {
 
         return professionalDtoOutUpdate;
     }
+
 }
