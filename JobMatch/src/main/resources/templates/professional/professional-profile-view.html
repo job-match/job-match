@@ -163,6 +163,12 @@
                         <div class="field-portfolio">
                             <div class="job-area mt-60">
                                 <div class="job-container">
+                                    <div class="job-apply">
+                                        <a class="ht-btn text-center" href="#"
+                                           th:utext="'Create Job Application'">
+                                        </a>
+                                    </div>
+                                    <div class="space-separator">
                                     <h3>Active Job Applications</h3>
                                     <div class="row">
                                         <div class="col-lg-12" th:each="jobApplication : ${activeJobApplications}">
@@ -178,6 +184,9 @@
                                                                            th:text="'Job Application #'+ ${jobApplication.id}">Chief
                                                                             Accountant</a>
                                                                     </h5>
+                                                                </div>
+                                                                <div class="saveJob for-listing">
+                                                                    <span class="featured-label" th:text="${jobApplication.getStatus().getType()}">featured</span>
                                                                 </div>
                                                             </div>
                                                             <div class="job-meta-two">
@@ -227,6 +236,9 @@
                                                                     <a href="#" th:text="${jobAd.getPositionTitle()}">Chief
                                                                         Accountant</a>
                                                                 </h5>
+                                                            </div>
+                                                            <div class="saveJob for-listing">
+                                                                <span class="featured-label" th:text="${jobAd.getStatus().getType()}">featured</span>
                                                             </div>
                                                         </div>
                                                         <div class="job-meta-two">

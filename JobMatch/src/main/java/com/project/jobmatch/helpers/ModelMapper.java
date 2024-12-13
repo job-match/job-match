@@ -204,6 +204,17 @@ public class ModelMapper {
         return professional;
     }
 
+    public Company fromCompanyRegisterDto(CompanyRegisterDto companyRegisterDto) {
+        Company company = new Company();
+        company.setUsername(companyRegisterDto.getUsername());
+        company.setPassword(companyRegisterDto.getPassword());
+        company.setName(companyRegisterDto.getName());
+        company.setEmail(companyRegisterDto.getEmail());
+        company.setDescription(companyRegisterDto.getDescription());
+        company.setContacts(companyRegisterDto.getContacts());
+        return company;
+    }
+
     public Professional fromProfessionalDtoInUpdateToProfessional(int id, ProfessionalDtoInUpdate professionalDtoInUpdate) {
         Professional professional = new Professional();
         professional.setId(id);

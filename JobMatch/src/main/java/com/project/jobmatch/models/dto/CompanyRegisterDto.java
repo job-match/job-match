@@ -12,6 +12,12 @@ public class CompanyRegisterDto extends CompanyLoginDto {
     @NotEmpty(message = "Cannot be empty!")
     private String email;
 
+    @NotEmpty(message = "Cannot be empty!")
+    private String description;
+
+    @NotEmpty(message = "Cannot be empty!")
+    private String contacts;
+
     public CompanyRegisterDto() {
     }
 
@@ -37,5 +43,21 @@ public class CompanyRegisterDto extends CompanyLoginDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public @NotEmpty(message = "Cannot be empty!") String getDescription() {
+        return description;
+    }
+
+    public void setDescription(@NotEmpty(message = "Cannot be empty!") String description) {
+        this.description = description;
+    }
+
+    public @NotEmpty(message = "Cannot be empty!") String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(@NotEmpty(message = "Cannot be empty!") String contacts) {
+        this.contacts = contacts;
     }
 }

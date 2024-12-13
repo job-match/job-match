@@ -69,7 +69,7 @@ public class AuthenticationMvcControllerForCompanies {
         }
 
         try {
-            authenticationHelper.verifyAuthenticationProfessional(companyLoginDto.getUsername(), companyLoginDto.getPassword());
+            authenticationHelper.verifyAuthenticationCompany(companyLoginDto.getUsername(), companyLoginDto.getPassword());
             session.setAttribute("currentUser", companyLoginDto.getUsername());
             return "redirect:/";
         } catch (AuthorizationException e) {
@@ -126,11 +126,5 @@ public class AuthenticationMvcControllerForCompanies {
             model.addAttribute("activeTab", "register");
             return "company/login-register";
         }
-    }
-
-    @GetMapping("/company-portal/logout")
-    public String handleLogout(HttpSession session) {
-        session.removeAttribute("currentUser");
-        return "redirect:/";
     }
 }
