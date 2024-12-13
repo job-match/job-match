@@ -62,6 +62,21 @@
                                                          th:text="${#dates.format(professional.getCreatedAt(), 'dd/MM/yyyy')}">Sep
                                     27, 2022</label>
                                 </li>
+                                <li class="date-publish">
+                                    <form th:action="@{/company-portal/companies/update}" method="get">
+                                        <button class="ht-btn theme-btn theme-btn-two mb-xs-20" type="submit">Update
+                                            Profile
+                                        </button>
+                                    </form>
+                                </li>
+                                <li class="date-publish">
+                                    <form th:action="@{/company-portal/companies/delete/{id}(id=${professional.id})}"
+                                          method="get">
+                                        <button class="ht-btn theme-btn theme-btn-two transparent-btn-two"
+                                                type="submit">Delete Account
+                                        </button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -175,6 +190,13 @@
                         <div class="field-portfolio">
                             <div class="job-area mt-60">
                                 <div class="job-container">
+                                    <div class="job-apply">
+                                        <a class="ht-btn text-center" href="#"
+                                           th:utext="'Create Job Ad'">
+                                        </a>
+                                    </div>
+                                    <div class="space-separator">
+                                    </div>
                                     <h3>Active Job Ads</h3>
                                     <div class="row">
                                         <div class="col-lg-12" th:each="jobAd : ${company.getJobAds()}">
@@ -190,6 +212,9 @@
                                                                            th:text="${jobAd.getPositionTitle()}">Chief
                                                                             Accountant</a>
                                                                     </h5>
+                                                                </div>
+                                                                <div class="saveJob for-listing">
+                                                                    <span class="featured-label" th:text="${jobAd.getStatus().getType()}">featured</span>
                                                                 </div>
                                                             </div>
                                                             <div class="job-meta-two">
@@ -238,6 +263,7 @@
                                                     <div class="job-info-inner">
                                                         <div class="job-info-top">
                                                             <div class="saveJob for-listing">
+                                                                <span class="featured-label" th:text="${jobApp.getStatus().getType()}">featured</span>
                                                             </div>
                                                             <div class="title-name">
                                                                 <h5 class="job-title">

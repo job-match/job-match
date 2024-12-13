@@ -12629,3 +12629,7 @@ body.template-color-4 .copyright p a:hover {
 .no-capitalization {
   text-transform: none;
 }
+
+.space-separator {
+  margin: 40px 0; /* Adds some spacing above and below the line */
+}

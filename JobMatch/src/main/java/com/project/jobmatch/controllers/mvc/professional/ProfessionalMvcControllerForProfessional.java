@@ -180,7 +180,7 @@ public class ProfessionalMvcControllerForProfessional {
 
             professionalService.deleteProfessional(professionalToDelete, professionalAuthenticated);
 
-            return "redirect:/auth/professional-portal/logout";
+            return "redirect:/logout";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
