@@ -1,7 +1,12 @@
 package com.project.jobmatch.models.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class CompanyLoginDto {
+    @NotEmpty(message = "Cannot be empty!")
     private String username;
+
+    @NotEmpty(message = "Cannot be empty!")
     private String password;
 
     public CompanyLoginDto() {
