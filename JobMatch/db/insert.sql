@@ -1,3 +1,43 @@
+-- pictures Table --
+
+insert into job_match.pictures (picture_id, url, public_id)
+values (1, 'https://res.cloudinary.com/job-match/image/upload/v1734091815/images_10_fsnozu.jpg','images_10_fsnozu'),
+       (2, 'https://res.cloudinary.com/job-match/image/upload/v1734091781/download_1_v3l1fn.jpg','download_1_v3l1fn'),
+       (3, 'https://res.cloudinary.com/job-match/image/upload/v1734091745/download_n4xyyj.jpg','download_n4xyyj'),
+       (4, 'https://res.cloudinary.com/job-match/image/upload/v1734091712/images_9_pzmof3.jpg','images_9_pzmof3'),
+       (5, 'https://res.cloudinary.com/job-match/image/upload/v1734091623/images_8_gr7kdc.jpg','images_8_gr7kdc'),
+       (6, 'https://res.cloudinary.com/job-match/image/upload/v1734091565/istockphoto-1388253782-612x612_aeul9q.jpg','istockphoto-1388253782-612x612_aeul9q'),
+       (7, 'https://res.cloudinary.com/job-match/image/upload/v1734091533/Screenshot_2024_04_05_130256_473f8428ec_tkuzf4.png','Screenshot_2024_04_05_130256_473f8428ec_tkuzf4'),
+       (8, 'https://res.cloudinary.com/job-match/image/upload/v1734091525/images_7_ebsarq.jpg','images_7_ebsarq'),
+       (9, 'https://res.cloudinary.com/job-match/image/upload/v1734090933/images_6_xjhb3f.jpg','images_6_xjhb3f'),
+       (10, 'https://res.cloudinary.com/job-match/image/upload/v1734090835/professional-profile-pictures-2880-x-1920-xq8yol0nn3qfm0w4_zg3kqb.jpg','professional-profile-pictures-2880-x-1920-xq8yol0nn3qfm0w4_zg3kqb'),
+       (11, 'https://res.cloudinary.com/job-match/image/upload/v1734090830/images_eb4u3j.jpg','images_eb4u3j'),
+       (12, 'https://res.cloudinary.com/job-match/image/upload/v1734090830/01_man_profile_df0ivq.png','01_man_profile_df0ivq'),
+       (13, 'https://res.cloudinary.com/job-match/image/upload/v1734090830/depositphotos_13163725-stock-photo-young-man_rwohbb.webp','depositphotos_13163725-stock-photo-young-man_rwohbb'),
+       (14, 'https://res.cloudinary.com/job-match/image/upload/v1734090829/02_man_profile_n7ycgi.jpg','02_man_profile_n7ycgi'),
+       (15, 'https://res.cloudinary.com/job-match/image/upload/v1734090829/smile-profile-face-male-preview_t5jegn.jpg','smile-profile-face-male-preview_t5jegn'),
+       (16, 'https://res.cloudinary.com/job-match/image/upload/v1734090786/240_F_244380850_H3xd2rrb9CfCIcTyFcepVL670vvuTA0b_oz779n.jpg','240_F_244380850_H3xd2rrb9CfCIcTyFcepVL670vvuTA0b_oz779n'),
+       (17, 'https://res.cloudinary.com/job-match/image/upload/v1734090784/01_woman_profile_w81pqw.png','01_woman_profile_w81pqw'),
+       (18, 'https://res.cloudinary.com/job-match/image/upload/v1734090784/02_woman_profile_q7m8ai.jpg','02_woman_profile_q7m8ai'),
+       (19, 'https://res.cloudinary.com/job-match/image/upload/v1734090784/istockphoto-1338134319-612x612_yfe5vp.jpg','istockphoto-1338134319-612x612_yfe5vp'),
+       (20, 'https://res.cloudinary.com/job-match/image/upload/v1734090783/images_4_cqdwdu.jpg','images_4_cqdwdu'),
+       (21, 'https://res.cloudinary.com/job-match/image/upload/v1734090783/images_5_hytd5g.jpg','images_5_hytd5g'),
+       (22, 'https://res.cloudinary.com/job-match/image/upload/v1734090778/images_3_lgbq7s.jpg','images_3_lgbq7s'),
+       (23, 'https://res.cloudinary.com/job-match/image/upload/v1734090777/images_1_lo0e1k.jpg','images_1_lo0e1k'),
+       (24, 'https://res.cloudinary.com/job-match/image/upload/v1734090777/fizkes201102042_tdfmsw.jpg','fizkes201102042_tdfmsw'),
+       (25, 'https://res.cloudinary.com/job-match/image/upload/v1734090777/240_F_367464887_f0w1JrL8PddfuH3P2jSPlIGjKU2BI0rn_rjmsev.jpg','240_F_367464887_f0w1JrL8PddfuH3P2jSPlIGjKU2BI0rn_rjmsev'),
+       (26, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo10_uxrzwy.jpg','logo10_uxrzwy'),
+       (27, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo9_t8wmmk.jpg','logo9_t8wmmk'),
+       (28, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo8_qtbcjm.jpg','logo8_qtbcjm'),
+       (29, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo7_lhx3mx.jpg','logo7_lhx3mx'),
+       (30, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo5_d5niza.jpg','logo5_d5niza'),
+       (31, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo3_nl3na4.jpg','logo3_nl3na4'),
+       (32, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo4_tgp4yn.jpg','logo4_tgp4yn'),
+       (33, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo6_g22out.jpg','logo6_g22out'),
+       (34, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo1_funxrw.jpg','logo1_funxrw'),
+       (35, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo2_uk4kyg.jpg','logo2_uk4kyg');
+
+
 -- statuses Table --
 
 insert into job_match.statuses (status_id, type)
@@ -113,7 +153,7 @@ values (1, 'Java'),
        (55, 'Process Improvement');
 
 -- companies Table --
-insert into job_match.companies (company_id, name, username, password, email, description, location_id, contacts)
+insert into job_match.companies (company_id, name, username, password, email, description, location_id, contacts,picture_id)
 values (1, 'Dev Experts', 'devexperts', 'password', 'devexperts@mail.bg',
         '<h3>Overview:</h3>
         <p>Dev Experts is a renowned software development company specializing in high-performance trading platforms and financial technology solutions. We provide reliable, scalable, and secure applications tailored to the specific needs of financial institutions globally. Our team of highly skilled professionals is dedicated to creating innovative and effective solutions that cater to the complex needs of our clients. With a global presence and a focus on excellence, we are committed to pushing the boundaries of what is possible in the tech world.</p>
@@ -131,130 +171,130 @@ values (1, 'Dev Experts', 'devexperts', 'password', 'devexperts@mail.bg',
             <li>Support for laptop and other essential tools</li>
             <li>Extra healthcare packages</li>
         </ul>',
-        3, '123 Technology Ave, Sofia, +1 234 567 8901'),
+        3, '123 Technology Ave, Sofia, +1 234 567 8901',26),
 
        (2, 'Green Solutions', 'greensolutions', 'password', 'greensolutions@mail.bg',
         'Green Solutions is an environmental consulting firm dedicated to helping companies minimize their environmental impact. They offer a range of services, including sustainability assessments, waste management, and environmental compliance. Green Solutions believes in empowering businesses to become eco-friendly while maintaining profitability.',
-        4, '456 Greenway Blvd, Plovdiv, +1 234 567 8902'),
+        4, '456 Greenway Blvd, Plovdiv, +1 234 567 8902', 27),
 
        (3, 'Tech Innovators', 'techinovators', 'password', 'techinovators@mail.bg',
         'Tech Innovators is a technology consulting firm focused on digital transformation and innovation for businesses of all sizes. Their team specializes in cloud computing, cybersecurity, and big data analytics, assisting clients in modernizing their infrastructure and enhancing security.',
-        5, '789 Innovation Dr, Varna, +1 234 567 8903'),
+        5, '789 Innovation Dr, Varna, +1 234 567 8903', 28),
 
        (4, 'Market Gurus', 'marketgurus', 'password', 'marketgurus@mail.bg',
         'Market Gurus is a leading digital marketing agency that helps companies build strong online presences. With expertise in SEO, content marketing, and social media strategies, they enable clients to reach their target audiences effectively. Market Gurus prides itself on data-driven strategies that yield measurable results.',
-        6, '101 Digital St, Burgas, +1 234 567 8904'),
+        6, '101 Digital St, Burgas, +1 234 567 8904',29),
 
        (5, 'NextGen Health', 'nextgenhealth', 'password', 'k.kirilov@creasevisuals.com',
         'NextGen Health is a healthcare technology company focused on improving patient care through innovative solutions. Their products include electronic health record (EHR) systems, telemedicine platforms, and patient management tools. NextGen Health’s mission is to make healthcare more accessible and efficient by leveraging technology.',
-        3, '102 Health Ln, Sofia, +1 234 567 8905'),
+        3, '102 Health Ln, Sofia, +1 234 567 8905',30),
 
        (6, 'Eco Builders', 'ecobuilders', 'password', 'ecobuilders@mail.bg',
         'Eco Builders is a sustainable construction company dedicated to creating environmentally friendly buildings and structures. They focus on using eco-friendly materials, energy-efficient designs, and renewable energy solutions. Eco Builders aims to reduce the carbon footprint of construction projects while providing beautiful, durable buildings.',
-        4, '202 Green St, Plovdiv, +1 234 567 8906'),
+        4, '202 Green St, Plovdiv, +1 234 567 8906',31),
 
        (7, 'Edu Future', 'edufutures', 'password', 'edufutures@mail.bg',
         'Edu Future is an edtech company that provides online learning platforms and educational tools for students and professionals. They offer courses in various fields, from programming to business management, all designed to be accessible and engaging. Edu Future aims to revolutionize education by making high-quality learning resources available to everyone.',
-        5, '303 Learning Ave, Varna, +1 234 567 8907'),
+        5, '303 Learning Ave, Varna, +1 234 567 8907',32),
 
        (8, 'Agro Corp', 'argrocrop', 'password', 'argrocrop@mail.bg',
         'Agro Corp is an agritech company focused on developing advanced solutions for the agriculture sector. Their technologies include precision farming tools, crop monitoring systems, and sustainable agriculture practices. Agro Corp’s mission is to help farmers optimize production while minimizing environmental impact.',
-        6, '404 Harvest Rd, Burgas, +1 234 567 8908'),
+        6, '404 Harvest Rd, Burgas, +1 234 567 8908',33),
 
        (9, 'Retail Boost', 'retailboost', 'password', 'retailboost@mail.bg',
         'Retail Boost is a retail consulting company that helps businesses improve their customer experience and operational efficiency. They offer solutions for inventory management, point-of-sale systems, and customer engagement strategies. Retail Boost combines industry expertise with technology to deliver insights that drive growth and enhance profitability. ',
-        3, '505 Commerce Blvd, Sofia, +1 234 567 8909'),
+        3, '505 Commerce Blvd, Sofia, +1 234 567 8909',34),
 
        (10, 'Auto Nexus', 'autonexus', 'password', 'autonexus@mail.bg',
         'Auto Nexus is an automotive solutions provider specializing in dealership management software and customer service automation. Their products streamline operations for automotive businesses, improving efficiency and customer satisfaction. Auto Nexus’s tools include CRM systems, inventory tracking, and sales management software, tailored specifically for the automotive industry. ',
-        4, '606 Motorway Dr, Plovdiv, +1 234 567 8910');
+        4, '606 Motorway Dr, Plovdiv, +1 234 567 8910',35);
 
 -- professionals Table --
 insert into job_match.professionals (professional_id, username, password, first_name, last_name, email, summary,
-                                     location_id)
+                                     location_id,picture_id)
 values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilovmail90@gmail.com',
         'Experienced software engineer with over 10 years of expertise in backend development and system architecture. Skilled in Java, Python, and cloud-based technologies, specializing in creating scalable and efficient solutions for complex business challenges. Known for analytical thinking, strong problem-solving skills, and the ability to communicate technical information effectively to both technical and non-technical stakeholders.',
-        3),
+        3, 2),
 
        (2, 'johnsmith', 'password', 'John', 'Smith', 'johnsmith@mail.bg',
         'Digital marketing specialist with a proven track record of designing and implementing successful campaigns across various digital platforms. Proficient in SEO, content marketing, and social media strategies, with a strong understanding of data analytics to drive results. Recognized for creative problem-solving skills and a passion for staying updated with the latest trends in digital marketing.',
-        4),
+        4, 1),
 
        (3, 'mihailboychev', 'password', 'Mihail', 'Boychev', 'mihailboychev@mail.bg',
         'Project manager with extensive experience in agile methodologies and team coordination within the tech industry. Demonstrates an ability to manage multiple projects, meet deadlines, and ensure high-quality deliverables. Skilled in risk management, strategic planning, and fostering collaboration among diverse teams. Recognized for strong leadership qualities and an organized approach to project execution.',
-        5),
+        5, 4),
 
        (4, 'todorpetrov', 'password', 'Todor', 'Petrov', 'todorpetrov@mail.bg',
         'Full-stack developer proficient in JavaScript frameworks such as React and Node.js, with a keen interest in building user-friendly applications. Known for strong technical expertise combined with an understanding of UX/UI principles, making it possible to bridge the gap between backend functionality and front-end usability.',
-        6),
+        6, 3),
 
        (5, 'emilyjones', 'password', 'Emily', 'Jones', 'emilyjones@mail.bg',
         'HR professional with a specialization in talent acquisition and employee relations, bringing over 8 years of experience in recruiting and retention strategies. Known for excellent communication and interpersonal skills, allowing for effective collaboration with hiring managers and candidates. Experienced in conducting interviews, assessing talent, and aligning hiring practices with company goals.',
-        3),
+        3, 19),
 
        (6, 'peterivanov', 'password', 'Peter', 'Ivanov', 'peterivanov@mail.bg',
         'Data analyst with extensive experience in leveraging statistical methods and data visualization tools to support business decision-making. Proficient in SQL, Python, and Tableau, and skilled at translating data into actionable insights. Known for a methodical approach to data interpretation and a passion for optimizing business performance through data-driven strategies.',
-        4),
+        4, 5),
 
        (7, 'annabrown', 'password', 'Anna', 'Brown', 'annabrown@mail.bg',
         'Customer service representative with a strong background in communication and conflict resolution. Known for a friendly demeanor, active listening skills, and the ability to handle high-pressure situations calmly and effectively. Experienced in various customer support platforms and CRM tools.',
-        5),
+        5,22),
 
        (8, 'georgedimitrov', 'password', 'George', 'Dimitrov', 'georgedimitrov@mail.bg',
         'Graphic designer with a unique blend of creativity and technical skill in visual design. Expert in Adobe Creative Suite and familiar with digital marketing and branding strategies. Known for a strong eye for detail and an ability to create visually compelling content.',
-        6),
+        6, 6),
 
        (9, 'annavalcheva', 'password', 'Anna', 'Valcheva', 'annaluncheva@mail.bg',
         'Software engineer with a focus on front-end development and a strong foundation in HTML, CSS, and JavaScript. Enjoys creating intuitive and user-friendly interfaces that enhance user experience. Known for problem-solving abilities and meticulous attention to detail, ensuring high-quality, responsive designs.',
-        3),
+        3, 21),
 
        (10, 'mariaslavova', 'password', 'Maria', 'Slavova', 'mariaslavova@mail.bg',
         'Operations manager with a deep understanding of logistics and supply chain management, dedicated to streamlining business operations and reducing costs. Experienced in process optimization, quality control, and team coordination. Known for excellent organizational skills and an analytical mindset.',
-        4),
+        4, 20),
 
        (11, 'nikolaypetrov', 'password', 'Nikolay', 'Petrov', 'nikolaypetrov@mail.bg',
         'Content writer and editor with expertise in crafting engaging and informative content for digital platforms. Skilled in SEO, content strategy, and copywriting, with a passion for delivering valuable information to readers. Known for exceptional writing skills and a strong understanding of audience engagement.',
-        5),
+        5, 7),
 
        (12, 'ivankolev', 'password', 'Ivan', 'Kolev', 'ivankolev@mail.bg',
         'Mechanical engineer specializing in automotive and manufacturing processes. Highly skilled in CAD design and experienced in coordinating large-scale engineering projects. Known for problem-solving capabilities and technical knowledge in materials and fabrication techniques.',
-        6),
+        6, 8),
 
        (13, 'sofiyageorgieva', 'password', 'Sofiya', 'Georgieva', 'sofiyageorgieva@mail.bg',
         'Financial analyst with extensive experience in budgeting, forecasting, and financial reporting. Proficient in Excel, financial modeling, and data analysis. Known for analytical skills, attention to detail, and the ability to communicate complex financial information clearly.',
-        3),
+        3, 19),
 
        (14, 'stoyankostov', 'password', 'Stoyan', 'Kostov', 'stoyankostov@mail.bg',
         'UX/UI designer with a background in psychology and a strong understanding of user-centered design principles. Skilled in wireframing, prototyping, and user testing, with experience in improving user engagement. Known for creativity, empathy, and the ability to balance aesthetics with functionality.',
-        4),
+        4, 9),
 
        (15, 'viktorstoyanov', 'password', 'Viktor', 'Stoyanov', 'viktorstoyanov@mail.bg',
         'Sales manager with a proven track record in business development and team leadership. Known for persuasive communication skills and an ability to build strong client relationships. Skilled in developing sales strategies that align with business objectives and drive revenue growth.',
-        5),
+        5, 10),
 
        (16, 'milenminkov', 'password', 'Milen', 'Minkov', 'milenminkov@mail.bg',
         'Product manager with expertise in agile methodologies and a strong technical background. Skilled in roadmap planning, feature prioritization, and cross-functional collaboration. Known for problem-solving abilities, customer-focused mindset, and the ability to lead teams through the product development lifecycle.',
-        6),
+        6, 10),
 
        (17, 'ilianaivanova', 'password', 'Iliana', 'Ivanova', 'ilianaivanova@mail.bg',
         'HR consultant with a focus on organizational development and change management. Skilled in talent acquisition, training, and employee engagement. Known for a collaborative approach to problem-solving and a commitment to improving workplace culture.',
-        3),
+        3, 17),
 
        (18, 'roberttodorov', 'password', 'Robert', 'Todorov', 'roberttodorov@mail.bg',
         'Legal advisor with expertise in corporate and contract law. Known for strong analytical skills, attention to detail, and the ability to provide sound legal counsel. Experienced in drafting and reviewing contracts, managing legal compliance, and supporting business transactions.',
-        4),
+        4, 11),
 
        (19, 'venelinaangelova', 'password', 'Venelina', 'Angelova', 'venelinaangelova@mail.bg',
         'Supply chain analyst with a background in logistics and data analysis. Skilled in inventory management, demand forecasting, and supply chain optimization. Known for analytical abilities and an ability to find cost-effective solutions that improve efficiency.',
-        5),
+        5, 16),
 
        (20, 'dimitarkarov', 'password', 'Dimitar', 'Karov', 'dimitarkarov@mail.bg',
         'Business analyst with expertise in process improvement and data-driven decision-making. Skilled in requirements gathering, documentation, and stakeholder communication. Known for a strong analytical mindset and problem-solving skills.',
-        6),
+        6, 12),
 
        (21, 'nikolayvoynov', 'password', 'Nikolay', 'Voynov', 'nikolayvoynov@mail.bg',
         'Backend Engineer with expertise in system architecture, performance optimization, and API development. Skilled in coding, database management, and integration. Known for a strong technical mindset, problem-solving abilities, and delivering efficient, scalable solutions.',
-        6);
+        6, 14);
 
 
 -- job_ads Table --
