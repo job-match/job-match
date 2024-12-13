@@ -78,4 +78,10 @@ public class HomeMvcController {
 
         return "about";
     }
+
+    @GetMapping("/logout")
+    public String handleLogout(HttpSession session) {
+        session.removeAttribute("currentUser");
+        return "redirect:/";
+    }
 }
