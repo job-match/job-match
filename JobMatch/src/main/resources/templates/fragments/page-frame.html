@@ -53,18 +53,23 @@
                             <li>
                                 <a th:href="@{/}">Home</a>
                             </li>
-                            <li>
-                                <a th:href="${isAuthenticated ? '/professional-portal/job-ads' : 'auth/professional-portal/login'}">Job
-                                    Ads</a>
-                            </li>
-                            <li>
-                                <a th:href="${isAuthenticated ? '/company-portal/job-applications' : 'auth/company-portal/login'}">Job Applications
+                            <li th:if="${!isAuthenticated or isCompany}">
+                                <a th:href="${isAuthenticated ? '/company-portal/job-applications' : '/auth/company-portal/login'}">Professionals
                                 </a>
                             </li>
-                            <li><a href="candidates-listing.html">Professionals</a>
+                            <li th:if="${!isAuthenticated or isProfessional}">
+                                <a th:href="${isAuthenticated ? '/professional-portal/job-ads' : '/auth/professional-portal/login'}">Job
+                                    Ads
+                                </a>
                             </li>
-                            <li>
-                                <a th:href="${isAuthenticated ? '/professional-portal/companies' : 'auth/professional-portal/login'}">Companies</a>
+                            <li th:if="${!isAuthenticated or isProfessional}">
+                                <a th:href="${isAuthenticated ? '/professional-portal/companies' : '/auth/professional-portal/login'}">Companies
+                                </a>
+                            </li>
+                            <li th:if="${!isAuthenticated or isCompany}">
+                                <a th:href="${isAuthenticated ? '/company-portal/job-applications' :'/auth/company-portal/login'}">Job
+                                    Applications
+                                </a>
                             </li>
                             <li><a th:href="@{/about}">About</a></li>
                         </ul>
@@ -78,13 +83,14 @@
                         <div class="btn-action-wrap d-flex">
                             <div class="jp-author main-menu">
                                 <ul>
-                                    <li th:unless="${isAuthenticated}"><a href="#"><i class="lnr lnr-user"></i> Login | Register <small
-                                            class="icon-arrow"></small></a>
+                                    <li th:unless="${isAuthenticated}"><a href="#"><i class="lnr lnr-user"></i> Login |
+                                        Register <small
+                                                class="icon-arrow"></small></a>
                                         <ul class="sub-menu">
                                             <li><a th:href="@{/auth/professional-portal/login}"
                                                    href="login-professional.html">Professionals</a></li>
                                             <li><a th:href="@{/auth/company-portal/login}"
-                                                    href="login-register.html">Companies</a></li>
+                                                   href="login-register.html">Companies</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -130,20 +136,28 @@
                             <li>
                                 <a th:href="@{/}">Home</a>
                             </li>
+                            <li th:if="${!isAuthenticated or isCompany}">
+                                <a th:href="${isAuthenticated ? '/company-portal/job-applications' : '/auth/company-portal/login'}">Professionals
+                                </a>
+                            </li>
+                            <li th:if="${!isAuthenticated or isProfessional}">
+                                <a th:href="${isAuthenticated ? '/professional-portal/job-ads' : '/auth/professional-portal/login'}">Job
+                                    Ads
+                                </a>
+                            </li>
+                            <li th:if="${!isAuthenticated or isProfessional}">
+                                <a th:href="${isAuthenticated ? '/professional-portal/companies' : '/auth/professional-portal/login'}">Companies
+                                </a>
+                            </li>
+                            <li th:if="${!isAuthenticated or isCompany}">
+                                <a th:href="${isAuthenticated ? '/company-portal/job-applications' :'/auth/company-portal/login'}">Job
+                                    Applications
+                                </a>
+                            </li>
                             <li>
-                                <a th:href="${isAuthenticated ? '/professional-portal/job-ads' : 'auth/professional-portal/login'}">Job
-                                    Ads</a>
+                                <a th:href="@{/about}">About
+                                </a>
                             </li>
-                            <li><a th:href="${isAuthenticated ? '/company-portal/job-applications' : 'auth/company-portal/login'}">Job Applications</a>
-                            </li>
-                            <li><a href="candidates-listing.html">Professionals</a>
-                            </li>
-                            </li>
-                            <li>
-                                <a th:href="${isAuthenticated ? '/professional-portal/companies' : 'auth/professional-portal/login'}">Companies</a>
-                            </li>
-                            </li>
-                            <li><a th:href="@{/about}">About</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -155,13 +169,14 @@
                         <div class="btn-action-wrap d-flex">
                             <div class="jp-author main-menu">
                                 <ul>
-                                    <li th:unless="${isAuthenticated}"><a href="#"><i class="lnr lnr-user"></i> Login | Register <small
-                                            class="icon-arrow"></small></a>
+                                    <li th:unless="${isAuthenticated}"><a href="#"><i class="lnr lnr-user"></i> Login |
+                                        Register <small
+                                                class="icon-arrow"></small></a>
                                         <ul class="sub-menu">
                                             <li><a th:href="@{/auth/professional-portal/login}"
                                                    href="login-professional.html">Professionals</a></li>
                                             <li><a th:href="@{/auth/company-portal/login}"
-                                                    href="login-register.html">Companies</a></li>
+                                                   href="login-register.html">Companies</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -205,8 +220,10 @@
                         </div>
                         <div class="phone theme-color">(+359) 888 777 666</div>
                         <div class="footer-widget-image d-flex mt-35">
-                            <a class="mr-5" th:href="@{https://www.apple.com/app-store/}"><img th:src="@{/images/app-store/app-store-2.png}" alt=""></a>
-                            <a th:href="@{https://play.google.com/}"><img th:src="@{/images/app-store/app-chplay-2.png}" alt=""></a>
+                            <a class="mr-5" th:href="@{https://www.apple.com/app-store/}"><img
+                                    th:src="@{/images/app-store/app-store-2.png}" alt=""></a>
+                            <a th:href="@{https://play.google.com/}"><img th:src="@{/images/app-store/app-chplay-2.png}"
+                                                                          alt=""></a>
                         </div>
                     </div>
                     <!-- Footer Widget End -->
