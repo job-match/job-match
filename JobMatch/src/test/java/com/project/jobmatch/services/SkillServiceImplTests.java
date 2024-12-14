@@ -10,7 +10,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.project.jobmatch.Helpers.*;
 
@@ -69,4 +71,19 @@ public class SkillServiceImplTests {
 
         Assertions.assertEquals(result, mockSkill);
     }
+
+    @Test
+    public void findSkillsByType_Should_ReturnEmptySet_When_NoSkillTypesProvided() {
+        // Arrange
+        Set<String> skillTypes = new HashSet<>();
+
+        // Act
+        Set<Skill> result = mockSkillService.findSkillsByType(skillTypes);
+
+        // Assert
+        Assertions.assertTrue(result.isEmpty());
+        Mockito.verifyNoInteractions(mockSkillRepository);
+    }
+
+
 }
