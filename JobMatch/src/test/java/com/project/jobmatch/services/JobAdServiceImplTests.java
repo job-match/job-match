@@ -13,6 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.*;
 
@@ -107,6 +109,180 @@ public class JobAdServiceImplTests {
                 .searchJobAds(Mockito.anyString(), Mockito.anyString(), Mockito.anyDouble(),
                         Mockito.anyDouble(), Mockito.anyString());
     }
+
+    @Test
+    public void searchJobAdsPaginated_Should_CallRepositoryWithCorrectParameters() {
+        // Arrange
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        Page<JobAd> mockPage = Mockito.mock(Page.class);
+
+        Mockito.when(mockJobAdRepository.searchJobAdsPaginated(
+                Mockito.anyString(),
+                Mockito.anyString(),
+                Mockito.anyDouble(),
+                Mockito.anyDouble(),
+                Mockito.anyString(),
+                Mockito.any(PageRequest.class))
+        ).thenReturn(mockPage);
+
+        // Act
+        Page<JobAd> result = mockJobAdService.searchJobAdsPaginated(
+                "Developer",
+                "City",
+                1000.0,
+                2000.0,
+                "Java",
+                pageRequest
+        );
+
+        // Assert
+        Assertions.assertEquals(mockPage, result);
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .searchJobAdsPaginated("Developer", "City", 1000.0, 2000.0, "Java", pageRequest);
+    }
+
+    @Test
+    public void getJobAdsByLocation_Should_ReturnListOfJobAds_When_LocationExists() {
+        // Arrange
+        Location mockLocation = createMockLocation();
+        List<JobAd> mockJobAds = List.of(createMockJobAd(), createMockJobAd());
+
+        Mockito.when(mockJobAdRepository.findJobAdsByLocation(mockLocation))
+                .thenReturn(mockJobAds);
+
+        // Act
+        List<JobAd> result = mockJobAdService.getJobAdsByLocation(mockLocation);
+
+        // Assert
+        Assertions.assertEquals(mockJobAds, result);
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .findJobAdsByLocation(mockLocation);
+    }
+
+    @Test
+    public void getJobAdsByLocation_Should_ReturnEmptyList_When_NoJobAdsFound() {
+        // Arrange
+        Location mockLocation = createMockLocation();
+
+        Mockito.when(mockJobAdRepository.findJobAdsByLocation(mockLocation))
+                .thenReturn(Collections.emptyList());
+
+        // Act
+        List<JobAd> result = mockJobAdService.getJobAdsByLocation(mockLocation);
+
+        // Assert
+        Assertions.assertTrue(result.isEmpty());
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .findJobAdsByLocation(mockLocation);
+    }
+
+    @Test
+    public void getSixMostRecentJobAds_Should_ReturnSixJobAds_When_RepositoryReturnsMoreThanSix() {
+        // Arrange
+        List<JobAd> mockJobAds = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            mockJobAds.add(createMockJobAd());
+        }
+
+        Mockito.when(mockJobAdRepository.getSixMostRecentJobAds())
+                .thenReturn(mockJobAds);
+
+        // Act
+        List<JobAd> result = mockJobAdService.getSixMostRecentJobAds();
+
+        // Assert
+        Assertions.assertEquals(6, result.size());
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .getSixMostRecentJobAds();
+    }
+
+    @Test
+    public void getSixMostRecentJobAds_Should_ReturnAllJobAds_When_RepositoryReturnsLessThanSix() {
+        // Arrange
+        List<JobAd> mockJobAds = List.of(createMockJobAd(), createMockJobAd());
+
+        Mockito.when(mockJobAdRepository.getSixMostRecentJobAds())
+                .thenReturn(mockJobAds);
+
+        // Act
+        List<JobAd> result = mockJobAdService.getSixMostRecentJobAds();
+
+        // Assert
+        Assertions.assertEquals(mockJobAds, result);
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .getSixMostRecentJobAds();
+    }
+
+    @Test
+    public void getJobAdsByCompanyId_Should_ReturnJobAds_When_CompanyIdExists() {
+        // Arrange
+        int companyId = 1;
+        List<JobAd> mockJobAds = List.of(createMockJobAd(), createMockJobAd());
+
+        Mockito.when(mockJobAdRepository.getJobAdByCompanyId(companyId))
+                .thenReturn(mockJobAds);
+
+        // Act
+        List<JobAd> result = mockJobAdService.getJobAdsByCompanyId(companyId);
+
+        // Assert
+        Assertions.assertEquals(mockJobAds, result);
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .getJobAdByCompanyId(companyId);
+    }
+
+    @Test
+    public void getJobAdsByCompanyId_Should_ReturnEmptyList_When_NoJobAdsFound() {
+        // Arrange
+        int companyId = 1;
+
+        Mockito.when(mockJobAdRepository.getJobAdByCompanyId(companyId))
+                .thenReturn(Collections.emptyList());
+
+        // Act
+        List<JobAd> result = mockJobAdService.getJobAdsByCompanyId(companyId);
+
+        // Assert
+        Assertions.assertTrue(result.isEmpty());
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .getJobAdByCompanyId(companyId);
+    }
+
+    @Test
+    public void getAllActiveJobAdsOfCompany_Should_ReturnActiveJobAds_When_CompanyHasAds() {
+        // Arrange
+        Company mockCompany = createMockCompany();
+        List<JobAd> mockJobAds = List.of(createMockJobAd(), createMockJobAd());
+
+        Mockito.when(mockJobAdRepository.findActiveJobAdsOfCompany(mockCompany.getId(), 1))
+                .thenReturn(mockJobAds);
+
+        // Act
+        List<JobAd> result = mockJobAdService.getAllActiveJobAdsOfCompany(mockCompany);
+
+        // Assert
+        Assertions.assertEquals(mockJobAds, result);
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .findActiveJobAdsOfCompany(mockCompany.getId(), 1);
+    }
+
+    @Test
+    public void getAllActiveJobAdsOfCompany_Should_ReturnEmptyList_When_NoActiveJobAdsFound() {
+        // Arrange
+        Company mockCompany = createMockCompany();
+
+        Mockito.when(mockJobAdRepository.findActiveJobAdsOfCompany(mockCompany.getId(), 1))
+                .thenReturn(Collections.emptyList());
+
+        // Act
+        List<JobAd> result = mockJobAdService.getAllActiveJobAdsOfCompany(mockCompany);
+
+        // Assert
+        Assertions.assertTrue(result.isEmpty());
+        Mockito.verify(mockJobAdRepository, Mockito.times(1))
+                .findActiveJobAdsOfCompany(mockCompany.getId(), 1);
+    }
+
 
     @Test
     public void createJobAd_Should_CallRepository() {
