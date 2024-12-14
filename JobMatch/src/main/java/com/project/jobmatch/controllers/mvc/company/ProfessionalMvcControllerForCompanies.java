@@ -104,6 +104,8 @@ public class ProfessionalMvcControllerForCompanies {
 
     @GetMapping("/{id}")
     public String showSingleProfessional(@PathVariable int id, Model model, HttpSession httpSession) {
+        Professional professional = professionalService.getProfessionalById(id);
+
         try {
             authenticationHelper.tryGetCurrentCompany(httpSession);
         } catch (AuthorizationException e) {
@@ -111,8 +113,9 @@ public class ProfessionalMvcControllerForCompanies {
         }
 
         try {
-            model.addAttribute("professional", professionalService.getProfessionalById(id));
-            model.addAttribute("jobAppOfProfessional", jobApplicationService.getJobApplicationsByProfessionalId(id));
+            model.addAttribute("professional", professional);
+            model.addAttribute("jobAppOfProfessionalActive",
+                    jobApplicationService.getAllActiveJobApplicationsOfProfessional(professional));
 
             return "professional/professional-view";
         } catch (EntityNotFoundException e) {
