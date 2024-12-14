@@ -197,7 +197,7 @@
                                     </div>
                                     <div class="space-separator">
                                     </div>
-                                    <h3>Active Job Ads</h3>
+                                    <h3 th:text="${activeJobAds.size()} + ' Active Job Ads'"></h3>
                                     <div class="row">
                                         <div class="col-lg-12" th:each="jobAd : ${company.getJobAds()}">
                                             <!-- Single Job Start  -->

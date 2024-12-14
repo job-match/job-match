@@ -200,7 +200,7 @@
                             <div class="job-container">
                                 <h3 class="title" th:text="${jobAdsOfCompany.size() + ' Opening Jobs'}"></h3>
                                 <div class="row">
-                                    <div class="col-lg-12" th:each="jobAd : ${jobAdsOfCompany}">
+                                    <div class="col-lg-12" th:each="jobAdActive : ${jobAdsOfCompanyActive}">
                                         <!-- Single Job Start  -->
                                         <div class="single-job style-two">
                                             <div class="info-top">
@@ -208,33 +208,28 @@
                                                     <div class="job-info-inner">
                                                         <div class="job-info-top">
                                                             <div class="saveJob for-listing">
-<!--                                                                <span class="featured-label">featured</span>-->
-<!--                                                                <a class="job-type-label ml-20 mr-20">Full Time</a>-->
-<!--                                                                <a class="save-job" href="#quick-view-modal-container"-->
-<!--                                                                   data-toggle="modal">-->
-<!--                                                                    <i class="far fa-heart"></i>-->
-<!--                                                                </a>-->
+                                                                <span class="featured-label" th:text="${jobAdActive.getStatus().getType()}">featured</span>
                                                             </div>
                                                             <div class="title-name">
                                                                 <h5 class="job-title">
-                                                                    <a th:href="@{/professional-portal/job-ads/{id}(id=${jobAd.getId()})}" th:text="${jobAd.getPositionTitle()}">Chief Accountant</a>
+                                                                    <a th:href="@{/professional-portal/job-ads/{id}(id=${jobAdActive.getId()})}" th:text="${jobAdActive.getPositionTitle()}">Chief Accountant</a>
                                                                 </h5>
                                                             </div>
                                                         </div>
                                                         <div class="job-meta-two">
                                                             <div class="field-salary_from">
                                                                 <i class="gj-icon gj-icon-money"></i>
-                                                                <span th:text="'$' + ${jobAd.getMinSalaryBoundary()} + ' - $' + ${jobAd.getMaxSalaryBoundary()}"></span>
+                                                                <span th:text="'$' + ${jobAdActive.getMinSalaryBoundary()} + ' - $' + ${jobAdActive.getMaxSalaryBoundary()}"></span>
                                                             </div>
                                                             <div class="field-datetime"><i class="lnr lnr-clock"></i>
                                                                 <span th:text="${#dates.format(company.getCreatedAt(), 'dd/MM/yyyy')}"></span>
                                                             </div>
                                                             <div class="field-map"><i class="lnr lnr-map-marker"></i>
-                                                                <span th:text="${jobAd.getLocation().getName()}"></span>
+                                                                <span th:text="${jobAdActive.getLocation().getName()}"></span>
                                                             </div>
                                                         </div>
                                                         <ul class="job-skill-tag">
-                                                            <li th:each="requirement : ${jobAd.getRequirements()}">
+                                                            <li th:each="requirement : ${jobAdActive.getRequirements()}">
                                                                 <a href="#" th:text="${requirement.getType()}"></a>
                                                             </li>
                                                         </ul>
