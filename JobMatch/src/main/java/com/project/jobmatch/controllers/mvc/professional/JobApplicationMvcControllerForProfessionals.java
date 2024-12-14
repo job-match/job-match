@@ -5,13 +5,12 @@ import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
-import com.project.jobmatch.models.JobApplication;
-import com.project.jobmatch.models.Location;
-import com.project.jobmatch.models.Professional;
-import com.project.jobmatch.models.Status;
+import com.project.jobmatch.helpers.ParsingHelper;
+import com.project.jobmatch.models.*;
 import com.project.jobmatch.models.dto.JobApplicationDtoInCreate;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.LocationService;
+import com.project.jobmatch.services.interfaces.SkillService;
 import com.project.jobmatch.services.interfaces.StatusService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -34,16 +34,19 @@ public class JobApplicationMvcControllerForProfessionals {
     private final StatusService statusService;
     private final LocationService locationService;
     private final ModelMapper modelMapper;
+    private final SkillService skillService;
 
     public JobApplicationMvcControllerForProfessionals(AuthenticationHelper authenticationHelper,
                                                        JobApplicationService jobApplicationService,
                                                        StatusService statusService,
                                                        LocationService locationService,
+                                                       SkillService skillService,
                                                        ModelMapper modelMapper) {
         this.authenticationHelper = authenticationHelper;
         this.jobApplicationService = jobApplicationService;
         this.locationService = locationService;
         this.statusService = statusService;
+        this.skillService = skillService;
         this.modelMapper = modelMapper;
     }
 
@@ -100,43 +103,46 @@ public class JobApplicationMvcControllerForProfessionals {
     }
 
     @GetMapping()
-    public String showCreateJobApplicationView(Model model, HttpSession session) {
+    public String showCreateJobApplicationView(Model model) {
 
         model.addAttribute("jobApplication", new JobApplicationDtoInCreate());
         return "job-application/job-application-create";
     }
-//
-//    @PostMapping()
-//    public String createJobApplication(@Valid @ModelAttribute("jobApplication") JobApplicationDtoInCreate jobApplicationDtoInCreate,
-//                                       BindingResult bindingResult,
-//                                       Model model,
-//                                       HttpSession session) {
-//        Professional professionalAuthenticated;
-//        try {
-//            professionalAuthenticated = authenticationHelper.tryGetCurrentProfessional(session);
-//        } catch (AuthorizationException e) {
-//            return "redirect:/professional-profile/login";
-//        }
-//
-//        if (bindingResult.hasErrors()) {
-//            return "job-application/job-application-create";
-//        }
-//
-//        try {
-//            JobApplication jobApplication = modelMapper.fromJobApplicationDtoInCreateToJobApplication(
-//                    professionalAuthenticated, jobApplicationDtoInCreate);
-//            jobApplicationService.createJobApplication(jobApplication, professionalAuthenticated);
-//
-//            return "redirect:/professional-portal/job-applications";
-//
-//        } catch (EntityNotFoundException e) {
-//            //TODO Is this EntityNotFoundException e needed?
-//            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
-//            model.addAttribute("error", e.getMessage());
-//            return "error";
-//        } catch (EntityDuplicateException e) {
-//            bindingResult.rejectValue("title", "duplicate_post", e.getMessage());
-//            return "post-create";
-//        }
-//    }
+
+    @PostMapping()
+    public String createJobApplication(@Valid @ModelAttribute("jobApplication") JobApplicationDtoInCreate jobApplicationDtoInCreate,
+                                       BindingResult bindingResult,
+                                       @RequestParam(name = "skills", required = false) String skillsInput,
+                                       Model model,
+                                       HttpSession session) {
+        Professional professionalAuthenticated;
+        try {
+            professionalAuthenticated = authenticationHelper.tryGetCurrentProfessional(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/professional-profile/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "job-application/job-application-create";
+        }
+
+        try {
+            Set<String> skillsTypes = ParsingHelper.fromStringToSetStrings(skillsInput);
+            jobApplicationDtoInCreate.setSkills(skillsTypes);
+            Set<Skill> skills = skillService.findSkillsByType(skillsTypes);
+
+            JobApplication jobApplication = modelMapper.fromJobApplicationDtoInCreateToJobApplication(
+                    professionalAuthenticated, jobApplicationDtoInCreate);
+            jobApplication.setSkills(skills);
+
+            jobApplicationService.createJobApplication(jobApplication, professionalAuthenticated);
+
+            return "redirect:/professional-portal/professionals/profile";
+
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
 }
