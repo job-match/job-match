@@ -118,7 +118,7 @@
                                             <div class="info-top align-items-start">
                                                 <div class="job-image candidates-image">
                                                     <a th:href="${professional.getPicture().getUrl()}">
-                                                        <img th:src="${professional.getPicture().getUrl()}" alt="logo">
+                                                        <img th:src="${professional.picture != null ? professional.picture.url : '/images/profile-picture/default-professional-photo.png'}" alt="logo">
                                                     </a>
                                                 </div>
                                                 <div class="job-info">

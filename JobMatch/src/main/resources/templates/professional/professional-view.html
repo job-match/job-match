@@ -27,7 +27,7 @@
                 <div class="col-lg-7">
                     <div class="employer-head-info">
                         <div class="employer-logo">
-                            <a href="#"><img th:src="${professional.getPicture().getUrl()}" alt="logo"></a>
+                            <a href="#"><img th:src="${professional.picture != null ? professional.picture.url : '/images/profile-picture/default-professional-photo.png'}" alt="logo"></a>
                         </div>
                         <div class="employer-content">
                             <h1 class="employer-name" th:text="${professional.getFirstName() + ' ' + professional.getLastName()}"><i class="fas fa-check-circle"></i></h1>
