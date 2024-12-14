@@ -40,43 +40,28 @@
                             <div class="row">
                                 <div class="col-xl-12 col-12">
                                     <div class="profile-applications mb-50">
-<!--                                        <div class="profile-applications-heading">-->
-<!--                                            <ul class="nav">-->
-<!--                                                <li>-->
-<!--                                                    <a class="active" href="job-application-create.html"-->
-<!--                                                       th:href="@{/professional-portal/professionals/profile}">My-->
-<!--                                                        profile-->
-<!--                                                    </a>-->
-<!--                                                </li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
                                         <div class="profile-applications-main-block">
                                             <div class="profile-applications-form">
                                                 <form th:action="@{/professional-portal/job-applications}"
                                                       th:object="${jobApplication}"
-                                                      method="post"
-                                                      enctype="multipart/form-data">
+                                                      method="post">
                                                     <div class="row mb-30">
+                                                        <div class="col-lg-1">
+                                                        </div>
                                                         <div class="col-lg-10">
                                                             <div class="row">
-<!--                                                                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">-->
-<!--                                                                    &lt;!&ndash; Single Input Start &ndash;&gt;-->
-<!--                                                                    <div class="single-input mb-25">-->
-<!--                                                                        <label for="status">Status-->
-<!--                                                                            <span>*</span></label>-->
-<!--                                                                        </br>-->
-<!--                                                                        <select id="status" name="status" th:field="*{status}">-->
-<!--                                                                            <option value="" disabled selected>&#45;&#45; Select Status &#45;&#45;</option>-->
-<!--                                                                            <option th:each="stat : ${statuses}"-->
-<!--                                                                                    th:value="${stat.type}"-->
-<!--                                                                                    th:text="${stat.type}">-->
-<!--                                                                                &lt;!&ndash; Тук Thymeleaf ще замени стойностите &ndash;&gt;-->
-<!--                                                                            </option>-->
-<!--                                                                        </select>-->
-<!--                                                                    </div>-->
-<!--                                                                    &lt;!&ndash; Single Input End &ndash;&gt;-->
-<!--                                                                </div>-->
-                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
+                                                                <div class="col-xl-7 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="skills">Skills <span>*</span></label>
+                                                                        <input type="text" id="skills"
+                                                                               name="skills"
+                                                                               th:field="*{skills}"
+                                                                               placeholder="Java, MySQL" value="">
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                                                                     <!-- Single Input Start -->
                                                                     <div class="single-input mb-25">
                                                                         <label for="minDesiredSalary">Minimum Desired Salary
@@ -92,7 +77,37 @@
                                                                     </div>
                                                                     <!-- Single Input End -->
                                                                 </div>
-                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
+                                                                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="location">Location <span>*</span></label>
+                                                                        </br>
+                                                                        <select id="location" name="location" th:field="*{location}">
+                                                                            <option value="" disabled selected>-- Select Location --</option>
+                                                                            <option th:each="location : ${locations}"
+                                                                                    th:value="${location.name}"
+                                                                                    th:text="${location.name}">
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-7 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="motivationLetter">Motivation Letter <span>*</span></label>
+                                                                        <textarea th:field="*{motivationLetter}" type="text"
+                                                                                  name="motivationLetter" id="motivationLetter"
+                                                                                  placeholder="Enter your Motivation Letter"
+                                                                                  style="height: 150px"></textarea>
+                                                                        <label class="text-danger font-weight-bold"
+                                                                               th:errors="*{motivationLetter}">
+                                                                            Last name error placeholder
+                                                                        </label>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                                                                     <!-- Single Input Start -->
                                                                     <div class="single-input mb-25">
                                                                         <label for="maxDesiredSalary">Maximum Desired Salary
@@ -108,49 +123,9 @@
                                                                     </div>
                                                                     <!-- Single Input End -->
                                                                 </div>
-                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
-                                                                    <!-- Single Input Start -->
-                                                                    <div class="single-input mb-25">
-                                                                        <label for="motivationLetter">Motivation Letter <span>*</span></label>
-                                                                        <input type="text" id="motivationLetter"
-                                                                               name="motivationLetter"
-                                                                               th:field="*{motivationLetter}"
-                                                                               placeholder="Ivanov" value="">
-                                                                        <label class="text-danger font-weight-bold"
-                                                                               th:errors="*{motivationLetter}">
-                                                                            Last name error placeholder
-                                                                        </label>
-                                                                    </div>
-                                                                    <!-- Single Input End -->
-                                                                </div>
-                                                                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
-                                                                    <!-- Single Input Start -->
-                                                                    <div class="single-input mb-25">
-                                                                        <label for="location">Location <span>*</span></label>
-                                                                        </br>
-                                                                        <select id="location" name="location" th:field="*{location}">
-                                                                            <option value="" disabled selected>-- Select Location --</option>
-                                                                            <option th:each="location : ${locations}"
-                                                                                    th:value="${location.name}"
-                                                                                    th:text="${location.name}">
-                                                                                <!-- Тук Thymeleaf ще замени стойностите -->
-                                                                            </option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <!-- Single Input End -->
-                                                                </div>
-                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
-                                                                    <!-- Single Input Start -->
-                                                                    <div class="single-input mb-25">
-                                                                        <label for="skills">Skills <span>*</span></label>
-                                                                        <input type="text" id="skills"
-                                                                               name="skills"
-                                                                               th:field="*{skills}"
-                                                                               placeholder="Java, MySQL" value="">
-                                                                    </div>
-                                                                    <!-- Single Input End -->
-                                                                </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="col-lg-1">
                                                         </div>
                                                     </div>
                                                     <div class="row">
