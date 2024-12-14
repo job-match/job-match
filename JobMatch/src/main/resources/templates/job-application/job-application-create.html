@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/page-frame :: head('Create Job Application')}"></head>
 <body class="template-color-1">
 
@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-breadcrumb-content mb-40">
-                                    <h1>Update Profile</h1>
+                                    <h1>Create Job Application</h1>
                                 </div>
                             </div>
                         </div>
@@ -40,82 +40,39 @@
                             <div class="row">
                                 <div class="col-xl-12 col-12">
                                     <div class="profile-applications mb-50">
-                                        <div class="profile-applications-heading">
-                                            <ul class="nav">
-                                                <li>
-                                                    <a class="active" href="professional-profile-view.html"
-                                                       th:href="@{/professional-portal/professionals/profile}">My
-                                                        profile
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                         <div class="profile-applications-main-block">
                                             <div class="profile-applications-form">
-                                                <form th:action="@{/professional-portal/professionals/update}"
-                                                      th:object="${professional}"
-                                                      method="post"
-                                                      enctype="multipart/form-data">
+                                                <form th:action="@{/professional-portal/job-applications}"
+                                                      th:object="${jobApplication}"
+                                                      method="post">
                                                     <div class="row mb-30">
-                                                        <div class="col-lg-2">
-                                                            <div class="profile-avatar mb-30">
-                                                                <label class="d-block"><span>Avatar</span></label>
-                                                                <img th:src="${professional.picture != null ?
-                                                                professional.picture.url :
-                                                                '/images/profile-picture/default-professional-photo.png'}"
-                                                                     alt="Profile picture">
-                                                                <input type="file" class="profile-avatar"
-                                                                       id="professionalPicture"
-                                                                       name="professionalPicture">
-                                                            </div>
+                                                        <div class="col-lg-1">
                                                         </div>
                                                         <div class="col-lg-10">
                                                             <div class="row">
-                                                                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
+                                                                <div class="col-xl-7 col-lg-6 col-md-6 col-sm-6">
                                                                     <!-- Single Input Start -->
                                                                     <div class="single-input mb-25">
-                                                                        <label for="status">Status
-                                                                            <span>*</span></label>
-                                                                        </br>
-                                                                        <select id="status" name="status" th:field="*{status}">
-                                                                            <option value="" disabled selected>-- Select Status --</option>
-                                                                            <option th:each="stat : ${statuses}"
-                                                                                    th:value="${stat.type}"
-                                                                                    th:text="${stat.type}">
-                                                                                <!-- Тук Thymeleaf ще замени стойностите -->
-                                                                            </option>
-                                                                        </select>
+                                                                        <label for="skills">Skills <span>*</span></label>
+                                                                        <input type="text" id="skills"
+                                                                               name="skills"
+                                                                               th:field="*{skills}"
+                                                                               placeholder="Java, MySQL" value="">
                                                                     </div>
                                                                     <!-- Single Input End -->
                                                                 </div>
-                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
+                                                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                                                                     <!-- Single Input Start -->
                                                                     <div class="single-input mb-25">
-                                                                        <label for="first-name">First Name
+                                                                        <label for="minDesiredSalary">Minimum Desired Salary
                                                                             <span>*</span></label>
-                                                                        <input type="text" id="first-name"
-                                                                               name="firstName"
-                                                                               th:field="*{firstName}"
-                                                                               placeholder="Plamen" value="">
+                                                                        <input type="text" id="minDesiredSalary"
+                                                                               name="minDesiredSalary"
+                                                                               th:field="*{minDesiredSalary}"
+                                                                               placeholder="1000" value="">
                                                                         <label class="text-danger font-weight-bold"
-                                                                               th:errors="*{firstName}">
-                                                                            First name error placeholder
-                                                                        </label>
-                                                                    </div>
-                                                                    <!-- Single Input End -->
-                                                                </div>
-
-                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
-                                                                    <!-- Single Input Start -->
-                                                                    <div class="single-input mb-25">
-                                                                        <label for="last-name">Last Name <span>*</span></label>
-                                                                        <input type="text" id="last-name"
-                                                                               name="lastName"
-                                                                               th:field="*{lastName}"
-                                                                               placeholder="Ivanov" value="">
-                                                                        <label class="text-danger font-weight-bold"
-                                                                               th:errors="*{lastName}">
-                                                                            Last name error placeholder
+                                                                               th:errors="*{minDesiredSalary}">
+                                                                            Minimum desired salary error placeholder
                                                                         </label>
                                                                     </div>
                                                                     <!-- Single Input End -->
@@ -130,79 +87,52 @@
                                                                             <option th:each="location : ${locations}"
                                                                                     th:value="${location.name}"
                                                                                     th:text="${location.name}">
-                                                                                <!-- Тук Thymeleaf ще замени стойностите -->
                                                                             </option>
                                                                         </select>
                                                                     </div>
                                                                     <!-- Single Input End -->
                                                                 </div>
-                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
+                                                                <div class="col-xl-7 col-lg-6 col-md-6 col-sm-6">
                                                                     <!-- Single Input Start -->
                                                                     <div class="single-input mb-25">
-                                                                        <label for="email">Email <span>*</span></label>
-                                                                        <input type="email" id="email" name="email"
-                                                                               placeholder="plamenivanov@mail.com"
-                                                                               th:field="*{email}"
-                                                                               value="">
-                                                                        <label class="text-danger font-weight-bold"
-                                                                               th:errors="*{email}">
-                                                                            Email error placeholder
-                                                                        </label>
-                                                                    </div>
-                                                                    <!-- Single Input End -->
-                                                                </div>
-                                                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6">
-                                                                    <!-- Single Input Start -->
-                                                                    <div class="single-input mb-25">
-                                                                        <label for="password">Password
-                                                                            <span>*</span></label>
-                                                                        <input type="password" id="password"
-                                                                               name="password" placeholder="****"
-                                                                               th:field="*{password}"
-                                                                               value="">
-                                                                        <label class="text-danger font-weight-bold"
-                                                                               th:errors="*{password}">
-                                                                            Password error placeholder
-                                                                        </label>
-                                                                    </div>
-                                                                    <!-- Single Input End -->
-                                                                </div>
-
-                                                                <!--                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">-->
-                                                                <!--                                                                    &lt;!&ndash; Single Input Start &ndash;&gt;-->
-                                                                <!--                                                                    <div class="single-input mb-25">-->
-                                                                <!--                                                                        <label for="confirm-password">Confirm-->
-                                                                <!--                                                                            Password <span>*</span></label>-->
-                                                                <!--                                                                        <input type="password" id="confirm-password"-->
-                                                                <!--                                                                               name="confirm-password"-->
-                                                                <!--                                                                               placeholder="****"-->
-                                                                <!--                                                                               value="">-->
-                                                                <!--                                                                    </div>-->
-                                                                <!--                                                                    &lt;!&ndash; Single Input End &ndash;&gt;-->
-                                                                <!--                                                                </div>-->
-                                                                <div class="col-xl-8 col-lg-6 col-md-6 col-sm-6">
-                                                                    <!-- Single Input Start -->
-                                                                    <div class="single-input mb-25">
-                                                                        <label for="summary">Summary <span>*</span></label>
-                                                                        <textarea th:field="*{summary}" type="text"
-                                                                                  name="summary" id="summary"
-                                                                                  placeholder="Enter your Summary"
+                                                                        <label for="motivationLetter">Motivation Letter <span>*</span></label>
+                                                                        <textarea th:field="*{motivationLetter}" type="text"
+                                                                                  name="motivationLetter" id="motivationLetter"
+                                                                                  placeholder="Enter your Motivation Letter"
                                                                                   style="height: 150px"></textarea>
                                                                         <label class="text-danger font-weight-bold"
-                                                                               th:errors="*{summary}">
-                                                                            Summary error placeholder
+                                                                               th:errors="*{motivationLetter}">
+                                                                            Last name error placeholder
+                                                                        </label>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="maxDesiredSalary">Maximum Desired Salary
+                                                                            <span>*</span></label>
+                                                                        <input type="text" id="maxDesiredSalary"
+                                                                               name="maxDesiredSalary"
+                                                                               th:field="*{maxDesiredSalary}"
+                                                                               placeholder="3000" value="">
+                                                                        <label class="text-danger font-weight-bold"
+                                                                               th:errors="*{maxDesiredSalary}">
+                                                                            Maximum desired salary error placeholder
                                                                         </label>
                                                                     </div>
                                                                     <!-- Single Input End -->
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="col-lg-1">
+                                                        </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="profile-action-btn d-flex flex-wrap align-content-center justify-content-between">
                                                                 <button class="ht-btn theme-btn theme-btn-two mb-xs-20">
-                                                                    Update Profile
+                                                                    Create Job Application
                                                                 </button>
                                                             </div>
                                                         </div>
