@@ -66,4 +66,6 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     List<JobApplication> findActiveJobApplicationsOfProfessional(@Param("professionalId") int professionalId,
                                                    @Param("statusId") int statusId);
 
+    @Query("SELECT ja FROM JobApplication ja WHERE ja.professional.id = :id")
+    List<JobApplication> getJobApplicationsByProfessionalId(int id);
 }

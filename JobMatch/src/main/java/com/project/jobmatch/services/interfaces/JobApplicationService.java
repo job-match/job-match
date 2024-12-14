@@ -34,4 +34,6 @@ public interface JobApplicationService {
     List<JobApplication> searchJobApplications(String location, Double minSalary, Double maxSalary, String skill, String keyword);
 
     Page<JobApplication> searchJobApplicationsPaginated(String location, Double minSalary, Double maxSalary, String skill, String keyword, PageRequest pageRequest);
+
+    List<JobApplication> getJobApplicationsByProfessionalId(int id);
 }

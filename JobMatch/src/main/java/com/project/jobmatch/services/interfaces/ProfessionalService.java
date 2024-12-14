@@ -2,6 +2,8 @@ package com.project.jobmatch.services.interfaces;
 
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.services.CloudinaryImage;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -24,4 +26,6 @@ public interface ProfessionalService {
     List<Professional> getAllProfessionals();
 
     List<Professional> searchProfessionals(String username, String name, String email, String keyword, String location);
+
+    Page<Professional> searchProfessionalsPaginated(String username, String firstName, String email, String keyword, String location, PageRequest pageRequest);
 }

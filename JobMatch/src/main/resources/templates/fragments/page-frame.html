@@ -54,7 +54,7 @@
                                 <a th:href="@{/}">Home</a>
                             </li>
                             <li th:if="${!isAuthenticated or isCompany}">
-                                <a th:href="${isAuthenticated ? '/company-portal/job-applications' : '/auth/company-portal/login'}">Professionals
+                                <a th:href="${isAuthenticated ? '/company-portal/professionals' : '/auth/company-portal/login'}">Professionals
                                 </a>
                             </li>
                             <li th:if="${!isAuthenticated or isProfessional}">
@@ -106,7 +106,7 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li>
-                                                <a>Profile</a>
+                                                <a th:href="${isProfessional ? '/professional-portal/professionals/profile' : '/company-portal/companies/profile'}">Profile</a>
                                             </li>
                                             <li>
                                                 <a th:href="@{/logout}">Logout</a>
@@ -150,7 +150,7 @@
                                 <a th:href="@{/}">Home</a>
                             </li>
                             <li th:if="${!isAuthenticated or isCompany}">
-                                <a th:href="${isAuthenticated ? '/company-portal/job-applications' : '/auth/company-portal/login'}">Professionals
+                                <a th:href="${isAuthenticated ? '/company-portal/professionals' : '/auth/company-portal/login'}">Professionals
                                 </a>
                             </li>
                             <li th:if="${!isAuthenticated or isProfessional}">
@@ -204,7 +204,7 @@
                                         </a>
                                         <ul class="sub-menu">
                                             <li>
-                                                <a>Profile</a>
+                                                <a th:href="${isProfessional ? '/professional-portal/professionals/profile' : '/company-portal/companies/profile'}">Profile</a>
                                             </li>
                                             <li>
                                                 <a th:href="@{/logout}">Logout</a>

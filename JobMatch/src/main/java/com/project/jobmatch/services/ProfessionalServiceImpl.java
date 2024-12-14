@@ -10,6 +10,8 @@ import com.project.jobmatch.repositories.interfaces.PictureRepository;
 import com.project.jobmatch.repositories.interfaces.ProfessionalRepository;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import static com.project.jobmatch.helpers.ServicesConstants.MODIFY_PROFESSIONAL_ERROR_MESSAGE;
@@ -73,6 +75,11 @@ public class ProfessionalServiceImpl implements ProfessionalService {
                                                   String keyword,
                                                   String location) {
         return professionalRepository.searchProfessionals(username, name, email, keyword, location);
+    }
+
+    @Override
+    public Page<Professional> searchProfessionalsPaginated(String username, String firstName, String email, String keyword, String location, PageRequest pageRequest) {
+        return professionalRepository.searchProfessionalsPaginated(username, firstName, email, keyword, location, pageRequest);
     }
 
     @Override

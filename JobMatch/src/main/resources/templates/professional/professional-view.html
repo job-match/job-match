@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments/page-frame :: head('Company View')}"></head>
+<body class="template-color-1">
+
+<div id="main-wrapper">
+
+    <!--Header section start-->
+    <header th:replace="~{fragments/page-frame :: header-all-others}"></header>
+    <!--Header section end-->
+
+    <!-- Breadcrumb Section Start -->
+    <div class="breadcrumb-section section pt-60 pt-sm-50 pt-xs-40">
+        <div class="container sb-border-two pb-60 pb-sm-50 pb-xs-40">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-breadcrumb-content mb-40">
+                        <ul class="page-breadcrumb">
+                            <li><a th:href="@{/}">Home</a></li>
+                            <li><a th:href="@{/company-portal/professionals}">Professionals</a></li>
+                            <li><a th:href="@{/company-portal/professionals/{id}(id=${professional.getId()})}" th:text="${professional.getFirstName() + ' ' + professional.getLastName()}"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="employer-head-info">
+                        <div class="employer-logo">
+                            <a href="#"><img th:src="${professional.getPicture().getUrl()}" alt="logo"></a>
+                        </div>
+                        <div class="employer-content">
+                            <h1 class="employer-name" th:text="${professional.getFirstName() + ' ' + professional.getLastName()}"><i class="fas fa-check-circle"></i></h1>
+                            <ul class="employer-meta">
+                                <li class="view-employer">
+                                    <i class="lnr lnr-user"></i><span th:text="${professional.getUsername()}"></span>
+                                </li>
+                                <li class="date-publish">
+                                    <i class="lnr lnr-clock"></i>
+                                    Registered on: <label class="theme-color" th:text="${#dates.format(professional.getCreatedAt(), 'dd/MM/yyyy')}">Sep 3, 2022</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="sidebar-wrapper-three">
+                        <div class="common-sidebar-widget sidebar-three mb-0 pb-0">
+                            <div class="sidebar-job-share">
+                                <div class="job-share candidate-action">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Start -->
+
+    <!-- Employer Details Section Start -->
+    <div class="employer-details-section section pt-120 pt-lg-100 pt-md-80 pt-sm-50 pt-xs-40 pb-120 pb-lg-100 pb-md-80 pb-sm-60 pb-xs-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 order-lg-2 order-2 mt-sm-60 mt-xs-50">
+                    <div class="sidebar-wrapper-three">
+                        <div class="common-sidebar-widget sidebar-three">
+                            <h2 class="sidebar-title">Professional Information</h2>
+                            <div class="sidebar-meta">
+                                <div class="row g-0">
+                                    <div class="col-lg-12">
+                                        <!-- Single Meta Field Start -->
+                                        <div class="single-meta-field">
+                                            <div class="field-label">
+                                                <i class="lnr lnr-inbox"></i>
+                                                <span>Email </span>
+                                            </div>
+                                            <div class="field-value no-transform"
+                                                 th:text="${professional.getEmail()}"></div>
+                                        </div>
+                                        <!-- Single Meta Field Start -->
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <!-- Single Meta Field Start -->
+                                        <div class="single-meta-field">
+                                            <div class="field-label">
+                                                <i class="lnr lnr-map-marker"></i>
+                                                <span>Location </span>
+                                            </div>
+                                            <div class="field-value no-transform" th:text="${professional.getLocation().getName()}"></div>
+                                        </div>
+                                        <!-- Single Meta Field Start -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="common-sidebar-widget sidebar-three">
+                            <h2 class="sidebar-title">Social profiles: </h2>
+                            <div class="social-all">
+                                <a class="facebook" href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                                <a class="twitter" href="https://www.instagram.com/"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a class="linkedin" href="https://www.linkedin.com/"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 order-lg-1 order-1 pr-55 pr-md-15 pr-sm-15 pr-xs-15">
+
+                    <div class="employer-main-content">
+                        <div class="field-description">
+                            <h3 th:text="'Summary'"></h3>
+                            <a th:utext="${professional.getSummary()}"></a>
+                        </div>
+                        <div class="job-area mt-60">
+                            <div class="job-container">
+                                <h3 class="title" th:text="${jobAppOfProfessional.size() + ' Opening Job Applications'}"></h3>
+                                <div class="row">
+                                    <div class="col-lg-12" th:each="jobApp : ${jobAppOfProfessional}">
+                                        <!-- Single Job Start  -->
+                                        <div class="single-job style-two">
+                                            <div class="info-top">
+                                                <div class="job-info">
+                                                    <div class="job-info-inner">
+                                                        <div class="job-info-top">
+                                                            <div class="saveJob for-listing">
+                                                                <span class="featured-label" th:text="${jobApp.getStatus().getType()}"></span>
+                                                            </div>
+                                                            <div class="title-name">
+                                                                <h5 class="job-title">
+                                                                    <a th:href="@{/company-portal/job-applications/{id}(id=${jobApp.getId()})}" th:text="'Job Application #' + ${jobApp.getId()}"></a>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="job-meta-two">
+                                                            <div class="field-salary_from">
+                                                                <i class="gj-icon gj-icon-money"></i>
+                                                                <span th:text="'$' + ${jobApp.getMinDesiredSalary()} + ' - $' + ${jobApp.getMaxDesiredSalary()}"></span>
+                                                            </div>
+                                                            <div class="field-datetime"><i class="lnr lnr-clock"></i>
+                                                                <span th:text="${#dates.format(jobApp.getCreatedAt(), 'dd/MM/yyyy')}"></span>
+                                                            </div>
+                                                            <div class="field-map"><i class="lnr lnr-map-marker"></i>
+                                                                <span th:text="${jobApp.getLocation().getName()}"></span>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="job-skill-tag">
+                                                            <li th:each="skill : ${jobApp.getSkills()}">
+                                                                <a href="#" th:text="${skill.getType()}"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Job End -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Employer Details Section End -->
+
+    <!--Footer section start-->
+    <footer th:replace="~{fragments/page-frame :: footer}"></footer>
+    <!--Footer section end-->
+
+</div>
+
+<!-- All jquery file included here -->
+<div th:replace="~{fragments/page-frame :: script}"></div>
+
+</body>
+
+</html>

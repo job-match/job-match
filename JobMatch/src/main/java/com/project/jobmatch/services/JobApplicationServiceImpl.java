@@ -77,6 +77,11 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
+    public List<JobApplication> getJobApplicationsByProfessionalId(int id) {
+        return jobApplicationRepository.getJobApplicationsByProfessionalId(id);
+    }
+
+    @Override
     public void createJobApplication(JobApplication jobApplication, Professional professionalAuthenticated) {
         if (professionalAuthenticated.getStatus().getType().equalsIgnoreCase(PROFESSIONAL_STATUS_BUSY)){
             throw new AuthorizationException(CREATE_JOB_APPLICATION_ERROR_MESSAGE);
