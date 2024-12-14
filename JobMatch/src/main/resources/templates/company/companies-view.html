@@ -148,24 +148,22 @@
                                     <div class="col-12">
                                         <ul class="page-pagination">
                                             <!-- Previous Page -->
-                                            <li th:class="${currentPage == 0} ? 'disabled'">
-                                                <a th:href="@{'/professional-portal/companies?page=' + (${currentPage} - 0)}" th:if="${currentPage > 1}">
-                                                    <i class="fa fa-angle-left"></i>
-                                                </a>
-                                                <a th:if="${currentPage == 0}">
+                                            <li th:class="${currentPage == 0} ? 'disabled' : ''">
+                                                <a th:if="${currentPage > 0}"
+                                                   th:href="@{/professional-portal/companies(page=${currentPage - 1})}">
                                                     <i class="fa fa-angle-left"></i>
                                                 </a>
                                             </li>
-                                            <!-- Previous Page -->
-                                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active'">
+
+                                            <!-- Page Numbers -->
+                                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active' : ''">
                                                 <a th:href="@{'/professional-portal/companies?page=' + ${i}}" th:text="${i + 1}"></a>
                                             </li>
+
                                             <!-- Next Page -->
-                                            <li th:class="${currentPage == totalPages - 1} ? 'disabled'">
-                                                <a th:href="@{'/professional-portal/companies?page=' + (${currentPage} + 1)}" th:if="${currentPage < totalPages - 1}">
-                                                    <i class="fa fa-angle-right"></i>
-                                                </a>
-                                                <a th:if="${currentPage == totalPages - 1}">
+                                            <li th:class="${currentPage == totalPages - 1} ? 'disabled' : ''">
+                                                <a th:if="${currentPage < totalPages - 1}"
+                                                   th:href="@{/professional-portal/companies(page=${currentPage + 1})}">
                                                     <i class="fa fa-angle-right"></i>
                                                 </a>
                                             </li>
