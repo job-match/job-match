@@ -103,6 +103,8 @@ public class CompanyMvcControllerForProfessionals {
 
     @GetMapping("/{id}")
     public String showSingleCompany(@PathVariable int id, Model model, HttpSession httpSession) {
+        Company company = companyService.getCompanyById(id);
+
         try {
             authenticationHelper.tryGetCurrentProfessional(httpSession);
         } catch (AuthorizationException e) {
@@ -110,8 +112,9 @@ public class CompanyMvcControllerForProfessionals {
         }
 
         try {
-            model.addAttribute("company", companyService.getCompanyById(id));
+            model.addAttribute("company", company);
             model.addAttribute("jobAdsOfCompany", jobAdService.getJobAdsByCompanyId(id));
+            model.addAttribute("jobAdsOfCompanyActive", jobAdService.getAllActiveJobAdsOfCompany(company));
 
             return "company/company-view";
         } catch (EntityNotFoundException e) {
