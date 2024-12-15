@@ -7,6 +7,7 @@ import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.helpers.ParsingHelper;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.models.dto.JobApplicationDtoInCreate;
+import com.project.jobmatch.models.dto.JobApplicationDtoInUpdate;
 import com.project.jobmatch.models.dto.JobApplicationDtoOut;
 import com.project.jobmatch.models.dto.JobApplicationDtoOutUpdate;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
@@ -102,6 +103,26 @@ public class JobApplicationMvcControllerForProfessionals {
         return statuses;
     }
 
+    @GetMapping("/{id}")
+    public String showSingleJobApplication(@PathVariable int id, Model model, HttpSession httpSession) {
+        try {
+            authenticationHelper.tryGetCurrentProfessional(httpSession);
+            model.addAttribute("jobApp", jobApplicationService.getJobApplicationById(id));
+
+            return "job-application/job-application-view";
+
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+
     @GetMapping()
     public String showCreateJobApplicationView(Model model) {
 
@@ -177,11 +198,11 @@ public class JobApplicationMvcControllerForProfessionals {
 
     @PostMapping("/{id}/update")
     public String updateJobApplication(@PathVariable int id,
-                             @Valid @ModelAttribute("jobApplication") JobApplicationDtoInCreate jobApplicationDtoInCreate,
-                             BindingResult bindingResult,
-                             Model model,
-                             HttpSession session,
-                             @RequestParam(name = "skillsForDisplay", required = false) String skillsInput) {
+                                       @Valid @ModelAttribute("jobApplication") JobApplicationDtoInUpdate jobApplicationDtoInUpdate,
+                                       BindingResult bindingResult,
+                                       Model model,
+                                       HttpSession session,
+                                       @RequestParam(name = "skillsForDisplay", required = false) String skillsInput) {
         Professional professional;
         try {
             professional = authenticationHelper.tryGetCurrentProfessional(session);
@@ -195,23 +216,17 @@ public class JobApplicationMvcControllerForProfessionals {
         }
 
         try {
-            // Setting the tags from a string in the request params
             Set<String> skillsNames = ParsingHelper.fromStringToSetStrings(skillsInput);
-            postDto.setTags(skillsNames);
-            Set<Tag> tags = tagService.findTagsByName(tagNames);
+            jobApplicationDtoInUpdate.setSkills(skillsNames);
+            Set<Skill> skills = skillService.findSkillsByType(skillsNames);
 
-            Post post = modelMapper.fromPostDto(id, postDto);
-            post.setTags(tags);
+            JobApplication jobApplication = modelMapper.fromJobApplicationDtoInUpdateToJobApplication(id, jobApplicationDtoInUpdate);
+            jobApplication.setSkills(skills);
 
-            postService.update(post, user);
-            return "redirect:/posts/" + id;
-        } catch (EntityNotFoundException e) {
-            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        } catch (EntityDuplicateException e) {
-            bindingResult.rejectValue("title", "duplicate_post", e.getMessage());
-            return "post-update";
+            jobApplicationService.updateJobApplication(professional, jobApplication);
+
+            return "redirect:/professional-portal/job-applications/" + id;
+
         } catch (AuthorizationException e) {
             model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
             model.addAttribute("error", e.getMessage());

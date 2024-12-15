@@ -183,7 +183,7 @@
                                                             <div class="job-info-top">
                                                                 <div class="title-name">
                                                                     <h5 class="job-title">
-                                                                        <a href="#"
+                                                                        <a th:href="@{/professional-portal/job-applications/{id}(id=${jobApplication.id})}"
                                                                            th:text="'Job Application #'+ ${jobApplication.id}">Chief
                                                                             Accountant</a>
                                                                     </h5>
