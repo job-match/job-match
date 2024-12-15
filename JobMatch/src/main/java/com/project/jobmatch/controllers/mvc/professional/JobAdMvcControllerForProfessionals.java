@@ -1,6 +1,8 @@
 package com.project.jobmatch.controllers.mvc.professional;
 
+import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
+import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.Professional;
@@ -11,6 +13,7 @@ import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +24,11 @@ public class JobAdMvcControllerForProfessionals {
 
     public static final String JOB_ADS_BY_PAGE = "6";
     private final JobAdService jobAdService;
+    private final AuthenticationHelper authenticationHelper;
 
-    public JobAdMvcControllerForProfessionals(JobAdService jobAdService) {
+    public JobAdMvcControllerForProfessionals(JobAdService jobAdService, AuthenticationHelper authenticationHelper) {
         this.jobAdService = jobAdService;
+        this.authenticationHelper = authenticationHelper;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -95,15 +100,22 @@ public class JobAdMvcControllerForProfessionals {
 
     @GetMapping("/{id}")
     public String showSingleJobAd(@PathVariable int id, Model model, HttpSession httpSession) {
-        //TODO Authenticate when ready
 
         try {
+            authenticationHelper.tryGetCurrentProfessional(httpSession);
             model.addAttribute("jobAd", jobAdService.getJobAdById(id));
 
             return "job-ad/job-ad-view";
+
         } catch (EntityNotFoundException e) {
-            //TODO Create error view
-            throw new UnsupportedOperationException("Create empty view");
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
         }
     }
 }
