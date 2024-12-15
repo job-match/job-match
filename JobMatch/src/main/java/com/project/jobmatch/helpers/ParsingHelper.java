@@ -15,7 +15,7 @@ public class ParsingHelper {
         if (str == null || str.trim().isEmpty()) {
             return Set.of();
         } else {
-            return Arrays.stream(str.trim().split(",\\s+"))
+            return Arrays.stream(str.trim().split("\\s+"))
                     .map(String::toLowerCase)
                     .map(s -> s.replaceAll("[^a-z]", ""))
                     .filter(s -> !s.isEmpty())

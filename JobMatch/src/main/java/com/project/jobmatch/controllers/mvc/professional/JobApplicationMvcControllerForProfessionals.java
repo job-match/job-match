@@ -8,8 +8,7 @@ import com.project.jobmatch.helpers.ParsingHelper;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.models.dto.JobApplicationDtoInCreate;
 import com.project.jobmatch.models.dto.JobApplicationDtoInUpdate;
-import com.project.jobmatch.models.dto.JobApplicationDtoOut;
-import com.project.jobmatch.models.dto.JobApplicationDtoOutUpdate;
+import com.project.jobmatch.models.dto.JobApplicationDtoUpdate;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.LocationService;
 import com.project.jobmatch.services.interfaces.SkillService;
@@ -179,13 +178,13 @@ public class JobApplicationMvcControllerForProfessionals {
             JobApplication jobApplication = jobApplicationService.getJobApplicationById(id);
             Set<String> skillsSetStrings = ParsingHelper.fromSetSkillsToSetStrings(jobApplication.getSkills());
 
-            JobApplicationDtoOutUpdate jobApplicationDtoOutUpdate = modelMapper.fromJobApplicationToJobApplicationDtoOutUpdate(jobApplication);
-            jobApplicationDtoOutUpdate.setSkills(skillsSetStrings);
+            JobApplicationDtoUpdate jobApplicationDtoUpdate = modelMapper.fromJobApplicationToJobApplicationDtoUpdate(jobApplication);
+            jobApplicationDtoUpdate.setSkills(skillsSetStrings);
 
             String skillsForDisplay = String.join(", ", skillsSetStrings);
 
             model.addAttribute("jobApplicationId", id);
-            model.addAttribute("jobApplication", jobApplicationDtoOutUpdate);
+            model.addAttribute("jobApplication", jobApplicationDtoUpdate);
             model.addAttribute("skillsForDisplay", skillsForDisplay);
 
             return "job-application/job-application-update";
@@ -198,11 +197,11 @@ public class JobApplicationMvcControllerForProfessionals {
 
     @PostMapping("/{id}/update")
     public String updateJobApplication(@PathVariable int id,
-                                       @Valid @ModelAttribute("jobApplication") JobApplicationDtoInUpdate jobApplicationDtoInUpdate,
+                                       @Valid @ModelAttribute("jobApplication") JobApplicationDtoUpdate jobApplicationDtoUpdate,
                                        BindingResult bindingResult,
                                        Model model,
                                        HttpSession session,
-                                       @RequestParam(name = "skillsForDisplay", required = false) String skillsInput) {
+                                       @RequestParam(name = "skills", required = false) String skillsInput) {
         Professional professional;
         try {
             professional = authenticationHelper.tryGetCurrentProfessional(session);
@@ -217,10 +216,10 @@ public class JobApplicationMvcControllerForProfessionals {
 
         try {
             Set<String> skillsNames = ParsingHelper.fromStringToSetStrings(skillsInput);
-            jobApplicationDtoInUpdate.setSkills(skillsNames);
+            jobApplicationDtoUpdate.setSkills(skillsNames);
             Set<Skill> skills = skillService.findSkillsByType(skillsNames);
 
-            JobApplication jobApplication = modelMapper.fromJobApplicationDtoInUpdateToJobApplication(id, jobApplicationDtoInUpdate);
+            JobApplication jobApplication = modelMapper.fromJobApplicationDtoUpdateToJobApplication(id, jobApplicationDtoUpdate);
             jobApplication.setSkills(skills);
 
             jobApplicationService.updateJobApplication(professional, jobApplication);

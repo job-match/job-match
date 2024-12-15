@@ -360,6 +360,23 @@ public class ModelMapper {
         return jobApplication;
     }
 
+    public JobApplication fromJobApplicationDtoUpdateToJobApplication(
+            int jobApplicationId,
+            JobApplicationDtoUpdate jobApplicationDtoUpdate) {
+        JobApplication jobApplication = new JobApplication();
+
+        jobApplication.setId(jobApplicationId);
+        jobApplication.setProfessional(professionalService.getProfessionalByJobApplicationId(jobApplicationId));
+        jobApplication.setMinDesiredSalary(jobApplicationDtoUpdate.getMinDesiredSalary());
+        jobApplication.setMaxDesiredSalary(jobApplicationDtoUpdate.getMaxDesiredSalary());
+        jobApplication.setMotivationLetter(jobApplicationDtoUpdate.getMotivationLetter());
+        jobApplication.setLocation(locationService.getLocationByName(jobApplicationDtoUpdate.getLocation()));
+        jobApplication.setStatus(statusService.getStatusByType(jobApplicationDtoUpdate.getStatus()));
+        jobApplication.setSkills(fromStringSetToSkillsSet(jobApplicationDtoUpdate.getSkills()));
+
+        return jobApplication;
+    }
+
 
     public ProfessionalDtoOutUpdate fromProfessionalToProfessionalDtoOutUpdate(Professional professional) {
         ProfessionalDtoOutUpdate professionalDtoOutUpdate = new ProfessionalDtoOutUpdate();
@@ -377,15 +394,15 @@ public class ModelMapper {
         return professionalDtoOutUpdate;
     }
 
-    public JobApplicationDtoOutUpdate fromJobApplicationToJobApplicationDtoOutUpdate(JobApplication jobApplication) {
-        JobApplicationDtoOutUpdate jobApplicationDtoOutUpdate = new JobApplicationDtoOutUpdate();
+    public JobApplicationDtoUpdate fromJobApplicationToJobApplicationDtoUpdate(JobApplication jobApplication) {
+        JobApplicationDtoUpdate jobApplicationDtoUpdate = new JobApplicationDtoUpdate();
 
-        jobApplicationDtoOutUpdate.setLocation(jobApplication.getLocation().getName());
-        jobApplicationDtoOutUpdate.setStatus(jobApplication.getStatus().getType());
-        jobApplicationDtoOutUpdate.setMotivationLetter(jobApplication.getMotivationLetter());
-        jobApplicationDtoOutUpdate.setMinDesiredSalary(jobApplication.getMinDesiredSalary());
-        jobApplicationDtoOutUpdate.setMaxDesiredSalary(jobApplication.getMaxDesiredSalary());
+        jobApplicationDtoUpdate.setLocation(jobApplication.getLocation().getName());
+        jobApplicationDtoUpdate.setStatus(jobApplication.getStatus().getType());
+        jobApplicationDtoUpdate.setMotivationLetter(jobApplication.getMotivationLetter());
+        jobApplicationDtoUpdate.setMinDesiredSalary(jobApplication.getMinDesiredSalary());
+        jobApplicationDtoUpdate.setMaxDesiredSalary(jobApplication.getMaxDesiredSalary());
 
-        return jobApplicationDtoOutUpdate;
+        return jobApplicationDtoUpdate;
     }
 }

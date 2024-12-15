@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/page-frame :: head('Create Job Application')}"></head>
+<head th:replace="~{fragments/page-frame :: head('Update Job Application')}"></head>
 <body class="template-color-1">
 
 <div id="main-wrapper">
@@ -56,7 +56,7 @@
                                                                         <label for="skills">Skills <span>*</span></label>
                                                                         <input type="text" id="skills"
                                                                                name="skills"
-                                                                               th:value="${skillsForDisplay}"
+                                                                               th:value="${jobApplication.skillsForDisplay}"
                                                                                placeholder="Java, MySQL" value="">
                                                                     </div>
                                                                     <!-- Single Input End -->
@@ -123,6 +123,21 @@
                                                                     </div>
                                                                     <!-- Single Input End -->
                                                                 </div>
+                                                                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="status">Status <span>*</span></label>
+                                                                        </br>
+                                                                        <select id="status" name="status" th:field="*{status}">
+                                                                            <option value="" disabled selected>-- Select Status --</option>
+                                                                            <option th:each="stat : ${statuses}"
+                                                                                    th:value="${stat.type}"
+                                                                                    th:text="${stat.type}">
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-1">
@@ -132,7 +147,7 @@
                                                         <div class="col-12">
                                                             <div class="profile-action-btn d-flex flex-wrap align-content-center justify-content-between">
                                                                 <button class="ht-btn theme-btn theme-btn-two mb-xs-20">
-                                                                    Update Job Application
+                                                                    Update Application
                                                                 </button>
                                                             </div>
                                                         </div>
