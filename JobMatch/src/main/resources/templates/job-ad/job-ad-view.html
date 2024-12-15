@@ -24,20 +24,39 @@
                         </ul>
                         <h1 th:text="${jobAd.getPositionTitle()}"></h1>
                     </div>
-                    <div class="job-meta-detail">
-                        <ul>
-                            <li class="posted">
-                                <i class="lnr lnr-clock"></i>
-                                <span class="text" th:text="'Posted date: '"></span>
-                                <span class="time"
-                                      th:text="${#dates.format(jobAd.getCreatedAt(), 'dd/MM/yyyy')}"></span>
-                            </li>
-                            <!--                                <li class="expries">-->
-                            <!--                                    <i class="lnr lnr-hourglass"></i>-->
-                            <!--                                    <span class="text">Expries in: </span>-->
-                            <!--                                    <span class="date theme-color"> October 26, 2022 </span>-->
-                            <!--                                </li>-->
-                        </ul>
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="candidate-head-info">
+                                <div class="candidate-content">
+                                    <ul class="candidate-meta">
+                                        <li class="date-publish">
+                                            <i class="lnr lnr-clock"></i>
+                                            <span class="text" th:text="'Posted date: '"></span>
+                                            <span class="time"
+                                                  th:text="${#dates.format(jobAd.getCreatedAt(), 'dd/MM/yyyy')}"></span>
+                                        </li>
+                                        </br>
+                                        <li class="date-publish">
+                                            <form th:action="@{/company-portal/job-ads/{id}/update(id=${jobAd.id})}"
+                                                  method="get">
+                                                <button class="ht-btn theme-btn theme-btn-two mb-xs-20" type="submit">
+                                                    Update
+                                                    Application
+                                                </button>
+                                            </form>
+                                        </li>
+                                        <li class="date-publish">
+                                            <form th:action="@{/company-portal/job-ads/{id}/delete(id=${jobAd.id})}"
+                                                  method="get">
+                                                <button class="ht-btn theme-btn theme-btn-two transparent-btn-two"
+                                                        type="submit">Delete Application
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

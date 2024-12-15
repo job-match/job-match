@@ -4,6 +4,10 @@ import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
+import com.project.jobmatch.models.Company;
+import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.JobApplication;
+import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.services.interfaces.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
@@ -86,6 +90,32 @@ public class JobAdMvcControllerForCompanies {
         } catch (AuthorizationException e) {
             model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+
+
+    @GetMapping("/{id}/delete")
+    public String deleteJobAd(@PathVariable int id, Model model, HttpSession session) {
+        Company companyAuthenticated;
+        try {
+            companyAuthenticated = authenticationHelper.tryGetCurrentCompany(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/company-portal/login";
+        }
+
+        try {
+            JobAd jobAdToDelete = jobAdService.getJobAdById(id);
+
+            jobAdService.deleteJobAd(jobAdToDelete, companyAuthenticated);
+
+            return "redirect:/logout";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
             return "error";
         }
     }
