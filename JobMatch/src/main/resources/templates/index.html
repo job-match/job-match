@@ -253,7 +253,7 @@
                 <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6" th:each="company : ${allCompanies}">
                     <div class="employer-item item-border-bottom">
                         <div class="employer-image">
-                            <img th:src="${company.picture.url}" alt=""/>
+                            <a th:href="${isProfessional ? '/professional-portal/companies/' + company.id:'/auth/professional-portal/login'}"><img th:src="${company.picture.url}" alt=""/></a>
                         </div>
                         <div class="employer-info-top">
                 <span class="employer-location">
@@ -261,7 +261,7 @@
                     <span th:text="${company.getLocation().name}"></span>
                 </span>
                             <h3 class="employer-name">
-                                <a th:href="@{/employer-details/{id}(id=${company.id})}"
+                                <a th:href="${isProfessional ? '/professional-portal/companies/' + company.id:'/auth/professional-portal/login'}"
                                    th:text="${company.getName()}"></a>
                             </h3>
                         </div>
@@ -411,7 +411,7 @@
                                     <div class="single-job">
                                         <div class="info-top">
                                             <div class="job-image">
-                                                <a href="job-details.html">
+                                                <a th:href="${isProfessional ? '/professional-portal/companies/' + jobAd.company.id:'/auth/professional-portal/login'}">
                                                     <img src="/images/companies_logo/logo-big/logo1.jpg"
                                                          th:src="${jobAd.company.picture.url}"
                                                          alt="logo">
@@ -428,12 +428,12 @@
                                                         </div>
                                                         <div class="title-name">
                                                             <h3 class="job-title">
-                                                                <a href="job-details.html"
+                                                                <a th:href="${isProfessional ? '/professional-portal/job-ads/' + jobAd.id:'/auth/professional-portal/login'}"
                                                                    th:text="${jobAd.getPositionTitle()}">Chief
                                                                     Accountant</a>
                                                             </h3>
                                                             <div class="employer-name">
-                                                                <a href="employer-details.html"
+                                                                <a th:href="${isProfessional ? '/professional-portal/companies/' + jobAd.company.id:'/auth/professional-portal/login'}"
                                                                    th:text="${jobAd.getCompany().getName()}">Shippo
                                                                     Company</a>
                                                             </div>
@@ -442,9 +442,9 @@
                                                     <span class="job-salary"
                                                           th:text="'$' + ${jobAd.getMinSalaryBoundary()} + ' - $' + ${jobAd.getMaxSalaryBoundary()}">$700 - $900</span>
                                                     <div class="job-meta">
-                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i><a
-                                                                href="#" th:text="${jobAd.getLocation().getName()}">Ho
-                                                            Chi Minh City</a></div>
+                                                        <div class="job-location"><i class="lnr lnr-map-marker"></i>
+                                                            <span th:text="${jobAd.getLocation().getName()}">Ho
+                                                            Chi Minh City</span></div>
 
                                                         <!--                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a-->
                                                         <!--                                                                class="def-color" href="#">Full Time</a></div>-->
