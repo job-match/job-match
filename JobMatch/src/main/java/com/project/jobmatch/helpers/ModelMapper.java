@@ -377,4 +377,15 @@ public class ModelMapper {
         return professionalDtoOutUpdate;
     }
 
+    public JobApplicationDtoOutUpdate fromJobApplicationToJobApplicationDtoOutUpdate(JobApplication jobApplication) {
+        JobApplicationDtoOutUpdate jobApplicationDtoOutUpdate = new JobApplicationDtoOutUpdate();
+
+        jobApplicationDtoOutUpdate.setLocation(jobApplication.getLocation().getName());
+        jobApplicationDtoOutUpdate.setStatus(jobApplication.getStatus().getType());
+        jobApplicationDtoOutUpdate.setMotivationLetter(jobApplication.getMotivationLetter());
+        jobApplicationDtoOutUpdate.setMinDesiredSalary(jobApplication.getMinDesiredSalary());
+        jobApplicationDtoOutUpdate.setMaxDesiredSalary(jobApplication.getMaxDesiredSalary());
+
+        return jobApplicationDtoOutUpdate;
+    }
 }

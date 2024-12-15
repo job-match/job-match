@@ -1,13 +1,14 @@
 package com.project.jobmatch.controllers.mvc.professional;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
-import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.helpers.ParsingHelper;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.models.dto.JobApplicationDtoInCreate;
+import com.project.jobmatch.models.dto.JobApplicationDtoOut;
+import com.project.jobmatch.models.dto.JobApplicationDtoOutUpdate;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.LocationService;
 import com.project.jobmatch.services.interfaces.SkillService;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -139,6 +139,79 @@ public class JobApplicationMvcControllerForProfessionals {
 
             return "redirect:/professional-portal/professionals/profile";
 
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+
+    @GetMapping("/{id}/update")
+    public String showUpdateJobApplicationView(@PathVariable int id, Model model, HttpSession session) {
+        try {
+            authenticationHelper.tryGetCurrentProfessional(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/professional-profile/login";
+        }
+
+        try {
+            JobApplication jobApplication = jobApplicationService.getJobApplicationById(id);
+            Set<String> skillsSetStrings = ParsingHelper.fromSetSkillsToSetStrings(jobApplication.getSkills());
+
+            JobApplicationDtoOutUpdate jobApplicationDtoOutUpdate = modelMapper.fromJobApplicationToJobApplicationDtoOutUpdate(jobApplication);
+            jobApplicationDtoOutUpdate.setSkills(skillsSetStrings);
+
+            String skillsForDisplay = String.join(", ", skillsSetStrings);
+
+            model.addAttribute("jobApplicationId", id);
+            model.addAttribute("jobApplication", jobApplicationDtoOutUpdate);
+            model.addAttribute("skillsForDisplay", skillsForDisplay);
+
+            return "job-application/job-application-update";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateJobApplication(@PathVariable int id,
+                             @Valid @ModelAttribute("jobApplication") JobApplicationDtoInCreate jobApplicationDtoInCreate,
+                             BindingResult bindingResult,
+                             Model model,
+                             HttpSession session,
+                             @RequestParam(name = "skillsForDisplay", required = false) String skillsInput) {
+        Professional professional;
+        try {
+            professional = authenticationHelper.tryGetCurrentProfessional(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/professional-profile/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("jobApplicationId", id);
+            return "job-application/job-application-update";
+        }
+
+        try {
+            // Setting the tags from a string in the request params
+            Set<String> skillsNames = ParsingHelper.fromStringToSetStrings(skillsInput);
+            postDto.setTags(skillsNames);
+            Set<Tag> tags = tagService.findTagsByName(tagNames);
+
+            Post post = modelMapper.fromPostDto(id, postDto);
+            post.setTags(tags);
+
+            postService.update(post, user);
+            return "redirect:/posts/" + id;
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (EntityDuplicateException e) {
+            bindingResult.rejectValue("title", "duplicate_post", e.getMessage());
+            return "post-update";
         } catch (AuthorizationException e) {
             model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
