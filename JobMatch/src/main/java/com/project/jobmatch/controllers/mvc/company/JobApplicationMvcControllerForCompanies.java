@@ -1,6 +1,9 @@
 package com.project.jobmatch.controllers.mvc.company;
 
+import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
+import com.project.jobmatch.helpers.AuthenticationHelper;
+import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.dto.JobAdDtoSearch;
 import com.project.jobmatch.models.dto.JobApplicationDtoSearch;
@@ -9,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +24,11 @@ public class JobApplicationMvcControllerForCompanies {
     public static final String JOB_APPLICATIONS_BY_PAGE = "6";
 
     private final JobApplicationService jobApplicationService;
+    private final AuthenticationHelper authenticationHelper;
 
-    public JobApplicationMvcControllerForCompanies(JobApplicationService jobApplicationService) {
+    public JobApplicationMvcControllerForCompanies(JobApplicationService jobApplicationService, AuthenticationHelper authenticationHelper) {
         this.jobApplicationService = jobApplicationService;
+        this.authenticationHelper = authenticationHelper;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -94,15 +100,20 @@ public class JobApplicationMvcControllerForCompanies {
 
     @GetMapping("/{id}")
     public String showSingleJobApplication(@PathVariable int id, Model model, HttpSession httpSession) {
-        //TODO Authenticate when ready
 
         try {
+            authenticationHelper.tryGetCurrentCompany(httpSession);
             model.addAttribute("jobApp", jobApplicationService.getJobApplicationById(id));
 
-            return "job-application/job-application-view";
+            return "job-application/job-application-view-for-company";
         } catch (EntityNotFoundException e) {
-            //TODO Create error view
-            throw new UnsupportedOperationException("Create empty view");
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
         }
     }
 }

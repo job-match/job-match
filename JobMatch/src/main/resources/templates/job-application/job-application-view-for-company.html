@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments/page-frame :: head('Companies Listing')}"></head>
+
+<body class="template-color-1">
+
+<div id="main-wrapper">
+
+    <!--Header section start-->
+    <header th:replace="~{fragments/page-frame :: header-all-others}"></header>
+    <!--Header section end-->
+
+    <!-- Breadcrumb Section Start -->
+    <div class="breadcrumb-section section bg_color--5 pt-60 pt-sm-50 pt-xs-40 pb-60 pb-sm-50 pb-xs-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-breadcrumb-content">
+                        <ul class="page-breadcrumb">
+                            <li><a th:href="@{/}">Home</a></li>
+                            <li><a th:href="@{/company-portal/job-applications}">Job Applications</a></li>
+                            <li><a th:href="@{/company-portal/job-applications/{id}(id=${jobApp.getId()})}"
+                                   th:text="'Job Application #' + ${jobApp.getId()} + ' by ' + ${jobApp.getProfessional().getFirstName()} + ' ' + ${jobApp.getProfessional().getLastName()}"></a>
+                            </li>
+                        </ul>
+                        <h1 th:text="'Job Application #' + ${jobApp.getId()} + ' by ' + ${jobApp.getProfessional().getFirstName()} + ' ' + ${jobApp.getProfessional().getLastName()}"></h1>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="candidate-head-info">
+                                <div class="candidate-content">
+                                    <ul class="candidate-meta">
+                                        <li class="date-publish">
+                                            <i class="lnr lnr-clock"></i>
+                                            <span class="text" th:text="'Posted date: '"></span>
+                                            <span class="time"
+                                                  th:text="${#dates.format(jobApp.getCreatedAt(), 'dd/MM/yyyy')}"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Start -->
+
+    <!-- Job Meta Detail Box Section Start -->
+    <div class="job-meta-detail-box section bg_color--5 pb-120 pb-lg-100 pb-md-80 pb-sm-60 pb-xs-50">
+        <div class="container">
+            <div class="row g-0">
+
+                <div class="col-lg-4 col-md-6">
+                    <!-- Single Meta Field Start -->
+                    <div class="single-meta-field">
+                        <div class="field-label">
+                            <i class="lnr lnr-map-marker"></i>
+                            <span>Work Location </span>
+                        </div>
+                        <div class="field-value">
+                            <span th:text="${jobApp.getLocation().getName()}"></span>
+                        </div>
+                    </div>
+                    <!-- Single Meta Field Start -->
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <!-- Single Meta Field Start -->
+                    <div class="single-meta-field">
+                        <div class="field-label">
+                            <i class="lnr lnr-thumbs-up"></i>
+                            <span>Salary </span>
+                        </div>
+                        <div class="field-value salary"
+                             th:text="'$' + ${jobApp.getMinDesiredSalary()} + ' - $' + ${jobApp.getMaxDesiredSalary()}"></div>
+                    </div>
+                    <!-- Single Meta Field Start -->
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <!-- Single Meta Field Start -->
+                    <div class="single-meta-field">
+                        <div class="field-label">
+                            <i class="lnr lnr-layers"></i>
+                            <span th:text="'Statistics '"></span>
+                        </div>
+                        <div class="field-value">
+                            <span th:text="'Companies requested a match: '"></span>
+                            <label class="theme-color"
+                                   th:text="${jobApp.getListOfAdMatchRequests().size()}"></label>
+                        </div>
+                    </div>
+                    <!-- Single Meta Field Start -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Job Meta Detail Box Section End -->
+
+    <!-- Job Details Section Start -->
+    <div class="job-details-section section pt-120 pt-lg-100 pt-md-80 pt-sm-50 pt-xs-40 pb-120 pb-lg-100 pb-md-80 pb-sm-60 pb-xs-50">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 order-lg-1 order-1 pr-55 pr-md-15 pr-sm-15 pr-xs-15">
+
+                    <div class="job-detail-content">
+                        <div class="field-descriptions mb-60 mb-sm-30 mb-xs-30">
+                            <h3 class="title" th:text="'Job Description '"></h3>
+                            <a th:text="${jobApp.getMotivationLetter()}"></a>
+
+                            <h3 class="title" th:text="'Skills '"></h3>
+                            <ul>
+                                <li th:each="skill: ${jobApp.getSkills()}"
+                                    th:text="${skill.getType()}">
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="job-apply">
+                            <a class="ht-btn text-center" href="#"
+                               th:utext="'Match to this Application <i class=&quot;ml-10 mr-0 fa fa-paper-plane&quot;></i>'">
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Job Details Section End -->
+
+    <!-- Job Grid Section Start -->
+    <div class="job-grid-section section bg_color--5 pt-120 pt-lg-100 pt-md-80 pt-sm-60 pt-xs-50 pb-120 pb-lg-100 pb-md-80 pb-sm-60 pb-xs-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title-four mb-40">
+                        <h3 th:text="'All Job Applications From This Professional'"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="job-grid-slider">
+                <div class="col-md-4" th:each="jobAppOther : ${jobApp.getProfessional().getJobApplications()}">
+                    <!-- Single Job Start  -->
+                    <div class="single-job-grid-two">
+                        <div class="job-info">
+                            <div class="job-info-top">
+                                <div class="title-name">
+                                    <h3 class="job-title">
+                                        <a href="#"
+                                           th:href="@{/company-portal/job-applications/{id}(id=${jobAppOther.getId()})}"
+                                           th:text="'#' + ${jobAppOther.getId()}"></a>
+                                    </h3>
+                                    <!--                                        <div class="employer-name">-->
+                                    <!--                                            <a href="#" th:src="@{/professional-portal/companies/{id}(id=${jobAppOther.getCompany().getId()})}"-->
+                                    <!--                                               th:text="${jobAppOther.getCompany().getName()}"></a>-->
+                                    <!--                                        </div>-->
+                                </div>
+                            </div>
+                            <div class="job-meta-two">
+                                <div class="field-map"><i class="lnr lnr-list"></i>
+                                    <span th:text="${jobAppOther.getMotivationLetter().length() > 60 ? #strings.substring(jobAppOther.getMotivationLetter(), 0, 60) + '...' : jobAppOther.getMotivationLetter()}"></span>
+                                </div>
+                                <div class="field-salary_from">
+                                    <i class="gj-icon gj-icon-money"></i>
+                                    <span th:text="'$' + ${jobAppOther.getMinDesiredSalary()} + ' - $' + ${jobAppOther.getMaxDesiredSalary()}">
+                                        </span>
+                                </div>
+                                <div class="field-datetime"><i class="lnr lnr-clock"></i>
+                                    <span th:text="${#dates.format(jobAppOther.getCreatedAt(), 'dd/MM/yyyy')}"></span>
+                                </div>
+                                <div class="field-map"><i class="lnr lnr-map-marker"></i>
+                                    <span th:text="${jobAppOther.getLocation().getName()}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Job End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Job Grid Section End -->
+
+    <!--Footer section start-->
+    <footer th:replace="~{fragments/page-frame :: footer}"></footer>
+    <!--Footer section end-->
+
+</div>
+
+<!-- All jquery file included here -->
+<div th:replace="~{fragments/page-frame :: script}"></div>
+
+</body>
+
+</html>
