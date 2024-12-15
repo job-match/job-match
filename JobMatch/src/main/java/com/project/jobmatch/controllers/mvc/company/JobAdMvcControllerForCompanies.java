@@ -109,7 +109,7 @@ public class JobAdMvcControllerForCompanies {
 
             jobAdService.deleteJobAd(jobAdToDelete, companyAuthenticated);
 
-            return "redirect:/logout";
+            return "redirect:/company-portal/companies/profile";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
