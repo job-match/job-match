@@ -39,7 +39,7 @@
                 <div class="col-lg-7">
                     <div class="employer-head-info">
                         <div class="employer-logo">
-                            <a href="#"><img th:src="@{'/images/companies_logo/logo' + ${company.getId()} + '.jpg'}" alt="logo"></a>
+                            <a href="#"><img th:src="${company.picture != null ? company.picture.url : '/images/profile-picture/default-company-logo.png'}" alt="logo"></a>
                         </div>
                         <div class="employer-content">
                             <h1 class="employer-name" th:text="${company.getUsername()}"><i class="fas fa-check-circle"></i></h1>
