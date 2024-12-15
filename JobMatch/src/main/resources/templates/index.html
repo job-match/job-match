@@ -253,7 +253,7 @@
                 <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6" th:each="company : ${allCompanies}">
                     <div class="employer-item item-border-bottom">
                         <div class="employer-image">
-                            <img th:src="@{'/images/companies_logo/logo' + ${company.id} + '.jpg'}" alt=""/>
+                            <img th:src="${company.picture.url}" alt=""/>
                         </div>
                         <div class="employer-info-top">
                 <span class="employer-location">
@@ -413,7 +413,7 @@
                                             <div class="job-image">
                                                 <a href="job-details.html">
                                                     <img src="/images/companies_logo/logo-big/logo1.jpg"
-                                                         th:src="@{'/images/companies_logo/logo' + ${jobAd.getCompany().id} + '.jpg'}"
+                                                         th:src="${jobAd.company.picture.url}"
                                                          alt="logo">
                                                 </a>
                                             </div>
@@ -746,7 +746,7 @@
                     <div class="col-xl-2 col-20">
                         <!-- Single Brand Start  -->
                         <div class="single-brand">
-                            <a href="#"><img src="/images/brand/brand-2.png" alt=""></a>
+                            <a href="#"><img src="/images/brand/logo3.jpg" alt=""></a>
                         </div>
                         <!-- Single Brand End -->
                     </div>
@@ -754,7 +754,7 @@
                     <div class="col-xl-2 col-20">
                         <!-- Single Brand Start  -->
                         <div class="single-brand">
-                            <a href="#"><img src="/images/brand/brand-3.png" alt=""></a>
+                            <a href="#"><img src="/images/brand/logo9.jpg" alt=""></a>
                         </div>
                         <!-- Single Brand End -->
                     </div>
@@ -762,7 +762,7 @@
                     <div class="col-xl-2 col-20">
                         <!-- Single Brand Start  -->
                         <div class="single-brand">
-                            <a href="#"><img src="/images/brand/brand-4.png" alt=""></a>
+                            <a href="#"><img src="/images/brand/logo10.jpg" alt=""></a>
                         </div>
                         <!-- Single Brand End -->
                     </div>
