@@ -233,4 +233,29 @@ public class JobApplicationMvcControllerForProfessionals {
             return "error";
         }
     }
+
+    @GetMapping("/{id}/delete")
+    public String deleteJobApplication(@PathVariable int id, Model model, HttpSession session) {
+        Professional professionalAuthenticated;
+        try {
+            professionalAuthenticated = authenticationHelper.tryGetCurrentProfessional(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
+
+        try {
+            JobApplication jobApplicationToDelete = jobApplicationService.getJobApplicationById(id);
+
+            jobApplicationService.deleteJobApplication(jobApplicationToDelete, professionalAuthenticated);
+
+            return "redirect:/logout";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            return "error";
+        }
+    }
 }

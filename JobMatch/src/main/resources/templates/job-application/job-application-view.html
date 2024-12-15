@@ -25,15 +25,38 @@
                         </ul>
                         <h1 th:text="'Job Application #' + ${jobApp.getId()} + ' by ' + ${jobApp.getProfessional().getFirstName()} + ' ' + ${jobApp.getProfessional().getLastName()}"></h1>
                     </div>
-                    <div class="job-meta-detail">
-                        <ul>
-                            <li class="posted">
-                                <i class="lnr lnr-clock"></i>
-                                <span class="text" th:text="'Posted date: '"></span>
-                                <span class="time"
-                                      th:text="${#dates.format(jobApp.getCreatedAt(), 'dd/MM/yyyy')}"></span>
-                            </li>
-                        </ul>
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="candidate-head-info">
+                                <div class="candidate-content">
+                                    <ul class="candidate-meta">
+                                        <li class="date-publish">
+                                            <i class="lnr lnr-clock"></i>
+                                            <span class="text" th:text="'Posted date: '"></span>
+                                            <span class="time"
+                                                  th:text="${#dates.format(jobApp.getCreatedAt(), 'dd/MM/yyyy')}"></span>
+                                        </li>
+                                        </br>
+                                        <li class="date-publish">
+                                            <form th:action="@{/professional-portal/job-applications/{id}/update(id=${jobApp.id})}"
+                                                  method="get">
+                                                <button class="ht-btn theme-btn theme-btn-two mb-xs-20" type="submit">Update
+                                                    Application
+                                                </button>
+                                            </form>
+                                        </li>
+                                        <li class="date-publish">
+                                            <form th:action="@{/professional-portal/job-applications/{id}/delete(id=${jobApp.id})}"
+                                                  method="get">
+                                                <button class="ht-btn theme-btn theme-btn-two transparent-btn-two"
+                                                        type="submit">Delete Application
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
