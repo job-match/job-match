@@ -208,7 +208,7 @@
                                                             <div class="job-info-top">
                                                                 <div class="title-name">
                                                                     <h5 class="job-title">
-                                                                        <a href="#"
+                                                                        <a th:href="@{/company-portal/job-ads/{id}(id=${jobAd.id})}"
                                                                            th:text="${jobAd.getPositionTitle()}">Chief
                                                                             Accountant</a>
                                                                     </h5>
@@ -267,7 +267,7 @@
                                                             </div>
                                                             <div class="title-name">
                                                                 <h5 class="job-title">
-                                                                    <a href="#"
+                                                                    <a th:href="@{/company-portal/job-applications/{id}(id=${jobApp.id})}"
                                                                        th:text="'Job Application #' + ${jobApp.getId()}">Chief
                                                                         Accountant</a>
                                                                 </h5>
