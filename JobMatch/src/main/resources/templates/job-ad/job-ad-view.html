@@ -144,7 +144,7 @@
                                 <div class="job-employer-widget">
                                     <div class="image">
                                         <a th:href="@{/professional-portal/companies/{id}(id=${jobAd.getCompany().getId()})}">
-                                            <img th:src="@{'/images/companies_logo/logo' + ${jobAd.getCompany().getId()} + '.jpg'}"
+                                            <img th:src="${jobAd.company.picture != null ? jobAd.company.picture.url : '/images/profile-picture/default-company-logo.png'}"
                                                  alt="">
                                         </a>
                                     </div>
