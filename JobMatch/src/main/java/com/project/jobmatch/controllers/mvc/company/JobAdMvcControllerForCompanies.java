@@ -4,19 +4,19 @@ import com.project.jobmatch.exceptions.AuthorizationException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
-import com.project.jobmatch.models.Company;
-import com.project.jobmatch.models.JobAd;
-import com.project.jobmatch.models.JobApplication;
-import com.project.jobmatch.models.Professional;
+import com.project.jobmatch.helpers.ParsingHelper;
+import com.project.jobmatch.models.*;
+import com.project.jobmatch.models.dto.JobAdDtoUpdate;
 import com.project.jobmatch.services.interfaces.*;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @Controller
 @RequestMapping("/company-portal/job-ads")
@@ -92,6 +92,73 @@ public class JobAdMvcControllerForCompanies {
             model.addAttribute("error", e.getMessage());
             return "error";
         }
+    }
+
+    @GetMapping("/{id}/update")
+    public String showUpdateJobAdView(@PathVariable int id, Model model, HttpSession session) {
+//        try {
+//            authenticationHelper.tryGetCurrentProfessional(session);
+//        } catch (AuthorizationException e) {
+//            return "redirect:/professional-profile/login";
+//        }
+//
+//        try {
+//            JobApplication jobApplication = jobApplicationService.getJobApplicationById(id);
+//            Set<String> skillsSetStrings = ParsingHelper.fromSetSkillsToSetStrings(jobApplication.getSkills());
+//
+//            JobApplicationDtoUpdate jobApplicationDtoUpdate = modelMapper.fromJobApplicationToJobApplicationDtoUpdate(jobApplication);
+//            jobApplicationDtoUpdate.setSkills(skillsSetStrings);
+//
+//            String skillsForDisplay = String.join(", ", skillsSetStrings);
+//
+//            model.addAttribute("jobApplicationId", id);
+//            model.addAttribute("jobApplication", jobApplicationDtoUpdate);
+//            model.addAttribute("skillsForDisplay", skillsForDisplay);
+//
+//            return "job-application/job-application-update";
+//        } catch (EntityNotFoundException e) {
+//            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+//            model.addAttribute("error", e.getMessage());
+            return "error";
+//        }
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateJobAd(@PathVariable int id,
+                                       @Valid @ModelAttribute("jobAd") JobAdDtoUpdate jobAdDtoUpdate,
+                                       BindingResult bindingResult,
+                                       Model model,
+                                       HttpSession session,
+                                       @RequestParam(name = "requirements", required = false) String requirementsInput) {
+//        Professional professional;
+//        try {
+//            professional = authenticationHelper.tryGetCurrentProfessional(session);
+//        } catch (AuthorizationException e) {
+//            return "redirect:/professional-profile/login";
+//        }
+//
+//        if (bindingResult.hasErrors()) {
+//            model.addAttribute("jobApplicationId", id);
+//            return "job-application/job-application-update";
+//        }
+//
+//        try {
+//            Set<String> skillsNames = ParsingHelper.fromStringToSetStrings(skillsInput);
+//            jobApplicationDtoUpdate.setSkills(skillsNames);
+//            Set<Skill> skills = skillService.findSkillsByType(skillsNames);
+//
+//            JobApplication jobApplication = modelMapper.fromJobApplicationDtoUpdateToJobApplication(id, jobApplicationDtoUpdate);
+//            jobApplication.setSkills(skills);
+//
+//            jobApplicationService.updateJobApplication(professional, jobApplication);
+//
+//            return "redirect:/professional-portal/job-applications/" + id;
+//
+//        } catch (AuthorizationException e) {
+//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+//            model.addAttribute("error", e.getMessage());
+            return "error";
+//        }
     }
 
 
