@@ -7,7 +7,6 @@ import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.helpers.ParsingHelper;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.models.dto.JobApplicationDtoInCreate;
-import com.project.jobmatch.models.dto.JobApplicationDtoInUpdate;
 import com.project.jobmatch.models.dto.JobApplicationDtoUpdate;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.LocationService;
