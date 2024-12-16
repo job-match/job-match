@@ -105,7 +105,7 @@ public class JobApplicationMvcControllerForCompanies {
             authenticationHelper.tryGetCurrentCompany(httpSession);
             model.addAttribute("jobApp", jobApplicationService.getJobApplicationById(id));
 
-            return "job-application/job-application-view-for-company";
+            return "job-application/job-application-view";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
