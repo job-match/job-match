@@ -82,6 +82,15 @@ public class JobAdServiceImpl implements JobAdService {
     }
 
     @Override
+    public boolean checkIfOwnerOfJobAd(Company company, JobAd jobAd) {
+        if (company == null || jobAd == null ) {
+            return false;
+        }
+
+        return jobAd.getCompany().equals(company);
+    }
+
+    @Override
     public void createJobAd(JobAd jobAd) {
         jobAdRepository.save(jobAd);
     }

@@ -13,6 +13,7 @@ import com.project.jobmatch.models.dto.CompanyDtoOut;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import com.project.jobmatch.services.interfaces.StatusService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
@@ -417,5 +418,21 @@ public class ModelMapper {
         jobAdDtoUpdate.setMaxSalaryBoundary(jobAd.getMaxSalaryBoundary());
 
         return jobAdDtoUpdate;
+    }
+
+    public JobAd fromJobAdDtoUpdateToJobAd(int id, JobAdDtoUpdate jobAdDtoUpdate) {
+        JobAd jobAd = new JobAd();
+
+        jobAd.setId(id);
+        jobAd.setPositionTitle(jobAdDtoUpdate.getTitle());
+        jobAd.setCompany(companyService.getCompanyByJobAdId(id));
+        jobAd.setMinSalaryBoundary(jobAdDtoUpdate.getMinSalaryBoundary());
+        jobAd.setMaxSalaryBoundary(jobAdDtoUpdate.getMaxSalaryBoundary());
+        jobAd.setJobDescription(jobAdDtoUpdate.getDescription());
+        jobAd.setLocation(locationService.getLocationByName(jobAdDtoUpdate.getLocation()));
+        jobAd.setStatus(statusService.getStatusByType(jobAdDtoUpdate.getStatus()));
+        jobAd.setRequirements(fromStringSetToRequirementsSet(jobAdDtoUpdate.getRequirements()));
+
+        return jobAd;
     }
 }

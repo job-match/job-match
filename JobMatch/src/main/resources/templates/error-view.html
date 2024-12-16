@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{fragments/page-frame :: head('Companies Listing')}"></head>
+
+<body class="template-color-1">
+
+    <div id="main-wrapper">
+
+        <!--Header section start-->
+        <header th:replace="~{fragments/page-frame :: header-all-others}"></header>
+        <!--Header section end-->
+
+        <!--Error section start-->
+        <div class="error-section section bg_color--5 pt-70 pt-lg-50 pt-md-30 pt-sm-10 pt-xs-0 pb-120 pb-lg-100 pb-md-80 pb-sm-60 pb-xs-50">
+            <div class="container">
+                <div class="col-12">
+
+                    <div class="error-404 not-found">
+                        <div class="text-404">
+                            <img th:src="@{/images/404/bg-title-404.png}" src="../static/images/404/bg-title-404.png" alt="Error 404 Image" style="width: 30%; height: auto;">
+                        </div>
+                        <div class="text-label-404">
+                            <h1 th:text="${statusCode}">HTTP Status Code</h1>
+                            <h2 th:text="${error}">Error placeholder</h2>
+                        </div>
+                        <div class="home-link">
+                            <span>We can't find the page you're locking for. You can either </span><a th:href="@{/}">
+                                visit our home page </a><span>
+                        or search for something else. </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--Error section end-->
+
+        <!--Footer section start-->
+        <footer th:replace="~{fragments/page-frame :: footer}"></footer>
+        <!--Footer section end-->
+
+    </div>
+
+    <!-- All jquery file included here -->
+    <div th:replace="~{fragments/page-frame :: script}"></div>
+
+</body>
+
+</html>

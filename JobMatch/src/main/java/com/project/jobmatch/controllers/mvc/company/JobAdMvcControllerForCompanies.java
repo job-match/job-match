@@ -99,9 +99,14 @@ public class JobAdMvcControllerForCompanies {
 
     @GetMapping("/{id}")
     public String showSingleJobAd(@PathVariable int id, Model model, HttpSession httpSession) {
+        Company company;
+        JobAd jobAd;
+
         try {
-            authenticationHelper.tryGetCurrentCompany(httpSession);
-            model.addAttribute("jobAd", jobAdService.getJobAdById(id));
+            company = authenticationHelper.tryGetCurrentCompany(httpSession);
+            jobAd = jobAdService.getJobAdById(id);
+            model.addAttribute("jobAd", jobAd);
+            model.addAttribute("isCompanyOwner", jobAdService.checkIfOwnerOfJobAd(company, jobAd));
 
             return "job-ad/job-ad-view";
 
@@ -196,35 +201,35 @@ public class JobAdMvcControllerForCompanies {
                               Model model,
                               HttpSession session,
                               @RequestParam(name = "requirements", required = false) String requirementsInput) {
-//        Professional professional;
-//        try {
-//            professional = authenticationHelper.tryGetCurrentProfessional(session);
-//        } catch (AuthorizationException e) {
-//            return "redirect:/professional-profile/login";
-//        }
-//
-//        if (bindingResult.hasErrors()) {
-//            model.addAttribute("jobApplicationId", id);
-//            return "job-application/job-application-update";
-//        }
-//
-//        try {
-//            Set<String> skillsNames = ParsingHelper.fromStringToSetStrings(skillsInput);
-//            jobApplicationDtoUpdate.setSkills(skillsNames);
-//            Set<Skill> skills = skillService.findSkillsByType(skillsNames);
-//
-//            JobApplication jobApplication = modelMapper.fromJobApplicationDtoUpdateToJobApplication(id, jobApplicationDtoUpdate);
-//            jobApplication.setSkills(skills);
-//
-//            jobApplicationService.updateJobApplication(professional, jobApplication);
-//
-//            return "redirect:/professional-portal/job-applications/" + id;
-//
-//        } catch (AuthorizationException e) {
-//            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-//            model.addAttribute("error", e.getMessage());
-        return "error";
-//        }
+        Company companyAuthenticated;
+        try {
+            companyAuthenticated = authenticationHelper.tryGetCurrentCompany(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/company-profile/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("jobAdId", id);
+            return "job-ad/job-ad-update";
+        }
+
+        try {
+            Set<String> requirementsNames = ParsingHelper.fromStringToSetStrings(requirementsInput);
+            jobAdDtoUpdate.setRequirements(requirementsNames);
+            Set<Requirement> requirements = requirementService.findRequirementsByType(requirementsNames);
+
+            JobAd jobAd = modelMapper.fromJobAdDtoUpdateToJobAd(id, jobAdDtoUpdate);
+            jobAd.setRequirements(requirements);
+
+            jobAdService.updateJobAd(jobAd, companyAuthenticated);
+
+            return "redirect:/company-portal/job-ads/" + id;
+
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
     }
 
 

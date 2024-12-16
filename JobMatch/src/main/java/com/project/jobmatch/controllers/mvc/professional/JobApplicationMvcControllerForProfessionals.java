@@ -103,9 +103,16 @@ public class JobApplicationMvcControllerForProfessionals {
 
     @GetMapping("/{id}")
     public String showSingleJobApplication(@PathVariable int id, Model model, HttpSession httpSession) {
+        Professional professional;
+        JobApplication jobApplication;
+
         try {
-            authenticationHelper.tryGetCurrentProfessional(httpSession);
-            model.addAttribute("jobApp", jobApplicationService.getJobApplicationById(id));
+            professional = authenticationHelper.tryGetCurrentProfessional(httpSession);
+            jobApplication = jobApplicationService.getJobApplicationById(id);
+
+            model.addAttribute("jobApp", jobApplication);
+            model.addAttribute("isProfessionalOwner",
+                    jobApplicationService.checkIfOwnerOfJobApplication(professional, jobApplication));
 
             return "job-application/job-application-view";
 
