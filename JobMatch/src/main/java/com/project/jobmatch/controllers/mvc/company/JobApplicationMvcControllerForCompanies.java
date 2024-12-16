@@ -70,7 +70,11 @@ public class JobApplicationMvcControllerForCompanies {
                                         @ModelAttribute("JobApplicationDtoSearch")JobApplicationDtoSearch jobApplicationDtoSearch,
                                         Model model,
                                         HttpSession httpSession) {
-        //TODO Authenticate when ready
+        try{
+            authenticationHelper.tryGetCurrentCompany(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/company-portal/login";
+        }
 
         if ("location".equals(sortField)) {
             sortField = "location.name";

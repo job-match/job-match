@@ -86,4 +86,30 @@ public class SkillServiceImplTests {
     }
 
 
+    @Test
+    public void findSkillsByType_Should_ReturnExistingSkills_When_SkillTypesAreFound() {
+        // Arrange
+        Set<String> skillTypes = new HashSet<>();
+        skillTypes.add("Java");
+        skillTypes.add("Python");
+
+        Skill javaSkill = createMockSkill();
+        Skill pythonSkill = createMockSkill();
+
+        Mockito.when(mockSkillRepository.findSkillByType("Java"))
+                .thenReturn(Optional.of(javaSkill));
+        Mockito.when(mockSkillRepository.findSkillByType("Python"))
+                .thenReturn(Optional.of(pythonSkill));
+
+        // Act
+        Set<Skill> result = mockSkillService.findSkillsByType(skillTypes);
+
+        // Assert
+        Assertions.assertTrue(result.contains(javaSkill));
+        Assertions.assertTrue(result.contains(pythonSkill));
+        Mockito.verify(mockSkillRepository).findSkillByType("Java");
+        Mockito.verify(mockSkillRepository).findSkillByType("Python");
+    }
+
+
 }

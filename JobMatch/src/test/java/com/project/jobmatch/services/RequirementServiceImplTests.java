@@ -11,7 +11,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.project.jobmatch.Helpers.createMockRequirement;
 
@@ -19,7 +21,7 @@ import static com.project.jobmatch.Helpers.createMockRequirement;
 public class RequirementServiceImplTests {
 
     @Mock
-    private RequirementRepository requirementRepository;
+    private RequirementRepository mockRequirementRepository;
 
     @InjectMocks
     private RequirementServiceImpl mockRequirementServiceImpl;
@@ -31,7 +33,7 @@ public class RequirementServiceImplTests {
         Requirement mockRequirement = createMockRequirement();
         mockRequirement.setType(requirementName);
 
-        Mockito.when(requirementRepository.findRequirementByType(requirementName))
+        Mockito.when(mockRequirementRepository.findRequirementByType(requirementName))
                 .thenReturn(Optional.of(mockRequirement));
 
         // Act
@@ -39,7 +41,7 @@ public class RequirementServiceImplTests {
 
         // Assert
         Assertions.assertEquals(mockRequirement, result);
-        Mockito.verify(requirementRepository, Mockito.never()).save(Mockito.any(Requirement.class));
+        Mockito.verify(mockRequirementRepository, Mockito.never()).save(Mockito.any(Requirement.class));
     }
 
     @Test
@@ -49,9 +51,9 @@ public class RequirementServiceImplTests {
         Requirement mockRequirement = new Requirement();
         mockRequirement.setType(requirementName);
 
-        Mockito.when(requirementRepository.findRequirementByType(requirementName))
+        Mockito.when(mockRequirementRepository.findRequirementByType(requirementName))
                 .thenReturn(Optional.empty());
-        Mockito.when(requirementRepository.save(Mockito.any(Requirement.class)))
+        Mockito.when(mockRequirementRepository.save(Mockito.any(Requirement.class)))
                 .thenReturn(mockRequirement);
 
         // Act
@@ -59,7 +61,7 @@ public class RequirementServiceImplTests {
 
         // Assert
         Assertions.assertEquals(mockRequirement, result);
-        Mockito.verify(requirementRepository, Mockito.times(1)).save(Mockito.any(Requirement.class));
+        Mockito.verify(mockRequirementRepository, Mockito.times(1)).save(Mockito.any(Requirement.class));
     }
 
     @Test
@@ -69,7 +71,7 @@ public class RequirementServiceImplTests {
         Requirement mockRequirement = new Requirement();
         mockRequirement.setType(requirementName);
 
-        Mockito.when(requirementRepository.findRequirementByType(requirementName))
+        Mockito.when(mockRequirementRepository.findRequirementByType(requirementName))
                 .thenReturn(Optional.of(mockRequirement));
 
         // Act
@@ -77,7 +79,7 @@ public class RequirementServiceImplTests {
 
         // Assert
         Assertions.assertEquals(mockRequirement, result);
-        Mockito.verify(requirementRepository, Mockito.times(1)).findRequirementByType(requirementName);
+        Mockito.verify(mockRequirementRepository, Mockito.times(1)).findRequirementByType(requirementName);
     }
 
     @Test
@@ -85,7 +87,7 @@ public class RequirementServiceImplTests {
         // Arrange
         String requirementName = "Spring Boot";
 
-        Mockito.when(requirementRepository.findRequirementByType(requirementName))
+        Mockito.when(mockRequirementRepository.findRequirementByType(requirementName))
                 .thenReturn(Optional.empty());
 
         // Act & Assert
@@ -95,6 +97,47 @@ public class RequirementServiceImplTests {
         Assertions.assertTrue(exception.getMessage().contains("Requirement"));
         Assertions.assertTrue(exception.getMessage().contains("name"));
         Assertions.assertTrue(exception.getMessage().contains(requirementName));
-        Mockito.verify(requirementRepository, Mockito.times(1)).findRequirementByType(requirementName);
+        Mockito.verify(mockRequirementRepository, Mockito.times(1)).findRequirementByType(requirementName);
     }
+
+    @Test
+    public void findRequirementsByType_Should_ReturnEmptySet_When_NoRequirementTypesProvided() {
+        // Arrange
+        Set<String> requirementTypes = new HashSet<>();
+
+        // Act
+        Set<Requirement> result = mockRequirementServiceImpl.findRequirementsByType(requirementTypes);
+
+        // Assert
+        Assertions.assertTrue(result.isEmpty());
+        Mockito.verifyNoInteractions(mockRequirementRepository);
+    }
+
+
+    @Test
+    public void findRequirementsByType_Should_ReturnExistingRequirements_When_RequirementTypesAreFound() {
+        // Arrange
+        Set<String> requirementTypes = new HashSet<>();
+        requirementTypes.add("Java");
+        requirementTypes.add("MariaDB");
+
+        Requirement javaRequirement = createMockRequirement();
+        Requirement mariaRequirement = createMockRequirement();
+
+        Mockito.when(mockRequirementRepository.findRequirementByType("Java"))
+                .thenReturn(Optional.of(javaRequirement));
+        Mockito.when(mockRequirementRepository.findRequirementByType("MariaDB"))
+                .thenReturn(Optional.of(mariaRequirement));
+
+        // Act
+        Set<Requirement> result = mockRequirementServiceImpl.findRequirementsByType(requirementTypes);
+
+        // Assert
+        Assertions.assertTrue(result.contains(javaRequirement));
+        Assertions.assertTrue(result.contains(mariaRequirement));
+        Mockito.verify(mockRequirementRepository).findRequirementByType("Java");
+        Mockito.verify(mockRequirementRepository).findRequirementByType("MariaDB");
+    }
+
+
 }
