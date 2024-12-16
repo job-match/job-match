@@ -256,4 +256,10 @@ public class JobApplicationMvcControllerForProfessionals {
             return "error";
         }
     }
+
+    @GetMapping("/match-requests")
+    public String showJobApplicationMatchRequestsView() {
+        return "job-application/job-application-match-requests";
+    }
+
 }
