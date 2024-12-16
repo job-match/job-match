@@ -37,14 +37,14 @@
             </div>
             <div class="row align-items-center">
                 <div class="col-lg-7">
-                    <div class="employer-head-info">
-                        <div class="employer-logo">
+                    <div class="candidate-head-info">
+                        <div class="candidate-logo">
                             <a href="#"><img th:src="${company.picture != null ? company.picture.url : '/images/profile-picture/default-company-logo.png'}" alt="logo"></a>
                         </div>
-                        <div class="employer-content">
-                            <h1 class="employer-name" th:text="${company.getUsername()}"><i class="fas fa-check-circle"></i></h1>
-                            <ul class="employer-meta">
-                                <li class="view-employer">
+                        <div class="candidate-content">
+                            <h1 class="candidate-name" th:text="${company.getUsername()}"><i class="fas fa-check-circle"></i></h1>
+                            <ul class="candidate-meta">
+                                <li class="date-publish">
                                     <i class="lnr lnr-user"></i><span th:text="${company.getUsername()}"></span>
                                 </li>
                                 <li class="date-publish">
