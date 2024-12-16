@@ -431,9 +431,9 @@ values (1, 3500, 4000,
         'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to meet the demands of this role and contribute effectively to your team.',
         3, 5,2),
 
-       (14, 3500, 4000,
+       (14, 3300, 3800,
         'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at NextGen Health. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to meet the demands of this role and contribute effectively to your team.',
-        3, 1,1);
+        2, 1,1);
 
 -- job_ads_job_applications Table --
 
@@ -745,7 +745,7 @@ values (12, 1),  -- Java
 insert into job_match.job_applications_skills (job_application_id, skill_id)
 values (14, 2),  -- Java
        (14, 5),  -- Problem-Solving
-       (14, 6), -- SQL
+       (14, 7), -- Attention to Detail
        (14, 18),-- HTML
        (14, 29);-- Critical Thinking
 
