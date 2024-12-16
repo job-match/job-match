@@ -36,6 +36,7 @@
                                                   th:text="${#dates.format(jobAd.getCreatedAt(), 'dd/MM/yyyy')}"></span>
                                         </li>
                                         </br>
+                                        <!--                                        TODO: Implement validation for company/professional-->
                                         <li class="date-publish">
                                             <form th:action="@{/company-portal/job-ads/{id}/update(id=${jobAd.id})}"
                                                   method="get">
