@@ -405,4 +405,17 @@ public class ModelMapper {
 
         return jobApplicationDtoUpdate;
     }
+
+    public JobAdDtoUpdate fromJobAdToJobAdDtoUpdate(JobAd jobAd) {
+        JobAdDtoUpdate jobAdDtoUpdate = new JobAdDtoUpdate();
+
+        jobAdDtoUpdate.setTitle(jobAd.getPositionTitle());
+        jobAdDtoUpdate.setLocation(jobAd.getLocation().getName());
+        jobAdDtoUpdate.setStatus(jobAd.getStatus().getType());
+        jobAdDtoUpdate.setDescription(jobAd.getJobDescription());
+        jobAdDtoUpdate.setMinSalaryBoundary(jobAd.getMinSalaryBoundary());
+        jobAdDtoUpdate.setMaxSalaryBoundary(jobAd.getMaxSalaryBoundary());
+
+        return jobAdDtoUpdate;
+    }
 }

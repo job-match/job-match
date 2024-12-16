@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -84,6 +85,18 @@ public class JobAdMvcControllerForCompanies {
         return locationService.getAllLocations();
     }
 
+    @ModelAttribute("statuses")
+    public List<Status> populateStatuses() {
+        Status active = statusService.getStatusByType("Active");
+        Status archived = statusService.getStatusByType("Archived");
+
+        List<Status> statuses = new ArrayList<>();
+        statuses.add(active);
+        statuses.add(archived);
+
+        return statuses;
+    }
+
     @GetMapping("/{id}")
     public String showSingleJobAd(@PathVariable int id, Model model, HttpSession httpSession) {
         try {
@@ -149,31 +162,31 @@ public class JobAdMvcControllerForCompanies {
 
     @GetMapping("/{id}/update")
     public String showUpdateJobAdView(@PathVariable int id, Model model, HttpSession session) {
-//        try {
-//            authenticationHelper.tryGetCurrentProfessional(session);
-//        } catch (AuthorizationException e) {
-//            return "redirect:/professional-profile/login";
-//        }
-//
-//        try {
-//            JobApplication jobApplication = jobApplicationService.getJobApplicationById(id);
-//            Set<String> skillsSetStrings = ParsingHelper.fromSetSkillsToSetStrings(jobApplication.getSkills());
-//
-//            JobApplicationDtoUpdate jobApplicationDtoUpdate = modelMapper.fromJobApplicationToJobApplicationDtoUpdate(jobApplication);
-//            jobApplicationDtoUpdate.setSkills(skillsSetStrings);
-//
-//            String skillsForDisplay = String.join(", ", skillsSetStrings);
-//
-//            model.addAttribute("jobApplicationId", id);
-//            model.addAttribute("jobApplication", jobApplicationDtoUpdate);
-//            model.addAttribute("skillsForDisplay", skillsForDisplay);
-//
-//            return "job-application/job-application-update";
-//        } catch (EntityNotFoundException e) {
-//            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
-//            model.addAttribute("error", e.getMessage());
-        return "error";
-//        }
+        try {
+            authenticationHelper.tryGetCurrentCompany(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/company-profile/login";
+        }
+
+        try {
+            JobAd jobAd = jobAdService.getJobAdById(id);
+            Set<String> requirementsSetStrings = ParsingHelper.fromSetRequirementsToSetStrings(jobAd.getRequirements());
+
+            JobAdDtoUpdate jobAdDtoUpdate = modelMapper.fromJobAdToJobAdDtoUpdate(jobAd);
+            jobAdDtoUpdate.setRequirements(requirementsSetStrings);
+
+            String requirementsForDisplay = String.join(", ", requirementsSetStrings);
+
+            model.addAttribute("jobAdId", id);
+            model.addAttribute("jobAd", jobAdDtoUpdate);
+            model.addAttribute("requirementsForDisplay", requirementsForDisplay);
+
+            return "job-ad/job-ad-update";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/{id}/update")
