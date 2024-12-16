@@ -18,26 +18,35 @@
                         <ul class="page-breadcrumb">
                             <li><a th:href="@{/}">Home</a></li>
                             <li><a th:href="@{/company-portal/professionals}">Professionals</a></li>
-                            <li><a th:href="@{/company-portal/professionals/{id}(id=${professional.getId()})}" th:text="${professional.getFirstName() + ' ' + professional.getLastName()}"></a></li>
+                            <li><a th:href="@{/company-portal/professionals/{id}(id=${professional.getId()})}"
+                                   th:text="${professional.getFirstName() + ' ' + professional.getLastName()}"></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col-lg-7">
-                    <div class="employer-head-info">
-                        <div class="employer-logo">
-                            <a href="#"><img th:src="${professional.picture != null ? professional.picture.url : '/images/profile-picture/default-professional-photo.png'}" alt="logo"></a>
+                    <div class="candidate-head-info">
+                        <div class="candidate-logo">
+                            <a href="#"><img
+                                    th:src="${professional.picture != null ? professional.picture.url : '/images/profile-picture/default-professional-photo.png'}"
+                                    alt="logo"></a>
                         </div>
-                        <div class="employer-content">
-                            <h1 class="employer-name" th:text="${professional.getFirstName() + ' ' + professional.getLastName()}"><i class="fas fa-check-circle"></i></h1>
-                            <ul class="employer-meta">
-                                <li class="view-employer">
+                        <div class="candidate-content">
+                            <div class="header-with-status">
+                                <h1 class="candidate-name"
+                                    th:text="${professional.getFirstName() + ' ' + professional.getLastName()}"><i
+                                        class="fas fa-check-circle"></i></h1>
+                            </div>
+                            <ul class="candidate-meta">
+                                <li class="date-publish">
                                     <i class="lnr lnr-user"></i><span th:text="${professional.getUsername()}"></span>
                                 </li>
                                 <li class="date-publish">
                                     <i class="lnr lnr-clock"></i>
-                                    Registered on: <label class="theme-color" th:text="${#dates.format(professional.getCreatedAt(), 'dd/MM/yyyy')}">Sep 3, 2022</label>
+                                    Registered on: <label class="theme-color"
+                                                          th:text="${#dates.format(professional.getCreatedAt(), 'dd/MM/yyyy')}">Sep
+                                    3, 2022</label>
                                 </li>
                             </ul>
                         </div>
@@ -88,7 +97,8 @@
                                                 <i class="lnr lnr-map-marker"></i>
                                                 <span>Location </span>
                                             </div>
-                                            <div class="field-value no-transform" th:text="${professional.getLocation().getName()}"></div>
+                                            <div class="field-value no-transform"
+                                                 th:text="${professional.getLocation().getName()}"></div>
                                         </div>
                                         <!-- Single Meta Field Start -->
                                     </div>
@@ -116,7 +126,8 @@
                         </div>
                         <div class="job-area mt-60">
                             <div class="job-container">
-                                <h3 class="title" th:text="${jobAppOfProfessionalActive.size() + ' Active Job Applications'}"></h3>
+                                <h3 class="title"
+                                    th:text="${jobAppOfProfessionalActive.size() + ' Active Job Applications'}"></h3>
                                 <div class="row">
                                     <div class="col-lg-12" th:each="jobApp : ${jobAppOfProfessionalActive}">
                                         <!-- Single Job Start  -->
@@ -126,11 +137,13 @@
                                                     <div class="job-info-inner">
                                                         <div class="job-info-top">
                                                             <div class="saveJob for-listing">
-                                                                <span class="featured-label" th:text="${jobApp.getStatus().getType()}"></span>
+                                                                <span class="featured-label"
+                                                                      th:text="${jobApp.getStatus().getType()}"></span>
                                                             </div>
                                                             <div class="title-name">
                                                                 <h5 class="job-title">
-                                                                    <a th:href="@{/company-portal/job-applications/{id}(id=${jobApp.getId()})}" th:text="'Job Application #' + ${jobApp.getId()}"></a>
+                                                                    <a th:href="@{/company-portal/job-applications/{id}(id=${jobApp.getId()})}"
+                                                                       th:text="'Job Application #' + ${jobApp.getId()}"></a>
                                                                 </h5>
                                                             </div>
                                                         </div>
