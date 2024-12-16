@@ -262,10 +262,34 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="job-apply">
-                            <a class="ht-btn text-center" href="#"
-                               th:utext="'Match to this Ad <i class=&quot;ml-10 mr-0 fa fa-paper-plane&quot;></i>'">
-                            </a>
+                        <div class="job-apply" th:if="${isProfessional}">
+                            <h3>Want to apply for this job add?</h3>
+                            <h4>Select Job Application to apply with</h4>
+
+                            <!-- Single Input Start -->
+                            <form method="post" action="/professional-portal/job-ads/match-request" id="matchRequestForm" class="single-input mb-25">
+                                <input type="hidden" name="jobAdId" th:value="${jobAd.getId()}" />
+                                <label for="jobAppId">Job Application <span>*</span></label>
+                                <br>
+                                <select id="jobAppId" name="jobAppId" required>
+                                    <option value="" disabled selected>-- Select Job Application --</option>
+                                    <option th:each="jobApp : ${jobApplicationsOfProfessional}"
+                                            th:value="${jobApp.getId()}"
+                                            th:text="'Job Application #' + ${jobApp.getId()}">
+                                    </option>
+                                </select>
+                                <br><br>
+                                <button type="submit" class="ht-btn text-center">
+                                    Match to this Ad <i class="ml-10 mr-0 fa fa-paper-plane"></i>
+                                </button>
+                            </form>
+
+
+                            <!-- Single Input End -->
+
+<!--                            <a class="ht-btn text-center" href="#"-->
+<!--                               th:utext="'Match to this Ad <i class=&quot;ml-10 mr-0 fa fa-paper-plane&quot;></i>'">-->
+<!--                            </a>-->
                         </div>
 
                     </div>
@@ -340,6 +364,21 @@
 
 <!-- All jquery file included here -->
 <div th:replace="~{fragments/page-frame :: script}"></div>
+
+<script>
+    function submitForm() {
+        const form = document.getElementById('matchRequestForm');
+        const select = document.getElementById('jobAppId');
+        const selectedValue = select.value;
+
+        if (!selectedValue) {
+            alert('Please select a Job Application before submitting.');
+            return;
+        }
+
+        form.submit();
+    }
+</script>
 
 </body>
 

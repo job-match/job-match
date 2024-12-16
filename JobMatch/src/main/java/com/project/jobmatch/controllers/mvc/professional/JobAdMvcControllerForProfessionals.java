@@ -1,15 +1,19 @@
 package com.project.jobmatch.controllers.mvc.professional;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
+import com.project.jobmatch.exceptions.MatchRequestDeniedException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
-import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
+import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.JobAdDtoSearch;
 import com.project.jobmatch.services.interfaces.JobAdService;
+import com.project.jobmatch.services.interfaces.JobApplicationService;
+import com.project.jobmatch.services.interfaces.ProfessionalService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,6 +21,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("/professional-portal/job-ads")
@@ -25,10 +33,14 @@ public class JobAdMvcControllerForProfessionals {
     public static final String JOB_ADS_BY_PAGE = "6";
     private final JobAdService jobAdService;
     private final AuthenticationHelper authenticationHelper;
+    private final JobApplicationService jobApplicationService;
+    private final ProfessionalService professionalService;
 
-    public JobAdMvcControllerForProfessionals(JobAdService jobAdService, AuthenticationHelper authenticationHelper) {
+    public JobAdMvcControllerForProfessionals(JobAdService jobAdService, AuthenticationHelper authenticationHelper, JobApplicationService jobApplicationService, ProfessionalService professionalService) {
         this.jobAdService = jobAdService;
         this.authenticationHelper = authenticationHelper;
+        this.jobApplicationService = jobApplicationService;
+        this.professionalService = professionalService;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -60,6 +72,18 @@ public class JobAdMvcControllerForProfessionals {
         }
 
         return "";
+    }
+
+    @ModelAttribute("jobApplicationsOfProfessional")
+    public List<JobApplication> populateJobApplicationListOfProfessional(
+            @ModelAttribute("currentUserUsername") String currentUsername) {
+        if (currentUsername != null && !currentUsername.isEmpty()) {
+            Professional professional = professionalService.getByUsername(currentUsername);
+            return jobApplicationService.getJobApplicationsByProfessionalId(
+                    professional.getId()
+            );
+        }
+        return Collections.emptyList();
     }
 
     @GetMapping
@@ -110,12 +134,37 @@ public class JobAdMvcControllerForProfessionals {
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
-            return "error";
+            return "error-view";
 
         } catch (AuthorizationException e) {
             model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
-            return "error";
+            return "error-view";
+        }
+    }
+
+    @PostMapping("/match-request")
+    public String jobApplicationRequestMatchWithJobAd(@RequestParam("jobAdId") int jobAdId,
+                                                      @RequestParam("jobAppId") int jobAppId,
+                                                      Model model,
+                                                      HttpSession httpSession) {
+        try {
+            authenticationHelper.tryGetCurrentProfessional(httpSession);
+
+            JobAd jobAd = jobAdService.getJobAdById(jobAdId);
+            JobApplication jobApplication = jobApplicationService.getJobApplicationById(jobAppId);
+
+            jobAdService.addJobApplicationToListOfApplicationMatchRequests(jobAd, jobApplication);
+
+            return "redirect:/professional-portal/job-ads/" + jobAdId;
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        } catch (EntityDuplicateException | MatchRequestDeniedException e) {
+            model.addAttribute("statusCode", HttpStatus.CONFLICT.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
         }
     }
 }
