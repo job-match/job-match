@@ -99,9 +99,14 @@ public class JobAdMvcControllerForCompanies {
 
     @GetMapping("/{id}")
     public String showSingleJobAd(@PathVariable int id, Model model, HttpSession httpSession) {
+        Company company;
+        JobAd jobAd;
+
         try {
-            authenticationHelper.tryGetCurrentCompany(httpSession);
-            model.addAttribute("jobAd", jobAdService.getJobAdById(id));
+            company = authenticationHelper.tryGetCurrentCompany(httpSession);
+            jobAd = jobAdService.getJobAdById(id);
+            model.addAttribute("jobAd", jobAd);
+            model.addAttribute("isCompanyOwner", jobAdService.checkIfOwnerOfJobAd(company, jobAd));
 
             return "job-ad/job-ad-view";
 

@@ -36,4 +36,6 @@ public interface JobAdService {
     List<JobAd> getJobAdsByCompanyId(int companyId);
 
     List<JobAd> getAllActiveJobAdsOfCompany(Company company);
+
+    boolean checkIfOwnerOfJobAd(Company company, JobAd jobAd);
 }

@@ -36,8 +36,7 @@
                                                   th:text="${#dates.format(jobAd.getCreatedAt(), 'dd/MM/yyyy')}"></span>
                                         </li>
                                         </br>
-                                        <!--                                        TODO: Implement validation for company/professional-->
-                                        <li class="date-publish">
+                                        <li class="date-publish" th:if="${isCompanyOwner}">
                                             <form th:action="@{/company-portal/job-ads/{id}/update(id=${jobAd.id})}"
                                                   method="get">
                                                 <button class="ht-btn theme-btn theme-btn-two mb-xs-20" type="submit">
@@ -45,7 +44,7 @@
                                                 </button>
                                             </form>
                                         </li>
-                                        <li class="date-publish">
+                                        <li class="date-publish" th:if="${isCompanyOwner}">
                                             <form th:action="@{/company-portal/job-ads/{id}/delete(id=${jobAd.id})}"
                                                   method="get">
                                                 <button class="ht-btn theme-btn theme-btn-two transparent-btn-two"

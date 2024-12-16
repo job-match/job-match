@@ -36,4 +36,6 @@ public interface JobApplicationService {
     Page<JobApplication> searchJobApplicationsPaginated(String location, Double minSalary, Double maxSalary, String skill, String keyword, PageRequest pageRequest);
 
     List<JobApplication> getJobApplicationsByProfessionalId(int id);
+
+    boolean checkIfOwnerOfJobApplication(Professional professional, JobApplication jobApplication);
 }
