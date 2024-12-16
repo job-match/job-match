@@ -63,6 +63,13 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public Company getCompanyByJobAdId(int jobAdId) {
+        return companyRepository
+                .findCompanyByJobAdId(jobAdId)
+                .orElseThrow(() -> new EntityNotFoundException("Job Ad", jobAdId));
+    }
+
+    @Override
     public void registerCompany(Company company) {
         boolean existsDuplicate = true;
 

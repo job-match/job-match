@@ -42,7 +42,7 @@
                                     <div class="profile-applications mb-50">
                                         <div class="profile-applications-main-block">
                                             <div class="profile-applications-form">
-                                                <form th:action="@{/company-portal/job-ads}"
+                                                <form th:action="@{/company-portal/job-ads/{id}/update(id=${jobAdId})}"
                                                       th:object="${jobAd}"
                                                       method="post">
                                                     <div class="row mb-30">
