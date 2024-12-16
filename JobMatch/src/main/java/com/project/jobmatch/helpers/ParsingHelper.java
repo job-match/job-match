@@ -1,5 +1,6 @@
 package com.project.jobmatch.helpers;
 
+import com.project.jobmatch.models.Requirement;
 import com.project.jobmatch.models.Skill;
 
 import java.util.Arrays;
@@ -23,9 +24,16 @@ public class ParsingHelper {
         }
     }
 
+
     public static Set<String> fromSetSkillsToSetStrings(Set<Skill> skills) {
         return skills.stream()
                 .map(Skill::getType)
+                .collect(Collectors.toSet());
+    }
+
+    public static Set<String> fromSetRequirementsToSetStrings(Set<Requirement> requirements) {
+        return requirements.stream()
+                .map(Requirement::getType)
                 .collect(Collectors.toSet());
     }
 }

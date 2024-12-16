@@ -6,6 +6,7 @@ import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.helpers.ParsingHelper;
 import com.project.jobmatch.models.*;
+import com.project.jobmatch.models.dto.JobAdDtoInCreate;
 import com.project.jobmatch.models.dto.JobAdDtoUpdate;
 import com.project.jobmatch.services.interfaces.*;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -28,18 +30,21 @@ public class JobAdMvcControllerForCompanies {
     private final LocationService locationService;
     private final ModelMapper modelMapper;
     private final SkillService skillService;
+    private final RequirementService requirementService;
 
     public JobAdMvcControllerForCompanies(AuthenticationHelper authenticationHelper,
                                           JobAdService jobAdService,
                                           StatusService statusService,
                                           LocationService locationService,
                                           SkillService skillService,
+                                          RequirementService requirementService,
                                           ModelMapper modelMapper) {
         this.authenticationHelper = authenticationHelper;
         this.jobAdService = jobAdService;
         this.locationService = locationService;
         this.statusService = statusService;
         this.skillService = skillService;
+        this.requirementService = requirementService;
         this.modelMapper = modelMapper;
     }
 
@@ -74,6 +79,11 @@ public class JobAdMvcControllerForCompanies {
         return "";
     }
 
+    @ModelAttribute("locations")
+    public List<Location> populateLocations() {
+        return locationService.getAllLocations();
+    }
+
     @GetMapping("/{id}")
     public String showSingleJobAd(@PathVariable int id, Model model, HttpSession httpSession) {
         try {
@@ -86,6 +96,49 @@ public class JobAdMvcControllerForCompanies {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
             return "error";
+
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+
+    @GetMapping()
+    public String showCreateJobAdView(Model model) {
+
+        model.addAttribute("jobAd", new JobAdDtoInCreate());
+        return "job-ad/job-ad-create";
+    }
+
+    @PostMapping()
+    public String createJobAd(@Valid @ModelAttribute("jobAd") JobAdDtoInCreate jobAdDtoInCreate,
+                              BindingResult bindingResult,
+                              @RequestParam(name = "requirements", required = false) String requirementsInput,
+                              Model model,
+                              HttpSession session) {
+        Company companyAuthenticated;
+        try {
+            companyAuthenticated = authenticationHelper.tryGetCurrentCompany(session);
+        } catch (AuthorizationException e) {
+            return "redirect:/company-profile/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "job-ad/job-ad-create";
+        }
+
+        try {
+            Set<String> requirementsTypes = ParsingHelper.fromStringToSetStrings(requirementsInput);
+            jobAdDtoInCreate.setRequirements(requirementsTypes);
+            Set<Requirement> requirements = requirementService.findRequirementsByType(requirementsTypes);
+
+            JobAd jobAd = modelMapper.fromJobAdDtoIn(jobAdDtoInCreate, companyAuthenticated);
+            jobAd.setRequirements(requirements);
+
+            jobAdService.createJobAd(jobAd);
+
+            return "redirect:/company-portal/companies/profile";
 
         } catch (AuthorizationException e) {
             model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
@@ -119,17 +172,17 @@ public class JobAdMvcControllerForCompanies {
 //        } catch (EntityNotFoundException e) {
 //            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
 //            model.addAttribute("error", e.getMessage());
-            return "error";
+        return "error";
 //        }
     }
 
     @PostMapping("/{id}/update")
     public String updateJobAd(@PathVariable int id,
-                                       @Valid @ModelAttribute("jobAd") JobAdDtoUpdate jobAdDtoUpdate,
-                                       BindingResult bindingResult,
-                                       Model model,
-                                       HttpSession session,
-                                       @RequestParam(name = "requirements", required = false) String requirementsInput) {
+                              @Valid @ModelAttribute("jobAd") JobAdDtoUpdate jobAdDtoUpdate,
+                              BindingResult bindingResult,
+                              Model model,
+                              HttpSession session,
+                              @RequestParam(name = "requirements", required = false) String requirementsInput) {
 //        Professional professional;
 //        try {
 //            professional = authenticationHelper.tryGetCurrentProfessional(session);
@@ -157,7 +210,7 @@ public class JobAdMvcControllerForCompanies {
 //        } catch (AuthorizationException e) {
 //            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
 //            model.addAttribute("error", e.getMessage());
-            return "error";
+        return "error";
 //        }
     }
 

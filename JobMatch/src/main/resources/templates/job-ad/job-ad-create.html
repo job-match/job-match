@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/page-frame :: head('Create Job Ad')}"></head>
+<body class="template-color-1">
+
+<div id="main-wrapper">
+
+    <!--Header section start-->
+    <header th:replace="~{fragments/page-frame :: header-all-others}"></header>
+    <!--Header section end-->
+
+    <!--Header Mobile section start-->
+    <!--Header Mobile section end-->
+
+    <!-- Start Popup Menu -->
+    <!-- End Popup Menu -->
+
+    <!-- Bottom Navbar Mobile Start -->
+    <!-- Bottom Navbar Mobile End -->
+
+    <!-- Bottom Navbar Mobile Popup Start -->
+    <!-- Bottom Navbar Mobile Popup End -->
+
+    <!-- Dashboard Content Section Start -->
+    <div class="dashboard-content-section section bg_color--5">
+        <div class="container-fluid p-0">
+            <div class="row g-0">
+                <div class="col-xl-1 col-lg-1"></div>
+                <div class="col-xl-10 col-lg-9">
+
+                    <div class="dashboard-main-inner">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-breadcrumb-content mb-40">
+                                    <h1>Create Job Ad</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-overview">
+                            <div class="row">
+                                <div class="col-xl-12 col-12">
+                                    <div class="profile-applications mb-50">
+                                        <div class="profile-applications-main-block">
+                                            <div class="profile-applications-form">
+                                                <form th:action="@{/company-portal/job-ads}"
+                                                      th:object="${jobAd}"
+                                                      method="post">
+                                                    <div class="row mb-30">
+                                                        <div class="col-lg-1">
+                                                        </div>
+                                                        <div class="col-lg-10">
+                                                            <div class="row">
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="title">Title <span>*</span></label>
+                                                                        <input type="text" id="title"
+                                                                               name="title"
+                                                                               th:field="*{title}"
+                                                                               placeholder="Java Developer" value="">
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="minSalaryBoundary">Minimum Salary Boundary
+                                                                            <span>*</span></label>
+                                                                        <input type="text" id="minSalaryBoundary"
+                                                                               name="minSalaryBoundary"
+                                                                               th:field="*{minSalaryBoundary}"
+                                                                               placeholder="1000" value="">
+                                                                        <label class="text-danger font-weight-bold"
+                                                                               th:errors="*{minSalaryBoundary}">
+                                                                            Minimum salary error placeholder
+                                                                        </label>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="location">Location <span>*</span></label>
+                                                                        </br>
+                                                                        <select id="location" name="location" th:field="*{location}">
+                                                                            <option value="" disabled selected>-- Select Location --</option>
+                                                                            <option th:each="location : ${locations}"
+                                                                                    th:value="${location.name}"
+                                                                                    th:text="${location.name}">
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="requirements">Requirements <span>*</span></label>
+                                                                        <input type="text" id="requirements"
+                                                                               name="requirements"
+                                                                               th:field="*{requirements}"
+                                                                               placeholder="Java, MySQL" value="">
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="maxSalaryBoundary">Maximum Salary Boundary
+                                                                            <span>*</span></label>
+                                                                        <input type="text" id="maxSalaryBoundary"
+                                                                               name="maxSalaryBoundary"
+                                                                               th:field="*{maxSalaryBoundary}"
+                                                                               placeholder="3000" value="">
+                                                                        <label class="text-danger font-weight-bold"
+                                                                               th:errors="*{maxSalaryBoundary}">
+                                                                            Maximum salary error placeholder
+                                                                        </label>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                                <div class="col-xl-7 col-lg-6 col-md-6 col-sm-6">
+                                                                    <!-- Single Input Start -->
+                                                                    <div class="single-input mb-25">
+                                                                        <label for="description">Description <span>*</span></label>
+                                                                        <textarea th:field="*{description}" type="text"
+                                                                                  name="description" id="description"
+                                                                                  placeholder="Enter your Motivation Letter"
+                                                                                  style="height: 150px"></textarea>
+                                                                        <label class="text-danger font-weight-bold"
+                                                                               th:errors="*{description}">
+                                                                            Description error placeholder
+                                                                        </label>
+                                                                    </div>
+                                                                    <!-- Single Input End -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="profile-action-btn d-flex flex-wrap align-content-center justify-content-between">
+                                                                <button class="ht-btn theme-btn theme-btn-two mb-xs-20">
+                                                                    Create Job Ad
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Dashboard Content Section End -->
+
+    <!--Footer section start-->
+    <footer th:replace="~{fragments/page-frame :: footer}"></footer>
+    <!--Footer section end-->
+
+</div>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- All jquery file included here -->
+<div th:replace="~{fragments/page-frame :: script}"></div>
+
+</body>
+</html>
