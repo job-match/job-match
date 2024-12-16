@@ -253,5 +253,8 @@ public class JobAdMvcControllerForCompanies {
         }
     }
 
-
+    @GetMapping("/match-requests")
+    public String showJobAdMatchRequestsView() {
+        return "job-ad/job-ad-match-requests";
+    }
 }
