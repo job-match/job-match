@@ -70,7 +70,11 @@ public class JobAdMvcControllerForProfessionals {
                                @ModelAttribute("jobAdDtoSearch")JobAdDtoSearch jobAdDtoSearch,
                                Model model,
                                HttpSession httpSession) {
-        //TODO Authenticate when ready
+        try {
+            authenticationHelper.tryGetCurrentProfessional(httpSession);
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
 
         if ("location".equals(sortField)) {
             sortField = "location.name";
