@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -119,8 +120,9 @@ public class ProfessionalMvcControllerForCompanies {
 
             return "professional/professional-view";
         } catch (EntityNotFoundException e) {
-            //TODO Create error view
-            throw new UnsupportedOperationException("Create empty view");
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error";
         }
     }
 }
