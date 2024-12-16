@@ -11636,7 +11636,7 @@ body.template-color-4 .copyright p a:hover {
   color: #ffffff;
 }
 .error-404 .text-404 {
-  background-image: url(../images/404/bg-title-404.png);
+  /*background-image: url(../images/404/bg-title-404.png);*/
   background-position: center center;
   padding: 180px 0;
   background-repeat: no-repeat;
