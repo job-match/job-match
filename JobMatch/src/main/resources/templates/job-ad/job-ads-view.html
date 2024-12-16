@@ -163,7 +163,7 @@
                                         <div class="info-top">
                                             <div class="job-image">
                                                 <a th:href="@{/professional-portal/companies/{id}(id=${jobAd.getCompany().getId()})}">
-                                                    <img th:src="@{'/images/companies_logo/logo' + ${jobAd.company.id} + '.jpg'}"
+                                                    <img th:src="${jobAd.company.picture != null ? jobAd.company.picture.url : '/images/profile-picture/default-company-logo.png'}"
                                                          alt="logo">
                                                 </a>
                                             </div>
