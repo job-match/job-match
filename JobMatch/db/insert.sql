@@ -1,9 +1,9 @@
 -- pictures Table --
 
 insert into job_match.pictures (picture_id, url, public_id)
-values (1, 'https://res.cloudinary.com/job-match/image/upload/v1734091815/images_10_fsnozu.jpg','images_10_fsnozu'),
-       (2, 'https://res.cloudinary.com/job-match/image/upload/v1734091781/download_1_v3l1fn.jpg','download_1_v3l1fn'),
-       (3, 'https://res.cloudinary.com/job-match/image/upload/v1734091745/download_n4xyyj.jpg','download_n4xyyj'),
+values (1, 'https://res.cloudinary.com/job-match/image/upload/v1734359291/download_1_v3l1fn.png','download_1_v3l1fn'),
+       (2, 'https://res.cloudinary.com/job-match/image/upload/v1734357030/images_10_fsnozu.png','images_10_fsnozu'),
+       (3, 'https://res.cloudinary.com/job-match/image/upload/v1734359404/download_n4xyyj.png','download_n4xyyj'),
        (4, 'https://res.cloudinary.com/job-match/image/upload/v1734091712/images_9_pzmof3.jpg','images_9_pzmof3'),
        (5, 'https://res.cloudinary.com/job-match/image/upload/v1734091623/images_8_gr7kdc.jpg','images_8_gr7kdc'),
        (6, 'https://res.cloudinary.com/job-match/image/upload/v1734091565/istockphoto-1388253782-612x612_aeul9q.jpg','istockphoto-1388253782-612x612_aeul9q'),
@@ -244,7 +244,7 @@ values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilovmail90@gmail.
         'Graphic designer with a unique blend of creativity and technical skill in visual design. Expert in Adobe Creative Suite and familiar with digital marketing and branding strategies. Known for a strong eye for detail and an ability to create visually compelling content.',
         6, 6),
 
-       (9, 'annavalcheva', 'password', 'Anna', 'Valcheva', 'annaluncheva@mail.bg',
+       (9, 'annavalcheva', 'password', 'Anna', 'Valcheva', 'annavalcheva@mail.bg',
         'Software engineer with a focus on front-end development and a strong foundation in HTML, CSS, and JavaScript. Enjoys creating intuitive and user-friendly interfaces that enhance user experience. Known for problem-solving abilities and meticulous attention to detail, ensuring high-quality, responsive designs.',
         3, 21),
 
