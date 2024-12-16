@@ -26,4 +26,6 @@ public interface CompanyService {
     Page<Company> searchCompaniesPaginated(String username, String name, String email, String keyword, String location, PageRequest pageRequest);
 
     List<Company> searchCompanies(String username, String name, String email, String keyword, String location);
+
+    Company getCompanyByJobAdId(int jobAdId);
 }

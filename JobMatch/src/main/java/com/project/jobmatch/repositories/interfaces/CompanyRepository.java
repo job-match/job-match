@@ -1,6 +1,7 @@
 package com.project.jobmatch.repositories.interfaces;
 
 import com.project.jobmatch.models.Company;
+import com.project.jobmatch.models.Professional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +18,9 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     Optional<Company> getCompanyByUsername(String username);
 
     Optional<Company> getCompanyById(int id);
+
+    @Query("SELECT c FROM Company c JOIN c.jobAds ja WHERE ja.id = :jobAdId")
+    Optional<Company> findCompanyByJobAdId(@Param("jobAdId") int jobAdId);
 
     @Override
     List<Company> findAll();
