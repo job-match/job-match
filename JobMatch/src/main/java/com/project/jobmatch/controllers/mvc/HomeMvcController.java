@@ -96,11 +96,17 @@ public class HomeMvcController {
         List<Professional> allProfessionals = professionalService.getAllProfessionals();
         List<JobAd> allJobAds = jobAdService.getAll();
         List<JobApplication> allJobApplications = jobApplicationService.getAllJobApplications();
+        Professional nikolay = professionalService.getProfessionalById(21);
+        Professional kiril = professionalService.getProfessionalById(1);
+        Professional anna = professionalService.getProfessionalById(9);
 
         model.addAttribute("allCompanies", allCompanies);
         model.addAttribute("allProfessionals", allProfessionals);
         model.addAttribute("allJobAds", allJobAds);
         model.addAttribute("allJobApplications", allJobApplications);
+        model.addAttribute("nikolay", nikolay);
+        model.addAttribute("kiril", kiril);
+        model.addAttribute("anna", anna);
 
         return "about";
     }

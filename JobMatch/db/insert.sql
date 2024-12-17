@@ -35,7 +35,10 @@ values (1, 'https://res.cloudinary.com/job-match/image/upload/v1734359291/downlo
        (32, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo4_tgp4yn.jpg','logo4_tgp4yn'),
        (33, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo6_g22out.jpg','logo6_g22out'),
        (34, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo1_funxrw.jpg','logo1_funxrw'),
-       (35, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo2_uk4kyg.jpg','logo2_uk4kyg');
+       (35, 'https://res.cloudinary.com/job-match/image/upload/v1734089007/logo2_uk4kyg.jpg','logo2_uk4kyg'),
+       (36, 'https://res.cloudinary.com/job-match/image/upload/v1734427618/Image_vbzwnv.png','Image_vbzwnv'),
+       (37, 'https://res.cloudinary.com/job-match/image/upload/v1734428048/2_IMG_6434_gyplcc.png','2_IMG_6434_gyplcc'),
+       (38, 'https://res.cloudinary.com/job-match/image/upload/v1734430129/167810203_ie2dsa.jpg','167810203_ie2dsa');
 
 
 -- statuses Table --
@@ -214,7 +217,7 @@ insert into job_match.professionals (professional_id, username, password, first_
                                      location_id,picture_id)
 values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilovmail90@gmail.com',
         'Experienced software engineer with over 10 years of expertise in backend development and system architecture. Skilled in Java, Python, and cloud-based technologies, specializing in creating scalable and efficient solutions for complex business challenges. Known for analytical thinking, strong problem-solving skills, and the ability to communicate technical information effectively to both technical and non-technical stakeholders.',
-        3, 2),
+        3, 38),
 
        (2, 'johnsmith', 'password', 'John', 'Smith', 'johnsmith@mail.bg',
         'Digital marketing specialist with a proven track record of designing and implementing successful campaigns across various digital platforms. Proficient in SEO, content marketing, and social media strategies, with a strong understanding of data analytics to drive results. Recognized for creative problem-solving skills and a passion for staying updated with the latest trends in digital marketing.',
@@ -238,7 +241,7 @@ values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilovmail90@gmail.
 
        (7, 'annabrown', 'password', 'Anna', 'Brown', 'annabrown@mail.bg',
         'Customer service representative with a strong background in communication and conflict resolution. Known for a friendly demeanor, active listening skills, and the ability to handle high-pressure situations calmly and effectively. Experienced in various customer support platforms and CRM tools.',
-        5,22),
+        5,21),
 
        (8, 'georgedimitrov', 'password', 'George', 'Dimitrov', 'georgedimitrov@mail.bg',
         'Graphic designer with a unique blend of creativity and technical skill in visual design. Expert in Adobe Creative Suite and familiar with digital marketing and branding strategies. Known for a strong eye for detail and an ability to create visually compelling content.',
@@ -246,7 +249,7 @@ values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilovmail90@gmail.
 
        (9, 'annavalcheva', 'password', 'Anna', 'Valcheva', 'annavalcheva@mail.bg',
         'Software engineer with a focus on front-end development and a strong foundation in HTML, CSS, and JavaScript. Enjoys creating intuitive and user-friendly interfaces that enhance user experience. Known for problem-solving abilities and meticulous attention to detail, ensuring high-quality, responsive designs.',
-        3, 21),
+        3, 36),
 
        (10, 'mariaslavova', 'password', 'Maria', 'Slavova', 'mariaslavova@mail.bg',
         'Operations manager with a deep understanding of logistics and supply chain management, dedicated to streamlining business operations and reducing costs. Experienced in process optimization, quality control, and team coordination. Known for excellent organizational skills and an analytical mindset.',
@@ -290,11 +293,11 @@ values (1, 'kirilkirilov', 'password', 'Kiril', 'Kirilov', 'kirilovmail90@gmail.
 
        (20, 'dimitarkarov', 'password', 'Dimitar', 'Karov', 'dimitarkarov@mail.bg',
         'Business analyst with expertise in process improvement and data-driven decision-making. Skilled in requirements gathering, documentation, and stakeholder communication. Known for a strong analytical mindset and problem-solving skills.',
-        6, 12),
+        6, 14),
 
        (21, 'nikolayvoynov', 'password', 'Nikolay', 'Voynov', 'nikolayvoynov@mail.bg',
         'Backend Engineer with expertise in system architecture, performance optimization, and API development. Skilled in coding, database management, and integration. Known for a strong technical mindset, problem-solving abilities, and delivering efficient, scalable solutions.',
-        6, 14);
+        6, 37);
 
 
 -- job_ads Table --
