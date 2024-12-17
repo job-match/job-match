@@ -143,11 +143,14 @@
                                                             <span><a th:text="${iterStat.index+1}"></a></span>
                                                         </td>
                                                         <td class="application-job">
-                                                            <h3><a href="#" th:text="${jobAd.getPositionTitle()}"></a>
+                                                            <h3><a
+                                                                    th:href="@{/professional-portal/job-ads/{jobAdId}(jobAdId=${jobAd.getId()})}"
+                                                                   th:text="${jobAd.getPositionTitle()}"></a>
                                                             </h3>
                                                         </td>
                                                         <td class="application-job">
-                                                            <h3><a class="dotted" href="#"
+                                                            <h3><a class="dotted"
+                                                                   th:href="@{/professional-portal/companies/{companyId}(companyId=${jobAd.getCompany().getId()})}"
                                                                    th:text="${jobAd.getCompany().getName()}"></a></h3>
                                                         </td>
                                                         <td class="application-created">

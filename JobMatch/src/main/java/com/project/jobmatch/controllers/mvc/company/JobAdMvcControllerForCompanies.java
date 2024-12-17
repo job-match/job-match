@@ -32,6 +32,8 @@ public class JobAdMvcControllerForCompanies {
     private final ModelMapper modelMapper;
     private final SkillService skillService;
     private final RequirementService requirementService;
+    private final JobApplicationService jobApplicationService;
+    private final MatchService matchService;
 
     public JobAdMvcControllerForCompanies(AuthenticationHelper authenticationHelper,
                                           JobAdService jobAdService,
@@ -39,7 +41,7 @@ public class JobAdMvcControllerForCompanies {
                                           LocationService locationService,
                                           SkillService skillService,
                                           RequirementService requirementService,
-                                          ModelMapper modelMapper) {
+                                          ModelMapper modelMapper, JobApplicationService jobApplicationService, MatchService matchService) {
         this.authenticationHelper = authenticationHelper;
         this.jobAdService = jobAdService;
         this.locationService = locationService;
@@ -47,6 +49,8 @@ public class JobAdMvcControllerForCompanies {
         this.skillService = skillService;
         this.requirementService = requirementService;
         this.modelMapper = modelMapper;
+        this.jobApplicationService = jobApplicationService;
+        this.matchService = matchService;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -258,8 +262,82 @@ public class JobAdMvcControllerForCompanies {
         }
     }
 
-    @GetMapping("/match-requests")
-    public String showJobAdMatchRequestsView() {
-        return "job-ad/job-ad-match-requests";
+    @GetMapping("{id}/match-requests")
+    public String showJobAdMatchRequestsView(@PathVariable int id,
+                                             Model model,
+                                             HttpSession httpSession) {
+        try {
+            authenticationHelper.tryGetCurrentCompany(httpSession);
+
+            model.addAttribute("jobAd", jobAdService.getJobAdById(id));
+
+            return "job-ad/job-ad-match-requests";
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/company-portal/login";
+        }
+    }
+
+    @PostMapping("/{jobAdId}/accept-match-request/{jobAppId}")
+    public String acceptMatchRequest(@PathVariable int jobAdId,
+                                     @PathVariable int jobAppId,
+                                     Model model,
+                                     HttpSession httpSession) {
+        Company company;
+
+        try {
+            company = authenticationHelper.tryGetCurrentCompany(httpSession);
+
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/company-portal/login";
+        }
+
+        try {
+            JobAd jobAd = jobAdService.getJobAdById(jobAdId);
+            JobApplication jobApplicationToAccept = jobApplicationService.getJobApplicationById(jobAppId);
+
+            matchService.confirmMatchWithJobApplication(jobAd, jobApplicationToAccept, company);
+
+            return "redirect:/company-portal/job-ads/" + jobAdId + "/match-requests";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        }
+    }
+
+    @PostMapping("/{jobAdId}/reject-match-request/{jobAppId}")
+    public String rejectMatchRequest(@PathVariable int jobAdId,
+                                     @PathVariable int jobAppId,
+                                     Model model,
+                                     HttpSession httpSession) {
+        Company company;
+
+        try {
+            company = authenticationHelper.tryGetCurrentCompany(httpSession);
+
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
+
+        try {
+            JobAd jobAd = jobAdService.getJobAdById(jobAdId);
+            JobApplication jobApplicationToReject = jobApplicationService.getJobApplicationById(jobAppId);
+
+            matchService.rejectMatchWithJobApplication(jobAd, jobApplicationToReject, company);
+
+            return "redirect:/company-portal/job-ads/" + jobAdId + "/match-requests";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        }
     }
 }
