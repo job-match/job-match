@@ -128,7 +128,6 @@
                         <div class="field-descriptions mb-60 mb-sm-30 mb-xs-30">
                             <h3 class="title" th:text="'Job Description '"></h3>
                             <a th:text="${jobApp.getMotivationLetter()}"></a>
-
                             <h3 class="title" th:text="'Skills '"></h3>
                             <ul>
                                 <li th:each="skill: ${jobApp.getSkills()}"
@@ -136,6 +135,14 @@
 
                                 </li>
                             </ul>
+                            <br><br>
+                            <form method="get" th:action="@{/professional-portal/job-applications/{id}/match-requests(id=${jobApp.id})}"
+                                  th:if="${isProfessionalOwner}">
+                                <button class="ht-btn theme-btn theme-btn-two" type="submit">
+                                    View Match Requests <i class="ml-10 mr-0 fa fa-paper-plane"></i>
+                                </button>
+                            </form>
+
                         </div>
                         <div class="job-apply" th:if="${isCompany}">
                             <h3>Want to match to this candidate's application?</h3>

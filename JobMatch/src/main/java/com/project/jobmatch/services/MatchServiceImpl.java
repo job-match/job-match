@@ -70,6 +70,18 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    public void rejectMatchWithJobAd(JobAd jobAd,
+                                     JobApplication jobApplication,
+                                     Professional professionalAuthenticated) {
+        if (!(professionalAuthenticated.equals(jobApplication.getProfessional()))) {
+            throw new AuthorizationException(JOB_APPLICATION_OWNER_ERROR_MESSAGE);
+        }
+
+        jobApplication.getListOfAdMatchRequests().remove(jobAd);
+        jobApplicationRepository.save(jobApplication);
+    }
+
+    @Override
     public void createMatch(JobAd jobAd, JobApplication jobApplication) {
 
         boolean alreadyMatched = matchRepository.existsMatchByJobAdAndJobApplication(jobAd, jobApplication);

@@ -1,5 +1,6 @@
 package com.project.jobmatch.repositories.interfaces;
 
+import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.Status;

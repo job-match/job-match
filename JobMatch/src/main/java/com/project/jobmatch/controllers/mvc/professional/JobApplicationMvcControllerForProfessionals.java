@@ -1,6 +1,7 @@
 package com.project.jobmatch.controllers.mvc.professional;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
@@ -8,10 +9,7 @@ import com.project.jobmatch.helpers.ParsingHelper;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.models.dto.JobApplicationDtoInCreate;
 import com.project.jobmatch.models.dto.JobApplicationDtoUpdate;
-import com.project.jobmatch.services.interfaces.JobApplicationService;
-import com.project.jobmatch.services.interfaces.LocationService;
-import com.project.jobmatch.services.interfaces.SkillService;
-import com.project.jobmatch.services.interfaces.StatusService;
+import com.project.jobmatch.services.interfaces.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -30,23 +28,27 @@ public class JobApplicationMvcControllerForProfessionals {
 
     private final AuthenticationHelper authenticationHelper;
     private final JobApplicationService jobApplicationService;
+    private final JobAdService jobAdService;
     private final StatusService statusService;
     private final LocationService locationService;
     private final ModelMapper modelMapper;
     private final SkillService skillService;
+    private final MatchService matchService;
 
     public JobApplicationMvcControllerForProfessionals(AuthenticationHelper authenticationHelper,
-                                                       JobApplicationService jobApplicationService,
+                                                       JobApplicationService jobApplicationService, JobAdService jobAdService,
                                                        StatusService statusService,
                                                        LocationService locationService,
                                                        SkillService skillService,
-                                                       ModelMapper modelMapper) {
+                                                       ModelMapper modelMapper, MatchService matchService) {
         this.authenticationHelper = authenticationHelper;
         this.jobApplicationService = jobApplicationService;
+        this.jobAdService = jobAdService;
         this.locationService = locationService;
         this.statusService = statusService;
         this.skillService = skillService;
         this.modelMapper = modelMapper;
+        this.matchService = matchService;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -264,9 +266,82 @@ public class JobApplicationMvcControllerForProfessionals {
         }
     }
 
-    @GetMapping("/match-requests")
-    public String showJobApplicationMatchRequestsView() {
-        return "job-application/job-application-match-requests";
+    @GetMapping("/{id}/match-requests")
+    public String showJobApplicationMatchRequestsView(@PathVariable int id,
+                                                      Model model,
+                                                      HttpSession httpSession) {
+        try {
+            authenticationHelper.tryGetCurrentProfessional(httpSession);
+
+            model.addAttribute("jobApplication", jobApplicationService.getJobApplicationById(id));
+
+            return "job-application/job-application-match-requests";
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
     }
 
+    @PostMapping("/{jobAppId}/accept-match-request/{jobAdId}")
+    public String acceptMatchRequest(@PathVariable int jobAppId,
+                                     @PathVariable int jobAdId,
+                                     Model model,
+                                     HttpSession httpSession) {
+        Professional professional;
+
+        try {
+            professional = authenticationHelper.tryGetCurrentProfessional(httpSession);
+
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
+
+        try {
+            JobApplication jobApplication = jobApplicationService.getJobApplicationById(jobAppId);
+            JobAd jobAdToAccept = jobAdService.getJobAdById(jobAdId);
+
+            matchService.confirmMatchWithJobAd(jobAdToAccept, jobApplication, professional);
+
+            return "redirect:/professional-portal/job-applications/" + jobAppId + "/match-requests";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        }
+    }
+
+    @PostMapping("/{jobAppId}/reject-match-request/{jobAdId}")
+    public String rejectMatchRequest(@PathVariable int jobAppId,
+                                     @PathVariable int jobAdId,
+                                     Model model,
+                                     HttpSession httpSession) {
+        Professional professional;
+
+        try {
+            professional = authenticationHelper.tryGetCurrentProfessional(httpSession);
+
+        } catch (AuthorizationException e) {
+            return "redirect:/auth/professional-portal/login";
+        }
+
+        try {
+            JobApplication jobApplication = jobApplicationService.getJobApplicationById(jobAppId);
+            JobAd jobAdToReject = jobAdService.getJobAdById(jobAdId);
+
+            matchService.rejectMatchWithJobAd(jobAdToReject, jobApplication, professional);
+
+            return "redirect:/professional-portal/job-applications/" + jobAppId + "/match-requests";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        }
+    }
 }
