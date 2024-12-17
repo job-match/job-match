@@ -30,7 +30,6 @@ public class JobAdMvcControllerForCompanies {
     private final StatusService statusService;
     private final LocationService locationService;
     private final ModelMapper modelMapper;
-    private final SkillService skillService;
     private final RequirementService requirementService;
     private final JobApplicationService jobApplicationService;
     private final MatchService matchService;
@@ -46,7 +45,6 @@ public class JobAdMvcControllerForCompanies {
         this.jobAdService = jobAdService;
         this.locationService = locationService;
         this.statusService = statusService;
-        this.skillService = skillService;
         this.requirementService = requirementService;
         this.modelMapper = modelMapper;
         this.jobApplicationService = jobApplicationService;
