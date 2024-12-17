@@ -70,6 +70,10 @@ public class HomeMvcController {
         List<JobApplication> allJobApplications = jobApplicationService.getAllJobApplications();
         List<Location> allLocations = locationService.getAllLocations();
         List<JobAd> sixMostRecentJobAds = jobAdService.getSixMostRecentJobAds();
+        Company retailBoost = companyService.getCompanyById(9);
+        Company ecoBuilders = companyService.getCompanyById(6);
+        Company greenSolutions = companyService.getCompanyById(2);
+        Company devExperts = companyService.getCompanyById(1);
 
         Map<Location, Integer> jobCountByLocation = new HashMap<>();
 
@@ -78,6 +82,10 @@ public class HomeMvcController {
             jobCountByLocation.put(location, jobAdsForLocation.size());
         }
 
+        model.addAttribute("retailBoost", retailBoost);
+        model.addAttribute("ecoBuilders", ecoBuilders);
+        model.addAttribute("greenSolutions", greenSolutions);
+        model.addAttribute("devExperts", devExperts);
         model.addAttribute("allCompanies", allCompanies);
         model.addAttribute("allProfessionals", allProfessionals);
         model.addAttribute("allJobAds", allJobAds);
