@@ -1,7 +1,6 @@
 package com.project.jobmatch.controllers.mvc.professional;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
-import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;

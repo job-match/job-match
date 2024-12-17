@@ -8,7 +8,6 @@ import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.models.Company;
 import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
-import com.project.jobmatch.models.dto.JobAdDtoSearch;
 import com.project.jobmatch.models.dto.JobApplicationDtoSearch;
 import com.project.jobmatch.services.interfaces.CompanyService;
 import com.project.jobmatch.services.interfaces.JobAdService;
@@ -151,7 +150,6 @@ public class JobApplicationMvcControllerForCompanies {
     @PostMapping("/match-request")
     public ResponseEntity<?> jobAdRequestMatchWithJobApplication(@RequestParam("jobAppId") int jobAppId,
                                                       @RequestParam("jobAdId") int jobAdId,
-                                                      Model model,
                                                       HttpSession httpSession) {
         try {
             authenticationHelper.tryGetCurrentCompany(httpSession);
