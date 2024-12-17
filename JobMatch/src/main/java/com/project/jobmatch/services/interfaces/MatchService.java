@@ -12,6 +12,8 @@ public interface MatchService {
 
     void rejectMatchWithJobAd(JobAd jobAd, JobApplication jobApplication, Professional professionalAuthenticated);
 
+    void rejectMatchWithJobApplication(JobAd jobAd, JobApplication jobApplication, Company companyAuthenticated);
+
     void createMatch(JobAd jobAd, JobApplication jobApplication);
 
     List<JobApplication> getMatchedJobApplications(Company company);
