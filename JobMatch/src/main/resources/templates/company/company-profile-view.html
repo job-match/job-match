@@ -253,7 +253,7 @@
                         </div>
                         <div class="job-area mt-60">
                             <div class="job-container">
-                                <h3 class="title" th:text="'Matched Job Applications'"></h3>
+                                <h3 class="title" th:text="'Successful Matches'"></h3>
                                 <div class="row">
                                     <div class="col-lg-12" th:each="jobApp : ${matchedJobApps}">
                                         <!-- Single Job Start  -->
@@ -262,9 +262,9 @@
                                                 <div class="job-info">
                                                     <div class="job-info-inner">
                                                         <div class="job-info-top">
-                                                            <div class="saveJob for-listing">
-                                                                <span class="featured-label" th:text="${jobApp.getStatus().getType()}">featured</span>
-                                                            </div>
+<!--                                                            <div class="saveJob for-listing">-->
+<!--                                                                <span class="featured-label" th:text="${jobApp.getStatus().getType()}">featured</span>-->
+<!--                                                            </div>-->
                                                             <div class="title-name">
                                                                 <h5 class="job-title">
                                                                     <a th:href="@{/company-portal/job-applications/{id}(id=${jobApp.id})}"
