@@ -22,9 +22,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_ACCEPT;
-import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_IGNORE;
-
 @RestController
 @RequestMapping("/api/professional-portal/job-applications")
 public class JobApplicationForProfessionalsRestController {

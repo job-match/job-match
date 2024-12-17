@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
-import static com.project.jobmatch.helpers.RestControllersConstants.JOB_APP_STATUS_TO_IGNORE;
-
 @RestController
 @RequestMapping("/api/company-portal/job-applications")
 public class JobApplicationForCompaniesRestController {

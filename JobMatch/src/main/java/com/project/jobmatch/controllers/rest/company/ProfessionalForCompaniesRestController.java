@@ -6,7 +6,6 @@ import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.Professional;
 import com.project.jobmatch.models.dto.ProfessionalDtoOut;
-import com.project.jobmatch.services.interfaces.CloudinaryService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
