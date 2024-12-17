@@ -4281,7 +4281,7 @@ body.template-color-4 .copyright p a:hover {
   display: flex;
   margin-top: 15px;
 }
-.single-job .job-info .job-info-inner .job-skill-tag a {
+.single-job .job-info .job-info-inner .job-skill-tag div{
   font-size: 13px;
   font-weight: 500;
   padding: 0 10px;
@@ -4292,9 +4292,9 @@ body.template-color-4 .copyright p a:hover {
   background: #eff1f8;
   color: #999;
 }
-.single-job .job-info .job-info-inner .job-skill-tag a:hover {
-  color: #1dae0e;
-}
+/*.single-job .job-info .job-info-inner .job-skill-tag div:hover{*/
+/*  color: #1dae0e;*/
+/*}*/
 .single-job.style-two {
   padding: 26px 30px 22px;
   -webkit-transition: all 0.4s ease-in-out;
