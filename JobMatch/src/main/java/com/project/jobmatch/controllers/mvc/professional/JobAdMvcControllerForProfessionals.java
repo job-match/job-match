@@ -12,16 +12,16 @@ import com.project.jobmatch.models.dto.JobAdDtoSearch;
 import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import com.project.jobmatch.services.interfaces.ProfessionalService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import static com.project.jobmatch.helpers.MvcControllersConstants.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -150,10 +150,10 @@ public class JobAdMvcControllerForProfessionals {
     }
 
     @PostMapping("/match-request")
-    public String jobApplicationRequestMatchWithJobAd(@RequestParam("jobAdId") int jobAdId,
-                                                      @RequestParam("jobAppId") int jobAppId,
-                                                      Model model,
-                                                      HttpSession httpSession) {
+    public ResponseEntity<?> jobApplicationRequestMatchWithJobAd(@RequestParam("jobAdId") int jobAdId,
+                                                                 @RequestParam("jobAppId") int jobAppId,
+                                                                 Model model,
+                                                                 HttpSession httpSession) {
         try {
             authenticationHelper.tryGetCurrentProfessional(httpSession);
 
@@ -162,15 +162,16 @@ public class JobAdMvcControllerForProfessionals {
 
             jobAdService.addJobApplicationToListOfApplicationMatchRequests(jobAd, jobApplication);
 
-            return "redirect:/professional-portal/job-ads/" + jobAdId;
+            return ResponseEntity.ok(MATCH_REQUEST_SUBMITTED_SUCCESSFULLY);
         } catch (AuthorizationException e) {
-            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-            model.addAttribute("error", e.getMessage());
-            return "error-view";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(e.getMessage());
         } catch (EntityDuplicateException | MatchRequestDeniedException e) {
-            model.addAttribute("statusCode", HttpStatus.CONFLICT.getReasonPhrase());
-            model.addAttribute("error", e.getMessage());
-            return "error-view";
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(UNEXPECTED_ERROR_MESSAGE);
         }
     }
 }

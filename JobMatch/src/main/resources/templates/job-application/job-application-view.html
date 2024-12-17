@@ -154,9 +154,10 @@
                                     </option>
                                 </select>
                                 <br><br>
-                                <button type="submit" class="ht-btn theme-btn theme-btn-two">
+                                <button type="button" class="ht-btn theme-btn theme-btn-two" onclick="submitForm()">
                                     Match to this Application <i class="ml-10 mr-0 fa fa-paper-plane"></i>
                                 </button>
+                                <div id="responseMessage" style="margin-top: 10px; color: green;"></div> <!-- Response message will appear here -->
                             </form>
                         </div>
 
@@ -236,14 +237,60 @@
         const form = document.getElementById('matchRequestForm');
         const select = document.getElementById('jobAdId');
         const selectedValue = select.value;
+        const responseMessage = document.getElementById('responseMessage');
 
+        // Clear previous messages
+        responseMessage.textContent = '';
+        responseMessage.style.color = 'green'; // Default to success color
+
+        // Check if a job ad is selected
         if (!selectedValue) {
             alert('Please select a Job Ad before submitting.');
             return;
         }
 
-        form.submit();
+        // Prepare form data for submission
+        const formData = new FormData();
+        formData.append('jobAppId', form.elements['jobAppId'].value);
+        formData.append('jobAdId', selectedValue);
+
+        // Use Fetch API for an AJAX request
+        fetch('/company-portal/job-applications/match-request', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Success case
+                    return response.text().then(message => {
+                        responseMessage.style.color = 'green';
+                        responseMessage.textContent = message || 'Match request submitted successfully!';
+                    });
+                } else if (response.status === 401) {
+                    // Unauthorized error
+                    return response.text().then(errorMsg => {
+                        responseMessage.style.color = 'red';
+                        responseMessage.textContent = errorMsg || 'You are not authorized to perform this action.';
+                    });
+                } else if (response.status === 409) {
+                    // Conflict error
+                    return response.text().then(errorMsg => {
+                        responseMessage.style.color = 'red';
+                        responseMessage.textContent = errorMsg || 'A conflict occurred. Match request denied.';
+                    });
+                } else {
+                    // Handle other unexpected errors
+                    throw new Error('An unexpected error occurred. Please try again later.');
+                }
+            })
+            .catch(error => {
+                // Handle network or generic errors
+                responseMessage.style.color = 'red';
+                responseMessage.textContent = error.message;
+            });
     }
+
+
 </script>
 
 </body>

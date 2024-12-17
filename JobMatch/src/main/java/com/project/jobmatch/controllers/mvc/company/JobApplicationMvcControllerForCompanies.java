@@ -18,9 +18,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import static com.project.jobmatch.helpers.MvcControllersConstants.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -147,7 +149,7 @@ public class JobApplicationMvcControllerForCompanies {
     }
 
     @PostMapping("/match-request")
-    public String jobAdRequestMatchWithJobApplication(@RequestParam("jobAppId") int jobAppId,
+    public ResponseEntity<?> jobAdRequestMatchWithJobApplication(@RequestParam("jobAppId") int jobAppId,
                                                       @RequestParam("jobAdId") int jobAdId,
                                                       Model model,
                                                       HttpSession httpSession) {
@@ -159,15 +161,16 @@ public class JobApplicationMvcControllerForCompanies {
 
             jobApplicationService.addJobAdToListOfAdMatchRequests(jobApplication, jobAd);
 
-            return "redirect:/company-portal/job-applications/" + jobAppId;
+            return ResponseEntity.ok(MATCH_REQUEST_SUBMITTED_SUCCESSFULLY);
         } catch (AuthorizationException e) {
-            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
-            model.addAttribute("error", e.getMessage());
-            return "error-view";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(e.getMessage());
         } catch (EntityDuplicateException | MatchRequestDeniedException e) {
-            model.addAttribute("statusCode", HttpStatus.CONFLICT.getReasonPhrase());
-            model.addAttribute("error", e.getMessage());
-            return "error-view";
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(UNEXPECTED_ERROR_MESSAGE);
         }
     }
 }
