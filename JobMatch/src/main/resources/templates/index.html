@@ -9,18 +9,6 @@
     <header th:replace="~{fragments/page-frame :: header-home}"></header>
     <!--Header section end-->
 
-    <!--Header Mobile section start-->
-    <!--Header Mobile section end-->
-
-    <!-- Start Popup Menu -->
-    <!-- End Popup Menu -->
-
-    <!-- Bottom Navbar Mobile Start -->
-    <!-- Bottom Navbar Mobile End -->
-
-    <!-- Bottom Navbar Mobile Popup Start -->
-    <!-- Bottom Navbar Mobile Popup End -->
-
     <!--slider section start-->
     <div class="hero-section section position-relative">
         <!--Hero Item start-->
@@ -287,7 +275,6 @@
                                                 <div class="job-info-inner">
                                                     <div class="job-info-top">
                                                         <div class="saveJob for-listing">
-                                                            <!--                                                            <span class="featured-label">featured</span>-->
                                                             <a class="save-job ml-20" href="#quick-view-modal-container"
                                                                data-toggle="modal">
                                                             </a>
@@ -310,11 +297,8 @@
                                                     <div class="job-meta">
                                                         <div class="job-location"><i class="lnr lnr-map-marker"></i>
                                                             <span th:text="${jobAd.getLocation().getName()}">Ho
-                                                            Chi Minh City</span></div>
-
-                                                        <!--                                                        <div class="job-type"><i class="lnr lnr-briefcase"></i><a-->
-                                                        <!--                                                                class="def-color" href="#">Full Time</a></div>-->
-
+                                                            Chi Minh City</span>
+                                                        </div>
                                                         <div class="job-date"><i class="lnr lnr-clock"></i>
                                                             <span th:text="${#dates.format(jobAd.getCreatedAt(), 'MMM d, yyyy')}"></span>
                                                         </div>
