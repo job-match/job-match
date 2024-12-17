@@ -191,9 +191,11 @@
                             <div class="job-area mt-60">
                                 <div class="job-container">
                                     <div class="job-apply">
-                                        <a class="ht-btn text-center" th:href="@{/company-portal/job-ads}"
-                                           th:utext="'Create Job Ad'">
-                                        </a>
+                                            <form th:action="@{/company-portal/job-ads}" method="get">
+                                                <button class="ht-btn theme-btn theme-btn-two mb-xs-20" type="submit">
+                                                    Create Job Ad
+                                                </button>
+                                            </form>
                                     </div>
                                     <div class="space-separator">
                                     </div>
@@ -287,7 +289,7 @@
                                                         </div>
                                                         <ul class="job-skill-tag">
                                                             <li th:each="skill : ${jobApp.getSkills()}">
-                                                                <a href="#" th:text="${skill.getType()}"></a>
+                                                                <div th:text="${skill.getType()}"></div>
                                                             </li>
                                                         </ul>
                                                     </div>
