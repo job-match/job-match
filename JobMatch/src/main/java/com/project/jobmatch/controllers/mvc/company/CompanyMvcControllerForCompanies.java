@@ -7,8 +7,6 @@ import com.project.jobmatch.helpers.ModelMapper;
 import com.project.jobmatch.models.*;
 import com.project.jobmatch.models.dto.CompanyDtoInUpdate;
 import com.project.jobmatch.models.dto.CompanyDtoOutUpdate;
-import com.project.jobmatch.models.dto.ProfessionalDtoInUpdate;
-import com.project.jobmatch.models.dto.ProfessionalDtoOutUpdate;
 import com.project.jobmatch.services.CloudinaryImage;
 import com.project.jobmatch.services.interfaces.*;
 import jakarta.servlet.http.HttpSession;
@@ -30,8 +28,6 @@ public class CompanyMvcControllerForCompanies {
 
     private final AuthenticationHelper authenticationHelper;
     private final CompanyService companyService;
-    private final ProfessionalService professionalService;
-    private final JobApplicationService jobApplicationService;
     private final JobAdService jobAdService;
     private final MatchService matchService;
     private final CloudinaryService cloudinaryService;
@@ -50,8 +46,6 @@ public class CompanyMvcControllerForCompanies {
                                             ModelMapper modelMapper) {
         this.authenticationHelper = authenticationHelper;
         this.companyService = companyService;
-        this.professionalService = professionalService;
-        this.jobApplicationService = jobApplicationService;
         this.jobAdService = jobAdService;
         this.matchService = matchService;
         this.cloudinaryService = cloudinaryService;
