@@ -230,7 +230,7 @@
                                                         </div>
                                                         <ul class="job-skill-tag">
                                                             <li th:each="requirement : ${jobAdActive.getRequirements()}">
-                                                                <a href="#" th:text="${requirement.getType()}"></a>
+                                                                <div th:text="${requirement.getType()}"></div>
                                                             </li>
                                                         </ul>
                                                     </div>

@@ -154,7 +154,7 @@
                                                     </div>
                                                     <ul class="job-skill-tag">
                                                         <li th:each="skill : ${jobApp.getSkills()}">
-                                                            <a th:text="${skill.getType()}"></a>
+                                                            <div th:text="${skill.getType()}"></div>
                                                         </li>
                                                     </ul>
                                                 </div>
