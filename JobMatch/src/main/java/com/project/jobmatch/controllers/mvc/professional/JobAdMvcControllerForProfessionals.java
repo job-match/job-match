@@ -75,13 +75,15 @@ public class JobAdMvcControllerForProfessionals {
     }
 
     @ModelAttribute("jobApplicationsOfProfessional")
-    public List<JobApplication> populateJobApplicationListOfProfessional(
-            @ModelAttribute("currentUserUsername") String currentUsername) {
-        if (currentUsername != null && !currentUsername.isEmpty()) {
+    public List<JobApplication> populateJobApplicationListOfProfessional(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        if (currentUser != null) {
+            String currentUsername = currentUser.toString();
             Professional professional = professionalService.getByUsername(currentUsername);
-            return jobApplicationService.getJobApplicationsByProfessionalId(
-                    professional.getId()
-            );
+            if (professional != null) {
+                return jobApplicationService.getJobApplicationsByProfessionalId(
+                        professional.getId());
+            }
         }
         return Collections.emptyList();
     }

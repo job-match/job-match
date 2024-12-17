@@ -40,7 +40,8 @@
                                         <li class="date-publish" th:if="${isProfessionalOwner}">
                                             <form th:action="@{/professional-portal/job-applications/{id}/update(id=${jobApp.id})}"
                                                   method="get">
-                                                <button class="ht-btn theme-btn theme-btn-two mb-xs-20" type="submit">Update
+                                                <button class="ht-btn theme-btn theme-btn-two mb-xs-20" type="submit">
+                                                    Update
                                                     Application
                                                 </button>
                                             </form>
@@ -136,10 +137,27 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="job-apply">
-                            <a class="ht-btn text-center" href="#"
-                               th:utext="'Match to this Application <i class=&quot;ml-10 mr-0 fa fa-paper-plane&quot;></i>'">
-                            </a>
+                        <div class="job-apply" th:if="${isCompany}">
+                            <h3>Want to match to this candidate's application?</h3>
+                            <h4>Select Job Add to match with: </h4>
+
+                            <form method="post" action="/company-portal/job-applications/match-request" id="matchRequestForm"
+                                  class="single-input mb-25">
+                                <input type="hidden" name="jobAppId" th:value="${jobApp.getId()}"/>
+                                <label for="jobAdId">Job Ad <span>*</span></label>
+                                <br>
+                                <select id="jobAdId" name="jobAdId" required>
+                                    <option value="" disabled selected>-- Select Job Ad</option>
+                                    <option th:each="jobAd : ${jobAdsOfCompany}"
+                                            th:value="${jobAd.getId()}"
+                                            th:text="${jobAd.getPositionTitle()}">
+                                    </option>
+                                </select>
+                                <br><br>
+                                <button type="submit" class="ht-btn theme-btn theme-btn-two">
+                                    Match to this Application <i class="ml-10 mr-0 fa fa-paper-plane"></i>
+                                </button>
+                            </form>
                         </div>
 
                     </div>
@@ -212,6 +230,21 @@
 
 <!-- All jquery file included here -->
 <div th:replace="~{fragments/page-frame :: script}"></div>
+
+<script>
+    function submitForm() {
+        const form = document.getElementById('matchRequestForm');
+        const select = document.getElementById('jobAdId');
+        const selectedValue = select.value;
+
+        if (!selectedValue) {
+            alert('Please select a Job Ad before submitting.');
+            return;
+        }
+
+        form.submit();
+    }
+</script>
 
 </body>
 

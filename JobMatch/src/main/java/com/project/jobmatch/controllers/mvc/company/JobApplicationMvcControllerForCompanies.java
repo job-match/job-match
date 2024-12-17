@@ -1,12 +1,17 @@
 package com.project.jobmatch.controllers.mvc.company;
 
 import com.project.jobmatch.exceptions.AuthorizationException;
+import com.project.jobmatch.exceptions.EntityDuplicateException;
 import com.project.jobmatch.exceptions.EntityNotFoundException;
+import com.project.jobmatch.exceptions.MatchRequestDeniedException;
 import com.project.jobmatch.helpers.AuthenticationHelper;
 import com.project.jobmatch.models.Company;
+import com.project.jobmatch.models.JobAd;
 import com.project.jobmatch.models.JobApplication;
 import com.project.jobmatch.models.dto.JobAdDtoSearch;
 import com.project.jobmatch.models.dto.JobApplicationDtoSearch;
+import com.project.jobmatch.services.interfaces.CompanyService;
+import com.project.jobmatch.services.interfaces.JobAdService;
 import com.project.jobmatch.services.interfaces.JobApplicationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
@@ -17,6 +22,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+
 @Controller
 @RequestMapping("/company-portal/job-applications")
 public class JobApplicationMvcControllerForCompanies {
@@ -25,10 +33,14 @@ public class JobApplicationMvcControllerForCompanies {
 
     private final JobApplicationService jobApplicationService;
     private final AuthenticationHelper authenticationHelper;
+    private final CompanyService companyService;
+    private final JobAdService jobAdService;
 
-    public JobApplicationMvcControllerForCompanies(JobApplicationService jobApplicationService, AuthenticationHelper authenticationHelper) {
+    public JobApplicationMvcControllerForCompanies(JobApplicationService jobApplicationService, AuthenticationHelper authenticationHelper, CompanyService companyService, JobAdService jobAdService) {
         this.jobApplicationService = jobApplicationService;
         this.authenticationHelper = authenticationHelper;
+        this.companyService = companyService;
+        this.jobAdService = jobAdService;
     }
 
     @ModelAttribute("isAuthenticated")
@@ -60,6 +72,19 @@ public class JobApplicationMvcControllerForCompanies {
         }
 
         return "";
+    }
+
+    @ModelAttribute("jobAdsOfCompany")
+    public List<JobAd> populateJobAdListOfCompany(HttpSession httpSession) {
+        Object currentUser = httpSession.getAttribute("currentUser");
+        if (currentUser != null) {
+            String currentUsername = currentUser.toString();
+            Company company = companyService.getCompanyByUsername(currentUsername);
+            if (company != null) {
+                return jobAdService.getJobAdsByCompanyId(company.getId());
+            }
+        }
+        return Collections.emptyList();
     }
 
     @GetMapping
@@ -118,6 +143,31 @@ public class JobApplicationMvcControllerForCompanies {
             model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
             model.addAttribute("error", e.getMessage());
             return "error";
+        }
+    }
+
+    @PostMapping("/match-request")
+    public String jobAdRequestMatchWithJobApplication(@RequestParam("jobAppId") int jobAppId,
+                                                      @RequestParam("jobAdId") int jobAdId,
+                                                      Model model,
+                                                      HttpSession httpSession) {
+        try {
+            authenticationHelper.tryGetCurrentCompany(httpSession);
+
+            JobApplication jobApplication = jobApplicationService.getJobApplicationById(jobAppId);
+            JobAd jobAd = jobAdService.getJobAdById(jobAdId);
+
+            jobApplicationService.addJobAdToListOfAdMatchRequests(jobApplication, jobAd);
+
+            return "redirect:/company-portal/job-applications/" + jobAppId;
+        } catch (AuthorizationException e) {
+            model.addAttribute("statusCode", HttpStatus.UNAUTHORIZED.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
+        } catch (EntityDuplicateException | MatchRequestDeniedException e) {
+            model.addAttribute("statusCode", HttpStatus.CONFLICT.getReasonPhrase());
+            model.addAttribute("error", e.getMessage());
+            return "error-view";
         }
     }
 }

@@ -264,7 +264,7 @@
                         </div>
                         <div class="job-apply" th:if="${isProfessional}">
                             <h3>Want to apply for this job add?</h3>
-                            <h4>Select Job Application to apply with</h4>
+                            <h4>Select Job Application to apply with: </h4>
 
                             <!-- Single Input Start -->
                             <form method="post" action="/professional-portal/job-ads/match-request" id="matchRequestForm" class="single-input mb-25">
@@ -279,23 +279,13 @@
                                     </option>
                                 </select>
                                 <br><br>
-                                <button type="submit" class="ht-btn text-center">
+                                <button type="submit" class="ht-btn theme-btn theme-btn-two">
                                     Match to this Ad <i class="ml-10 mr-0 fa fa-paper-plane"></i>
                                 </button>
                             </form>
-
-
-                            <!-- Single Input End -->
-
-<!--                            <a class="ht-btn text-center" href="#"-->
-<!--                               th:utext="'Match to this Ad <i class=&quot;ml-10 mr-0 fa fa-paper-plane&quot;></i>'">-->
-<!--                            </a>-->
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
