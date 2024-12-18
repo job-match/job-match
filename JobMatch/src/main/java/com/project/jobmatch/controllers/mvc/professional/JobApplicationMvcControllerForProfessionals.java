@@ -254,7 +254,7 @@ public class JobApplicationMvcControllerForProfessionals {
 
             jobApplicationService.deleteJobApplication(jobApplicationToDelete, professionalAuthenticated);
 
-            return "redirect:/logout";
+            return "redirect:/professional-portal/professionals/profile";
         } catch (EntityNotFoundException e) {
             model.addAttribute("statusCode", HttpStatus.NOT_FOUND.getReasonPhrase());
             model.addAttribute("error", e.getMessage());

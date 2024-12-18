@@ -188,7 +188,7 @@ values (1, 'Dev Experts', 'devexperts', 'password', 'devexperts@mail.bg',
         'Market Gurus is a leading digital marketing agency that helps companies build strong online presences. With expertise in SEO, content marketing, and social media strategies, they enable clients to reach their target audiences effectively. Market Gurus prides itself on data-driven strategies that yield measurable results.',
         6, '101 Digital St, Burgas, +1 234 567 8904',29),
 
-       (5, 'NextGen Health', 'nextgenhealth', 'password', 'k.kirilov@creasevisuals.com',
+       (5, 'NextGen Health', 'nextgenhealth', 'password', 'nextgenhealth@mail.bg',
         'NextGen Health is a healthcare technology company focused on improving patient care through innovative solutions. Their products include electronic health record (EHR) systems, telemedicine platforms, and patient management tools. NextGen Health’s mission is to make healthcare more accessible and efficient by leveraging technology.',
         3, '102 Health Ln, Sofia, +1 234 567 8905',30),
 
@@ -345,7 +345,7 @@ values (1, 'Software Engineer', 3500, 4000,
 
        (11, 'Web Developer', 3000, 3500,
         'Dev Experts is looking for an innovative Web Developer to join our team and help build and maintain cutting-edge websites and applications. As a Web Developer, you will be responsible for writing clean, efficient, and well-documented code that meets both business requirements and user needs. You will collaborate with designers and other developers to create user-friendly web experiences using modern front-end technologies such as HTML5, CSS3, JavaScript, and React.',
-        2, 1),
+        5, 1),
 
        (12, 'Customer Support Specialist', 2500, 3000,
         'Retail Boost is looking for a passionate and dedicated Customer Support Specialist to help provide exceptional support to our clients. You will be the first point of contact for customers seeking help with our software products and services. You will respond to inquiries, resolve issues, and provide product training to ensure a seamless experience for users.',
@@ -377,7 +377,18 @@ values (1, 'Software Engineer', 3500, 4000,
 
        (19, 'Back-end engineer', 3000, 3500,
         'Tech Innovators is seeking a skilled and strategic Backend Engineer to join our development team and help build the foundation of our cutting-edge applications. In this role, you will be responsible for designing, implementing, and maintaining the backend architecture that powers our platforms.',
-        2, 3);
+        5, 3),
+
+       (20, 'Software engineer', 3000, 3500,
+        'We are looking for a skilled and strategic Software Engineer to join our development team and contribute to building the backbone of our innovative applications. In this role, you will be responsible for designing, developing, and maintaining the software architecture that drives our platforms forward.',
+        5, 10),
+
+       (21, 'Dev-Ops engineer', 3000, 3500,
+        'Our company is in the search for a skilled and strategic DevOps Engineer to join our development team and play a critical role in building and optimizing the infrastructure behind our cutting-edge applications. In this role, you will be responsible for designing, implementing, and maintaining scalable, reliable, and secure systems that power our platforms.',
+        5, 5);
+
+
+
 
 -- job_applications Table --
 insert into job_match.job_applications (job_application_id, min_desired_salary, max_desired_salary, motivation_letter,
@@ -423,19 +434,19 @@ values (1, 3500, 4000,
         6, 4,20),
 
        (11, 3000, 3500,
-        'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
-        2, 1,21),
+        'I am thrilled to apply for this opportunity. With my expanding knowledge of Java programming, a strong focus on solving problems, and a dedication to building effective and scalable systems, I am eager to bring value to your team. Programming is a field I am deeply passionate about, and I take satisfaction in honing my abilities, producing high-quality code, and approaching challenges with determination to achieve meaningful outcomes. Thank you for considering my application. I look forward to the chance to contribute and develop further in this role.',
+        5, 1,21),
 
-       (12, 2900, 4150,
-        'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to contribute effectively to your team and help build the foundation of your cutting-edge applications.',
-        3, 4,21),
+       (12, 3000, 3500,
+        'I am excited to apply for this opportunity. With my growing expertise in Java programming, problem-solving, and developing efficient solutions, I am eager to contribute effectively to your team and help build reliable and innovative applications. Programming has always been a passion of mine, and I take pride in writing clean, maintainable code while continuously expanding my skills. I am motivated by the challenge of solving complex problems and collaborating to create high-quality results.',
+        5, 1,21),
 
        (13, 3400, 4800,
         'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at Tech Innovators. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to meet the demands of this role and contribute effectively to your team.',
         3, 5,2),
 
        (14, 3300, 3800,
-        'Dear Hiring Manager, I am excited to apply for the Backend Engineer position at NextGen Health. With my expertise in system architecture, performance optimization, and API development, I am confident in my ability to meet the demands of this role and contribute effectively to your team.',
+        'I am excited to apply for this opportunity. With my growing expertise in Java programming, problem-solving, and creating efficient solutions, I am eager to bring value to your team and expand my skills further. Programming has always been a passion of mine, and I have developed a strong foundation in writing clean, effective code through hands-on practice and continuous learning. I enjoy tackling challenges, optimizing solutions, and collaborating with others to deliver quality results. Thank you for considering my application. I look forward to the possibility of contributing to your team and growing in this role.',
         2, 1,1);
 
 -- job_ads_job_applications Table --
@@ -560,6 +571,20 @@ values (11, 18), -- HTML
        (11, 13);
 -- Creativity
 
+insert into job_match.job_ads_requirements (job_ad_id, requirement_id)
+values (20, 18), -- HTML
+       (20, 7),  -- Attention to Detail
+       (20, 4),  -- Communication Skills
+       (20, 13);
+-- Creativity
+
+insert into job_match.job_ads_requirements (job_ad_id, requirement_id)
+values (21, 18), -- HTML
+       (21, 7),  -- Attention to Detail
+       (21, 4),  -- Communication Skills
+       (21, 13);
+-- Creativity
+
 -- Job Ad 12: Customer Support Specialist
 -- Relevant requirements: Customer Service, Communication Skills, Problem-Solving
 insert into job_match.job_ads_requirements (job_ad_id, requirement_id)
@@ -636,7 +661,10 @@ values (1, 1),
        (2, 2),
        (3, 3),
        (4, 4),
-       (5, 5);
+       (5, 5),
+       (11, 11),
+       (11, 20),
+       (11, 21);
 
 
 -- job_applications_skills Table --
@@ -731,22 +759,21 @@ values (10, 21), -- Financial Literacy
 
 -- Application 11: Financial Analyst (Finance, Budgeting, Financial Analysis)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
-values (11, 1),  -- Java
-       (11, 2),  -- Python
-       (11, 5),  -- Problem-Solving
-       (11, 37), -- Coding Best Practices
-       (11, 12);-- Analytical Thinking
+values (11, 18),  -- HTML
+       (11, 7),  -- Attention to detail
+       (11, 4),  -- Communication Skills
+       (11, 13); -- Creativity
 
 -- Application 12: Financial Analyst (Finance, Budgeting, Financial Analysis)
 insert into job_match.job_applications_skills (job_application_id, skill_id)
 values (12, 1),  -- Java
        (12, 2),  -- Python
-       (12, 6);  -- SQL
-#        (12, 29), -- Critical Thinking
-#        (12, 7);  -- Attention to detail
+       (12, 6),  -- SQL
+       (12, 29), -- Critical Thinking
+       (12, 7);  -- Attention to detail
 
 insert into job_match.job_applications_skills (job_application_id, skill_id)
-values (14, 2),  -- Java
+values (14, 1),  -- Java
        (14, 5),  -- Problem-Solving
        (14, 7), -- Attention to Detail
        (14, 18),-- HTML
@@ -759,5 +786,4 @@ values (1, 1, 1),
        (2, 2, 2),
        (3, 3, 3),
        (4, 4, 4),
-       (5, 5, 5),
-       (6, 19, 11);
+       (5, 5, 5);
