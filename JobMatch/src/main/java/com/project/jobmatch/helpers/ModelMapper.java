@@ -16,6 +16,8 @@ import com.project.jobmatch.services.interfaces.StatusService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -337,7 +339,8 @@ public class ModelMapper {
         jobApplication.setMaxDesiredSalary(jobApplicationDtoInCreate.getMaxDesiredSalary());
         jobApplication.setMotivationLetter(jobApplicationDtoInCreate.getMotivationLetter());
         jobApplication.setLocation(locationService.getLocationByName(jobApplicationDtoInCreate.getLocation()));
-        jobApplication.setStatus(statusService.getStatusByType("Hidden"));
+        jobApplication.setStatus(statusService.getStatusByType("Active"));
+        jobApplication.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         jobApplication.setProfessional(professionalAuthenticated);
         jobApplication.setSkills(fromStringSetToSkillsSet(jobApplicationDtoInCreate.getSkills()));
 
